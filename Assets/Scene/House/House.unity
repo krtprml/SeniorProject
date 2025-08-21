@@ -41891,6 +41891,7 @@ GameObject:
   - component: {fileID: 8334438788011152159}
   - component: {fileID: 6074556150449481685}
   - component: {fileID: 8334438788011152160}
+  - component: {fileID: 8334438788011152161}
   m_Layer: 0
   m_Name: Rat Poison
   m_TagString: Untagged
@@ -43365,6 +43366,27 @@ MonoBehaviour:
   OnUnhighlighted:
     m_PersistentCalls:
       m_Calls: []
+--- !u!65 &8334438788011152161
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5714457502173300224}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6771469, y: 1.6364326, z: 2.0040345}
+  m_Center: {x: -0.0019375384, y: -0.00086647255, z: 0.0010474918}
 --- !u!1 &8373055843383432273
 GameObject:
   m_ObjectHideFlags: 0
