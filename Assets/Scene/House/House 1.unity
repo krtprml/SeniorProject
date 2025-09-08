@@ -1924,8 +1924,9 @@ MonoBehaviour:
   interactionTrigger: {fileID: 0}
   otherEListenersToDisable:
   - {fileID: 1502032771}
-  talkKey: 101
-  closeKey: 27
+  talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
   systemPrompt: "You are Brian, a friend of the victim Victor in a first-person detective
     game.\nWorld & mechanics:\n- The player is investigating Victor's murder at his
     house after a small wine party with close friends.\n- Victor wanted to announce
