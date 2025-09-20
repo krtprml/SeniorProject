@@ -5274,7 +5274,9 @@ MonoBehaviour:
   sendButton: {fileID: 0}
   virtualFrontCam: {fileID: 0}
   interactionTrigger: {fileID: 0}
-  otherEListenersToDisable: []
+  otherEListenersToDisable:
+  - {fileID: 1502032771}
+  - {fileID: 477335881}
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
