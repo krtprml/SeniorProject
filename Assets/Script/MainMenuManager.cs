@@ -9,7 +9,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [Header("Scene Management")]
     [Tooltip("Name of the scene to load when Start is pressed")]
-    public string gameSceneName = "GameScene";
+    public string gameSceneName = "House 1";
 
     public void StartGame()
     {
