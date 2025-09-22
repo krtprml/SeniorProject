@@ -135,38 +135,71 @@ public class NPCInteractSimpleTMP : MonoBehaviour
     }
 
     public void OnClickSend()
+{
+    if (!inputField || string.IsNullOrEmpty(inputField.text.Trim())) return;
+
+    string text = inputField.text.Trim();
+    inputField.interactable = false;
+    if (answerText) answerText.text = "...thinking...";
+
+    StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
+        systemPrompt, text,
+        onDone: (reply, reason) =>
+        {
+            // เมื่อได้รับคำตอบจาก LLM ให้เริ่ม Coroutine เพื่อจัดการผลลัพธ์
+            StartCoroutine(ProcessFinalAnswer(reply));
+        },
+        onError: err =>
+        {
+            if (answerText) answerText.text = "Error: " + err;
+            inputField.interactable = true;
+            StartCoroutine(FocusInputNextFrame());
+        }
+    ));
+}
+
+private System.Collections.IEnumerator ProcessFinalAnswer(string reply)
+{
+    // 1. แสดงคำตัดสินของ LLM ให้ผู้เล่นเห็นก่อน
+    if (answerText) answerText.text = reply;
+
+    // ทำให้ผู้เล่นไม่สามารถพิมพ์ต่อได้
+    inputField.interactable = false;
+
+    // 2. ตรวจสอบว่าผู้เล่นชนะหรือแพ้
+    bool playerWon = false;
+    string lowerCaseReply = reply.ToLower();
+
+    if (lowerCaseReply.Contains("correct") || (lowerCaseReply.Contains("score:") && !lowerCaseReply.Contains("score: 0")))
     {
-        if (!inputField) return;
+        try
+        {
+            string scoreString = lowerCaseReply.Substring(lowerCaseReply.IndexOf("score:") + 6);
+            scoreString = scoreString.Split('/')[0].Trim();
+            int score = int.Parse(scoreString);
 
-        var text = inputField.text.Trim();
-        if (string.IsNullOrEmpty(text)) return;
-
-        inputField.interactable = false;
-        if (answerText) answerText.text = "…thinking…";
-
-        // Call your central client (assumes you created it elsewhere, e.g., in GameManagerSimple)
-        StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
-            systemPrompt,
-            text,
-            onDone: (reply, finishReason) =>
+            if (score > 0)
             {
-                if (answerText)
-                {
-                    answerText.text = reply +
-                    (finishReason == "length" ? "\n\n[Note: reply truncated by max_tokens]" : "");
-                }
-                inputField.text = "";
-                inputField.interactable = true;
-                StartCoroutine(FocusInputNextFrame()); // keep typing flow
-            },
-            onError: err =>
-            {
-                if (answerText) answerText.text = "Error: " + err;
-                inputField.interactable = true;
-                StartCoroutine(FocusInputNextFrame());
+                playerWon = true;
             }
-        ));
+        }
+        catch { /* ถ้าอ่านคะแนนไม่ได้แต่มีคำว่า correct ก็ยังชนะ */ }
+
+        if (lowerCaseReply.Contains("correct")) playerWon = true;
     }
+
+    // 3. รอสักครู่เพื่อให้ผู้เล่นได้อ่านข้อความ
+    yield return new WaitForSeconds(4f); // รอ 4 วินาที (ปรับค่าได้ตามต้องการ)
+
+    // 4. ปิดหน้าต่าง UI ของ NPC
+    CloseDialogue();
+
+    // 5. เรียก GameEndManager ให้แสดงหน้าจอจบเกม
+    if (GameEndManager.instance != null)
+    {
+        GameEndManager.instance.ShowEndScreen(playerWon);
+    }
+}
 
     System.Collections.IEnumerator FocusInputNextFrame()
     {
