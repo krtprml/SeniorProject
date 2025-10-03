@@ -4,23 +4,34 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class PauseManager : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] GameObject pauseMenuPanel;
 
     [Header("Input Action")]
-    [SerializeField] InputActionReference pauseAction; // Bind to Esc or P
+    [SerializeField] InputActionReference pauseAction; // Bind to Escape or P key
 
     [Header("Scene Management")]
-    [SerializeField] string mainMenuSceneName = "MainScene";
+    [Tooltip("Index of the main menu scene (0 = first scene in build settings)")]
+    [SerializeField] int mainMenuSceneIndex = 0;
+
+    [Tooltip("Alternative: Name of the main menu scene")]
+    [SerializeField] string mainMenuSceneName = "Scene/MainScene";
 
     private bool isPaused = false;
+    private bool wasTimeAlreadyPaused = false; // Check if time was paused by other systems
 
-    void Awake()
+    void Start()
     {
+        if (pauseMenuPanel)
+            pauseMenuPanel.SetActive(false);
+
         EnsureEventSystem();
-        if (pauseMenuPanel) pauseMenuPanel.SetActive(false);
         SetCursorState(false);
     }
 
@@ -45,11 +56,7 @@ public class PauseManager : MonoBehaviour
     private void OnPausePressed(InputAction.CallbackContext ctx)
     {
         if (IsOtherUIActive()) return;
-        TogglePause();
-    }
 
-    public void TogglePause()
-    {
         if (isPaused) ResumeGame();
         else PauseGame();
     }
@@ -57,57 +64,104 @@ public class PauseManager : MonoBehaviour
     public void PauseGame()
     {
         isPaused = true;
-        Time.timeScale = 0.0001f; 
-        if (pauseMenuPanel) pauseMenuPanel.SetActive(true);
+        wasTimeAlreadyPaused = (Time.timeScale == 0f);
+
+        if (!wasTimeAlreadyPaused)
+            Time.timeScale = 0f;
+
+        if (pauseMenuPanel)
+            pauseMenuPanel.SetActive(true);
+
         SetCursorState(true);
+        StartCoroutine(EnsureCursorNextFrame());
+
+        Debug.Log("Game Paused - Cursor should be visible and unlocked");
     }
 
     public void ResumeGame()
     {
-        Debug.Log("Resume Button Clicked!");
         isPaused = false;
-        Time.timeScale = 1f;
-        if (pauseMenuPanel) pauseMenuPanel.SetActive(false);
+
+        if (pauseMenuPanel)
+            pauseMenuPanel.SetActive(false);
+
+        if (!wasTimeAlreadyPaused)
+            Time.timeScale = 1f;
+
         SetCursorState(false);
+
+        Debug.Log("Game Resumed");
     }
 
     public void ExitToMainMenu()
     {
-        Debug.Log("Exit Button Clicked!");
         Time.timeScale = 1f;
-        SceneManager.LoadScene(mainMenuSceneName);
+
+        Debug.Log($"Exiting to main menu - Index: {mainMenuSceneIndex}, Name: {mainMenuSceneName}");
+
+        try
+        {
+            SceneManager.LoadScene(mainMenuSceneIndex);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"Failed to load scene by index {mainMenuSceneIndex}, trying by name: {e.Message}");
+            SceneManager.LoadScene(mainMenuSceneName);
+        }
     }
 
     private void SetCursorState(bool showCursor)
     {
-        Cursor.visible = showCursor;
-        Cursor.lockState = showCursor ? CursorLockMode.None : CursorLockMode.Locked;
+        if (showCursor)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
-    private bool IsOtherUIActive()
+    private System.Collections.IEnumerator EnsureCursorNextFrame()
     {
-        StandardNPC[] standardNpcs = FindObjectsByType<StandardNPC>(FindObjectsSortMode.None);
-        foreach (var npc in standardNpcs)
-            if (npc.IsDialogueOpen) return true;
-
-        CaseEvaluatorNPC[] evaluatorNpcs = FindObjectsByType<CaseEvaluatorNPC>(FindObjectsSortMode.None);
-        foreach (var npc in evaluatorNpcs)
-            if (npc.IsDialogueOpen) return true;
-
-        return false;
+        yield return null;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void EnsureEventSystem()
     {
-        if (FindObjectOfType<EventSystem>() == null)
+        if (FindFirstObjectByType<EventSystem>() == null)
         {
-            GameObject es = new GameObject("EventSystem");
-            es.AddComponent<EventSystem>();
-            es.AddComponent<InputSystemUIInputModule>();
+            GameObject eventSystemGO = new GameObject("EventSystem");
+            eventSystemGO.AddComponent<EventSystem>();
+            eventSystemGO.AddComponent<InputSystemUIInputModule>();
         }
     }
 
-    // 🔹 Public methods สำหรับเชื่อมปุ่ม UI โดยตรง
+    /// ✅ ปรับตรงนี้ ให้เข้ากับ CaseEvaluatorNPC และ StandardNPC
+    private bool IsOtherUIActive()
+    {
+        // check CaseEvaluatorNPC
+        CaseEvaluatorNPC[] evaluators = FindObjectsByType<CaseEvaluatorNPC>(FindObjectsSortMode.None);
+        foreach (var npc in evaluators)
+        {
+            if (npc.IsDialogueOpen) return true;
+        }
+
+        // check StandardNPC
+        StandardNPC[] standards = FindObjectsByType<StandardNPC>(FindObjectsSortMode.None);
+        foreach (var npc in standards)
+        {
+            if (npc.IsDialogueOpen) return true;
+        }
+
+        return false;
+    }
+
+    // Public methods for UI buttons
     public void OnResumeButtonClick()
     {
         ResumeGame();
@@ -117,4 +171,31 @@ public class PauseManager : MonoBehaviour
     {
         ExitToMainMenu();
     }
+
+    public bool IsPaused => isPaused;
+
+#if UNITY_EDITOR
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    public void DebugUIState()
+    {
+        Debug.Log("=== UI DEBUG INFO ===");
+        Debug.Log($"Pause Panel Active: {(pauseMenuPanel ? pauseMenuPanel.activeInHierarchy : false)}");
+        Debug.Log($"Cursor Visible: {Cursor.visible}");
+        Debug.Log($"Cursor Lock State: {Cursor.lockState}");
+        Debug.Log($"Time Scale: {Time.timeScale}");
+
+        EventSystem eventSystem = FindFirstObjectByType<EventSystem>();
+        Debug.Log($"EventSystem exists: {eventSystem != null}");
+
+        if (pauseMenuPanel)
+        {
+            Canvas canvas = pauseMenuPanel.GetComponentInParent<Canvas>();
+            if (canvas)
+            {
+                Debug.Log($"Canvas Render Mode: {canvas.renderMode}");
+                Debug.Log($"Canvas Sort Order: {canvas.sortingOrder}");
+            }
+        }
+    }
+#endif
 }
