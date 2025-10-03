@@ -13,7 +13,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] InputActionReference pauseAction;
 
     [Header("Scene Management")]
-    [SerializeField] string mainMenuSceneName = "MainScene"; // ตรวจสอบให้แน่ใจว่าชื่อซีนถูกต้อง
+    [SerializeField] string mainMenuSceneName = "MainScene";
 
     private bool isPaused = false;
 
@@ -43,10 +43,9 @@ public class PauseManager : MonoBehaviour
 
     private void OnPausePressed(InputAction.CallbackContext ctx)
     {
-        // ตรวจสอบว่ามี UI อื่นเปิดอยู่หรือไม่ก่อนที่จะเปิดเมนู Pause
         if (IsOtherUIActive())
         {
-            return; // ถ้ามี UI อื่นเปิดอยู่, ไม่ต้องทำอะไร
+            return;
         }
 
         TogglePause();
@@ -63,7 +62,12 @@ public class PauseManager : MonoBehaviour
     public void PauseGame()
     {
         isPaused = true;
-        Time.timeScale = 0f;
+        
+        // --- ส่วนที่แก้ไข ---
+        // เปลี่ยนจาก 0f เป็นค่าที่น้อยมาก เพื่อให้ Input System ยังทำงานได้
+        Time.timeScale = 0.0001f; 
+        // ------------------
+
         if (pauseMenuPanel) pauseMenuPanel.SetActive(true);
         SetCursorState(true);
     }
@@ -71,14 +75,14 @@ public class PauseManager : MonoBehaviour
     public void ResumeGame()
     {
         isPaused = false;
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // คืนค่าเป็นปกติ
         if (pauseMenuPanel) pauseMenuPanel.SetActive(false);
         SetCursorState(false);
     }
 
     public void ExitToMainMenu()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // คืนค่าเป็นปกติก่อนเปลี่ยนซีน
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
@@ -90,14 +94,12 @@ public class PauseManager : MonoBehaviour
 
     private bool IsOtherUIActive()
     {
-        // ตรวจสอบหน้าต่างสนทนาของ StandardNPC
         StandardNPC[] standardNpcs = FindObjectsByType<StandardNPC>(FindObjectsSortMode.None);
         foreach (var npc in standardNpcs)
         {
             if (npc.IsDialogueOpen) return true;
         }
 
-        // ตรวจสอบหน้าต่างสนทนาของ CaseEvaluatorNPC
         CaseEvaluatorNPC[] evaluatorNpcs = FindObjectsByType<CaseEvaluatorNPC>(FindObjectsSortMode.None);
         foreach (var npc in evaluatorNpcs)
         {
