@@ -2,18 +2,21 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-    Transform cam;
+    private Camera mainCamera;
+
+    void Start()
+    {
+        // ค้นหากล้องหลักในซีนตอนเริ่มต้น
+        mainCamera = Camera.main;
+    }
 
     void LateUpdate()
     {
-        if (cam == null && Camera.main != null) cam = Camera.main.transform;
-        if (cam == null) return;
-
-        // Face the camera (no roll)
-        Vector3 fwd = cam.forward;
-        fwd.y = 0f;
-        if (fwd.sqrMagnitude < 0.0001f) fwd = cam.forward; // fallback if top-down
-        transform.forward = fwd;
+        if (mainCamera != null)
+        {
+            // คัดลอกมุมการหมุนของกล้องมาใส่ที่ Object นี้โดยตรง
+            // วิธีนี้จะทำให้ Object หันหน้าไปในทิศทางเดียวกับกล้องเสมอ
+            transform.rotation = mainCamera.transform.rotation;
+        }
     }
 }
-
