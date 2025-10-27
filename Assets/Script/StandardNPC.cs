@@ -142,10 +142,12 @@ public class StandardNPC : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) playerInRange = true;
+        answerText.text = "";
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) playerInRange = false;
+        answerText.text = "";
     }
 }
