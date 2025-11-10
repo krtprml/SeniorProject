@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using System.Collections.Generic; // เพิ่มเข้ามาเพื่อใช้ List
 
 public class StandardNPC : MonoBehaviour
 {
@@ -30,6 +31,9 @@ public class StandardNPC : MonoBehaviour
     private bool playerInRange = false;
     private bool dialogueOpen = false;
     public bool IsDialogueOpen => dialogueOpen;
+
+    // --- NEW: ที่เก็บประวัติการแชท ---
+    private List<ChatMessage> conversationHistory;
 
     void Awake()
     {
@@ -69,6 +73,13 @@ public class StandardNPC : MonoBehaviour
     void OpenDialogue()
     {
         dialogueOpen = true;
+
+        // --- NEW: เริ่มต้นประวัติการแชทใหม่ทุกครั้งที่เปิดหน้าต่าง ---
+        conversationHistory = new List<ChatMessage> {
+            new ChatMessage("system", systemPrompt)
+        };
+        // ----------------------------------------------------
+
         if (dialoguePanel) dialoguePanel.SetActive(true);
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
         if (inputField)
@@ -82,29 +93,22 @@ public class StandardNPC : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    // --- UPDATED SECTION ---
     void CloseDialogue()
     {
-        // Start the coroutine to handle the closing logic
         StartCoroutine(CloseDialogueCoroutine());
     }
 
     private System.Collections.IEnumerator CloseDialogueCoroutine()
     {
-        // Hide UI and restore player controls immediately
         if (dialoguePanel) dialoguePanel.SetActive(false);
         if (virtualFrontCam) virtualFrontCam.SetActive(false);
         foreach (var comp in playerScriptsToDisable) if (comp) comp.enabled = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        // Wait until the end of the frame
         yield return new WaitForEndOfFrame();
-
-        // Now, update the state after the PauseManager has had a chance to check it
         dialogueOpen = false;
     }
-    // --- END UPDATED SECTION ---
 
     public void OnClickSend()
     {
@@ -113,8 +117,10 @@ public class StandardNPC : MonoBehaviour
         inputField.interactable = false;
         if (answerText) answerText.text = "...thinking...";
 
-        StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
-            systemPrompt, text,
+        // --- UPDATED: เรียกใช้เมธอดใหม่ที่มี memory ---
+        StartCoroutine(GameManagerSimple.I.Client.ContinueConversation(
+            conversationHistory, // ส่งประวัติการแชททั้งหมด
+            text,
             onDone: (reply, reason) =>
             {
                 if (answerText) answerText.text = reply;
@@ -142,12 +148,12 @@ public class StandardNPC : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) playerInRange = true;
-        answerText.text = "";
+        if (answerText) answerText.text = ""; // เคลียร์ข้อความเก่า (ตามโค้ดเดิมของคุณ)
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) playerInRange = false;
-        answerText.text = "";
+        if (answerText) answerText.text = ""; // เคลียร์ข้อความเก่า (ตามโค้ดเดิมของคุณ)
     }
 }

@@ -50,12 +50,12 @@ public class LLMClientSimple
     }
 
     /// <summary>
-    /// One-shot completion with a per-call system prompt.
+    /// One-shot completion (No memory). Used by CaseEvaluatorNPC.
     /// onDone(content, finishReason)
     /// </summary>
     public IEnumerator CompleteOnce(string systemPrompt, string userText,
-                                    Action<string,string> onDone,
-                                    Action<string> onError)
+                                     Action<string,string> onDone,
+                                     Action<string> onError)
     {
         var reqObj = new ChatReq{
             model = model,
@@ -63,9 +63,43 @@ public class LLMClientSimple
             max_tokens = maxTokens,
             messages = new List<ChatMessage>{
                 new ChatMessage("system", systemPrompt ?? ""),
-                new ChatMessage("user",   userText    ?? "")
+                new ChatMessage("user",   userText     ?? "")
             }
         };
+        yield return SendRequest(reqObj, 
+            (content, finish, role) => onDone?.Invoke(content, finish), 
+            onError);
+    }
+
+    /// <summary>
+    /// NEW: Completion with memory. Used by StandardNPC.
+    /// Appends user text to 'messages', gets reply, and appends reply to 'messages'.
+    /// onDone(content, finishReason)
+    /// </summary>
+    public IEnumerator ContinueConversation(List<ChatMessage> messages, string userText,
+                                             Action<string, string> onDone,
+                                             Action<string> onError)
+    {
+        messages.Add(new ChatMessage("user", userText ?? ""));
+
+        var reqObj = new ChatReq{
+            model = model,
+            temperature = temperature,
+            max_tokens = maxTokens,
+            messages = messages
+        };
+
+        yield return SendRequest(reqObj, 
+            (content, finish, role) => {
+                messages.Add(new ChatMessage(role, content));
+                onDone?.Invoke(content, finish);
+            }, 
+            onError);
+    }
+    
+    // --- Helper function to avoid duplicate code ---
+    private IEnumerator SendRequest(ChatReq reqObj, Action<string, string, string> onDone, Action<string> onError)
+    {
         var json = JsonUtility.ToJson(reqObj);
         var body = Encoding.UTF8.GetBytes(json);
 
@@ -73,7 +107,11 @@ public class LLMClientSimple
             req.uploadHandler = new UploadHandlerRaw(body);
             req.downloadHandler = new DownloadHandlerBuffer();
             req.SetRequestHeader("Content-Type", "application/json");
+            
+            // --- FIX IS HERE ---
+            // Changed "SetRequestH-eader" to "SetRequestHeader"
             req.SetRequestHeader("Authorization", "Bearer " + apiKey);
+            // -------------------
 
             yield return req.SendWebRequest();
 
@@ -83,8 +121,6 @@ public class LLMClientSimple
             }
 
             var raw = req.downloadHandler.text;
-
-            // Parse with JsonUtility
             ChatResp resp = null;
             try { resp = JsonUtility.FromJson<ChatResp>(raw); }
             catch (Exception e) {
@@ -94,13 +130,15 @@ public class LLMClientSimple
 
             string content = null;
             string finish  = null;
+            string role = "assistant";
             if (resp != null && resp.choices != null && resp.choices.Count > 0){
                 content = resp.choices[0]?.message?.content;
                 finish  = resp.choices[0]?.finish_reason;
+                role    = resp.choices[0]?.message?.role ?? "assistant";
             }
             if (string.IsNullOrEmpty(content)) content = "(no content)";
 
-            onDone?.Invoke(content.Trim(), finish);
+            onDone?.Invoke(content.Trim(), finish, role);
         }
     }
 }
