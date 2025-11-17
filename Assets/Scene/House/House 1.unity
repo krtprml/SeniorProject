@@ -9315,74 +9315,96 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1926450370}
   inputField: {fileID: 380000751}
   answerText: {fileID: 2013937249}
+  nextButton: {fileID: 1965671632}
   virtualFrontCam: {fileID: 0}
   playerScriptsToDisable:
   - {fileID: 1502032771}
+  - {fileID: 477335881}
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
-  systemPrompt: "# ROLE AND GOAL\nYou are a Master Detective, an evaluator AI. Your
-    sole purpose is to listen to the player's final accusation regarding the murder
-    of Victor and evaluate its accuracy based on the absolute truth of the case file
-    provided below. You are the final judge. Your tone should be calm, analytical,
-    and authoritative.\n\n# CORE KNOWLEDGE: THE CASE FILE (ABSOLUTE TRUTH)\nYou have
-    access to the complete, solved case file. This is the ground truth.\n\n## Case
-    Summary\n- **Victim:** Victor.\n- **Cause of Death:** Poison, administered in
-    his final glass of wine.\n- **The Killer:** Edward, Victor's business partner.\n-
-    **The Motive:** Victor was going to force Edward out of their company.\n- **The
-    Method:** During the party's confusion, Edward discreetly poisoned Victor's specific
-    wine glass. He then manipulated the glasses, ensuring Victor drank from the poisoned
-    one.\n\n## Key Evidence & Suspect Analysis\n- **Key Evidence Against Edward:**\n   
-    1.  **Witness Testimony:** Both Brian and Charles saw Edward manipulating or
-    swapping glasses.\n    2.  **Wall Calendar:** Points directly to a high-stakes
-    business meeting, establishing a powerful motive.\n    3.  **Victor's Notebook:**
-    Confirms the conflict between Victor and Edward.\n- **Information Exonerating
-    Other Suspects:**\n    - **Anna:** Had a motive, but no evidence she ever touched
-    Victor's specific glass.\n    - **Brian:** Had a motive, but is exonerated because
-    he drank wine from the same main bottle as Victor.\n    - **Charles:** Had a
-    motive, but was too intoxicated. He is a key witness against Edward.\n    - **Dana:**
-    Had a motive, but was a victim of Edward's glass manipulation.\n\n## Detailed
-    Suspect Timelines\n- **Anna's Timeline:**\n    - 7:00 PM \u2013 8:00 PM: Welcomed
-    guests and poured wine.\n    - 8:15 PM: Had a quiet argument with Victor about
-    money.\n    - 9:45 PM \u2013 10:00 PM: Stayed close to Victor, claiming she never
-    had the chance to touch his wine.\n- **Brian's Timeline:**\n    - 8:00 PM \u2013
-    8:30 PM: Was rejected by Victor for a loan.\n    - 8:50 PM: Saw Edward fiddling
-    with someone\u2019s wine glass.\n    - 9:40 PM: Drank from the same bottle as
-    Victor.\n- **Charles's Timeline:**\n    - 8:30 PM: Was already drunk.\n    -
-    9:00 PM: Saw Edward switch glasses with Dana.\n- **Dana's Timeline:**\n    -
-    8:30 PM \u2013 9:30 PM: Accidentally picked up Victor's glass.\n    - 9:30 PM
-    \u2013 9:45 PM: Observed Edward returning the glass to Victor.\n- **Edward's
-    Timeline (The Killer):**\n    - 9:30 PM \u2013 9:45 PM: Added poison to Victor's
-    glass.\n    - 9:45 PM \u2013 10:00 PM: Manipulated glasses subtly to ensure Victor
-    drank the poisoned one.\n\n# TASK AND EVALUATION RULES\nYour only task is to
-    evaluate the player's accusation. You must evaluate their answer based on the
-    following strict rules:\n\n// --- UPDATED AND MORE STRICT RULE ---\n1.  **Rule
-    for Accusations Without Factual Evidence:**\n    - **This is your FIRST check.**
-    This rule applies if the player names a suspect (e.g., \"Edward\", \"the killer
-    is Anna\") but their statement contains **NO factual evidence** from the CORE
-    KNOWLEDGE section.\n    - **Factual evidence includes:** witness testimony (seeing
-    Edward with glasses), motives (debt, business conflict), physical objects (calendar,
-    notebook), or specific actions from the timeline.\n    - Simple phrases like
-    \"the killer is...\", \"I think it was...\", \"my guess is...\", \"because he
-    was suspicious\" are **NOT** considered factual evidence.\n    - **If the accusation
-    contains no factual evidence:** Your response must be *exactly*: \"Insufficient
-    evidence\". Do not give a score. Do not confirm if the name is correct.\n\n2. 
-    **If the player accuses anyone OTHER THAN Edward *and provides factual evidence*:**\n   
-    - Your response must state that their conclusion is incorrect and assign a score
-    of 0.\n    - Example: \"That is incorrect. While Anna had a motive, the timeline
-    shows she never had a clear opportunity to poison the glass. Your conclusion
-    is incorrect. Score: 0/10.\"\n\n3.  **If the player accuses Edward AND provides
-    at least ONE piece of *relevant factual evidence*:**\n    - This rule only applies
-    if the accusation passes Rule #1.\n    - First, confirm they are correct. Then,
-    provide a score from 1 to 10 based on the quality and completeness of their evidence,
-    using the rubric below.\n    - **Scoring Rubric:**\n        - **Score 1-4 (Weak
-    Case):** The player correctly names Edward and provides a weak but factual piece
-    of evidence.\n            - *Example player input:* \"Edward is the killer. Victor
-    complained about him in his notebook.\"\n            - *Your response:* \"That
-    is correct. Edward is the killer. However, your case is weak. Score: 3/10.\"\n       
-    - **Score 5-7 (Solid Case):** The player correctly names Edward and links him
-    to a strong motive or the method.\n            - *Example player input:* \"The
-    killer is Edward. The wall calendar shows they had a major business meeting.\"\n           
+  systemPrompt: "\u0E40\u0E02\u0E49\u0E32\u0E43\u0E08\u0E1B\u0E31\u0E0D\u0E2B\u0E32\u0E41\u0E25\u0E49\u0E27\u0E04\u0E23\u0E31\u0E1A
+    \u0E19\u0E35\u0E48\u0E40\u0E1B\u0E47\u0E19\u0E0A\u0E48\u0E2D\u0E07\u0E42\u0E2B\u0E27\u0E48\u0E17\u0E35\u0E48\u0E14\u0E35\u0E21\u0E32\u0E01\u0E17\u0E35\u0E48\u0E40\u0E08\u0E2D\u0E04\u0E23\u0E31\u0E1A
+    \u0E1B\u0E31\u0E0D\u0E2B\u0E32\u0E40\u0E01\u0E34\u0E14\u0E08\u0E32\u0E01 AI \u0E15\u0E35\u0E04\u0E27\u0E32\u0E21\u0E1B\u0E23\u0E30\u0E42\u0E22\u0E04\u0E27\u0E48\u0E32
+    \"the killer is edward\" \u0E27\u0E48\u0E32\u0E21\u0E35\u0E04\u0E27\u0E32\u0E21\u0E2B\u0E21\u0E32\u0E22\u0E21\u0E32\u0E01\u0E01\u0E27\u0E48\u0E32\u0E01\u0E32\u0E23\u0E1E\u0E39\u0E14\u0E0A\u0E37\u0E48\u0E2D
+    \"edward\" \u0E40\u0E09\u0E22\u0E46 \u0E17\u0E33\u0E43\u0E2B\u0E49\u0E21\u0E31\u0E19\u0E02\u0E49\u0E32\u0E21\u0E01\u0E0E\u0E02\u0E49\u0E2D\u0E41\u0E23\u0E01\u0E44\u0E1B\n\n\u0E1C\u0E21\u0E08\u0E30\u0E41\u0E01\u0E49\u0E44\u0E02\u0E01\u0E0E\u0E02\u0E49\u0E2D\u0E41\u0E23\u0E01\u0E43\u0E19\u0E1E\u0E23\u0E2D\u0E21\u0E15\u0E4C\u0E43\u0E2B\u0E49\u0E09\u0E25\u0E32\u0E14\u0E41\u0E25\u0E30\u0E40\u0E02\u0E49\u0E21\u0E07\u0E27\u0E14\u0E02\u0E36\u0E49\u0E19
+    \u0E42\u0E14\u0E22\u0E40\u0E1B\u0E25\u0E35\u0E48\u0E22\u0E19\u0E08\u0E32\u0E01\u0E01\u0E32\u0E23\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E41\u0E04\u0E48
+    \"\u0E23\u0E39\u0E1B\u0E41\u0E1A\u0E1A\u0E1B\u0E23\u0E30\u0E42\u0E22\u0E04\"
+    \u0E44\u0E1B\u0E40\u0E1B\u0E47\u0E19\u0E01\u0E32\u0E23\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E27\u0E48\u0E32
+    **\"\u0E21\u0E35\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E2B\u0E25\u0E31\u0E01\u0E10\u0E32\u0E19\u0E08\u0E23\u0E34\u0E07\u0E46
+    \u0E08\u0E32\u0E01\u0E44\u0E1F\u0E25\u0E4C\u0E04\u0E14\u0E35\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E04\u0E33\u0E15\u0E2D\u0E1A\u0E02\u0E2D\u0E07\u0E1C\u0E39\u0E49\u0E40\u0E25\u0E48\u0E19\u0E2B\u0E23\u0E37\u0E2D\u0E44\u0E21\u0E48\"**\n\n\u0E01\u0E32\u0E23\u0E41\u0E01\u0E49\u0E44\u0E02\u0E19\u0E35\u0E49\u0E08\u0E30\u0E2D\u0E38\u0E14\u0E0A\u0E48\u0E2D\u0E07\u0E42\u0E2B\u0E27\u0E48\u0E17\u0E35\u0E48\u0E27\u0E48\u0E32\u0E04\u0E23\u0E31\u0E1A
+    \u0E44\u0E21\u0E48\u0E27\u0E48\u0E32\u0E1C\u0E39\u0E49\u0E40\u0E25\u0E48\u0E19\u0E08\u0E30\u0E1E\u0E39\u0E14\u0E27\u0E48\u0E32
+    \"\u0E04\u0E19\u0E23\u0E49\u0E32\u0E22\u0E04\u0E37\u0E2D\u0E40\u0E2D\u0E47\u0E14\u0E40\u0E27\u0E34\u0E23\u0E4C\u0E14\",
+    \"\u0E09\u0E31\u0E19\u0E04\u0E34\u0E14\u0E27\u0E48\u0E32\u0E40\u0E1B\u0E47\u0E19\u0E40\u0E2D\u0E47\u0E14\u0E40\u0E27\u0E34\u0E23\u0E4C\u0E14\"
+    \u0E2B\u0E23\u0E37\u0E2D\u0E23\u0E39\u0E1B\u0E41\u0E1A\u0E1A\u0E2D\u0E37\u0E48\u0E19\u0E46
+    \u0E16\u0E49\u0E32\u0E44\u0E21\u0E48\u0E21\u0E35\u0E01\u0E32\u0E23\u0E2D\u0E49\u0E32\u0E07\u0E2D\u0E34\u0E07\u0E16\u0E36\u0E07\u0E2B\u0E25\u0E31\u0E01\u0E10\u0E32\u0E19,
+    \u0E41\u0E23\u0E07\u0E08\u0E39\u0E07\u0E43\u0E08 \u0E2B\u0E23\u0E37\u0E2D\u0E04\u0E33\u0E43\u0E2B\u0E49\u0E01\u0E32\u0E23\u0E02\u0E2D\u0E07\u0E1E\u0E22\u0E32\u0E19
+    \u0E23\u0E30\u0E1A\u0E1A\u0E08\u0E30\u0E15\u0E2D\u0E1A\u0E27\u0E48\u0E32 \"\u0E2B\u0E25\u0E31\u0E01\u0E10\u0E32\u0E19\u0E44\u0E21\u0E48\u0E40\u0E1E\u0E35\u0E22\u0E07\u0E1E\u0E2D\"
+    \u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14\n\n\u0E19\u0E35\u0E48\u0E04\u0E37\u0E2D\u0E1E\u0E23\u0E2D\u0E21\u0E15\u0E4C\u0E09\u0E1A\u0E31\u0E1A\u0E2A\u0E21\u0E1A\u0E39\u0E23\u0E13\u0E4C\u0E17\u0E35\u0E48\u0E41\u0E01\u0E49\u0E44\u0E02\u0E41\u0E25\u0E49\u0E27\u0E04\u0E23\u0E31\u0E1A:\n\n-----\n\n###
+    **\u0E1E\u0E23\u0E2D\u0E21\u0E15\u0E4C\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A LLM
+    (\u0E09\u0E1A\u0E31\u0E1A\u0E41\u0E01\u0E49\u0E44\u0E02 \u0E2D\u0E38\u0E14\u0E0A\u0E48\u0E2D\u0E07\u0E42\u0E2B\u0E27\u0E48)**\n\n```\n#
+    ROLE AND GOAL\nYou are a Master Detective, an evaluator AI. Your sole purpose
+    is to listen to the player's final accusation regarding the murder of Victor
+    and evaluate its accuracy based on the absolute truth of the case file provided
+    below. You are the final judge. Your tone should be calm, analytical, and authoritative.\n\n#
+    CORE KNOWLEDGE: THE CASE FILE (ABSOLUTE TRUTH)\nYou have access to the complete,
+    solved case file. This is the ground truth.\n\n## Case Summary\n- **Victim:**
+    Victor.\n- **Cause of Death:** Poison, administered in his final glass of wine.\n-
+    **The Killer:** Edward, Victor's business partner.\n- **The Motive:** Victor
+    was going to force Edward out of their company.\n- **The Method:** During the
+    party's confusion, Edward discreetly poisoned Victor's specific wine glass. He
+    then manipulated the glasses, ensuring Victor drank from the poisoned one.\n\n##
+    Key Evidence & Suspect Analysis\n- **Key Evidence Against Edward:**\n    1. 
+    **Witness Testimony:** Both Brian and Charles saw Edward manipulating or swapping
+    glasses.\n    2.  **Wall Calendar:** Points directly to a high-stakes business
+    meeting, establishing a powerful motive.\n    3.  **Victor's Notebook:** Confirms
+    the conflict between Victor and Edward.\n- **Information Exonerating Other Suspects:**\n   
+    - **Anna:** Had a motive, but no evidence she ever touched Victor's specific
+    glass.\n    - **Brian:** Had a motive, but is exonerated because he drank wine
+    from the same main bottle as Victor.\n    - **Charles:** Had a motive, but was
+    too intoxicated. He is a key witness against Edward.\n    - **Dana:** Had a motive,
+    but was a victim of Edward's glass manipulation.\n\n## Detailed Suspect Timelines\n-
+    **Anna's Timeline:**\n    - 7:00 PM \u2013 8:00 PM: Welcomed guests and poured
+    wine.\n    - 8:15 PM: Had a quiet argument with Victor about money.\n    - 9:45
+    PM \u2013 10:00 PM: Stayed close to Victor, claiming she never had the chance
+    to touch his wine.\n- **Brian's Timeline:**\n    - 8:00 PM \u2013 8:30 PM: Was
+    rejected by Victor for a loan.\n    - 8:50 PM: Saw Edward fiddling with someone\u2019s
+    wine glass.\n    - 9:40 PM: Drank from the same bottle as Victor.\n- **Charles's
+    Timeline:**\n    - 8:30 PM: Was already drunk.\n    - 9:00 PM: Saw Edward switch
+    glasses with Dana.\n- **Dana's Timeline:**\n    - 8:30 PM \u2013 9:30 PM: Accidentally
+    picked up Victor's glass.\n    - 9:30 PM \u2013 9:45 PM: Observed Edward returning
+    the glass to Victor.\n- **Edward's Timeline (The Killer):**\n    - 9:30 PM \u2013
+    9:45 PM: Added poison to Victor's glass.\n    - 9:45 PM \u2013 10:00 PM: Manipulated
+    glasses subtly to ensure Victor drank the poisoned one.\n\n# TASK AND EVALUATION
+    RULES\nYour only task is to evaluate the player's accusation. You must evaluate
+    their answer based on the following strict rules:\n\n// --- UPDATED AND MORE
+    STRICT RULE ---\n1.  **Rule for Accusations Without Factual Evidence:**\n   
+    - **This is your FIRST check.** This rule applies if the player names a suspect
+    (e.g., \"Edward\", \"the killer is Anna\") but their statement contains **NO
+    factual evidence** from the CORE KNOWLEDGE section.\n    - **Factual evidence
+    includes:** witness testimony (seeing Edward with glasses), motives (debt, business
+    conflict), physical objects (calendar, notebook), or specific actions from the
+    timeline.\n    - Simple phrases like \"the killer is...\", \"I think it was...\",
+    \"my guess is...\", \"because he was suspicious\" are **NOT** considered factual
+    evidence.\n    - **If the accusation contains no factual evidence:** Your response
+    must be *exactly*: \"Insufficient evidence\". Do not give a score. Do not confirm
+    if the name is correct.\n\n2.  **If the player accuses anyone OTHER THAN Edward
+    *and provides factual evidence*:**\n    - Your response must state that their
+    conclusion is incorrect and assign a score of 0.\n    - Example: \"That is incorrect.
+    While Anna had a motive, the timeline shows she never had a clear opportunity
+    to poison the glass. Your conclusion is incorrect. Score: 0/10.\"\n\n3.  **If
+    the player accuses Edward AND provides at least ONE piece of *relevant factual
+    evidence*:**\n    - This rule only applies if the accusation passes Rule #1.\n   
+    - First, confirm they are correct. Then, provide a score from 1 to 10 based on
+    the quality and completeness of their evidence, using the rubric below.\n   
+    - **Scoring Rubric:**\n        - **Score 1-4 (Weak Case):** The player correctly
+    names Edward and provides a weak but factual piece of evidence.\n           
+    - *Example player input:* \"Edward is the killer. Victor complained about him
+    in his notebook.\"\n            - *Your response:* \"That is correct. Edward
+    is the killer. However, your case is weak. Score: 3/10.\"\n        - **Score
+    5-7 (Solid Case):** The player correctly names Edward and links him to a strong
+    motive or the method.\n            - *Example player input:* \"The killer is
+    Edward. The wall calendar shows they had a major business meeting.\"\n           
     - *Your response:* \"That is correct. You've identified the killer and his primary
     motive. A solid conclusion. Score: 6/10.\"\n        - **Score 8-9 (Strong Case):**
     The player names Edward, identifies the motive, AND mentions the key witness
@@ -56817,6 +56839,142 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1887828344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887828345}
+  - component: {fileID: 1887828347}
+  - component: {fileID: 1887828346}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1887828345
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887828344}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1965671633}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1887828346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887828344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Next
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1887828347
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887828344}
+  m_CullTransparentMesh: 1
 --- !u!1 &1890506958
 GameObject:
   m_ObjectHideFlags: 0
@@ -58018,6 +58176,7 @@ RectTransform:
   - {fileID: 380000750}
   - {fileID: 2050477859}
   - {fileID: 1060185831}
+  - {fileID: 1965671633}
   m_Father: {fileID: 1885076308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.057500005, y: 0.02929481}
@@ -59369,6 +59528,139 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 0.099999756, z: 2.9999995}
   m_Center: {x: 2.0000002, y: 0.049999632, z: 1.4999996}
+--- !u!1 &1965671632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1965671633}
+  - component: {fileID: 1965671636}
+  - component: {fileID: 1965671635}
+  - component: {fileID: 1965671634}
+  m_Layer: 5
+  m_Name: NextButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1965671633
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965671632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1887828345}
+  m_Father: {fileID: 1926450371}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 293, y: -185}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1965671634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965671632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1965671635}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 314848441}
+        m_TargetAssemblyTypeName: CaseEvaluatorNPC, Assembly-CSharp
+        m_MethodName: OnClickNext
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1965671635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965671632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1965671636
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965671632}
+  m_CullTransparentMesh: 1
 --- !u!1 &1974595037 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3028433957029360086, guid: 4d903c085cce4014a85165ef665b3889, type: 3}
