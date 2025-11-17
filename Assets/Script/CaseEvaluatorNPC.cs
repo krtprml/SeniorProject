@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using System.Collections; // เพิ่มเข้ามาเพื่อใช้ IEnumerator
 
 public class CaseEvaluatorNPC : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class CaseEvaluatorNPC : MonoBehaviour
     [SerializeField] GameObject dialoguePanel;
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI answerText;
+    // [SerializeField] Button sendButton; // <<< ลบบรรทัดนี้ออก
+    [SerializeField] GameObject nextButton; 
 
     [Header("Camera (World-Space)")]
     [SerializeField] GameObject virtualFrontCam;
@@ -30,6 +33,8 @@ public class CaseEvaluatorNPC : MonoBehaviour
     private bool playerInRange = false;
     private bool dialogueOpen = false;
     public bool IsDialogueOpen => dialogueOpen;
+
+    private bool finalResult_PlayerWon = false;
 
     void Awake()
     {
@@ -63,6 +68,7 @@ public class CaseEvaluatorNPC : MonoBehaviour
 
     private void OnSendPressed(InputAction.CallbackContext ctx)
     {
+        // ฟังก์ชันนี้ทำงานเหมือนเดิม คือเรียก OnClickSend() เมื่อกด Enter
         if (dialogueOpen) OnClickSend();
     }
 
@@ -71,41 +77,39 @@ public class CaseEvaluatorNPC : MonoBehaviour
         dialogueOpen = true;
         if (dialoguePanel) dialoguePanel.SetActive(true);
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
+
         if (inputField)
         {
+            inputField.gameObject.SetActive(true); 
             inputField.text = "";
             inputField.interactable = true;
             StartCoroutine(FocusInputNextFrame());
         }
+        // if (sendButton) sendButton.gameObject.SetActive(true); // <<< ลบบรรทัดนี้ออก
+        if (nextButton) nextButton.SetActive(false); 
+
         foreach (var comp in playerScriptsToDisable) if (comp) comp.enabled = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
-    // --- UPDATED SECTION ---
     void CloseDialogue()
     {
-        // Start the coroutine to handle the closing logic
         StartCoroutine(CloseDialogueCoroutine());
     }
 
     private System.Collections.IEnumerator CloseDialogueCoroutine()
     {
-        // Hide UI and restore player controls immediately
         if (dialoguePanel) dialoguePanel.SetActive(false);
         if (virtualFrontCam) virtualFrontCam.SetActive(false);
         foreach (var comp in playerScriptsToDisable) if (comp) comp.enabled = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        // Wait until the end of the frame
         yield return new WaitForEndOfFrame();
-
-        // Now, update the state after the PauseManager has had a chance to check it
         dialogueOpen = false;
     }
-    // --- END UPDATED SECTION ---
-
+    
     public void OnClickSend()
     {
         if (!inputField || string.IsNullOrEmpty(inputField.text.Trim())) return;
@@ -131,9 +135,11 @@ public class CaseEvaluatorNPC : MonoBehaviour
     private System.Collections.IEnumerator ProcessFinalAnswer(string reply)
     {
         if (answerText) answerText.text = reply;
-        inputField.interactable = false;
 
-        bool playerWon = false;
+        if (inputField) inputField.gameObject.SetActive(false);
+        // if (sendButton) sendButton.gameObject.SetActive(false); // <<< ลบบรรทัดนี้ออก
+
+        finalResult_PlayerWon = false; 
         string lowerCaseReply = reply.ToLower();
 
         if (lowerCaseReply.Contains("correct") || (lowerCaseReply.Contains("score:") && !lowerCaseReply.Contains("score: 0")))
@@ -143,17 +149,24 @@ public class CaseEvaluatorNPC : MonoBehaviour
                 string scoreString = lowerCaseReply.Substring(lowerCaseReply.IndexOf("score:") + 6);
                 scoreString = scoreString.Split('/')[0].Trim();
                 int score = int.Parse(scoreString);
-                if (score > 0) playerWon = true;
+                if (score > 0) finalResult_PlayerWon = true;
             }
             catch { }
-            if (lowerCaseReply.Contains("correct")) playerWon = true;
+            if (lowerCaseReply.Contains("correct")) finalResult_PlayerWon = true;
         }
 
-        yield return new WaitForSeconds(4f);
-        CloseDialogue(); // This will now correctly start the coroutine
+        if (nextButton) nextButton.SetActive(true);
+
+        yield return null;
+    }
+
+    public void OnClickNext()
+    {
+        CloseDialogue(); 
+
         if (GameEndManager.instance != null)
         {
-            GameEndManager.instance.ShowEndScreen(playerWon);
+            GameEndManager.instance.ShowEndScreen(finalResult_PlayerWon);
         }
     }
 
