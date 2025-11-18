@@ -6,7 +6,7 @@ public class GameManagerSimple : MonoBehaviour
 
     [Header("NVIDIA LLM")]
     [SerializeField] string nvidiaApiKey = "YOUR_API_KEY";
-    [SerializeField] string model = "meta/llama-3-70b-instruct";
+    [SerializeField] string model = "meta/llama-3.2-3b-instruct";
     [Range(0f,2f)] public float temperature = 0.7f;
     public int maxTokens = 256;
 
