@@ -4,10 +4,13 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
-using System.Collections.Generic; // เพิ่มเข้ามาเพื่อใช้ List
+using System.Collections.Generic;
 
 public class StandardNPC : MonoBehaviour
 {
+    [Header("RAG Settings")]
+    public string npcName = "Brian"; // *** (1) เพิ่มตรงนี้: เพื่อระบุว่า NPC ตัวนี้ชื่ออะไร (ต้องตรงกับใน Text File) ***
+
     [Header("UI (Screen-Space)")]
     [SerializeField] GameObject dialoguePanel;
     [SerializeField] TMP_InputField inputField;
@@ -24,15 +27,14 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] InputActionReference closeAction;
     [SerializeField] InputActionReference sendAction;
 
-    [Header("NPC Prompt")]
-    [TextArea(3, 8)]
-    [SerializeField] string systemPrompt;
+    // [Header("NPC Prompt")] <-- ไม่ต้องใช้ System Prompt ยาวๆ ตรงนี้แล้ว เพราะย้ายไป Server Python แล้ว
+    // [TextArea(3, 8)]
+    // [SerializeField] string systemPrompt; 
 
     private bool playerInRange = false;
     private bool dialogueOpen = false;
     public bool IsDialogueOpen => dialogueOpen;
 
-    // --- NEW: ที่เก็บประวัติการแชท ---
     private List<ChatMessage> conversationHistory;
 
     void Awake()
@@ -74,11 +76,8 @@ public class StandardNPC : MonoBehaviour
     {
         dialogueOpen = true;
 
-        // --- NEW: เริ่มต้นประวัติการแชทใหม่ทุกครั้งที่เปิดหน้าต่าง ---
-        conversationHistory = new List<ChatMessage> {
-            new ChatMessage("system", systemPrompt)
-        };
-        // ----------------------------------------------------
+        // เริ่มต้นประวัติการแชทใหม่ (เอาไว้โชว์ UI เฉยๆ)
+        conversationHistory = new List<ChatMessage>(); 
 
         if (dialoguePanel) dialoguePanel.SetActive(true);
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
@@ -117,11 +116,12 @@ public class StandardNPC : MonoBehaviour
         inputField.interactable = false;
         if (answerText) answerText.text = "...thinking...";
 
-        // --- UPDATED: เรียกใช้เมธอดใหม่ที่มี memory ---
+        // --- (2) แก้ตรงนี้: ส่ง npcName เข้าไปด้วย ---
         StartCoroutine(GameManagerSimple.I.Client.ContinueConversation(
-            conversationHistory, // ส่งประวัติการแชททั้งหมด
-            text,
-            onDone: (reply, reason) =>
+            npcName,             // <--- ใส่ชื่อ NPC เป็นตัวแรก
+            conversationHistory, // ประวัติแชท
+            text,                // คำถามผู้เล่น
+            onDone: (reply) =>   // (แก้ Signature callback นิดหน่อยตาม LLMClientSimple ตัวใหม่)
             {
                 if (answerText) answerText.text = reply;
                 inputField.text = "";
@@ -148,12 +148,12 @@ public class StandardNPC : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) playerInRange = true;
-        if (answerText) answerText.text = ""; // เคลียร์ข้อความเก่า (ตามโค้ดเดิมของคุณ)
+        if (answerText) answerText.text = ""; 
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) playerInRange = false;
-        if (answerText) answerText.text = ""; // เคลียร์ข้อความเก่า (ตามโค้ดเดิมของคุณ)
+        if (answerText) answerText.text = ""; 
     }
 }

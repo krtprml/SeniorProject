@@ -4,17 +4,17 @@ public class GameManagerSimple : MonoBehaviour
 {
     public static GameManagerSimple I { get; private set; }
 
-    [Header("NVIDIA LLM")]
-    [SerializeField] string nvidiaApiKey = "YOUR_API_KEY";
-    [SerializeField] string model = "meta/llama-3-70b-instruct";
-    [Range(0f,2f)] public float temperature = 0.7f;
-    public int maxTokens = 256;
+    [Header("Python Middleware Settings")]
+    // ชี้ไปที่ Python Server ของเรา
+    [SerializeField] string backendUrl = "http://127.0.0.1:8000/chat"; 
 
     public LLMClientSimple Client { get; private set; }
 
     void Awake(){
         if (I != null) { Destroy(gameObject); return; }
         I = this; DontDestroyOnLoad(gameObject);
-        Client = new LLMClientSimple(nvidiaApiKey, model, temperature, maxTokens);
+        
+        // ส่งแค่ URL ไปก็พอ ไม่ต้องใช้ API Key แล้ว
+        Client = new LLMClientSimple(backendUrl);
     }
 }

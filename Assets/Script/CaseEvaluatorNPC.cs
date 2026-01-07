@@ -4,15 +4,17 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
-using System.Collections; // เพิ่มเข้ามาเพื่อใช้ IEnumerator
+using System.Collections; 
 
 public class CaseEvaluatorNPC : MonoBehaviour
 {
+    [Header("RAG Settings")]
+    public string npcName = "Evaluator"; 
+
     [Header("UI (Screen-Space)")]
     [SerializeField] GameObject dialoguePanel;
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI answerText;
-    // [SerializeField] Button sendButton; // <<< ลบบรรทัดนี้ออก
     [SerializeField] GameObject nextButton; 
 
     [Header("Camera (World-Space)")]
@@ -25,10 +27,6 @@ public class CaseEvaluatorNPC : MonoBehaviour
     [SerializeField] InputActionReference talkAction;
     [SerializeField] InputActionReference closeAction;
     [SerializeField] InputActionReference sendAction;
-
-    [Header("NPC Prompt")]
-    [TextArea(3, 8)]
-    [SerializeField] string systemPrompt;
 
     private bool playerInRange = false;
     private bool dialogueOpen = false;
@@ -68,7 +66,6 @@ public class CaseEvaluatorNPC : MonoBehaviour
 
     private void OnSendPressed(InputAction.CallbackContext ctx)
     {
-        // ฟังก์ชันนี้ทำงานเหมือนเดิม คือเรียก OnClickSend() เมื่อกด Enter
         if (dialogueOpen) OnClickSend();
     }
 
@@ -85,7 +82,6 @@ public class CaseEvaluatorNPC : MonoBehaviour
             inputField.interactable = true;
             StartCoroutine(FocusInputNextFrame());
         }
-        // if (sendButton) sendButton.gameObject.SetActive(true); // <<< ลบบรรทัดนี้ออก
         if (nextButton) nextButton.SetActive(false); 
 
         foreach (var comp in playerScriptsToDisable) if (comp) comp.enabled = false;
@@ -117,13 +113,15 @@ public class CaseEvaluatorNPC : MonoBehaviour
         inputField.interactable = false;
         if (answerText) answerText.text = "...thinking...";
 
+        // *** เรียกใช้ฟังก์ชันให้ถูกต้อง ***
         StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
-            systemPrompt, text,
-            onDone: (reply, reason) =>
+            npcName, 
+            text,
+            (reply) => // <--- ต้องมีแค่วงเล็บ (reply) เท่านั้นครับ ห้ามมี reason
             {
                 StartCoroutine(ProcessFinalAnswer(reply));
             },
-            onError: err =>
+            (err) =>
             {
                 if (answerText) answerText.text = "Error: " + err;
                 inputField.interactable = true;
@@ -137,7 +135,6 @@ public class CaseEvaluatorNPC : MonoBehaviour
         if (answerText) answerText.text = reply;
 
         if (inputField) inputField.gameObject.SetActive(false);
-        // if (sendButton) sendButton.gameObject.SetActive(false); // <<< ลบบรรทัดนี้ออก
 
         finalResult_PlayerWon = false; 
         string lowerCaseReply = reply.ToLower();

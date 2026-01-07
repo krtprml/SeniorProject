@@ -5,140 +5,118 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-// Simple message DTO
+// --- Data Structure สำหรับเก็บประวัติแชท (ไว้โชว์ใน UI Unity) ---
 [Serializable] public class ChatMessage {
-    public string role;   // "system" | "user" | "assistant"
+    public string role;   // "user" | "assistant"
     public string content;
     public ChatMessage(string role, string content){ this.role = role; this.content = content; }
 }
 
 public class LLMClientSimple
 {
-    readonly string apiKey;
-    readonly string model;
-    readonly float temperature;
-    readonly int maxTokens;
-    const string URL = "https://integrate.api.nvidia.com/v1/chat/completions";
+    readonly string backendUrl;
 
-    // ---- Request DTOs ----
-    [Serializable] class ChatReq {
-        public string model;
-        public float temperature;
-        public int max_tokens;
-        public List<ChatMessage> messages;
+    // ---- Request DTOs (สิ่งที่ส่งไป Python) ----
+    [Serializable] class RAGRequest {
+        public string player_question;
+        public string npc_role; // สำคัญ! ต้องส่งชื่อ NPC ไปให้ Python กรอง DB
     }
 
-    // ---- Response DTOs (JsonUtility-friendly) ----
-    [Serializable] class RespMessage {
-        public string role;
-        public string content;
-    }
-    [Serializable] class RespChoice {
-        public int index;
-        public RespMessage message;
-        public string finish_reason;
-    }
-    [Serializable] class ChatResp {
-        public List<RespChoice> choices;
+    // ---- Response DTOs (สิ่งที่ Python ตอบกลับมา) ----
+    [Serializable] class RAGResponse {
+        public string response;      // คำตอบจาก AI
+        public string context_used;  // ข้อมูล RAG ที่ AI ใช้ (เผื่อ Debug)
     }
 
-    public LLMClientSimple(string apiKey, string model, float temperature, int maxTokens){
-        this.apiKey = apiKey;
-        this.model = model;
-        this.temperature = temperature;
-        this.maxTokens = maxTokens;
+    public LLMClientSimple(string url){
+        this.backendUrl = url;
     }
 
     /// <summary>
-    /// One-shot completion (No memory). Used by CaseEvaluatorNPC.
-    /// onDone(content, finishReason)
+    /// ฟังก์ชันคุยแบบครั้งเดียว (สำหรับพวกตรวจสอบหลักฐาน หรือถามคำถามเดี่ยวๆ)
     /// </summary>
-    public IEnumerator CompleteOnce(string systemPrompt, string userText,
-                                     Action<string,string> onDone,
+    public IEnumerator CompleteOnce(string npcName, string userText,
+                                     Action<string> onDone,
                                      Action<string> onError)
     {
-        var reqObj = new ChatReq{
-            model = model,
-            temperature = temperature,
-            max_tokens = maxTokens,
-            messages = new List<ChatMessage>{
-                new ChatMessage("system", systemPrompt ?? ""),
-                new ChatMessage("user",   userText     ?? "")
-            }
+        // สร้างข้อมูลตาม Format ที่ Python Server ต้องการ
+        var reqObj = new RAGRequest {
+            player_question = userText,
+            npc_role = npcName
         };
-        yield return SendRequest(reqObj, 
-            (content, finish, role) => onDone?.Invoke(content, finish), 
-            onError);
+
+        yield return SendRequest(reqObj, onDone, onError);
     }
 
     /// <summary>
-    /// NEW: Completion with memory. Used by StandardNPC.
-    /// Appends user text to 'messages', gets reply, and appends reply to 'messages'.
-    /// onDone(content, finishReason)
+    /// ฟังก์ชันคุยต่อเนื่อง (Standard NPC)
+    /// หมายเหตุ: ในระบบ RAG พื้นฐาน เราจะส่งแค่คำถามล่าสุดไปให้ Server ค้นข้อมูล
+    /// ส่วนประวัติแชท (Messages List) เราเก็บไว้แค่ฝั่ง Unity เพื่อแสดงผล UI เท่านั้น
     /// </summary>
-    public IEnumerator ContinueConversation(List<ChatMessage> messages, string userText,
-                                             Action<string, string> onDone,
+    public IEnumerator ContinueConversation(string npcName, List<ChatMessage> localHistory, string userText,
+                                             Action<string> onDone,
                                              Action<string> onError)
     {
-        messages.Add(new ChatMessage("user", userText ?? ""));
+        // 1. เพิ่มคำถามผู้เล่นลงประวัติ (เพื่อโชว์ใน UI)
+        localHistory.Add(new ChatMessage("user", userText));
 
-        var reqObj = new ChatReq{
-            model = model,
-            temperature = temperature,
-            max_tokens = maxTokens,
-            messages = messages
+        // 2. สร้าง Request ส่งไป Python (ส่งแค่คำถามล่าสุด)
+        var reqObj = new RAGRequest {
+            player_question = userText,
+            npc_role = npcName
         };
 
-        yield return SendRequest(reqObj, 
-            (content, finish, role) => {
-                messages.Add(new ChatMessage(role, content));
-                onDone?.Invoke(content, finish);
-            }, 
-            onError);
+        yield return SendRequest(reqObj, (aiResponse) => {
+            // 3. เมื่อได้คำตอบ เพิ่มลงประวัติ (เพื่อโชว์ใน UI)
+            localHistory.Add(new ChatMessage("assistant", aiResponse));
+            onDone?.Invoke(aiResponse);
+        }, onError);
     }
     
-    // --- Helper function to avoid duplicate code ---
-    private IEnumerator SendRequest(ChatReq reqObj, Action<string, string, string> onDone, Action<string> onError)
+    // --- ตัวส่ง Request ไปหา Python ---
+    private IEnumerator SendRequest(RAGRequest reqObj, Action<string> onDone, Action<string> onError)
     {
         var json = JsonUtility.ToJson(reqObj);
         var body = Encoding.UTF8.GetBytes(json);
 
-        using (var req = new UnityWebRequest(URL, "POST")){
+        using (var req = new UnityWebRequest(backendUrl, "POST")){
             req.uploadHandler = new UploadHandlerRaw(body);
             req.downloadHandler = new DownloadHandlerBuffer();
             req.SetRequestHeader("Content-Type", "application/json");
             
-            // --- FIX IS HERE ---
-            // Changed "SetRequestH-eader" to "SetRequestHeader"
-            req.SetRequestHeader("Authorization", "Bearer " + apiKey);
-            // -------------------
+            // ไม่ต้องใส่ Authorization Header แล้ว เพราะคุยกับ Localhost
+            
+            // *** เพิ่ม Timeout ป้องกัน Error: Request Timeout ***
+            req.timeout = 60; // รอได้สูงสุด 60 วินาที
+            // ************************************************
 
             yield return req.SendWebRequest();
 
             if (req.result != UnityWebRequest.Result.Success){
-                onError?.Invoke(req.error + "\n" + req.downloadHandler.text);
+                // แจ้ง Error ชัดๆ
+                onError?.Invoke($"Network Error: {req.error}\nResponse: {req.downloadHandler.text}");
                 yield break;
             }
 
+            // แปลง JSON จาก Python กลับเป็น C# Object
             var raw = req.downloadHandler.text;
-            ChatResp resp = null;
-            try { resp = JsonUtility.FromJson<ChatResp>(raw); }
+            RAGResponse resp = null;
+            try { 
+                resp = JsonUtility.FromJson<RAGResponse>(raw); 
+            }
             catch (Exception e) {
-                onError?.Invoke("JSON parse error: " + e.Message + "\n" + raw);
+                onError?.Invoke("JSON Parse Error: " + e.Message + "\nRaw: " + raw);
                 yield break;
             }
 
-            string content = null;
-            string finish  = null;
-            string role = "assistant";
-            if (resp != null && resp.choices != null && resp.choices.Count > 0){
-                content = resp.choices[0]?.message?.content;
-                finish  = resp.choices[0]?.finish_reason;
-                role    = resp.choices[0]?.message?.role ?? "assistant";
+            if (resp != null && !string.IsNullOrEmpty(resp.response)){
+                // (Optional) ปริ้นดูว่า RAG เจออะไรบ้าง (ดูใน Console Unity)
+                // Debug.Log($"[RAG Context]: {resp.context_used}");
+                
+                onDone?.Invoke(resp.response.Trim());
+            } else {
+                onDone?.Invoke("(No response from AI)");
             }
-            if (string.IsNullOrEmpty(content)) content = "(no content)";
-
-            onDone?.Invoke(content.Trim(), finish, role);
         }
     }
 }
