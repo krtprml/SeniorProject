@@ -1,22 +1,18 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
-using System.Collections.Generic;
 
 public class StandardNPC : MonoBehaviour
 {
     [Header("RAG Settings")]
-    public string npcName = "Brian"; // *** (1) เพิ่มตรงนี้: เพื่อระบุว่า NPC ตัวนี้ชื่ออะไร (ต้องตรงกับใน Text File) ***
+    public string npcName = "Brian";
 
-    [Header("UI (Screen-Space)")]
+    [Header("UI")]
     [SerializeField] GameObject dialoguePanel;
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI answerText;
 
-    [Header("Camera (World-Space)")]
+    [Header("Camera")]
     [SerializeField] GameObject virtualFrontCam;
 
     [Header("Interaction")]
@@ -27,15 +23,10 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] InputActionReference closeAction;
     [SerializeField] InputActionReference sendAction;
 
-    // [Header("NPC Prompt")] <-- ไม่ต้องใช้ System Prompt ยาวๆ ตรงนี้แล้ว เพราะย้ายไป Server Python แล้ว
-    // [TextArea(3, 8)]
-    // [SerializeField] string systemPrompt; 
+    bool playerInRange = false;
+    bool dialogueOpen = false;
 
-    private bool playerInRange = false;
-    private bool dialogueOpen = false;
     public bool IsDialogueOpen => dialogueOpen;
-
-    private List<ChatMessage> conversationHistory;
 
     void Awake()
     {
@@ -45,115 +36,119 @@ public class StandardNPC : MonoBehaviour
 
     void OnEnable()
     {
-        if (talkAction != null) { talkAction.action.performed += OnTalkPressed; talkAction.action.Enable(); }
-        if (closeAction != null) { closeAction.action.performed += OnClosePressed; closeAction.action.Enable(); }
-        if (sendAction != null) { sendAction.action.performed += OnSendPressed; sendAction.action.Enable(); }
+        talkAction.action.performed += _ => TryOpen();
+        closeAction.action.performed += _ => TryClose();
+        sendAction.action.performed += _ => TrySend();
+
+        talkAction.action.Enable();
+        closeAction.action.Enable();
+        sendAction.action.Enable();
     }
 
     void OnDisable()
     {
-        if (talkAction != null) { talkAction.action.performed -= OnTalkPressed; talkAction.action.Disable(); }
-        if (closeAction != null) { closeAction.action.performed -= OnClosePressed; closeAction.action.Disable(); }
-        if (sendAction != null) { sendAction.action.performed -= OnSendPressed; sendAction.action.Disable(); }
+        talkAction.action.Disable();
+        closeAction.action.Disable();
+        sendAction.action.Disable();
     }
 
-    private void OnTalkPressed(InputAction.CallbackContext ctx)
+    // ========================= OPEN =========================
+    void TryOpen()
     {
-        if (!dialogueOpen && playerInRange) OpenDialogue();
-    }
+        if (!playerInRange || dialogueOpen) return;
 
-    private void OnClosePressed(InputAction.CallbackContext ctx)
-    {
-        if (dialogueOpen) CloseDialogue();
-    }
-
-    private void OnSendPressed(InputAction.CallbackContext ctx)
-    {
-        if (dialogueOpen) OnClickSend();
-    }
-
-    void OpenDialogue()
-    {
         dialogueOpen = true;
 
-        // เริ่มต้นประวัติการแชทใหม่ (เอาไว้โชว์ UI เฉยๆ)
-        conversationHistory = new List<ChatMessage>(); 
+        // 🔥 REGISTER WITH DIALOGUE MANAGER
+        DialogueManager.I.DialogueOpened();
 
         if (dialoguePanel) dialoguePanel.SetActive(true);
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
+
         if (inputField)
         {
             inputField.text = "";
             inputField.interactable = true;
-            StartCoroutine(FocusInputNextFrame());
+            inputField.Select();
+            inputField.ActivateInputField();
         }
-        foreach (var comp in playerScriptsToDisable) if (comp) comp.enabled = false;
+
+        foreach (var c in playerScriptsToDisable)
+            if (c) c.enabled = false;
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
-    void CloseDialogue()
+    // ========================= CLOSE =========================
+    void TryClose()
     {
-        StartCoroutine(CloseDialogueCoroutine());
-    }
+        if (!dialogueOpen) return;
 
-    private System.Collections.IEnumerator CloseDialogueCoroutine()
-    {
+        dialogueOpen = false;
+
+        // 🔥 UNREGISTER
+        DialogueManager.I.DialogueClosed();
+
         if (dialoguePanel) dialoguePanel.SetActive(false);
         if (virtualFrontCam) virtualFrontCam.SetActive(false);
-        foreach (var comp in playerScriptsToDisable) if (comp) comp.enabled = true;
+
+        foreach (var c in playerScriptsToDisable)
+            if (c) c.enabled = true;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-        yield return new WaitForEndOfFrame();
-        dialogueOpen = false;
     }
 
-    public void OnClickSend()
+    // ========================= SEND =========================
+    void TrySend()
     {
-        if (!inputField || string.IsNullOrEmpty(inputField.text.Trim())) return;
-        string text = inputField.text.Trim();
-        inputField.interactable = false;
-        if (answerText) answerText.text = "...thinking...";
+        if (!dialogueOpen) return;
+        if (string.IsNullOrWhiteSpace(inputField.text)) return;
 
-        // --- (2) แก้ตรงนี้: ส่ง npcName เข้าไปด้วย ---
-        StartCoroutine(GameManagerSimple.I.Client.ContinueConversation(
-            npcName,             // <--- ใส่ชื่อ NPC เป็นตัวแรก
-            conversationHistory, // ประวัติแชท
-            text,                // คำถามผู้เล่น
-            onDone: (reply) =>   // (แก้ Signature callback นิดหน่อยตาม LLMClientSimple ตัวใหม่)
+        var text = inputField.text.Trim();
+        inputField.interactable = false;
+        answerText.text = "...thinking...";
+
+        StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
+            npcName,
+            text,
+            reply =>
             {
-                if (answerText) answerText.text = reply;
+                answerText.text = reply;
                 inputField.text = "";
                 inputField.interactable = true;
-                StartCoroutine(FocusInputNextFrame());
+                inputField.Select();
+                inputField.ActivateInputField();
             },
-            onError: err =>
+            err =>
             {
-                if (answerText) answerText.text = "Error: " + err;
+                answerText.text = "Error: " + err;
                 inputField.interactable = true;
-                StartCoroutine(FocusInputNextFrame());
             }
         ));
     }
 
-    System.Collections.IEnumerator FocusInputNextFrame()
-    {
-        yield return null;
-        if (!inputField) yield break;
-        inputField.Select();
-        inputField.ActivateInputField();
-    }
-
+    // ========================= TRIGGERS =========================
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) playerInRange = true;
-        if (answerText) answerText.text = ""; 
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+            if (answerText) answerText.text = "";
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")) playerInRange = false;
-        if (answerText) answerText.text = ""; 
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            if (answerText) answerText.text = "";
+
+            // ถ้าเดินออกระหว่างคุย → ปิดอัตโนมัติ
+            if (dialogueOpen)
+                TryClose();
+        }
     }
 }

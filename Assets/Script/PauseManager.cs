@@ -24,7 +24,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] string mainMenuSceneName = "Scene/MainScene";
 
     private bool isPaused = false;
-    private bool wasTimeAlreadyPaused = false; // Check if time was paused by other systems
+    private bool wasTimeAlreadyPaused = false;
 
     void Start()
     {
@@ -54,12 +54,21 @@ public class PauseManager : MonoBehaviour
     }
 
     private void OnPausePressed(InputAction.CallbackContext ctx)
+{
+    if (DialogueManager.I != null)
     {
-        if (IsOtherUIActive()) return;
+        // 🔥 Block if dialogue is open
+        if (DialogueManager.I.IsAnyDialogueOpen())
+            return;
 
-        if (isPaused) ResumeGame();
-        else PauseGame();
+        // 🔥 Block if dialogue JUST closed (same ESC press)
+        if (DialogueManager.I.IsPauseBlocked())
+            return;
     }
+
+    if (isPaused) ResumeGame();
+    else PauseGame();
+}
 
     public void PauseGame()
     {
@@ -75,7 +84,7 @@ public class PauseManager : MonoBehaviour
         SetCursorState(true);
         StartCoroutine(EnsureCursorNextFrame());
 
-        Debug.Log("Game Paused - Cursor should be visible and unlocked");
+        Debug.Log("Game Paused");
     }
 
     public void ResumeGame()
@@ -141,37 +150,6 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    /// ✅ ปรับตรงนี้ ให้เข้ากับ CaseEvaluatorNPC และ StandardNPC
-    private bool IsOtherUIActive()
-    {
-        // check CaseEvaluatorNPC
-        CaseEvaluatorNPC[] evaluators = FindObjectsByType<CaseEvaluatorNPC>(FindObjectsSortMode.None);
-        foreach (var npc in evaluators)
-        {
-            if (npc.IsDialogueOpen) return true;
-        }
-
-        // check StandardNPC
-        StandardNPC[] standards = FindObjectsByType<StandardNPC>(FindObjectsSortMode.None);
-        foreach (var npc in standards)
-        {
-            if (npc.IsDialogueOpen) return true;
-        }
-
-        return false;
-    }
-
-    // Public methods for UI buttons
-    public void OnResumeButtonClick()
-    {
-        ResumeGame();
-    }
-
-    public void OnExitButtonClick()
-    {
-        ExitToMainMenu();
-    }
-
     public bool IsPaused => isPaused;
 
 #if UNITY_EDITOR
@@ -183,19 +161,7 @@ public class PauseManager : MonoBehaviour
         Debug.Log($"Cursor Visible: {Cursor.visible}");
         Debug.Log($"Cursor Lock State: {Cursor.lockState}");
         Debug.Log($"Time Scale: {Time.timeScale}");
-
-        EventSystem eventSystem = FindFirstObjectByType<EventSystem>();
-        Debug.Log($"EventSystem exists: {eventSystem != null}");
-
-        if (pauseMenuPanel)
-        {
-            Canvas canvas = pauseMenuPanel.GetComponentInParent<Canvas>();
-            if (canvas)
-            {
-                Debug.Log($"Canvas Render Mode: {canvas.renderMode}");
-                Debug.Log($"Canvas Sort Order: {canvas.sortingOrder}");
-            }
-        }
+        Debug.Log($"Dialogue Open: {(DialogueManager.I != null && DialogueManager.I.IsAnyDialogueOpen())}");
     }
 #endif
 }
