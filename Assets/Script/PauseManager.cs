@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.Networking;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,14 +16,14 @@ public class PauseManager : MonoBehaviour
     [SerializeField] GameObject pauseMenuPanel;
 
     [Header("Input Action")]
-    [SerializeField] InputActionReference pauseAction; // Bind to Escape or P key
+    [SerializeField] InputActionReference pauseAction;
 
     [Header("Scene Management")]
-    [Tooltip("Index of the main menu scene (0 = first scene in build settings)")]
     [SerializeField] int mainMenuSceneIndex = 0;
-
-    [Tooltip("Alternative: Name of the main menu scene")]
     [SerializeField] string mainMenuSceneName = "Scene/MainScene";
+
+    [Header("Server")]
+    [SerializeField] string serverBaseUrl = "http://127.0.0.1:8000";
 
     private bool isPaused = false;
     private bool wasTimeAlreadyPaused = false;
@@ -54,21 +56,16 @@ public class PauseManager : MonoBehaviour
     }
 
     private void OnPausePressed(InputAction.CallbackContext ctx)
-{
-    if (DialogueManager.I != null)
     {
-        // 🔥 Block if dialogue is open
-        if (DialogueManager.I.IsAnyDialogueOpen())
-            return;
+        if (DialogueManager.I != null)
+        {
+            if (DialogueManager.I.IsAnyDialogueOpen()) return;
+            if (DialogueManager.I.IsPauseBlocked()) return;
+        }
 
-        // 🔥 Block if dialogue JUST closed (same ESC press)
-        if (DialogueManager.I.IsPauseBlocked())
-            return;
+        if (isPaused) ResumeGame();
+        else PauseGame();
     }
-
-    if (isPaused) ResumeGame();
-    else PauseGame();
-}
 
     public void PauseGame()
     {
@@ -83,8 +80,6 @@ public class PauseManager : MonoBehaviour
 
         SetCursorState(true);
         StartCoroutine(EnsureCursorNextFrame());
-
-        Debug.Log("Game Paused");
     }
 
     public void ResumeGame()
@@ -98,42 +93,61 @@ public class PauseManager : MonoBehaviour
             Time.timeScale = 1f;
 
         SetCursorState(false);
-
-        Debug.Log("Game Resumed");
     }
+
+    // ========================= SERVER =========================
+
+    IEnumerator CallEndGame()
+    {
+        using var req = new UnityWebRequest(serverBaseUrl + "/end-game", "POST");
+        req.downloadHandler = new DownloadHandlerBuffer();
+
+        yield return req.SendWebRequest();
+
+        if (req.result != UnityWebRequest.Result.Success)
+            Debug.LogWarning("end-game failed: " + req.error);
+        else
+            Debug.Log("Server game_state.json cleared");
+    }
+
+    // ========================= EXIT =========================
 
     public void ExitToMainMenu()
     {
         Time.timeScale = 1f;
+        Debug.Log("Pause → Exit to Main Menu");
 
-        Debug.Log($"Exiting to main menu - Index: {mainMenuSceneIndex}, Name: {mainMenuSceneName}");
+        StartCoroutine(ExitRoutine());
+    }
+
+    IEnumerator ExitRoutine()
+    {
+        yield return StartCoroutine(CallEndGame());   // 🔥 DELETE game_state.json
+
+        if (pauseMenuPanel)
+            pauseMenuPanel.SetActive(false);
+
+        SetCursorState(true);
 
         try
         {
             SceneManager.LoadScene(mainMenuSceneIndex);
         }
-        catch (System.Exception e)
+        catch
         {
-            Debug.LogWarning($"Failed to load scene by index {mainMenuSceneIndex}, trying by name: {e.Message}");
             SceneManager.LoadScene(mainMenuSceneName);
         }
     }
 
-    private void SetCursorState(bool showCursor)
+    // ========================= UTIL =========================
+
+    private void SetCursorState(bool show)
     {
-        if (showCursor)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+        Cursor.visible = show;
+        Cursor.lockState = show ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
-    private System.Collections.IEnumerator EnsureCursorNextFrame()
+    private IEnumerator EnsureCursorNextFrame()
     {
         yield return null;
         Cursor.visible = true;
@@ -144,24 +158,11 @@ public class PauseManager : MonoBehaviour
     {
         if (FindFirstObjectByType<EventSystem>() == null)
         {
-            GameObject eventSystemGO = new GameObject("EventSystem");
-            eventSystemGO.AddComponent<EventSystem>();
-            eventSystemGO.AddComponent<InputSystemUIInputModule>();
+            GameObject es = new GameObject("EventSystem");
+            es.AddComponent<EventSystem>();
+            es.AddComponent<InputSystemUIInputModule>();
         }
     }
 
     public bool IsPaused => isPaused;
-
-#if UNITY_EDITOR
-    [System.Diagnostics.Conditional("UNITY_EDITOR")]
-    public void DebugUIState()
-    {
-        Debug.Log("=== UI DEBUG INFO ===");
-        Debug.Log($"Pause Panel Active: {(pauseMenuPanel ? pauseMenuPanel.activeInHierarchy : false)}");
-        Debug.Log($"Cursor Visible: {Cursor.visible}");
-        Debug.Log($"Cursor Lock State: {Cursor.lockState}");
-        Debug.Log($"Time Scale: {Time.timeScale}");
-        Debug.Log($"Dialogue Open: {(DialogueManager.I != null && DialogueManager.I.IsAnyDialogueOpen())}");
-    }
-#endif
 }
