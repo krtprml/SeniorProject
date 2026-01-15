@@ -1942,68 +1942,6 @@ Transform:
   - {fileID: 933000943}
   m_Father: {fileID: 259526146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &58813646
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 695780558}
-    m_Modifications:
-    - target: {fileID: 100000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_Name
-      value: phone
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.072
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.933
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
---- !u!4 &58813647 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
-  m_PrefabInstance: {fileID: 58813646}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &61719557
 GameObject:
   m_ObjectHideFlags: 0
@@ -19623,7 +19561,6 @@ Transform:
   - {fileID: 1426664500}
   - {fileID: 400797633}
   - {fileID: 1437933375}
-  - {fileID: 58813647}
   m_Father: {fileID: 1180031894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &702984839
@@ -28170,6 +28107,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975855421}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &977492442
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.903217
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.833
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.517
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
+      propertyPath: m_Name
+      value: mobile_phone
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26bdacabc4311b24fb197352a32760ae, type: 3}
 --- !u!1 &980508088
 GameObject:
   m_ObjectHideFlags: 0
@@ -46766,6 +46760,7 @@ MonoBehaviour:
   pauseAction: {fileID: -3621493424610889107, guid: 645981b83b598444cae8d66186c37802, type: 3}
   mainMenuSceneIndex: 0
   mainMenuSceneName: MainMenu
+  serverBaseUrl: http://127.0.0.1:8000
 --- !u!1 &1622985723
 GameObject:
   m_ObjectHideFlags: 0
@@ -51390,6 +51385,7 @@ MonoBehaviour:
   winScreenUI: {fileID: 1530478205}
   loseScreenUI: {fileID: 118066096}
   playerController: {fileID: 1502032773}
+  serverBaseUrl: http://127.0.0.1:8000
 --- !u!1 &1720957873
 GameObject:
   m_ObjectHideFlags: 0
@@ -85120,3 +85116,4 @@ SceneRoots:
   - {fileID: 939106722}
   - {fileID: 1502329887}
   - {fileID: 369579943}
+  - {fileID: 977492442}
