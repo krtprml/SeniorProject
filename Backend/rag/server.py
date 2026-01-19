@@ -14,7 +14,6 @@ from groq import Groq
 # ==============================
 DB_PATH = "./game_db"
 MURDER_COLLECTION = "murder_case"
-POLICE_COLLECTION = "police_rules"
 CASE_COLLECTION = "case_evaluator"
 
 GAME_STATE_FILE = "game_state.json"
@@ -23,6 +22,15 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY") or "PUT_YOUR_GROQ_KEY_HERE"
 MODEL_NAME = "llama-3.1-8b-instant"
 
 MAX_MEMORY_TURNS = 4
+
+LABELS = [
+    "direct",
+    "irrelevant",
+    "leading",
+    "threatening",
+    "emotional",
+    "evidence_based"
+]
 
 # ==============================
 # INIT
@@ -33,7 +41,7 @@ llm_client = Groq(api_key=GROQ_API_KEY)
 print("\n--- SYSTEM STARTUP ---")
 
 if os.path.exists(GAME_STATE_FILE):
-    print("⚠ Removing stale game_state.json from previous crash")
+    print("⚠ Removing stale game_state.json")
     os.remove(GAME_STATE_FILE)
 
 # ==============================
@@ -42,55 +50,38 @@ if os.path.exists(GAME_STATE_FILE):
 try:
     chroma_client = chromadb.PersistentClient(path=DB_PATH)
     murder_collection = chroma_client.get_collection(MURDER_COLLECTION)
-    police_collection = chroma_client.get_collection(POLICE_COLLECTION)
     case_collection = chroma_client.get_collection(CASE_COLLECTION)
     print("✅ Vector DBs Loaded")
 except Exception as e:
     print("❌ Vector DB Load Failed:", e)
     murder_collection = None
-    police_collection = None
     case_collection = None
 
 print("--- READY TO SERVE ---\n")
 
 # ==============================
-# GAME STATE (JSON) – STRICT LIFECYCLE
+# GAME STATE
 # ==============================
-
 def init_game_state():
     state = {
         "memory": {},
-        "politeness": {
-            "scores": [],
-            "average": 0
-        },
+        "question_evaluations": [],
         "case": {
             "final_answer": "",
             "score": 0,
             "reason": ""
         }
     }
-
     with open(GAME_STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2)
 
 def load_state():
     if not os.path.exists(GAME_STATE_FILE):
-        raise HTTPException(
-            status_code=400,
-            detail="Game not started. Call /start-game first."
-        )
-
+        raise HTTPException(400, "Game not started. Call /start-game first.")
     with open(GAME_STATE_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
 def save_state(state):
-    if not os.path.exists(GAME_STATE_FILE):
-        raise HTTPException(
-            status_code=400,
-            detail="Game not started. Cannot save state."
-        )
-
     with open(GAME_STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2)
 
@@ -105,7 +96,7 @@ class FinalCaseRequest(BaseModel):
     final_answer: str
 
 # ==============================
-# PROMPTS
+# NPC PROMPT
 # ==============================
 def build_npc_prompt(npc, context, memory, question):
     memory_text = (
@@ -117,9 +108,9 @@ def build_npc_prompt(npc, context, memory, question):
 You are {npc}, a character in a murder mystery game.
 
 RULES:
-- You are not an AI.
-- Stay in character.
-- Do not invent facts.
+- You are not an AI
+- Stay in character
+- Do not invent facts
 
 FACTS:
 {context}
@@ -134,33 +125,52 @@ Answer naturally as {npc}.
 """.strip()
 
 # ==============================
-# POLITENESS EVALUATOR
+# QUESTION EVALUATOR (GROUND TRUTH)
 # ==============================
-def evaluate_politeness(text):
-    results = police_collection.query(
-        query_texts=[text],
-        n_results=4
-    )
-
-    rules = "\n".join(results["documents"][0])
-
+def evaluate_question(question, context):
     prompt = f"""
-You are a police professionalism evaluator.
+You are an EXPERT police interrogation evaluator.
 
-Rules:
-{rules}
+You know the FULL case below.
 
-Detective said:
-"{text}"
+=== CASE CONTEXT ===
+{context}
+====================
 
-Score:
-3 = professional
-2 = acceptable
-1 = rude
-0 = unprofessional
+Evaluate the detective's question.
 
-Output ONLY:
-Score: X
+Question:
+"{question}"
+
+Score on TWO dimensions:
+
+1. Politeness / Professional Conduct (0–3)
+- 3 = fully professional
+- 2 = acceptable
+- 1 = inappropriate
+- 0 = unprofessional or abusive
+
+2. Investigation Quality (0–3)
+- 3 = evidence-based, relevant
+- 2 = relevant but weak
+- 1 = leading or poor
+- 0 = irrelevant or harmful
+
+Assign ONE label from:
+{", ".join(LABELS)}
+
+⚠️ IMPORTANT RULES
+- Output JSON ONLY
+- No explanation
+- No markdown
+- No extra text
+
+JSON FORMAT:
+{{
+  "politeness": <int>,
+  "investigation": <int>,
+  "label": "<label>"
+}}
 """
 
     completion = llm_client.chat.completions.create(
@@ -169,48 +179,40 @@ Score: X
         temperature=0
     )
 
-    match = re.search(r"score\s*:\s*([0-3])", completion.choices[0].message.content.lower())
-    return int(match.group(1)) if match else 0
+    text = completion.choices[0].message.content.strip()
+
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        raise HTTPException(500, f"Invalid evaluator output: {text}")
 
 # ==============================
 # CHAT ENDPOINT
 # ==============================
 @app.post("/chat")
 async def chat(req: PlayerRequest):
-
-    if not os.path.exists(GAME_STATE_FILE):
-        raise HTTPException(400, "Game not started. Call /start-game first.")
-
-    if murder_collection is None or police_collection is None:
+    if murder_collection is None:
         raise HTTPException(500, "Vector DB not loaded")
-
-    # ✅ ต้องเอา npc มาก่อน
-    npc = req.npc_role.upper()
-    question = req.player_question.strip()
 
     state = load_state()
 
-    # ถ้าเป็น CASE อย่าส่งเข้า NPC RAG
-    if npc == "CASE":
-        return {
-            "response": "Use /evaluate-case endpoint for final judgment."
-        }
-
-    # ---------- MEMORY ----------
-    npc_memory = state["memory"].get(npc, [])
-    recent_memory = npc_memory[-MAX_MEMORY_TURNS * 2:]
+    npc = req.npc_role.upper()
+    question = req.player_question.strip()
 
     # ---------- RAG ----------
     results = murder_collection.query(
         query_texts=[question],
-        n_results=3,
+        n_results=5,
         where={"owner": npc}
     )
 
     docs = results.get("documents", [[]])[0]
-    context = "\n".join(docs) if docs else "No relevant information."
+    context = "\n".join(docs) if docs else "No relevant case information."
 
-    # ---------- NPC LLM ----------
+    # ---------- NPC ----------
+    npc_memory = state["memory"].get(npc, [])
+    recent_memory = npc_memory[-MAX_MEMORY_TURNS * 2:]
+
     prompt = build_npc_prompt(npc, context, recent_memory, question)
 
     completion = llm_client.chat.completions.create(
@@ -224,19 +226,16 @@ async def chat(req: PlayerRequest):
 
     reply = completion.choices[0].message.content.strip()
 
-    # --- Save memory ---
     npc_memory.extend([
         {"role": "user", "content": question},
         {"role": "assistant", "content": reply}
     ])
     state["memory"][npc] = npc_memory[-MAX_MEMORY_TURNS * 2:]
 
-    # --- Politeness score ---
-    score = evaluate_politeness(question)
-    state["politeness"]["scores"].append(score)
-
-    avg = sum(state["politeness"]["scores"]) / len(state["politeness"]["scores"])
-    state["politeness"]["average"] = round(avg, 2)
+    # ---------- EVALUATION ----------
+    evaluation = evaluate_question(question, context)
+    evaluation["question"] = question
+    state["question_evaluations"].append(evaluation)
 
     save_state(state)
 
@@ -247,23 +246,17 @@ async def chat(req: PlayerRequest):
 # ==============================
 @app.post("/evaluate-case")
 async def evaluate_case(req: FinalCaseRequest):
-
-    if not os.path.exists(GAME_STATE_FILE):
-        raise HTTPException(400, "Game not started. Call /start-game first.")
-
     state = load_state()
 
     results = case_collection.query(
         query_texts=[req.final_answer],
         n_results=10
-)
+    )
 
     context = "\n".join(results["documents"][0])
 
     prompt = f"""
-You are a Master Detective and case evaluator.
-
-You have access to the complete solved case file.
+You are a Master Detective.
 
 CASE FILE:
 {context}
@@ -271,15 +264,9 @@ CASE FILE:
 Detective's final accusation:
 "{req.final_answer}"
 
-Rules:
-1. If the accusation names a suspect but provides no factual evidence → respond:
-"Insufficient evidence"
+Score 0–10 and explain.
 
-2. If the accusation is wrong → Score: 0
-
-3. If Edward is accused with evidence → Score 1–10 based on strength
-
-Output format:
+Output:
 Score: X
 Reason: ...
 """
@@ -294,25 +281,23 @@ Reason: ...
     match = re.search(r"score\s*:\s*(\d+)", text.lower())
     score = int(match.group(1)) if match else 0
 
-    state["case"]["final_answer"] = req.final_answer
-    state["case"]["score"] = score
-    state["case"]["reason"] = text
+    state["case"] = {
+        "final_answer": req.final_answer,
+        "score": score,
+        "reason": text
+    }
 
     save_state(state)
-
     return state["case"]
 
 # ==============================
-# FINAL SCORE FOR UNITY
+# FINAL SCORE
 # ==============================
 @app.get("/final-score")
 async def final_score():
-    if not os.path.exists(GAME_STATE_FILE):
-        raise HTTPException(400, "Game not started.")
-
     state = load_state()
     return {
-        "politeness": state["politeness"],
+        "questions": state["question_evaluations"],
         "case": state["case"]
     }
 
@@ -321,17 +306,13 @@ async def final_score():
 # ==============================
 @app.post("/start-game")
 async def start_game():
-    # Always reset previous game
     if os.path.exists(GAME_STATE_FILE):
         os.remove(GAME_STATE_FILE)
-
     init_game_state()
-
-    return {"status": "new game created"}
+    return {"status": "new game started"}
 
 @app.post("/end-game")
 async def end_game():
     if os.path.exists(GAME_STATE_FILE):
         os.remove(GAME_STATE_FILE)
-
-    return {"status": "game state deleted"}
+    return {"status": "game ended"}
