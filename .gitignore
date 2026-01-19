@@ -97,3 +97,31 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# ================= PYTHON / RAG =================
+
+# Python cache
+Backend/**/__pycache__/
+Backend/**/*.pyc
+
+# Virtual environment (if any)
+Backend/**/venv/
+
+# RAG / Vector database (re-generated)
+Backend/**/game_db/
+Backend/**/chroma.sqlite3
+
+# macOS
+.DS_Store
+
+# Environment variables / secrets
+.env
+.env.*
+
+Backend/**/config.py
+Backend/**/secrets.py
+
+# Vector store / embeddings
+Backend/**/faiss_index/
+Backend/**/*.index
+Backend/**/*.bin

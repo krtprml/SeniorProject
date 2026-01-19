@@ -1,0 +1,116 @@
+[
+  {
+    "question": "Did you see Edward touch Victor’s glass?",
+    "politeness": 3,
+    "investigation": 3,
+    "label": "evidence_based"
+  },
+  {
+    "question": "Why were you arguing with Victor earlier that night?",
+    "politeness": 3,
+    "investigation": 3,
+    "label": "direct"
+  },
+  {
+    "question": "Where were you before dinner?",
+    "politeness": 3,
+    "investigation": 0,
+    "label": "irrelevant"
+  },
+  {
+    "question": "You wouldn’t hurt Victor, would you?",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "leading"
+  },
+  {
+    "question": "Tell me about your relationship with Victor.",
+    "politeness": 3,
+    "investigation": 0,
+    "label": "irrelevant"
+  },
+  {
+    "question": "Did you kill Victor?",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "irrelevant"
+  },
+  {
+    "question": "Why did you kill Victor?",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "irrelevant"
+  },
+  {
+    "question": "Did you have conflicts with Victor?",
+    "politeness": 3,
+    "investigation": 0,
+    "label": "irrelevant"
+  },
+  {
+    "question": "Did you see anyone acting strange?",
+    "politeness": 3,
+    "investigation": 1,
+    "label": "leading"
+  },
+  {
+    "question": "I know that you killed Victor.",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "irrelevant"
+  },
+  {
+    "question": "Confess that you killed Victor, or I will kill your family.",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "threatening"
+  },
+  {
+    "question": "You are a murderer.",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "irrelevant"
+  },
+  {
+    "question": "I know you hated Victor.",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "irrelevant"
+  },
+  {
+    "question": "What were you doing at the time of the incident?",
+    "politeness": 3,
+    "investigation": 3,
+    "label": "direct"
+  },
+  {
+    "question": "What did you do at 9.30 pm?",
+    "politeness": 3,
+    "investigation": 3,
+    "label": "direct"
+  },
+  {
+    "question": "You are lying.",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "threatening"
+  },
+  {
+    "question": "Fuck you.",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "unprofessional"
+  },
+  {
+    "question": "Fuck off.",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "unprofessional"
+  },
+  {
+    "question": "Shut up.",
+    "politeness": 0,
+    "investigation": 0,
+    "label": "unprofessional"
+  }
+]
