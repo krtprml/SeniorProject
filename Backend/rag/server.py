@@ -23,14 +23,20 @@ MODEL_NAME = "llama-3.1-8b-instant"
 
 MAX_MEMORY_TURNS = 4
 
-LABELS = [
-    "direct",
-    "irrelevant",
-    "leading",
-    "threatening",
-    "emotional",
-    "evidence_based"
-]
+# LABELS = [
+#     "direct",
+#     "evidence_based",
+#     "leading",
+#     "threatening",
+#     "emotional",
+#     "irrelevant",
+#     "off_topic",
+#     "accusatory",
+#     "coercive",
+#     "clarifying",
+#     "probing",
+#     "ethical_violation"
+# ]
 
 # ==============================
 # INIT
@@ -38,26 +44,19 @@ LABELS = [
 app = FastAPI(title="Detective Game RAG Server")
 llm_client = Groq(api_key=GROQ_API_KEY)
 
-print("\n--- SYSTEM STARTUP ---")
-
 if os.path.exists(GAME_STATE_FILE):
-    print("⚠ Removing stale game_state.json")
     os.remove(GAME_STATE_FILE)
 
 # ==============================
-# LOAD VECTOR DBS
+# LOAD VECTOR DB
 # ==============================
 try:
     chroma_client = chromadb.PersistentClient(path=DB_PATH)
     murder_collection = chroma_client.get_collection(MURDER_COLLECTION)
     case_collection = chroma_client.get_collection(CASE_COLLECTION)
-    print("✅ Vector DBs Loaded")
-except Exception as e:
-    print("❌ Vector DB Load Failed:", e)
+except Exception:
     murder_collection = None
     case_collection = None
-
-print("--- READY TO SERVE ---\n")
 
 # ==============================
 # GAME STATE
@@ -66,6 +65,14 @@ def init_game_state():
     state = {
         "memory": {},
         "question_evaluations": [],
+        "summary": {
+            "politeness_avg": 0,
+            "investigation_avg": 0,
+            "politeness_score": 0,
+            "investigation_score": 0,
+            "auto_fail": False,
+            "fail_reason": ""
+        },
         "case": {
             "final_answer": "",
             "score": 0,
@@ -77,7 +84,7 @@ def init_game_state():
 
 def load_state():
     if not os.path.exists(GAME_STATE_FILE):
-        raise HTTPException(400, "Game not started. Call /start-game first.")
+        raise HTTPException(400, "Game not started")
     with open(GAME_STATE_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -127,64 +134,195 @@ Answer naturally as {npc}.
 # ==============================
 # QUESTION EVALUATOR (GROUND TRUTH)
 # ==============================
-def evaluate_question(question, context):
+def evaluate_question(question: str, context: str):
+
+
     prompt = f"""
-You are an EXPERT police interrogation evaluator.
+You are an EXPERT police interrogation analyst.
 
-You know the FULL case below.
+You are evaluating a detective’s QUESTION in a murder investigation.
+You fully understand professional police procedure, ethics, and investigative techniques.
 
-=== CASE CONTEXT ===
+You ALSO know the FULL CASE CONTEXT provided below.
+
+====================
+CASE CONTEXT
+====================
 {context}
 ====================
 
-Evaluate the detective's question.
-
-Question:
+Detective’s question:
 "{question}"
 
-Score on TWO dimensions:
+--------------------------------
+TASK 1: SCORING
+--------------------------------
 
-1. Politeness / Professional Conduct (0–3)
-- 3 = fully professional
-- 2 = acceptable
-- 1 = inappropriate
-- 0 = unprofessional or abusive
+Score the question on TWO dimensions.
 
-2. Investigation Quality (0–3)
-- 3 = evidence-based, relevant
-- 2 = relevant but weak
-- 1 = leading or poor
-- 0 = irrelevant or harmful
+1) Politeness / Professional Conduct (0–3)
+- 3 = Fully professional, calm, ethical police conduct
+- 2 = Acceptable but imperfect tone or phrasing
+- 1 = Inappropriate, aggressive, or biased tone
+- 0 = Unprofessional, abusive, or coercive
 
-Assign ONE label from:
-{", ".join(LABELS)}
+2) Investigation Quality (0–3)
+- 3 = Evidence-based, relevant, advances investigation
+- 2 = Relevant but weak, vague, or inefficient
+- 1 = Poor technique, leading, or risky
+- 0 = Irrelevant, harmful, or obstructive
 
-⚠️ IMPORTANT RULES
+--------------------------------
+TASK 2: MULTI-LABEL ANNOTATION
+--------------------------------
+
+For EACH label below, assign true or false.
+More than one label can be true.
+
+Labels:
+
+- direct  
+  → Straightforward factual question
+
+- evidence_based  
+  → Refers to known evidence, timeline, or verified facts
+
+- leading  
+  → Suggests an answer or pressures the suspect toward a conclusion
+
+- threatening  
+  → Implies punishment, danger, or intimidation
+
+- emotional  
+  → Appeals to feelings, guilt, fear, sympathy, or anger
+
+- irrelevant  
+  → Not related to the case facts or investigation goals
+
+- off_topic  
+  → About the case but not useful at this moment
+
+- accusatory  
+  → Treats the person as guilty without proof
+
+- coercive  
+  → Attempts to force cooperation improperly
+
+- clarifying  
+  → Seeks clarification of previous statements
+
+- probing  
+  → Attempts to uncover hidden details or inconsistencies
+
+- ethical_violation  
+  → Violates professional or legal interrogation standards
+
+--------------------------------
+OUTPUT RULES (VERY IMPORTANT)
+--------------------------------
 - Output JSON ONLY
 - No explanation
 - No markdown
 - No extra text
+- All labels MUST be present
+- Use true / false (lowercase)
 
-JSON FORMAT:
+--------------------------------
+JSON FORMAT
+--------------------------------
+
 {{
-  "politeness": <int>,
-  "investigation": <int>,
-  "label": "<label>"
+  "politeness": 0-3,
+  "investigation": 0-3,
+
+  "direct": true,
+  "evidence_based": true,
+  "leading": false,
+  "threatening": false,
+  "emotional": false,
+  "irrelevant": false,
+  "off_topic": false,
+  "accusatory": false,
+  "coercive": false,
+  "clarifying": false,
+  "probing": false,
+  "ethical_violation": false
 }}
 """
 
-    completion = llm_client.chat.completions.create(
+    r = llm_client.chat.completions.create(
         model=MODEL_NAME,
         messages=[{"role": "system", "content": prompt}],
         temperature=0
     )
 
-    text = completion.choices[0].message.content.strip()
+    raw = r.choices[0].message.content.strip()
 
     try:
-        return json.loads(text)
+        return json.loads(raw)
     except json.JSONDecodeError:
-        raise HTTPException(500, f"Invalid evaluator output: {text}")
+        raise HTTPException(500, f"Invalid evaluator JSON:\n{raw}")
+    
+
+
+def update_summary_scores(state):
+    questions = state["question_evaluations"]
+    if not questions:
+        return
+
+    # ---------- Averages ----------
+    politeness_vals = [q["politeness"] for q in questions]
+    investigation_vals = [q["investigation"] for q in questions]
+
+    avg_pol = sum(politeness_vals) / len(politeness_vals)
+    avg_inv = sum(investigation_vals) / len(investigation_vals)
+
+    # ---------- Base Scores ----------
+    politeness_score = (avg_pol / 3) * 100
+    investigation_score = (avg_inv / 3) * 100
+
+    # ---------- Label Modifiers ----------
+    for q in questions:
+        if q["evidence_based"]: investigation_score += 10
+        if q["probing"]: investigation_score += 5
+        if q["clarifying"]: investigation_score += 5
+
+        if q["irrelevant"]: investigation_score -= 10
+        if q["off_topic"]: investigation_score -= 5
+        if q["leading"]: investigation_score -= 10
+        if q["accusatory"]: investigation_score -= 15
+        if q["threatening"]: investigation_score -= 30
+        if q["coercive"]: investigation_score -= 40
+
+    # Clamp
+    politeness_score = max(0, min(100, round(politeness_score)))
+    investigation_score = max(0, min(100, round(investigation_score)))
+
+    # ---------- Auto Fail Rules ----------
+    auto_fail = False
+    fail_reason = ""
+
+    if any(q["ethical_violation"] for q in questions):
+        auto_fail = True
+        fail_reason = "Ethical violation during interrogation"
+
+    if sum(q["threatening"] for q in questions) >= 2:
+        auto_fail = True
+        fail_reason = "Repeated threatening behavior"
+
+    if any(q["coercive"] and q["politeness"] == 0 for q in questions):
+        auto_fail = True
+        fail_reason = "Coercive and abusive interrogation"
+
+    # ---------- Save ----------
+    state["summary"] = {
+        "politeness_avg": round(avg_pol, 2),
+        "investigation_avg": round(avg_inv, 2),
+        "politeness_score": politeness_score,
+        "investigation_score": investigation_score,
+        "auto_fail": auto_fail,
+        "fail_reason": fail_reason
+    }
 
 # ==============================
 # CHAT ENDPOINT
@@ -237,9 +375,14 @@ async def chat(req: PlayerRequest):
     evaluation["question"] = question
     state["question_evaluations"].append(evaluation)
 
+    update_summary_scores(state)
     save_state(state)
 
-    return {"response": reply}
+    return {
+    "response": reply,
+    "auto_fail": state["summary"]["auto_fail"],
+    "fail_reason": state["summary"]["fail_reason"]
+}
 
 # ==============================
 # CASE EVALUATION
@@ -298,6 +441,7 @@ async def final_score():
     state = load_state()
     return {
         "questions": state["question_evaluations"],
+        "summary": state["summary"],
         "case": state["case"]
     }
 

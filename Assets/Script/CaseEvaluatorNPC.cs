@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 public class CaseEvaluatorNPC : MonoBehaviour
 {
@@ -24,21 +25,26 @@ public class CaseEvaluatorNPC : MonoBehaviour
 
     bool playerInRange = false;
     bool dialogueOpen = false;
+    bool gameEnded = false;
+
     public bool IsDialogueOpen => dialogueOpen;
 
     bool finalResult_PlayerWon = false;
+
+    // ========================= UNITY =========================
 
     void Awake()
     {
         if (dialoguePanel) dialoguePanel.SetActive(false);
         if (virtualFrontCam) virtualFrontCam.SetActive(false);
+        if (nextButton) nextButton.SetActive(false);
     }
 
     void OnEnable()
     {
-        talkAction.action.performed += _ => TryOpen();
-        closeAction.action.performed += _ => TryClose();
-        sendAction.action.performed += _ => TrySend();
+        talkAction.action.performed += OnTalk;
+        closeAction.action.performed += OnClose;
+        sendAction.action.performed += OnSend;
 
         talkAction.action.Enable();
         closeAction.action.Enable();
@@ -47,19 +53,42 @@ public class CaseEvaluatorNPC : MonoBehaviour
 
     void OnDisable()
     {
+        talkAction.action.performed -= OnTalk;
+        closeAction.action.performed -= OnClose;
+        sendAction.action.performed -= OnSend;
+
         talkAction.action.Disable();
         closeAction.action.Disable();
         sendAction.action.Disable();
     }
 
+    // ========================= INPUT =========================
+
+    void OnTalk(InputAction.CallbackContext _)
+    {
+        if (!gameEnded)
+            TryOpen();
+    }
+
+    void OnClose(InputAction.CallbackContext _)
+    {
+        if (!gameEnded)
+            TryClose();
+    }
+
+    void OnSend(InputAction.CallbackContext _)
+    {
+        if (!gameEnded)
+            TrySend();
+    }
+
     // ========================= OPEN =========================
+
     void TryOpen()
     {
         if (!playerInRange || dialogueOpen) return;
 
         dialogueOpen = true;
-
-        // 🔥 tell PauseManager a dialogue is open
         DialogueManager.I.DialogueOpened();
 
         if (dialoguePanel) dialoguePanel.SetActive(true);
@@ -84,13 +113,12 @@ public class CaseEvaluatorNPC : MonoBehaviour
     }
 
     // ========================= CLOSE =========================
+
     void TryClose()
     {
         if (!dialogueOpen) return;
 
         dialogueOpen = false;
-
-        // 🔥 tell PauseManager dialogue is gone
         DialogueManager.I.DialogueClosed();
 
         if (dialoguePanel) dialoguePanel.SetActive(false);
@@ -104,6 +132,7 @@ public class CaseEvaluatorNPC : MonoBehaviour
     }
 
     // ========================= SEND =========================
+
     void TrySend()
     {
         if (!dialogueOpen) return;
@@ -115,10 +144,7 @@ public class CaseEvaluatorNPC : MonoBehaviour
 
         StartCoroutine(GameManagerSimple.I.Client.EvaluateCase(
             text,
-            reply =>
-            {
-                StartCoroutine(ProcessFinalAnswer(reply));
-            },
+            reply => StartCoroutine(ProcessFinalAnswer(reply)),
             err =>
             {
                 answerText.text = "Error: " + err;
@@ -130,35 +156,37 @@ public class CaseEvaluatorNPC : MonoBehaviour
     }
 
     // ========================= RESULT =========================
+
     IEnumerator ProcessFinalAnswer(string reply)
     {
         answerText.text = reply;
         inputField.gameObject.SetActive(false);
 
         finalResult_PlayerWon = false;
-        string lower = reply.ToLower();
 
-        if (lower.Contains("correct") || (lower.Contains("score:") && !lower.Contains("score: 0")))
+        // 🔎 Robust score parsing
+        var match = Regex.Match(reply, @"score\s*:\s*(\d+)", RegexOptions.IgnoreCase);
+        if (match.Success)
         {
-            try
-            {
-                string scoreString = lower.Substring(lower.IndexOf("score:") + 6);
-                scoreString = scoreString.Split('/')[0].Trim();
-                int score = int.Parse(scoreString);
-                if (score > 0) finalResult_PlayerWon = true;
-            }
-            catch { }
-
-            if (lower.Contains("correct"))
-                finalResult_PlayerWon = true;
+            int score = int.Parse(match.Groups[1].Value);
+            finalResult_PlayerWon = score > 0;
         }
+
+        // Backup heuristic
+        if (reply.ToLower().Contains("correct"))
+            finalResult_PlayerWon = true;
 
         if (nextButton) nextButton.SetActive(true);
         yield return null;
     }
 
+    // ========================= NEXT =========================
+
     public void OnClickNext()
     {
+        if (gameEnded) return;
+
+        gameEnded = true;
         TryClose();
 
         if (GameEndManager.instance != null)
@@ -166,6 +194,7 @@ public class CaseEvaluatorNPC : MonoBehaviour
     }
 
     // ========================= TRIGGERS =========================
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -174,12 +203,11 @@ public class CaseEvaluatorNPC : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
+        if (!other.CompareTag("Player")) return;
 
-            if (dialogueOpen)
-                TryClose();
-        }
+        playerInRange = false;
+
+        if (dialogueOpen)
+            TryClose();
     }
 }

@@ -14,12 +14,16 @@ public class GameEndManager : MonoBehaviour
     [Header("UI Panels (House Scene)")]
     public GameObject winScreenUI;
     public GameObject loseScreenUI;
+    public GameObject autoFailScreenUI;
 
     [Header("Player Controller")]
     public ObjectHighlighter playerController;
 
     [Header("Server")]
     [SerializeField] string serverBaseUrl = "http://127.0.0.1:8000";
+
+    [Header("Auto Fail Screen")]    
+    [SerializeField] AutoFailScreen autoFailScreen;
 
     void Awake()
     {
@@ -30,19 +34,43 @@ public class GameEndManager : MonoBehaviour
     }
 
     void Start()
-    {
-        HideGameEndPanels();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+{
+    HideGameEndPanels();
+
+    if (autoFailScreen != null)
+        autoFailScreen.Hide();
+
+    Cursor.visible = false;
+    Cursor.lockState = CursorLockMode.Locked;
+}
 
     void HideGameEndPanels()
     {
         if (winScreenUI) winScreenUI.SetActive(false);
         if (loseScreenUI) loseScreenUI.SetActive(false);
+        if (autoFailScreenUI) autoFailScreenUI.SetActive(false);
     }
 
     // ========================= GAME END =========================
+
+   public void ShowAutoFail(string reason)
+{
+    Debug.Log("❌ AUTO FAIL: " + reason);
+
+    Time.timeScale = 0f;          // ⛔ หยุดเกมทันที
+    StopAllCoroutines();          // ⛔ หยุดทุก coroutine
+
+    if (playerController)
+        playerController.enabled = false;
+
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
+
+    HideGameEndPanels();
+
+    if (autoFailScreen != null)
+        autoFailScreen.Show(reason);
+}
 
     public void ShowEndScreen(bool didWin)
     {

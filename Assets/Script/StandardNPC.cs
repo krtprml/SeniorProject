@@ -105,28 +105,32 @@ public class StandardNPC : MonoBehaviour
     {
         if (!dialogueOpen) return;
         if (string.IsNullOrWhiteSpace(inputField.text)) return;
+        
 
         var text = inputField.text.Trim();
         inputField.interactable = false;
         answerText.text = "...thinking...";
 
         StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
-            npcName,
-            text,
-            reply =>
-            {
-                answerText.text = reply;
-                inputField.text = "";
-                inputField.interactable = true;
-                inputField.Select();
-                inputField.ActivateInputField();
-            },
-            err =>
-            {
-                answerText.text = "Error: " + err;
-                inputField.interactable = true;
-            }
-        ));
+    npcName,
+    text,
+    reply =>
+    {
+        answerText.text = reply;
+        inputField.text = "";
+        inputField.interactable = true;
+        inputField.Select();
+        inputField.ActivateInputField();
+
+        // 🔥 ตรงนี้แหละ
+        GameManagerSimple.I.CheckAutoFail();
+    },
+    err =>
+    {
+        answerText.text = "Error: " + err;
+        inputField.interactable = true;
+    }
+));
     }
 
     // ========================= TRIGGERS =========================
