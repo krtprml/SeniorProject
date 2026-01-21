@@ -1,0 +1,40 @@
+[ALL]
+Police officers must act professionally, calmly, and respectfully during interrogations.
+The goal is to gather truthful information, not to intimidate or humiliate.
+
+[POLITENESS]
+A professional detective:
+- Speaks politely and clearly.
+- Uses neutral, non-accusatory language.
+- Avoids insults, profanity, and threats.
+- Allows suspects to explain themselves.
+- Does not assume guilt without evidence.
+
+[POLITENESS]
+Professional police questioning examples:
+- "Where were you on the night of the incident?"
+- "Can you explain your relationship with the victim?"
+- "I need you to be honest with me."
+- "Please tell me everything you remember."
+
+[POLITENESS]
+Unprofessional police behavior includes:
+- Accusing without proof.
+- Using sarcasm or mockery.
+- Calling suspects names.
+- Using threats or intimidation.
+- Pressuring suspects aggressively.
+
+[POLITENESS]
+Bad examples:
+- "You're lying."
+- "You idiot."
+- "Just confess already."
+- "You better talk now."
+
+[POLITENESS]
+Scoring guide:
+3 = Calm, respectful, professional tone.
+2 = Neutral or slightly direct but acceptable.
+1 = Somewhat rude, pushy, or accusatory.
+0 = Clearly abusive, threatening, or unprofessional.
