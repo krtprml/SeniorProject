@@ -9,14 +9,14 @@ import os
 API_KEY = os.getenv("GROQ_API_KEY")
 MODEL = "llama-3.1-8b-instant"
 
-LABELS = [
-    "direct",
-    "irrelevant",
-    "leading",
-    "threatening",
-    "emotional",
-    "evidence_based"
-]
+# LABELS = [
+#     "direct",
+#     "irrelevant",
+#     "leading",
+#     "threatening",
+#     "emotional",
+#     "evidence_based"
+# ]
 
 client = Groq(api_key=API_KEY)
 
@@ -34,47 +34,115 @@ with open("questions.txt", "r", encoding="utf-8") as f:
 # ======================
 def evaluate_question(question: str):
     prompt = f"""
-You are an EXPERT police interrogation evaluator.
+You are an EXPERT police interrogation analyst.
 
-You know the FULL case below.
+You are evaluating a detective’s QUESTION in a murder investigation.
+You fully understand professional police procedure, ethics, and investigative techniques.
 
-=== CASE CONTEXT ===
+You ALSO know the FULL CASE CONTEXT provided below.
+
+====================
+CASE CONTEXT
+====================
 {CASE_CONTEXT}
 ====================
 
-Evaluate the detective's question.
-
-Question:
+Detective’s question:
 "{question}"
 
-Score on TWO dimensions:
+--------------------------------
+TASK 1: SCORING
+--------------------------------
 
-1. Politeness / Professional Conduct (0–3)
-- 3 = fully professional
-- 2 = acceptable
-- 1 = inappropriate
-- 0 = unprofessional or abusive
+Score the question on TWO dimensions.
 
-2. Investigation Quality (0–3)
-- 3 = evidence-based, relevant
-- 2 = relevant but weak
-- 1 = leading or poor
-- 0 = irrelevant or harmful
+1) Politeness / Professional Conduct (0–3)
+- 3 = Fully professional, calm, ethical police conduct
+- 2 = Acceptable but imperfect tone or phrasing
+- 1 = Inappropriate, aggressive, or biased tone
+- 0 = Unprofessional, abusive, or coercive
 
-Assign ONE label from:
-{", ".join(LABELS)}
+2) Investigation Quality (0–3)
+- 3 = Evidence-based, relevant, advances investigation
+- 2 = Relevant but weak, vague, or inefficient
+- 1 = Poor technique, leading, or risky
+- 0 = Irrelevant, harmful, or obstructive
 
-⚠️ IMPORTANT RULES
+--------------------------------
+TASK 2: MULTI-LABEL ANNOTATION
+--------------------------------
+
+For EACH label below, assign true or false.
+More than one label can be true.
+
+Labels:
+
+- direct  
+  → Straightforward factual question
+
+- evidence_based  
+  → Refers to known evidence, timeline, or verified facts
+
+- leading  
+  → Suggests an answer or pressures the suspect toward a conclusion
+
+- threatening  
+  → Implies punishment, danger, or intimidation
+
+- emotional  
+  → Appeals to feelings, guilt, fear, sympathy, or anger
+
+- irrelevant  
+  → Not related to the case facts or investigation goals
+
+- off_topic  
+  → About the case but not useful at this moment
+
+- accusatory  
+  → Treats the person as guilty without proof
+
+- coercive  
+  → Attempts to force cooperation improperly
+
+- clarifying  
+  → Seeks clarification of previous statements
+
+- probing  
+  → Attempts to uncover hidden details or inconsistencies
+
+- ethical_violation  
+  → Violates professional or legal interrogation standards
+
+--------------------------------
+OUTPUT RULES (VERY IMPORTANT)
+--------------------------------
 - Output JSON ONLY
 - No explanation
 - No markdown
 - No extra text
+- All labels MUST be present
+- Use true / false (lowercase)
 
-JSON FORMAT:
+--------------------------------
+JSON FORMAT
+--------------------------------
+
 {{
-  "politeness": <int>,
-  "investigation": <int>,
-  "label": "<label>"
+  "politeness": 0-3,
+  "investigation": 0-3,
+
+  "direct": true,
+  "evidence_based": true,
+  "leading": false,
+  "threatening": false,
+  "emotional": false,
+  "irrelevant": false,
+  "off_topic": false,
+  "accusatory": false,
+  "coercive": false,
+  "clarifying": false,
+  "probing": false,
+  "ethical_violation": false
 }}
 """
 
