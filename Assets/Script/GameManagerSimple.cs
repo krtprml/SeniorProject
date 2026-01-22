@@ -21,29 +21,29 @@ public class GameManagerSimple : MonoBehaviour
     }
 
     // ---------------- CHECK AUTO FAIL ----------------
-    public void CheckAutoFail()
-{
-    StartCoroutine(Client.GetFinalScore(
-        resp =>
-        {
-            if (resp == null || resp.summary == null)
-                return;
+//     public void CheckAutoFail()
+// {
+//     StartCoroutine(Client.GetFinalScore(
+//         resp =>
+//         {
+//             if (resp == null || resp.summary == null)
+//                 return;
 
-            if (resp.summary.auto_fail)
-            {
-                Debug.Log("❌ AUTO FAIL DETECTED");
+//             if (resp.summary.auto_fail)
+//             {
+//                 Debug.Log("❌ AUTO FAIL DETECTED");
 
-                GameEndManager.instance?.ShowAutoFail(
-                    resp.summary.fail_reason
-                );
-            }
-        },
-        err =>
-        {
-            Debug.LogError("FinalScore error: " + err);
-        }
-    ));
-}
+//                 GameEndManager.instance?.ShowAutoFail(
+//                     resp.summary.fail_reason
+//                 );
+//             }
+//         },
+//         err =>
+//         {
+//             Debug.LogError("FinalScore error: " + err);
+//         }
+//     ));
+// }
 
     // ------------------------------
     // START GAME

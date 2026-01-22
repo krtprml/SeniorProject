@@ -22,22 +22,25 @@ public class LLMClientSimple
     }
 
     [Serializable]
-    class CaseRequest
+    public class CaseRequest
     {
         public string final_answer;
     }
 
     [Serializable]
-    class RAGRequest
+    public class RAGRequest
     {
         public string player_question;
         public string npc_role;
     }
 
+    // ✅ แก้ไข 1: เพิ่ม field ให้รับค่า auto_fail จาก Python ได้
     [Serializable]
-    class RAGResponse
+    public class RAGResponse
     {
         public string response;
+        public bool auto_fail;
+        public string fail_reason;
     }
 
     // ================= Fields =================
@@ -51,10 +54,11 @@ public class LLMClientSimple
 
     // ================= CHAT =================
 
+    // ✅ แก้ไข 2: เปลี่ยน Action<string> เป็น Action<RAGResponse>
     public IEnumerator CompleteOnce(
         string npcName,
         string userText,
-        Action<string> onDone,
+        Action<RAGResponse> onDone, 
         Action<string> onError)
     {
         var reqObj = new RAGRequest
@@ -63,12 +67,14 @@ public class LLMClientSimple
             npc_role = npcName
         };
 
+        // ส่ง onDone ที่เป็น Action<RAGResponse> ต่อไปให้ SendChat
         yield return SendChat(reqObj, onDone, onError);
     }
 
+    // ✅ แก้ไข 3: เปลี่ยน Action<string> เป็น Action<RAGResponse> ให้ตรงกัน
     IEnumerator SendChat(
         RAGRequest reqObj,
-        Action<string> onDone,
+        Action<RAGResponse> onDone, 
         Action<string> onError)
     {
         var json = JsonUtility.ToJson(reqObj);
@@ -88,8 +94,16 @@ public class LLMClientSimple
             yield break;
         }
 
-        var resp = JsonUtility.FromJson<RAGResponse>(req.downloadHandler.text);
-        onDone?.Invoke(resp.response);
+        // ✅ แก้ไข 4: Parse JSON เป็น Object RAGResponse แล้วส่งกลับไปทั้งก้อน
+        try 
+        {
+            var resp = JsonUtility.FromJson<RAGResponse>(req.downloadHandler.text);
+            onDone?.Invoke(resp);
+        }
+        catch (Exception e)
+        {
+            onError?.Invoke("JSON Parse Error: " + e.Message);
+        }
     }
 
     // ================= FINAL SCORE =================

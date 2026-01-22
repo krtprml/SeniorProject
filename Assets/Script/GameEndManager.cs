@@ -53,23 +53,41 @@ public class GameEndManager : MonoBehaviour
 
     // ========================= GAME END =========================
 
-   public void ShowAutoFail(string reason)
+   // ใน GameEndManager.cs
+
+// ใน GameEndManager.cs
+
+public void ShowAutoFail(string reason)
 {
-    Debug.Log("❌ AUTO FAIL: " + reason);
+    // เรียกใช้ Coroutine แทนการสั่งหยุดเวลาทันที
+    StartCoroutine(ShowAutoFailRoutine(reason));
+}
 
-    Time.timeScale = 0f;          // ⛔ หยุดเกมทันที
-    StopAllCoroutines();          // ⛔ หยุดทุก coroutine
+IEnumerator ShowAutoFailRoutine(string reason)
+{
+    Debug.Log("❌ AUTO FAIL ROUTINE STARTED: " + reason);
 
-    if (playerController)
-        playerController.enabled = false;
+    // 1. ปิดหน้าจอ Win/Lose อื่นๆ ก่อน
+    HideGameEndPanels();
 
+    // 2. แสดงหน้าจอ Auto Fail
+    if (autoFailScreen != null)
+    {
+        autoFailScreen.gameObject.SetActive(true); // กันเหนียว เปิด GameObject ก่อน
+        autoFailScreen.transform.SetAsLastSibling(); // ดันมาหน้าสุด
+        autoFailScreen.Show(reason); // ใส่ข้อความ
+    }
+
+    // 3. ปิดการควบคุมของผู้เล่น
+    if (playerController) playerController.enabled = false;
     Cursor.visible = true;
     Cursor.lockState = CursorLockMode.None;
 
-    HideGameEndPanels();
+    // 🔥 4. สำคัญมาก: รอ 1 เฟรม ให้ Unity วาด UI ให้เสร็จก่อน
+    yield return null; 
 
-    if (autoFailScreen != null)
-        autoFailScreen.Show(reason);
+    // 5. ค่อยสั่งหยุดเวลา
+    Time.timeScale = 0f;
 }
 
     public void ShowEndScreen(bool didWin)
