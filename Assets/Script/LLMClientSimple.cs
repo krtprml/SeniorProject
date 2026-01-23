@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -108,6 +108,34 @@ public class LLMClientSimple
             }
 
             onDone?.Invoke(req.downloadHandler.text);
+        }
+    }
+
+    [Serializable]
+    class EvidenceData { public string evidence_name; }
+
+    public IEnumerator SubmitEvidence(string evidenceName)
+    {
+        var data = new EvidenceData { evidence_name = evidenceName };
+        var json = JsonUtility.ToJson(data);
+        var body = Encoding.UTF8.GetBytes(json);
+
+        using (var req = new UnityWebRequest(baseUrl + "/collect-evidence", "POST"))
+        {
+            req.uploadHandler = new UploadHandlerRaw(body);
+            req.downloadHandler = new DownloadHandlerBuffer();
+            req.SetRequestHeader("Content-Type", "application/json");
+
+            yield return req.SendWebRequest();
+
+            if (req.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log($"🔎 Sent evidence to Brain: {evidenceName}");
+            }
+            else
+            {
+                Debug.LogError($"❌ Failed to send evidence: {req.error}");
+            }
         }
     }
 }

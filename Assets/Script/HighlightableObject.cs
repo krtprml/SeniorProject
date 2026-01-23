@@ -1,5 +1,4 @@
-// Component to add to objects that can be highlighted
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HighlightableObject : MonoBehaviour
 {
@@ -8,39 +7,24 @@ public class HighlightableObject : MonoBehaviour
     public string objectName = "";
     public string description = "";
 
-    [Header("Events")]
-    public UnityEngine.Events.UnityEvent OnHighlighted;
-    public UnityEngine.Events.UnityEvent OnUnhighlighted;
+    [Header("Collection Settings")]
+    public bool isCollectable = true; // Can this be picked up/noted?
+    private bool hasBeenCollected = false;
 
-    void Start()
+    public void OnHighlightEnter() { /* Existing code... */ }
+    public void OnHighlightExit() { /* Existing code... */ }
+
+    // 🔥 NEW FUNCTION
+    public void Interact()
     {
-        // Set default name if empty
-        if (string.IsNullOrEmpty(objectName))
-        {
-            objectName = gameObject.name;
-        }
-    }
+        if (!isCollectable || hasBeenCollected) return;
 
-    public void OnHighlightEnter()
-    {
-        OnHighlighted?.Invoke();
+        hasBeenCollected = true;
 
-        // Optional: Display object name or description in UI
-        Debug.Log($"Looking at: {objectName}");
-        if (!string.IsNullOrEmpty(description))
-        {
-            Debug.Log($"Description: {description}");
-        }
-    }
+        // Disable highlighting so it feels "done" (Optional)
+        // canBeHighlighted = false; 
 
-    public void OnHighlightExit()
-    {
-        OnUnhighlighted?.Invoke();
-    }
-
-    // Method to toggle highlight ability
-    public void SetHighlightEnabled(bool enabled)
-    {
-        canBeHighlighted = enabled;
+        // Send to Manager
+        EvidenceManager.I.CollectEvidence(objectName);
     }
 }
