@@ -53,3 +53,33 @@ for model in ["groq", "nvidia"]:
 print("\n=== LABEL AGREEMENT (%) ===")
 for label in labels:
     print(f"{label}: {(agreement[label]/total)*100:.1f}%")
+
+# -------- LABEL DISTRIBUTION --------
+label_count = {
+    "groq": defaultdict(int),
+    "nvidia": defaultdict(int)
+}
+
+for q in common_questions:
+    g = groq_map[q]
+    n = nvidia_map[q]
+
+    for label in labels:
+        if g[label]:
+            label_count["groq"][label] += 1
+        if n[label]:
+            label_count["nvidia"][label] += 1
+
+# -------- PRINT LABEL DISTRIBUTION --------
+print("\n=== LABEL DISTRIBUTION (% TRUE) ===")
+print(f"Total samples: {total}\n")
+
+print(f"{'Label':<18} {'Groq (%)':>10} {'NVIDIA (%)':>12} {'Diff (G-N)':>12}")
+print("-" * 55)
+
+for label in labels:
+    g_rate = (label_count["groq"][label] / total) * 100
+    n_rate = (label_count["nvidia"][label] / total) * 100
+    diff = g_rate - n_rate
+
+    print(f"{label:<18} {g_rate:>9.1f} {n_rate:>11.1f} {diff:>11.1f}")
