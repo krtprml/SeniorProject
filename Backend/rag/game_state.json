@@ -1,0 +1,13 @@
+{
+  "memory": {},
+  "evidence_found": [
+    "Wine Bottle",
+    "Wine Glass"
+  ],
+  "question_evaluations": [],
+  "case": {
+    "final_answer": "",
+    "score": 0,
+    "reason": ""
+  }
+}
