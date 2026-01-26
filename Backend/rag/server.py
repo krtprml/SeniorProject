@@ -374,7 +374,7 @@ async def chat(req: PlayerRequest):
     # Get Evidence List
     evidence_found = state.get("evidence_found", [])
 
-    prompt = build_npc_prompt(npc, context, recent_memory, question)
+    prompt = build_npc_prompt(npc, context, recent_memory, question, evidence_found)
 
     completion = llm_client.chat.completions.create(
         model=MODEL_NAME,
