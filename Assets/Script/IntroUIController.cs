@@ -33,11 +33,18 @@ public class IntroUIController : MonoBehaviour
     }
 
     private void OnQuitIntro(InputAction.CallbackContext ctx)
+{
+    if (introCanvas.activeSelf)
     {
-        if (introCanvas.activeSelf)
-        {
-            introCanvas.SetActive(false);
-            Time.timeScale = 1f; // resume game
-        }
+        // 🔽 ปิด
+        introCanvas.SetActive(false);
+        Time.timeScale = 1f;
     }
+    else
+    {
+        // 🔼 เปิด
+        introCanvas.SetActive(true);
+        Time.timeScale = 0f;
+    }
+}
 }
