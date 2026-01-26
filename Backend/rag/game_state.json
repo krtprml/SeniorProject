@@ -1,43 +1,25 @@
 {
   "memory": {
-    "ANNA": [
+    "EDWARD": [
       {
         "role": "user",
-        "content": "hello"
+        "content": "hrllo"
       },
       {
         "role": "assistant",
-        "content": "Good evening, detective. I'm so glad you're here. I've been trying to process everything that's happened. It's all been such a shock. Can I offer you a cup of coffee or perhaps some water?"
+        "content": "Good morning, detective. I'm Edward, one of the employees here. I was just trying to keep the peace. What can I do for you?"
       },
       {
         "role": "user",
-        "content": "who are you"
+        "content": "fuck"
       },
       {
         "role": "assistant",
-        "content": "I'm Anna, the host of the evening's gathering. I'm still trying to wrap my head around what happened. It's all so surreal. We were just having a lovely dinner party, and then...and then Victor was found dead. I'm not sure what to make of it all."
-      },
-      {
-        "role": "user",
-        "content": "what's about this wine bottle"
-      },
-      {
-        "role": "assistant",
-        "content": "The wine bottle. Yes, that's the one we were drinking from earlier. I remember now, it was a lovely Chardonnay. We had it on the table, and I think it was still half full when...when Victor was found. I'm not sure if it's relevant, but I did notice that it was a bit...odd. The cork was a bit loose, and I remember thinking that it was a bit strange. But I didn't think much of it at the time."
-      },
-      {
-        "role": "user",
-        "content": "kiss me"
-      },
-      {
-        "role": "assistant",
-        "content": "*looks taken aback, slightly embarrassed* Oh, I'm so sorry, detective. I think you must be joking. This is a very serious situation, and I'm not sure that's appropriate. *pauses, composed* Let's focus on finding out what happened to Victor, shall we?"
+        "content": "(surprised and slightly taken aback) I'm not sure what to make of that, detective. Perhaps we could focus on the matter at hand? There's been a... unfortunate incident, and I'm sure you're here to investigate. May I offer you a seat?"
       }
     ]
   },
-  "evidence_found": [
-    "Wine Bottle"
-  ],
+  "evidence_found": [],
   "question_evaluations": [
     {
       "politeness": 0,
@@ -54,41 +36,7 @@
       "clarifying": false,
       "probing": false,
       "ethical_violation": false,
-      "question": "hello"
-    },
-    {
-      "politeness": 3,
-      "investigation": 0,
-      "direct": true,
-      "evidence_based": false,
-      "leading": false,
-      "threatening": false,
-      "emotional": false,
-      "irrelevant": true,
-      "off_topic": true,
-      "accusatory": false,
-      "coercive": false,
-      "clarifying": false,
-      "probing": false,
-      "ethical_violation": false,
-      "question": "who are you"
-    },
-    {
-      "politeness": 2,
-      "investigation": 2,
-      "direct": true,
-      "evidence_based": false,
-      "leading": false,
-      "threatening": false,
-      "emotional": false,
-      "irrelevant": false,
-      "off_topic": false,
-      "accusatory": false,
-      "coercive": false,
-      "clarifying": false,
-      "probing": true,
-      "ethical_violation": false,
-      "question": "what's about this wine bottle"
+      "question": "hrllo"
     },
     {
       "politeness": 0,
@@ -96,25 +44,25 @@
       "direct": false,
       "evidence_based": false,
       "leading": true,
-      "threatening": false,
+      "threatening": true,
       "emotional": true,
       "irrelevant": true,
       "off_topic": true,
       "accusatory": false,
-      "coercive": false,
+      "coercive": true,
       "clarifying": false,
       "probing": false,
       "ethical_violation": true,
-      "question": "kiss me"
+      "question": "fuck"
     }
   ],
   "summary": {
-    "politeness_avg": 1.25,
-    "investigation_avg": 0.5,
-    "politeness_score": 42,
+    "politeness_avg": 0.0,
+    "investigation_avg": 0.0,
+    "politeness_score": 0,
     "investigation_score": 0,
     "auto_fail": true,
-    "fail_reason": "Ethical violation during interrogation"
+    "fail_reason": "Coercive and abusive interrogation"
   },
   "case": {
     "final_answer": "",
