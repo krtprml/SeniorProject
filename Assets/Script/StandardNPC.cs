@@ -101,33 +101,56 @@ public class StandardNPC : MonoBehaviour
     }
 
     // ========================= SEND =========================
-    void TrySend()
-    {
-        if (!dialogueOpen) return;
-        if (string.IsNullOrWhiteSpace(inputField.text)) return;
+    // ========================= SEND =========================
+    // ใน StandardNPC.cs
 
-        var text = inputField.text.Trim();
-        inputField.interactable = false;
-        answerText.text = "...thinking...";
+// ใน StandardNPC.cs
 
-        StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
-            npcName,
-            text,
-            reply =>
+void TrySend()
+{
+    if (!dialogueOpen) return;
+    if (string.IsNullOrWhiteSpace(inputField.text)) return;
+    
+    var text = inputField.text.Trim();
+    inputField.interactable = false;
+    answerText.text = "...thinking...";
+
+    StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
+        npcName,
+        text,
+        (resp) => 
+        {
+            if (resp.auto_fail) 
             {
-                answerText.text = reply;
-                inputField.text = "";
-                inputField.interactable = true;
-                inputField.Select();
-                inputField.ActivateInputField();
-            },
-            err =>
-            {
-                answerText.text = "Error: " + err;
-                inputField.interactable = true;
+                Debug.Log("💥 Auto Fail Detected!"); 
+
+                // 1. ปิดหน้าต่าง Dialogue
+                TryClose(); 
+                
+                // 2. เรียก GameEndManager (ซึ่งตอนนี้มี delay 1 เฟรมแล้ว)
+                GameEndManager.instance.ShowAutoFail(resp.fail_reason);
+                
+                return;
             }
-        ));
-    }
+            // =========================================================
+
+            // ถ้าไม่แพ้ ค่อยแสดงข้อความตอบกลับ
+            answerText.text = resp.response;
+            inputField.text = "";
+            inputField.interactable = true;
+            inputField.Select();
+            inputField.ActivateInputField();
+
+            // ❌ ลบบรรทัดนี้ทิ้งไปเลยครับ! ตัวการที่ทำให้ดีเลย์
+            // GameManagerSimple.I.CheckAutoFail(); <--- ลบออก!
+        },
+        err =>
+        {
+            answerText.text = "Error: " + err;
+            inputField.interactable = true;
+        }
+    ));
+}
 
     // ========================= TRIGGERS =========================
     void OnTriggerEnter(Collider other)
