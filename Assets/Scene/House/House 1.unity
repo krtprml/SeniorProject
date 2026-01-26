@@ -2333,9 +2333,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: 5d7ec159f8a2e48769a3ce187f6adfd3, type: 3}
         m_TargetAssemblyTypeName: GameEndManager, Assembly-CSharp
-        m_MethodName: GoToMainMenu
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12945,9 +12945,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: 5d7ec159f8a2e48769a3ce187f6adfd3, type: 3}
         m_TargetAssemblyTypeName: GameEndManager, Assembly-CSharp
-        m_MethodName: RestartGame
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13591,9 +13591,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: 5d7ec159f8a2e48769a3ce187f6adfd3, type: 3}
         m_TargetAssemblyTypeName: GameEndManager, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
