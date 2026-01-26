@@ -31,13 +31,7 @@ public class CaseEvaluatorNPC : MonoBehaviour
 
     bool finalResult_PlayerWon = false;
 
-    enum FinalStage
-    {
-        CaseResult,
-        FinalFeedback
-    }
-
-    FinalStage currentStage = FinalStage.CaseResult;
+    
 
     enum EvaluatorStage
     {
