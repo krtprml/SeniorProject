@@ -14,7 +14,7 @@ from groq import Groq
 # ==============================
 DB_PATH = "./game_db"
 MURDER_COLLECTION = "murder_case"
-CASE_COLLECTION = "case_evaluator"
+# CASE_COLLECTION = "case_evaluator"
 
 GAME_STATE_FILE = "game_state.json"
 
@@ -68,6 +68,7 @@ except Exception:
 def init_game_state():
     state = {
         "memory": {},
+        "evidence_found": [],  # <--- NEW: Tracks what player found
         "question_evaluations": [],
         "summary": {
             "politeness_avg": 0,
@@ -103,17 +104,23 @@ class PlayerRequest(BaseModel):
     player_question: str
     npc_role: str
 
+class EvidenceRequest(BaseModel):  # <--- NEW
+    evidence_name: str    
+
 class FinalCaseRequest(BaseModel):
     final_answer: str
 
 # ==============================
 # NPC PROMPT
 # ==============================
-def build_npc_prompt(npc, context, memory, question):
+def build_npc_prompt(npc, context, memory, question, evidence_list):
     memory_text = (
         "\n".join(f"{m['role'].capitalize()}: {m['content']}" for m in memory)
         if memory else "None."
     )
+
+    # Convert list to text
+    evidence_text = ", ".join(evidence_list) if evidence_list else "None yet."
 
     return f"""
 You are {npc}, a character in a murder mystery game.
@@ -130,6 +137,10 @@ Dialogue rules:
 
 FACTS:
 {context}
+
+EVIDENCE THE PLAYER HAS FOUND:
+[{evidence_text}]
+(Note: The player has physical proof of these items. You must acknowledge them if asked. Do not deny their existence.)
 
 RECENT CONVERSATION:
 {memory_text}
@@ -360,6 +371,9 @@ async def chat(req: PlayerRequest):
     npc_memory = state["memory"].get(npc, [])
     recent_memory = npc_memory[-MAX_MEMORY_TURNS * 2:]
 
+    # Get Evidence List
+    evidence_found = state.get("evidence_found", [])
+
     prompt = build_npc_prompt(npc, context, recent_memory, question)
 
     completion = llm_client.chat.completions.create(
@@ -509,3 +523,17 @@ async def end_game():
     if os.path.exists(GAME_STATE_FILE):
         os.remove(GAME_STATE_FILE)
     return {"status": "game ended"}
+
+# --- NEW: COLLECT EVIDENCE ---
+@app.post("/collect-evidence")
+async def collect_evidence(req: EvidenceRequest):
+    state = load_state()
+    
+    # Add if not already found
+    if req.evidence_name not in state["evidence_found"]:
+        state["evidence_found"].append(req.evidence_name)
+        save_state(state)
+        print(f"🔎 Evidence Collected: {req.evidence_name}")
+        return {"status": "added", "total_evidence": state["evidence_found"]}
+    
+    return {"status": "already_known"}
