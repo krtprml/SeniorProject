@@ -12,7 +12,7 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI answerText;
 
-    [SerializeField] TextMeshProUGUI selectedEvidenceText; // Drag your text UI here
+    [SerializeField] TextMeshProUGUI selectedEvidenceText;
 
     [Header("Camera & Input")]
     [SerializeField] GameObject virtualFrontCam;
@@ -26,7 +26,8 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] EvidenceChoiceButton evidenceButtonPrefab;
 
     private UnityEngine.InputSystem.PlayerInput playerInputCache;
-    // 🔥 FIXED: Removed duplicate 'playerInRange' declaration
+
+    // State variables
     bool playerInRange = false;
     bool dialogueOpen = false;
 
@@ -53,35 +54,38 @@ public class StandardNPC : MonoBehaviour
             EvidenceManager.I.OnEvidenceUpdated -= BuildEvidenceChoices;
     }
 
+    // 🔥 FIX 1: This function is now properly closed
     void BuildEvidenceChoices()
-{
-    foreach (Transform c in evidenceButtonContainer)
-        Destroy(c.gameObject);
-
-    if (EvidenceDatabase.I == null || EvidenceManager.I == null)
-        return;
-
-    foreach (var evId in EvidenceManager.I.CollectedEvidence)
     {
-        var item = EvidenceDatabase.I.GetItem(evId);
-        if (item == null) continue;
+        // Safety check for container
+        if (evidenceButtonContainer == null) return;
 
-        foreach (var r in item.reveals)
+        foreach (Transform c in evidenceButtonContainer)
+            Destroy(c.gameObject);
+
+        if (EvidenceDatabase.I == null || EvidenceManager.I == null)
+            return;
+
+        foreach (var evId in EvidenceManager.I.CollectedEvidence)
         {
-            if (r.npc == npcName.ToUpper())
-            {
-                var btn = Instantiate(evidenceButtonPrefab, evidenceButtonContainer);
+            var item = EvidenceDatabase.I.GetItem(evId);
+            if (item == null) continue;
 
-                // ⭐ ใช้ ui_hint จาก EvidenceItem
-                btn.Setup(
-                    r,              // EvidenceReveal
-                    item.ui_hint,   // ⭐ ui_hint จาก EvidenceItem
-                    OnEvidenceChosen
-                );
+            foreach (var r in item.reveals)
+            {
+                if (r.npc == npcName.ToUpper())
+                {
+                    if (evidenceButtonPrefab != null)
+                    {
+                        var btn = Instantiate(evidenceButtonPrefab, evidenceButtonContainer);
+                        btn.Setup(r, item.ui_hint, OnEvidenceChosen);
+                    }
+                }
             }
         }
-    }
+    } // <--- This closing brace was missing or misplaced in your code
 
+    // 🔥 FIX 2: Moved to Class Level (was nested inside BuildEvidenceChoices)
     void OnEvidenceChosen(EvidenceReveal reveal)
     {
         if (inputField)
@@ -92,8 +96,15 @@ public class StandardNPC : MonoBehaviour
         }
     }
 
-    // Add this variable at the top with other variables
-    
+    // 🔥 FIX 3: Re-added SelectEvidence to fix CS1061 Error
+    public void SelectEvidence(string evidenceName)
+    {
+        currentConfrontationEvidence = evidenceName;
+        Debug.Log($"NPC {npcName} received evidence: {evidenceName}");
+
+        if (selectedEvidenceText)
+            selectedEvidenceText.text = $"Confronting with: <b>{evidenceName}</b>";
+    }
 
     // ========================= OPEN =========================
     void TryOpen()
@@ -109,17 +120,15 @@ public class StandardNPC : MonoBehaviour
 
         BuildEvidenceChoices();
 
-        // --- FIX 1: AUTO-DISABLE PLAYER INPUT ---
-        // Try to find the PlayerInput component on the player tag
+        // --- DISABLE PLAYER INPUT ---
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player)
         {
             playerInputCache = player.GetComponent<UnityEngine.InputSystem.PlayerInput>();
             if (playerInputCache) playerInputCache.enabled = false;
         }
-        // ----------------------------------------
 
-        // Handle manual script list (Safety check)
+        // Handle manual script list
         if (playerScriptsToDisable != null)
         {
             foreach (var c in playerScriptsToDisable)
@@ -153,13 +162,12 @@ public class StandardNPC : MonoBehaviour
         if (dialoguePanel) dialoguePanel.SetActive(false);
         if (virtualFrontCam) virtualFrontCam.SetActive(false);
 
-        // --- FIX 2: RE-ENABLE PLAYER INPUT ---
+        // --- RE-ENABLE PLAYER INPUT ---
         if (playerInputCache)
         {
             playerInputCache.enabled = true;
             playerInputCache = null;
         }
-        // -------------------------------------
 
         if (playerScriptsToDisable != null)
         {
