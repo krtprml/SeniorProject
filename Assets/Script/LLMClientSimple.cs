@@ -6,37 +6,25 @@ using UnityEngine.Networking;
 
 public class LLMClientSimple
 {
-    // ================= DTOs =================
+    private string baseUrl;
 
-    [Serializable]
-    public class FinalScoreResponse
-    {
-        public Summary summary;
-    }
-
-    [Serializable]
-    public class Summary
-    {
-        public bool auto_fail;
-        public string fail_reason;
-    }
-
-    [Serializable]
-    public class CaseRequest
+    public LLMClientSimple(string url)
     {
         baseUrl = url;
     }
 
-    // --- DATA STRUCTURES ---
+    // ================= DTOs (Data Transfer Objects) =================
+
+    // 1. Chat Request
     [Serializable]
     public class RAGRequest
     {
         public string player_question;
         public string npc_role;
-        public string evidence_presented; // <--- 🔥 NEW
+        public string evidence_presented; // Matches server.py Optional[str]
     }
 
-    // ✅ แก้ไข 1: เพิ่ม field ให้รับค่า auto_fail จาก Python ได้
+    // 2. Chat Response
     [Serializable]
     public class RAGResponse
     {
@@ -45,157 +33,100 @@ public class LLMClientSimple
         public string fail_reason;
     }
 
-    // ================= Fields =================
-
+    // 3. Evidence Request
     [Serializable]
-    class CaseRequest { public string final_answer; }
-
-    public LLMClientSimple(string url)
+    public class EvidenceData
     {
-        baseUrl = url;
+        public string evidence_name;
     }
 
-    // ================= CHAT =================
+    // 4. Final Case Request (FIXED)
+    [Serializable]
+    public class CaseRequest
+    {
+        public string final_answer;
+    }
 
-    // ✅ แก้ไข 2: เปลี่ยน Action<string> เป็น Action<RAGResponse>
-    public IEnumerator CompleteOnce(
-        string npcName,
-        string userText,
-        Action<RAGResponse> onDone, 
-        Action<string> onError)
+    // 5. Final Score Response
+    [Serializable]
+    public class FinalScoreResponse
+    {
+        public Summary summary;
+        public CaseResult @case;
+    }
+
+    [Serializable] public class Summary { public bool auto_fail; public string fail_reason; }
+    [Serializable] public class CaseResult { public string final_answer; public int score; public string reason; }
+
+
+    // ================= API METHODS =================
+
+    // --- CHAT WITH EVIDENCE ---
+    public IEnumerator CompleteOnce(string npcName, string userText, string evidenceName, Action<RAGResponse> onDone, Action<string> onError)
     {
         var reqObj = new RAGRequest
         {
             player_question = userText,
             npc_role = npcName,
-            evidence_presented = evidenceName // Can be null
+            evidence_presented = evidenceName // Sends null if no evidence
         };
 
-        // ส่ง onDone ที่เป็น Action<RAGResponse> ต่อไปให้ SendChat
-        yield return SendChat(reqObj, onDone, onError);
-    }
-
-    // ✅ แก้ไข 3: เปลี่ยน Action<string> เป็น Action<RAGResponse> ให้ตรงกัน
-    IEnumerator SendChat(
-        RAGRequest reqObj,
-        Action<RAGResponse> onDone, 
-        Action<string> onError)
-    {
         var json = JsonUtility.ToJson(reqObj);
-        var body = Encoding.UTF8.GetBytes(json);
-
-        using var req = new UnityWebRequest(baseUrl + "/chat", "POST");
-        req.uploadHandler = new UploadHandlerRaw(body);
-        req.downloadHandler = new DownloadHandlerBuffer();
-        req.SetRequestHeader("Content-Type", "application/json");
-        req.timeout = 60;
-
-        yield return req.SendWebRequest();
-
-        if (req.result != UnityWebRequest.Result.Success)
+        yield return PostRequest("/chat", json, (text) =>
         {
-            onError?.Invoke(req.error);
-            yield break;
-        }
-
-        // ✅ แก้ไข 4: Parse JSON เป็น Object RAGResponse แล้วส่งกลับไปทั้งก้อน
-        try 
-        {
-            var resp = JsonUtility.FromJson<RAGResponse>(req.downloadHandler.text);
-            onDone?.Invoke(resp);
-        }
-        catch (Exception e)
-        {
-            onError?.Invoke("JSON Parse Error: " + e.Message);
-        }
+            try
+            {
+                var resp = JsonUtility.FromJson<RAGResponse>(text);
+                onDone?.Invoke(resp);
+            }
+            catch (Exception e) { onError?.Invoke("JSON Error: " + e.Message); }
+        }, onError);
     }
 
-    // ================= FINAL SCORE =================
-
-    public IEnumerator GetFinalScore(
-        Action<FinalScoreResponse> onDone,
-        Action<string> onError)
-    {
-        using var req = new UnityWebRequest(baseUrl + "/final-score", "GET");
-        req.downloadHandler = new DownloadHandlerBuffer();
-        req.timeout = 30;
-
-        yield return req.SendWebRequest();
-
-        if (req.result != UnityWebRequest.Result.Success)
-        {
-            onError?.Invoke(req.error);
-            yield break;
-        }
-
-        var resp = JsonUtility.FromJson<FinalScoreResponse>(req.downloadHandler.text);
-        onDone?.Invoke(resp);
-    }
-
-    // ================= CASE JUDGE =================
-
-    public IEnumerator EvaluateCase(
-        string text,
-        Action<string> onDone,
-        Action<string> onError)
-    {
-        var obj = new CaseRequest { final_answer = text };
-        var json = JsonUtility.ToJson(obj);
-        var body = Encoding.UTF8.GetBytes(json);
-
-        using var req = new UnityWebRequest(baseUrl + "/evaluate-case", "POST");
-        req.uploadHandler = new UploadHandlerRaw(body);
-        req.downloadHandler = new DownloadHandlerBuffer();
-        req.SetRequestHeader("Content-Type", "application/json");
-        req.timeout = 60;
-
-        yield return req.SendWebRequest();
-
-        if (req.result != UnityWebRequest.Result.Success)
-        {
-            onError?.Invoke(req.error);
-            yield break;
-        }
-
-        onDone?.Invoke(req.downloadHandler.text);
-    }
-
-    // --- COLLECT EVIDENCE FUNCTION ---
+    // --- SUBMIT EVIDENCE ---
     public IEnumerator SubmitEvidence(string evidenceName)
     {
         var data = new EvidenceData { evidence_name = evidenceName };
-        var json = JsonUtility.ToJson(data);
-        var body = Encoding.UTF8.GetBytes(json);
-
-        using (var req = new UnityWebRequest(baseUrl + "/collect-evidence", "POST"))
-        {
-            req.uploadHandler = new UploadHandlerRaw(body);
-            req.downloadHandler = new DownloadHandlerBuffer();
-            req.SetRequestHeader("Content-Type", "application/json");
-
-            yield return req.SendWebRequest();
-            if (req.result == UnityWebRequest.Result.Success)
-                Debug.Log($"✅ Server Acknowledged: {evidenceName}");
-        }
+        yield return PostRequest("/collect-evidence", JsonUtility.ToJson(data), null, null);
     }
 
-    // --- EVALUATE CASE (BOSS) ---
+    // --- EVALUATE CASE (THE BOSS) ---
     public IEnumerator EvaluateCase(string text, Action<string> onDone, Action<string> onError)
     {
         var obj = new CaseRequest { final_answer = text };
-        var json = JsonUtility.ToJson(obj);
-        var body = Encoding.UTF8.GetBytes(json);
+        yield return PostRequest("/evaluate-case", JsonUtility.ToJson(obj), onDone, onError);
+    }
 
-        using (var req = new UnityWebRequest(baseUrl + "/evaluate-case", "POST"))
+    // --- GET FINAL SCORE ---
+    public IEnumerator GetFinalScore(Action<string> onDone)
+    {
+        using (var req = UnityWebRequest.Get(baseUrl + "/final-score"))
+        {
+            yield return req.SendWebRequest();
+            if (req.result == UnityWebRequest.Result.Success)
+                onDone?.Invoke(req.downloadHandler.text);
+            else
+                onDone?.Invoke(null);
+        }
+    }
+
+    // ================= HELPER =================
+    private IEnumerator PostRequest(string endpoint, string json, Action<string> onSuccess, Action<string> onFail)
+    {
+        var body = Encoding.UTF8.GetBytes(json);
+        using (var req = new UnityWebRequest(baseUrl + endpoint, "POST"))
         {
             req.uploadHandler = new UploadHandlerRaw(body);
             req.downloadHandler = new DownloadHandlerBuffer();
             req.SetRequestHeader("Content-Type", "application/json");
+            req.timeout = 60;
 
             yield return req.SendWebRequest();
 
-            if (req.result != UnityWebRequest.Result.Success) onError?.Invoke(req.error);
-            else onDone?.Invoke(req.downloadHandler.text);
+            if (req.result == UnityWebRequest.Result.Success)
+                onSuccess?.Invoke(req.downloadHandler.text);
+            else
+                onFail?.Invoke(req.error);
         }
     }
 }
