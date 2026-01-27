@@ -5,7 +5,7 @@ public class EvidenceDatabase : MonoBehaviour
 {
     public static EvidenceDatabase I;
 
-    Dictionary<string, EvidenceItem> evidenceMap;
+    Dictionary<string, EvidenceItem> evidenceMap = new();
 
     void Awake()
     {
@@ -14,44 +14,27 @@ public class EvidenceDatabase : MonoBehaviour
     }
 
     void LoadEvidence()
-{
-    TextAsset json = Resources.Load<TextAsset>("evidence_data");
-
-    if (json == null)
     {
-        Debug.LogError("❌ evidence_data.json not found in Resources!");
-        return;
+        TextAsset json = Resources.Load<TextAsset>("evidence_data");
+        if (json == null)
+        {
+            Debug.LogError("❌ evidence_data.json not found");
+            return;
+        }
+
+        var wrapper = JsonUtility.FromJson<EvidenceDatabaseWrapper>(
+            "{ \"items\": " + json.text + " }"
+        );
+
+        foreach (var item in wrapper.items)
+            evidenceMap[item.id] = item;
+
+        Debug.Log($"✅ Loaded Evidence: {evidenceMap.Count}");
     }
 
-    var wrapper = JsonUtility.FromJson<EvidenceDatabaseWrapper>(
-        "{ \"items\": " + json.text + " }"
-    );
-
-    evidenceMap = new Dictionary<string, EvidenceItem>();
-
-    foreach (var item in wrapper.items)
-        evidenceMap[item.id] = item;
-
-    Debug.Log($"✅ Loaded Evidence DB: {evidenceMap.Count} items");
-}
-
-    public List<EvidenceReveal> GetRevealsForNPC(
-        string npcName,
-        List<string> collectedEvidence
-    )
+    public EvidenceItem GetItem(string id)
     {
-        List<EvidenceReveal> result = new();
-
-        foreach (var evId in collectedEvidence)
-        {
-            if (!evidenceMap.ContainsKey(evId)) continue;
-
-            foreach (var r in evidenceMap[evId].reveals)
-            {
-                if (r.npc == npcName)
-                    result.Add(r);
-            }
-        }
-        return result;
+        evidenceMap.TryGetValue(id, out var item);
+        return item;
     }
 }

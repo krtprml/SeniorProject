@@ -1,5 +1,103 @@
 {
-  "memory": {},
-  "evidence_found": [],
-  "case": {}
+  "memory": {
+    "EDWARD": [
+      {
+        "role": "user",
+        "content": "I saw on Victor's notebook that Victor was not satisfied with you in the company. Why did you lie?"
+      },
+      {
+        "role": "assistant",
+        "content": "(nervously) Ah, that notebook... I, uh, I didn't know Victor had written that. (pauses) To be honest, I had a bit of a disagreement with Victor about my performance. He was being quite... harsh, I thought. But I didn't think it was a big deal. I mean, it's not uncommon for managers to have high expectations. (clears throat) I didn't think it was a reason to, you know, take drastic measures. (pauses again) But, I suppose, in hindsight, it might seem like a motive for... (stops, choosing his words carefully) ...for my actions."
+      },
+      {
+        "role": "user",
+        "content": "I saw on the calendar that Victor planned to fire you from the company. Why did you lie?"
+      },
+      {
+        "role": "assistant",
+        "content": "(nervously chuckling) Ah, that calendar... I, uh, I didn't know Victor had planned to fire me. I mean, I knew things weren't going great between us, but I didn't think it was that serious. (pauses, collecting his thoughts) To be honest, I was trying to protect my shares in the company. If Victor had fired me, I would have lost a significant portion of my investment. (hesitates, choosing his words carefully) I know it sounds selfish, but I was trying to think of a way to save my shares, and... (pauses again, taking a deep breath) I didn't think about the consequences of my actions. I just wanted to protect myself. (looks down, avoiding eye contact)"
+      }
+    ],
+    "DANA": [
+      {
+        "role": "user",
+        "content": "do you have any conflict with victor?"
+      },
+      {
+        "role": "assistant",
+        "content": "(nervously) Ah, yes... I suppose I do. I mean, we've had our differences, but I didn't think it was a big deal. (pauses, taking a deep breath) To be honest, I was really upset when I found out that Victor had blocked me from the promotion. I thought I was the perfect candidate, and I felt like he was just trying to sabotage me. (looks down, fidgeting with hands) I complained to him about it around 8:30 PM, but I don't think it was a huge argument or anything. We just... disagreed, I suppose. (looks up at the detective) But I didn't kill him, I swear. I was just really upset and frustrated."
+      }
+    ]
+  },
+  "evidence_found": [
+    "Notebook",
+    "Calendar",
+    "Mobile Phone"
+  ],
+  "question_evaluations": [
+    {
+      "politeness": 2,
+      "investigation": 2,
+      "direct": true,
+      "evidence_based": true,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": true,
+      "ethical_violation": false,
+      "question": "I saw on Victor's notebook that Victor was not satisfied with you in the company. Why did you lie?"
+    },
+    {
+      "politeness": 2,
+      "investigation": 2,
+      "direct": true,
+      "evidence_based": true,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": true,
+      "ethical_violation": false,
+      "question": "I saw on the calendar that Victor planned to fire you from the company. Why did you lie?"
+    },
+    {
+      "politeness": 3,
+      "investigation": 2,
+      "direct": true,
+      "evidence_based": false,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": true,
+      "ethical_violation": false,
+      "question": "do you have any conflict with victor?"
+    }
+  ],
+  "summary": {
+    "politeness_avg": 2.33,
+    "investigation_avg": 2.0,
+    "politeness_score": 78,
+    "investigation_score": 100,
+    "auto_fail": false,
+    "fail_reason": ""
+  },
+  "case": {
+    "final_answer": "",
+    "score": 0,
+    "reason": ""
+  }
 }

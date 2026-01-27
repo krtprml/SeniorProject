@@ -11,15 +11,19 @@ public class EvidenceChoiceButton : MonoBehaviour
     EvidenceReveal reveal;
     Action<EvidenceReveal> callback;
 
-    public void Setup(EvidenceReveal revealData, Action<EvidenceReveal> onClick)
+    // ⭐ รับ uiHint แยกมา ไม่แตะ EvidenceReveal
+    public void Setup(
+        EvidenceReveal revealData,
+        string uiHint,
+        Action<EvidenceReveal> onClick
+    )
     {
         reveal = revealData;
         callback = onClick;
 
-        label.text = string.IsNullOrEmpty(revealData.ui_hint)
-        ? revealData.auto_text
-        : revealData.ui_hint;
-        // หรือใช้ ui_hint ถ้าคุณเพิ่ม field นี้ใน EvidenceReveal
+        label.text = string.IsNullOrEmpty(uiHint)
+            ? revealData.auto_text
+            : uiHint;
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(OnPressed);

@@ -53,37 +53,31 @@ public class StandardNPC : MonoBehaviour
             EvidenceManager.I.OnEvidenceUpdated -= BuildEvidenceChoices;
     }
 
-    // 🔥 NEW FUNCTION: FIXES CS1061 ERROR
-    // This allows EvidenceHUD to tell the NPC what evidence was clicked
-    public void SelectEvidence(string evidenceName)
-    {
-        currentConfrontationEvidence = evidenceName;
-        Debug.Log($"NPC {npcName} received evidence: {evidenceName}");
-
-        if (selectedEvidenceText)
-            selectedEvidenceText.text = $"Confronting with: <b>{evidenceName}</b>";
-    }
-
-    // ========================= EVIDENCE UI =========================
     void BuildEvidenceChoices()
+{
+    foreach (Transform c in evidenceButtonContainer)
+        Destroy(c.gameObject);
+
+    if (EvidenceDatabase.I == null || EvidenceManager.I == null)
+        return;
+
+    foreach (var evId in EvidenceManager.I.CollectedEvidence)
     {
-        if (evidenceButtonContainer == null) return;
+        var item = EvidenceDatabase.I.GetItem(evId);
+        if (item == null) continue;
 
-        foreach (Transform c in evidenceButtonContainer) Destroy(c.gameObject);
-
-        if (EvidenceDatabase.I == null || EvidenceManager.I == null) return;
-
-        var reveals = EvidenceDatabase.I.GetRevealsForNPC(
-            npcName.ToUpper(),
-            EvidenceManager.I.CollectedEvidence
-        );
-
-        foreach (var r in reveals)
+        foreach (var r in item.reveals)
         {
-            if (evidenceButtonPrefab != null)
+            if (r.npc == npcName.ToUpper())
             {
                 var btn = Instantiate(evidenceButtonPrefab, evidenceButtonContainer);
-                btn.Setup(r, OnEvidenceChosen);
+
+                // ⭐ ใช้ ui_hint จาก EvidenceItem
+                btn.Setup(
+                    r,              // EvidenceReveal
+                    item.ui_hint,   // ⭐ ui_hint จาก EvidenceItem
+                    OnEvidenceChosen
+                );
             }
         }
     }
