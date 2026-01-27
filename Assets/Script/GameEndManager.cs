@@ -14,12 +14,16 @@ public class GameEndManager : MonoBehaviour
     [Header("UI Panels (House Scene)")]
     public GameObject winScreenUI;
     public GameObject loseScreenUI;
+    public GameObject autoFailScreenUI;
 
     [Header("Player Controller")]
     public ObjectHighlighter playerController;
 
     [Header("Server")]
     [SerializeField] string serverBaseUrl = "http://127.0.0.1:8000";
+
+    [Header("Auto Fail Screen")]    
+    [SerializeField] AutoFailScreen autoFailScreen;
 
     void Awake()
     {
@@ -30,19 +34,61 @@ public class GameEndManager : MonoBehaviour
     }
 
     void Start()
-    {
-        HideGameEndPanels();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+{
+    HideGameEndPanels();
+
+    if (autoFailScreen != null)
+        autoFailScreen.Hide();
+
+    Cursor.visible = false;
+    Cursor.lockState = CursorLockMode.Locked;
+}
 
     void HideGameEndPanels()
     {
         if (winScreenUI) winScreenUI.SetActive(false);
         if (loseScreenUI) loseScreenUI.SetActive(false);
+        if (autoFailScreenUI) autoFailScreenUI.SetActive(false);
     }
 
     // ========================= GAME END =========================
+
+   // ใน GameEndManager.cs
+
+// ใน GameEndManager.cs
+
+public void ShowAutoFail(string reason)
+{
+    // เรียกใช้ Coroutine แทนการสั่งหยุดเวลาทันที
+    StartCoroutine(ShowAutoFailRoutine(reason));
+}
+
+IEnumerator ShowAutoFailRoutine(string reason)
+{
+    Debug.Log("❌ AUTO FAIL ROUTINE STARTED: " + reason);
+
+    // 1. ปิดหน้าจอ Win/Lose อื่นๆ ก่อน
+    HideGameEndPanels();
+
+    // 2. แสดงหน้าจอ Auto Fail
+    if (autoFailScreen != null)
+    {
+        autoFailScreen.gameObject.SetActive(true); // กันเหนียว เปิด GameObject ก่อน
+        autoFailScreen.transform.SetAsLastSibling(); // ดันมาหน้าสุด
+        autoFailScreen.Show(reason); // ใส่ข้อความ
+    }
+
+    // 3. ปิดการควบคุมของผู้เล่น
+    if (playerController) playerController.enabled = false;
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
+
+    // 🔥 4. สำคัญมาก: รอ 1 เฟรม ให้ Unity วาด UI ให้เสร็จก่อน
+    yield return null; 
+
+    // 5. ค่อยสั่งหยุดเวลา
+    Time.timeScale = 0f;
+}
 
     public void ShowEndScreen(bool didWin)
     {

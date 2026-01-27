@@ -75,32 +75,57 @@ public class StandardNPC : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void TrySend()
-    {
-        if (!dialogueOpen || string.IsNullOrWhiteSpace(inputField.text)) return;
+    // ========================= SEND =========================
+    // ========================= SEND =========================
+    // ใน StandardNPC.cs
 
-        string text = inputField.text.Trim();
+// ใน StandardNPC.cs
 
-        inputField.interactable = false;
-        answerText.text = "...thinking...";
+void TrySend()
+{
+    if (!dialogueOpen) return;
+    if (string.IsNullOrWhiteSpace(inputField.text)) return;
+    
+    var text = inputField.text.Trim();
+    inputField.interactable = false;
+    answerText.text = "...thinking...";
 
-        // 🔥 Send the clicked evidence (if any)
-        StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
-            npcName, text, currentConfrontationEvidence,
-            reply => {
-                answerText.text = reply;
-                inputField.text = "";
-                inputField.interactable = true;
-                inputField.Select();
-                inputField.ActivateInputField();
+    StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
+        npcName,
+        text,
+        (resp) => 
+        {
+            if (resp.auto_fail) 
+            {
+                Debug.Log("💥 Auto Fail Detected!"); 
 
-                // Optional: Clear evidence after using it?
-                // currentConfrontationEvidence = null; 
-                // if(selectedEvidenceText) selectedEvidenceText.text = "";
-            },
-            err => { answerText.text = "Error: " + err; inputField.interactable = true; }
-        ));
-    }
+                // 1. ปิดหน้าต่าง Dialogue
+                TryClose(); 
+                
+                // 2. เรียก GameEndManager (ซึ่งตอนนี้มี delay 1 เฟรมแล้ว)
+                GameEndManager.instance.ShowAutoFail(resp.fail_reason);
+                
+                return;
+            }
+            // =========================================================
+
+            // ถ้าไม่แพ้ ค่อยแสดงข้อความตอบกลับ
+            answerText.text = resp.response;
+            inputField.text = "";
+            inputField.interactable = true;
+            inputField.Select();
+            inputField.ActivateInputField();
+
+            // ❌ ลบบรรทัดนี้ทิ้งไปเลยครับ! ตัวการที่ทำให้ดีเลย์
+            // GameManagerSimple.I.CheckAutoFail(); <--- ลบออก!
+        },
+        err =>
+        {
+            answerText.text = "Error: " + err;
+            inputField.interactable = true;
+        }
+    ));
+}
 
     void OnTriggerEnter(Collider other) { if (other.CompareTag("Player")) playerInRange = true; }
     void OnTriggerExit(Collider other) { if (other.CompareTag("Player")) { playerInRange = false; if (dialogueOpen) TryClose(); } }
