@@ -12,7 +12,7 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI answerText;
 
-    [SerializeField] TextMeshProUGUI selectedEvidenceText;
+    [SerializeField] TextMeshProUGUI selectedEvidenceText; // Drag your text UI here
 
     [Header("Camera & Input")]
     [SerializeField] GameObject virtualFrontCam;
@@ -25,64 +25,81 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] Transform evidenceButtonContainer;
     [SerializeField] EvidenceChoiceButton evidenceButtonPrefab;
 
+    private UnityEngine.InputSystem.PlayerInput playerInputCache;
+    // 🔥 FIXED: Removed duplicate 'playerInRange' declaration
     bool playerInRange = false;
     bool dialogueOpen = false;
-    bool playerInRange = false;
 
     // Stores the evidence the player clicked in the HUD
     private string currentConfrontationEvidence = null;
 
     void OnEnable()
     {
-        talkAction.action.performed += _ => TryOpen();
-        closeAction.action.performed += _ => TryClose();
-        sendAction.action.performed += _ => TrySend();
+        if (talkAction) { talkAction.action.Enable(); talkAction.action.performed += _ => TryOpen(); }
+        if (closeAction) { closeAction.action.Enable(); closeAction.action.performed += _ => TryClose(); }
+        if (sendAction) { sendAction.action.Enable(); sendAction.action.performed += _ => TrySend(); }
 
-        talkAction.action.Enable();
-        closeAction.action.Enable();
-        sendAction.action.Enable();
         if (EvidenceManager.I != null)
-        EvidenceManager.I.OnEvidenceUpdated += BuildEvidenceChoices;
+            EvidenceManager.I.OnEvidenceUpdated += BuildEvidenceChoices;
     }
 
     void OnDisable()
     {
-        talkAction.action.Disable();
-        closeAction.action.Disable();
-        sendAction.action.Disable();
+        if (talkAction) talkAction.action.Disable();
+        if (closeAction) closeAction.action.Disable();
+        if (sendAction) sendAction.action.Disable();
+
         if (EvidenceManager.I != null)
-        EvidenceManager.I.OnEvidenceUpdated -= BuildEvidenceChoices;
+            EvidenceManager.I.OnEvidenceUpdated -= BuildEvidenceChoices;
     }
 
-    void BuildEvidenceChoices()
-{
-    // ล้างปุ่มเก่าก่อน
-    foreach (Transform c in evidenceButtonContainer)
-        Destroy(c.gameObject);
-
-    if (EvidenceDatabase.I == null || EvidenceManager.I == null)
-        return;
-
-    var reveals = EvidenceDatabase.I.GetRevealsForNPC(
-        npcName.ToUpper(),
-        EvidenceManager.I.CollectedEvidence
-    );
-
-    foreach (var r in reveals)
+    // 🔥 NEW FUNCTION: FIXES CS1061 ERROR
+    // This allows EvidenceHUD to tell the NPC what evidence was clicked
+    public void SelectEvidence(string evidenceName)
     {
-        Debug.Log($"🧠 Evidence unlock for {npcName}: {r.auto_text}");
-        var btn = Instantiate(evidenceButtonPrefab, evidenceButtonContainer);
-        btn.Setup(r, OnEvidenceChosen);
+        currentConfrontationEvidence = evidenceName;
+        Debug.Log($"NPC {npcName} received evidence: {evidenceName}");
+
+        if (selectedEvidenceText)
+            selectedEvidenceText.text = $"Confronting with: <b>{evidenceName}</b>";
     }
-}
+
+    // ========================= EVIDENCE UI =========================
+    void BuildEvidenceChoices()
+    {
+        if (evidenceButtonContainer == null) return;
+
+        foreach (Transform c in evidenceButtonContainer) Destroy(c.gameObject);
+
+        if (EvidenceDatabase.I == null || EvidenceManager.I == null) return;
+
+        var reveals = EvidenceDatabase.I.GetRevealsForNPC(
+            npcName.ToUpper(),
+            EvidenceManager.I.CollectedEvidence
+        );
+
+        foreach (var r in reveals)
+        {
+            if (evidenceButtonPrefab != null)
+            {
+                var btn = Instantiate(evidenceButtonPrefab, evidenceButtonContainer);
+                btn.Setup(r, OnEvidenceChosen);
+            }
+        }
+    }
 
     void OnEvidenceChosen(EvidenceReveal reveal)
-{
-    // ใส่ auto text ลง input field
-    inputField.text = reveal.auto_text;
-    inputField.Select();
-    inputField.ActivateInputField();
-}
+    {
+        if (inputField)
+        {
+            inputField.text = reveal.auto_text;
+            inputField.Select();
+            inputField.ActivateInputField();
+        }
+    }
+
+    // Add this variable at the top with other variables
+    
 
     // ========================= OPEN =========================
     void TryOpen()
@@ -97,7 +114,27 @@ public class StandardNPC : MonoBehaviour
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
 
         BuildEvidenceChoices();
-        Debug.Log("🧪 BuildEvidenceChoices called for " + npcName);
+
+        // --- FIX 1: AUTO-DISABLE PLAYER INPUT ---
+        // Try to find the PlayerInput component on the player tag
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+        {
+            playerInputCache = player.GetComponent<UnityEngine.InputSystem.PlayerInput>();
+            if (playerInputCache) playerInputCache.enabled = false;
+        }
+        // ----------------------------------------
+
+        // Handle manual script list (Safety check)
+        if (playerScriptsToDisable != null)
+        {
+            foreach (var c in playerScriptsToDisable)
+                if (c != null) c.enabled = false;
+        }
+
+        // Reset Evidence on Open
+        currentConfrontationEvidence = null;
+        if (selectedEvidenceText) selectedEvidenceText.text = "";
 
         if (inputField)
         {
@@ -107,22 +144,34 @@ public class StandardNPC : MonoBehaviour
             inputField.ActivateInputField();
         }
 
-        if (inputField) { inputField.text = ""; inputField.interactable = true; inputField.Select(); inputField.ActivateInputField(); }
-        foreach (var c in playerScriptsToDisable) if (c) c.enabled = false;
-
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
+    // ========================= CLOSE =========================
     void TryClose()
     {
         if (!dialogueOpen) return;
         dialogueOpen = false;
+
         if (DialogueManager.I) DialogueManager.I.DialogueClosed();
 
         if (dialoguePanel) dialoguePanel.SetActive(false);
         if (virtualFrontCam) virtualFrontCam.SetActive(false);
-        foreach (var c in playerScriptsToDisable) if (c) c.enabled = true;
+
+        // --- FIX 2: RE-ENABLE PLAYER INPUT ---
+        if (playerInputCache)
+        {
+            playerInputCache.enabled = true;
+            playerInputCache = null;
+        }
+        // -------------------------------------
+
+        if (playerScriptsToDisable != null)
+        {
+            foreach (var c in playerScriptsToDisable)
+                if (c != null) c.enabled = true;
+        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -135,19 +184,13 @@ public class StandardNPC : MonoBehaviour
         if (!inputField || string.IsNullOrWhiteSpace(inputField.text)) return;
 
         var text = inputField.text.Trim();
-        inputField.interactable = false;
-        answerText.text = "...thinking...";
+        if (inputField) inputField.interactable = false;
+        if (answerText) answerText.text = "...thinking...";
 
-        // 🔥 FIX: Now passing 5 Arguments
-        // 1. NPC Name
-        // 2. Player Text
-        // 3. Evidence Name (New!)
-        // 4. Success Callback
-        // 5. Error Callback
         StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
             npcName,
             text,
-            currentConfrontationEvidence, // <--- ERROR WAS HERE (Missing argument)
+            currentConfrontationEvidence, // Sends the selected evidence (or null)
             (resp) =>
             {
                 // Reset evidence after sending
@@ -156,24 +199,26 @@ public class StandardNPC : MonoBehaviour
 
                 if (resp.auto_fail)
                 {
-                    Debug.Log("💥 Auto Fail Detected!");
                     TryClose();
-                    GameEndManager.instance.ShowAutoFail(resp.fail_reason);
+                    if (GameEndManager.instance)
+                        GameEndManager.instance.ShowAutoFail(resp.fail_reason);
                     return;
                 }
 
-                answerText.text = resp.response;
-                inputField.text = "";
-                inputField.interactable = true;
-                inputField.Select();
-                inputField.ActivateInputField();
+                if (answerText) answerText.text = resp.response;
+
+                if (inputField)
+                {
+                    inputField.text = "";
+                    inputField.interactable = true;
+                    inputField.Select();
+                    inputField.ActivateInputField();
+                }
             },
             err =>
             {
-                answerText.text = "Error: " + err;
-                inputField.interactable = true;
-                inputField.Select();
-                inputField.ActivateInputField();
+                if (answerText) answerText.text = "Error: " + err;
+                if (inputField) inputField.interactable = true;
             }
         ));
     }
