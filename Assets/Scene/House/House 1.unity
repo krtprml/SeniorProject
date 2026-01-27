@@ -8505,12 +8505,13 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1926450370}
   inputField: {fileID: 380000751}
   answerText: {fileID: 2013937249}
+  selectedEvidenceText: {fileID: 0}
   virtualFrontCam: {fileID: 0}
-  playerScriptsToDisable:
-  - {fileID: 1502032771}
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  playerScriptsToDisable:
+  - {fileID: 1502032771}
 --- !u!136 &314848440
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10044,48 +10045,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 434898579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &365583237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 365583238}
-  m_Layer: 0
-  m_Name: Pavement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &365583238
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365583237}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.671381, y: -1.55949, z: -11.556701}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 79402943}
-  - {fileID: 993573334}
-  - {fileID: 1698112241}
-  - {fileID: 227433107}
-  - {fileID: 433380634}
-  - {fileID: 1092873798}
-  - {fileID: 1532387564}
-  - {fileID: 1482265340}
-  - {fileID: 520680685}
-  - {fileID: 1857985071}
-  - {fileID: 522421743}
-  m_Father: {fileID: 663457969}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &366041368
 GameObject:
   m_ObjectHideFlags: 0
@@ -10118,7 +10077,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1458303931}
+  - {fileID: 2080234351}
   m_Father: {fileID: 1502329887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10201,7 +10160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0eb97b8b96cc8541b2f119d299577f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evidenceListText: {fileID: 1458303932}
+  listContainer: {fileID: 2080234351}
+  buttonPrefab: {fileID: 0}
 --- !u!1 &369579941
 GameObject:
   m_ObjectHideFlags: 0
@@ -10231,6 +10191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89da4bcc2481b4b849d05d06659a9dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentActiveNPC: {fileID: 0}
 --- !u!4 &369579943
 Transform:
   m_ObjectHideFlags: 0
@@ -17280,11 +17241,12 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1926450370}
   inputField: {fileID: 380000751}
   answerText: {fileID: 2013937249}
+  selectedEvidenceText: {fileID: 0}
   virtualFrontCam: {fileID: 0}
-  playerScriptsToDisable: []
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  playerScriptsToDisable: []
 --- !u!4 &626303870 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8863c6b0edff5d841a9b167b0eb14857, type: 3}
@@ -39521,8 +39483,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 73125721}
   m_HandleRect: {fileID: 73125720}
   m_Direction: 2
-  m_Value: 0.9999996
-  m_Size: 0.76710397
+  m_Value: 1
+  m_Size: 0.8053549
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -43071,142 +43033,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1e1362ce8ea1448ad8b08da9b36c0d, type: 3}
---- !u!1 &1458303930
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1458303931}
-  - component: {fileID: 1458303933}
-  - component: {fileID: 1458303932}
-  m_Layer: 0
-  m_Name: EvidenceCount
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1458303931
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458303930}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 366041369}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -767, y: 350}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1458303932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458303930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: New Text
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -8.5034485, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1458303933
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458303930}
-  m_CullTransparentMesh: 1
 --- !u!1 &1466110804
 GameObject:
   m_ObjectHideFlags: 0
@@ -63033,6 +62859,68 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075681039}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2080234350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080234351}
+  - component: {fileID: 2080234352}
+  m_Layer: 0
+  m_Name: EvidenceContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2080234351
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080234350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 366041369}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 972, y: -502}
+  m_SizeDelta: {x: 250, y: 500}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2080234352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080234350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &2081047250
 GameObject:
   m_ObjectHideFlags: 0
@@ -67283,12 +67171,13 @@ MonoBehaviour:
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
+  selectedEvidenceText: {fileID: 0}
   virtualFrontCam: {fileID: 791885583}
-  playerScriptsToDisable:
-  - {fileID: 1502032771}
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  playerScriptsToDisable:
+  - {fileID: 1502032771}
 --- !u!136 &945610742424681324
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -70215,12 +70104,13 @@ MonoBehaviour:
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
+  selectedEvidenceText: {fileID: 0}
   virtualFrontCam: {fileID: 1040784796}
-  playerScriptsToDisable:
-  - {fileID: 1502032771}
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  playerScriptsToDisable:
+  - {fileID: 1502032771}
 --- !u!136 &2237662002374503633
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -73019,12 +72909,7 @@ MonoBehaviour:
   canBeHighlighted: 1
   objectName: Mobile Phone
   description: 
-  OnHighlighted:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUnhighlighted:
-    m_PersistentCalls:
-      m_Calls: []
+  isCollectable: 1
 --- !u!65 &3469287836580131222
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73090,12 +72975,7 @@ MonoBehaviour:
   canBeHighlighted: 1
   objectName: Calendar
   description: 
-  OnHighlighted:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUnhighlighted:
-    m_PersistentCalls:
-      m_Calls: []
+  isCollectable: 1
 --- !u!33 &3469287836895677560
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -73119,12 +72999,7 @@ MonoBehaviour:
   canBeHighlighted: 1
   objectName: Notebook
   description: 
-  OnHighlighted:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUnhighlighted:
-    m_PersistentCalls:
-      m_Calls: []
+  isCollectable: 1
 --- !u!65 &3469287836895677562
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80310,12 +80185,13 @@ MonoBehaviour:
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
+  selectedEvidenceText: {fileID: 0}
   virtualFrontCam: {fileID: 181609892}
-  playerScriptsToDisable:
-  - {fileID: 1502032771}
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  playerScriptsToDisable:
+  - {fileID: 1502032771}
 --- !u!136 &6599979887389861715
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -82722,12 +82598,13 @@ MonoBehaviour:
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
+  selectedEvidenceText: {fileID: 0}
   virtualFrontCam: {fileID: 734161957}
-  playerScriptsToDisable:
-  - {fileID: 1502032771}
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  playerScriptsToDisable:
+  - {fileID: 1502032771}
 --- !u!136 &7578083016500158347
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -84005,30 +83882,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!33 &8334438788011152159
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5714457502173300224}
-  m_Mesh: {fileID: 7027636043351174211, guid: 25182bc088ce19b4daf1524cc7776f71, type: 3}
---- !u!114 &8334438788011152160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5714457502173300224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bf7647b6700ff46ad30dad290786ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBeHighlighted: 1
-  objectName: Rat Poison
-  description: 
-  isCollectable: 1
 --- !u!1001 &8335005744945804367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85984,12 +85837,13 @@ MonoBehaviour:
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
+  selectedEvidenceText: {fileID: 0}
   virtualFrontCam: {fileID: 1567421894}
-  playerScriptsToDisable:
-  - {fileID: 1502032771}
   talkAction: {fileID: -8458194235377169854, guid: 645981b83b598444cae8d66186c37802, type: 3}
   closeAction: {fileID: -4807778004658306051, guid: 645981b83b598444cae8d66186c37802, type: 3}
   sendAction: {fileID: -5561628981154743218, guid: 645981b83b598444cae8d66186c37802, type: 3}
+  playerScriptsToDisable:
+  - {fileID: 1502032771}
 --- !u!136 &9192182081003056683
 CapsuleCollider:
   m_ObjectHideFlags: 0

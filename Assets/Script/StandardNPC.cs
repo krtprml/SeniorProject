@@ -4,151 +4,104 @@ using UnityEngine.InputSystem;
 
 public class StandardNPC : MonoBehaviour
 {
-    [Header("RAG Settings")]
     public string npcName = "Brian";
 
-    [Header("UI")]
+    [Header("UI References")]
     [SerializeField] GameObject dialoguePanel;
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI answerText;
 
-    [Header("Camera")]
+    // 🔥 NEW: Text to show what evidence is selected (e.g. "Using: Wine Bottle")
+    [SerializeField] TextMeshProUGUI selectedEvidenceText;
+
+    [Header("Camera & Input")]
     [SerializeField] GameObject virtualFrontCam;
-
-    [Header("Interaction")]
-    [SerializeField] MonoBehaviour[] playerScriptsToDisable;
-
-    [Header("Input Actions")]
     [SerializeField] InputActionReference talkAction;
     [SerializeField] InputActionReference closeAction;
     [SerializeField] InputActionReference sendAction;
+    [SerializeField] MonoBehaviour[] playerScriptsToDisable;
 
-    bool playerInRange = false;
     bool dialogueOpen = false;
+    bool playerInRange = false;
 
-    public bool IsDialogueOpen => dialogueOpen;
+    // 🔥 NEW: Stores the evidence the player clicked
+    private string currentConfrontationEvidence = null;
 
-    void Awake()
+    void OnEnable() { talkAction.action.Enable(); closeAction.action.Enable(); sendAction.action.Enable(); talkAction.action.performed += _ => TryOpen(); closeAction.action.performed += _ => TryClose(); sendAction.action.performed += _ => TrySend(); }
+    void OnDisable() { talkAction.action.Disable(); closeAction.action.Disable(); sendAction.action.Disable(); }
+
+    // 🔥 NEW: Called by the HUD Button
+    public void SelectEvidence(string evidenceName)
     {
-        if (dialoguePanel) dialoguePanel.SetActive(false);
-        if (virtualFrontCam) virtualFrontCam.SetActive(false);
+        currentConfrontationEvidence = evidenceName;
+        if (selectedEvidenceText)
+            selectedEvidenceText.text = $"Confronting with: <b>{evidenceName}</b>";
     }
 
-    void OnEnable()
-    {
-        talkAction.action.performed += _ => TryOpen();
-        closeAction.action.performed += _ => TryClose();
-        sendAction.action.performed += _ => TrySend();
-
-        talkAction.action.Enable();
-        closeAction.action.Enable();
-        sendAction.action.Enable();
-    }
-
-    void OnDisable()
-    {
-        talkAction.action.Disable();
-        closeAction.action.Disable();
-        sendAction.action.Disable();
-    }
-
-    // ========================= OPEN =========================
     void TryOpen()
     {
         if (!playerInRange || dialogueOpen) return;
 
         dialogueOpen = true;
 
-        // 🔥 REGISTER WITH DIALOGUE MANAGER
-        DialogueManager.I.DialogueOpened();
+        // 🔥 Register this NPC as the active one
+        if (DialogueManager.I) DialogueManager.I.DialogueOpened(this);
 
-        if (dialoguePanel) dialoguePanel.SetActive(true);
+        dialoguePanel.SetActive(true);
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
 
-        if (inputField)
-        {
-            inputField.text = "";
-            inputField.interactable = true;
-            inputField.Select();
-            inputField.ActivateInputField();
-        }
+        // Reset evidence state
+        currentConfrontationEvidence = null;
+        if (selectedEvidenceText) selectedEvidenceText.text = "";
 
-        foreach (var c in playerScriptsToDisable)
-            if (c) c.enabled = false;
+        if (inputField) { inputField.text = ""; inputField.interactable = true; inputField.Select(); inputField.ActivateInputField(); }
+        foreach (var c in playerScriptsToDisable) if (c) c.enabled = false;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
-    // ========================= CLOSE =========================
     void TryClose()
     {
         if (!dialogueOpen) return;
-
         dialogueOpen = false;
+        if (DialogueManager.I) DialogueManager.I.DialogueClosed();
 
-        // 🔥 UNREGISTER
-        DialogueManager.I.DialogueClosed();
-
-        if (dialoguePanel) dialoguePanel.SetActive(false);
+        dialoguePanel.SetActive(false);
         if (virtualFrontCam) virtualFrontCam.SetActive(false);
-
-        foreach (var c in playerScriptsToDisable)
-            if (c) c.enabled = true;
+        foreach (var c in playerScriptsToDisable) if (c) c.enabled = true;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // ========================= SEND =========================
     void TrySend()
     {
-        if (!dialogueOpen) return;
-        if (string.IsNullOrWhiteSpace(inputField.text)) return;
+        if (!dialogueOpen || string.IsNullOrWhiteSpace(inputField.text)) return;
 
-        var text = inputField.text.Trim();
+        string text = inputField.text.Trim();
+
         inputField.interactable = false;
         answerText.text = "...thinking...";
 
+        // 🔥 Send the clicked evidence (if any)
         StartCoroutine(GameManagerSimple.I.Client.CompleteOnce(
-            npcName,
-            text,
-            reply =>
-            {
+            npcName, text, currentConfrontationEvidence,
+            reply => {
                 answerText.text = reply;
                 inputField.text = "";
                 inputField.interactable = true;
                 inputField.Select();
                 inputField.ActivateInputField();
+
+                // Optional: Clear evidence after using it?
+                // currentConfrontationEvidence = null; 
+                // if(selectedEvidenceText) selectedEvidenceText.text = "";
             },
-            err =>
-            {
-                answerText.text = "Error: " + err;
-                inputField.interactable = true;
-            }
+            err => { answerText.text = "Error: " + err; inputField.interactable = true; }
         ));
     }
 
-    // ========================= TRIGGERS =========================
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-            if (answerText) answerText.text = "";
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-            if (answerText) answerText.text = "";
-
-            // ถ้าเดินออกระหว่างคุย → ปิดอัตโนมัติ
-            if (dialogueOpen)
-                TryClose();
-        }
-    }
+    void OnTriggerEnter(Collider other) { if (other.CompareTag("Player")) playerInRange = true; }
+    void OnTriggerExit(Collider other) { if (other.CompareTag("Player")) { playerInRange = false; if (dialogueOpen) TryClose(); } }
 }

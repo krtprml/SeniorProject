@@ -4,8 +4,11 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager I;
 
+    // Track the currently active NPC (Can be null if talking to Boss)
+    public StandardNPC CurrentActiveNPC;
+
     int openDialogues = 0;
-    float blockPauseUntil = 0f;   // ⬅ สำคัญมาก
+    float blockPauseUntil = 0f;
 
     void Awake()
     {
@@ -14,26 +17,31 @@ public class DialogueManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // =========================================================
+    // VERSION 1: For Suspects (Brian, Anna, etc.)
+    // =========================================================
+    public void DialogueOpened(StandardNPC npc)
+    {
+        openDialogues++;
+        CurrentActiveNPC = npc; // We know who to send evidence to
+    }
+
+    // =========================================================
+    // VERSION 2: For the Boss / Case Evaluator (The Fix)
+    // =========================================================
     public void DialogueOpened()
     {
         openDialogues++;
+        CurrentActiveNPC = null; // The Boss doesn't accept "Evidence Items" this way
     }
 
     public void DialogueClosed()
     {
         openDialogues = Mathf.Max(0, openDialogues - 1);
-
-        // 🔥 block ESC → Pause for 0.1 sec
+        CurrentActiveNPC = null;
         blockPauseUntil = Time.unscaledTime + 0.1f;
     }
 
-    public bool IsAnyDialogueOpen()
-    {
-        return openDialogues > 0;
-    }
-
-    public bool IsPauseBlocked()
-    {
-        return Time.unscaledTime < blockPauseUntil;
-    }
+    public bool IsAnyDialogueOpen() => openDialogues > 0;
+    public bool IsPauseBlocked() => Time.unscaledTime < blockPauseUntil;
 }
