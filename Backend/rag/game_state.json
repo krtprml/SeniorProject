@@ -1,14 +1,72 @@
 {
-  "memory": {},
+  "memory": {
+    "EDWARD": [
+      {
+        "role": "user",
+        "content": "dd"
+      },
+      {
+        "role": "assistant",
+        "content": "Detective, I'm not sure what you're referring to. I think you may be getting a bit confused. I've been cooperating fully with the investigation, and I'm happy to answer any questions you have. However, I don't recall anything out of the ordinary happening around 9:30 PM. I was actually in the kitchen, getting a glass of water for myself. I remember seeing Dana accidentally touch Victor's glass, but I didn't think much of it at the time. I didn't see anything suspicious, and I certainly didn't do anything to harm Victor."
+      }
+    ],
+    "DANA": [
+      {
+        "role": "user",
+        "content": "I saw on Victor's notebook that Victor Blocked you from the promotion. Why did you lie?"
+      },
+      {
+        "role": "assistant",
+        "content": "*sighs* Alright, I'll tell the truth. I was frustrated about being blocked from the promotion. I had been working hard for it and felt like I deserved it. When I complained to Victor about it at 8:30 PM, I expected him to understand my perspective and maybe even apologize or offer some explanation. But he just brushed it off, saying that the decision was final.\n\nI was still feeling upset about it, and when I saw the glass on the table, I thought it was mine. I picked it up, and then I realized it was Victor's. I panicked because I knew I had been complaining to him earlier, and I was worried that he might think I had poisoned him. I didn't poison him, of course. I just put the glass down and tried to calm down.\n\nBut I guess I was too quick to deny it when you asked me about it. I was trying to protect myself, but I realize now that was a mistake. I should have just been honest from the start."
+      }
+    ]
+  },
   "evidence_found": [
-    "Notebook"
+    "Notebook",
+    "Calendar",
+    "Mobile Phone"
   ],
-  "question_evaluations": [],
+  "question_evaluations": [
+    {
+      "politeness": 0,
+      "investigation": 0,
+      "direct": false,
+      "evidence_based": false,
+      "leading": true,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": true,
+      "off_topic": true,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": false,
+      "ethical_violation": false,
+      "question": "dd"
+    },
+    {
+      "politeness": 2,
+      "investigation": 2,
+      "direct": true,
+      "evidence_based": true,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": true,
+      "ethical_violation": false,
+      "question": "I saw on Victor's notebook that Victor Blocked you from the promotion. Why did you lie?"
+    }
+  ],
   "summary": {
-    "politeness_avg": 0,
-    "investigation_avg": 0,
-    "politeness_score": 0,
-    "investigation_score": 0,
+    "politeness_avg": 1.0,
+    "investigation_avg": 1.0,
+    "politeness_score": 33,
+    "investigation_score": 23,
     "auto_fail": false,
     "fail_reason": ""
   },
