@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class StandardNPC : MonoBehaviour
 {
-    public string npcName = "Brian";
+    [Header("RAG Settings")]
+    public string npcName = "";
 
     [Header("UI References")]
     [SerializeField] GameObject dialoguePanel;
@@ -20,6 +21,11 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] InputActionReference sendAction;
     [SerializeField] MonoBehaviour[] playerScriptsToDisable;
 
+    [Header("Evidence UI")]
+    [SerializeField] Transform evidenceButtonContainer;
+    [SerializeField] EvidenceChoiceButton evidenceButtonPrefab;
+
+    bool playerInRange = false;
     bool dialogueOpen = false;
     bool playerInRange = false;
 
@@ -28,26 +34,57 @@ public class StandardNPC : MonoBehaviour
 
     void OnEnable()
     {
-        if (talkAction) { talkAction.action.Enable(); talkAction.action.performed += _ => TryOpen(); }
-        if (closeAction) { closeAction.action.Enable(); closeAction.action.performed += _ => TryClose(); }
-        if (sendAction) { sendAction.action.Enable(); sendAction.action.performed += _ => TrySend(); }
+        talkAction.action.performed += _ => TryOpen();
+        closeAction.action.performed += _ => TryClose();
+        sendAction.action.performed += _ => TrySend();
+
+        talkAction.action.Enable();
+        closeAction.action.Enable();
+        sendAction.action.Enable();
+        if (EvidenceManager.I != null)
+        EvidenceManager.I.OnEvidenceUpdated += BuildEvidenceChoices;
     }
 
     void OnDisable()
     {
-        if (talkAction) talkAction.action.Disable();
-        if (closeAction) closeAction.action.Disable();
-        if (sendAction) sendAction.action.Disable();
+        talkAction.action.Disable();
+        closeAction.action.Disable();
+        sendAction.action.Disable();
+        if (EvidenceManager.I != null)
+        EvidenceManager.I.OnEvidenceUpdated -= BuildEvidenceChoices;
     }
 
-    // Called by the HUD Button when player clicks an evidence item
-    public void SelectEvidence(string evidenceName)
+    void BuildEvidenceChoices()
+{
+    // ล้างปุ่มเก่าก่อน
+    foreach (Transform c in evidenceButtonContainer)
+        Destroy(c.gameObject);
+
+    if (EvidenceDatabase.I == null || EvidenceManager.I == null)
+        return;
+
+    var reveals = EvidenceDatabase.I.GetRevealsForNPC(
+        npcName.ToUpper(),
+        EvidenceManager.I.CollectedEvidence
+    );
+
+    foreach (var r in reveals)
     {
-        currentConfrontationEvidence = evidenceName;
-        if (selectedEvidenceText)
-            selectedEvidenceText.text = $"Confronting with: <b>{evidenceName}</b>";
+        Debug.Log($"🧠 Evidence unlock for {npcName}: {r.auto_text}");
+        var btn = Instantiate(evidenceButtonPrefab, evidenceButtonContainer);
+        btn.Setup(r, OnEvidenceChosen);
     }
+}
 
+    void OnEvidenceChosen(EvidenceReveal reveal)
+{
+    // ใส่ auto text ลง input field
+    inputField.text = reveal.auto_text;
+    inputField.Select();
+    inputField.ActivateInputField();
+}
+
+    // ========================= OPEN =========================
     void TryOpen()
     {
         if (!playerInRange || dialogueOpen) return;
@@ -59,9 +96,16 @@ public class StandardNPC : MonoBehaviour
         if (dialoguePanel) dialoguePanel.SetActive(true);
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
 
-        // Reset evidence state on open
-        currentConfrontationEvidence = null;
-        if (selectedEvidenceText) selectedEvidenceText.text = "";
+        BuildEvidenceChoices();
+        Debug.Log("🧪 BuildEvidenceChoices called for " + npcName);
+
+        if (inputField)
+        {
+            inputField.text = "";
+            inputField.interactable = true;
+            inputField.Select();
+            inputField.ActivateInputField();
+        }
 
         if (inputField) { inputField.text = ""; inputField.interactable = true; inputField.Select(); inputField.ActivateInputField(); }
         foreach (var c in playerScriptsToDisable) if (c) c.enabled = false;

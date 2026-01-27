@@ -1,0 +1,50 @@
+{
+  "Calendar": {
+    "display_name": "Calendar",
+    "reveals": [
+      {
+        "npc": "EDWARD",
+        "conflict": "firing",
+        "auto_text": "I saw on the calendar that Victor planned to fire you from the company. Why did you lie?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Confront with Calendar"
+  },
+  "Mobile Phone": {
+    "display_name": "Victor's Phone",
+    "reveals": [
+      {
+        "npc": "ANNA",
+        "conflict": "money",
+        "auto_text": "I saw the chat from Victor's phone that Victor planned to cut you from the will. Why did you lie?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Confront with Phone Chat"
+    },
+    "Notebook": {
+    "display_name": "Victor's Notebook",
+    "reveals": [
+      {
+        "npc": "DANA",
+        "conflict": "promotion",
+        "auto_text": "I saw on Victor's notebook that Victor Blocked you from the promotion. Why did you lie?"
+      },
+      {
+        "npc": "BRIAN",
+        "conflict": "money",
+        "auto_text": "I saw on Victor's notebook that Victor refused to give you a loan. Why did you lie?"
+      },
+      {
+        "npc": "EDWARD",
+        "conflict": "firing",
+        "auto_text": "I saw on Victor's notebook that Victor was not satisfied with you in the company. Why did you lie?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Confront with Victor's Notebook"
+    }
+    
+
+}
