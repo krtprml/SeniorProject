@@ -17,7 +17,7 @@ public class EvidenceReveal
     public string npc;
     public string conflict;
     public string auto_text;
-    public string ui_hint;
+    // public string ui_hint;
 }
 
 [Serializable]
