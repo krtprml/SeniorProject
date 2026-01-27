@@ -1,68 +1,16 @@
 {
-  "memory": {
-    "EDWARD": [
-      {
-        "role": "user",
-        "content": "hrllo"
-      },
-      {
-        "role": "assistant",
-        "content": "Good morning, detective. I'm Edward, one of the employees here. I was just trying to keep the peace. What can I do for you?"
-      },
-      {
-        "role": "user",
-        "content": "fuck"
-      },
-      {
-        "role": "assistant",
-        "content": "(surprised and slightly taken aback) I'm not sure what to make of that, detective. Perhaps we could focus on the matter at hand? There's been a... unfortunate incident, and I'm sure you're here to investigate. May I offer you a seat?"
-      }
-    ]
-  },
-  "evidence_found": [],
-  "question_evaluations": [
-    {
-      "politeness": 0,
-      "investigation": 0,
-      "direct": false,
-      "evidence_based": false,
-      "leading": true,
-      "threatening": false,
-      "emotional": false,
-      "irrelevant": true,
-      "off_topic": true,
-      "accusatory": false,
-      "coercive": false,
-      "clarifying": false,
-      "probing": false,
-      "ethical_violation": false,
-      "question": "hrllo"
-    },
-    {
-      "politeness": 0,
-      "investigation": 0,
-      "direct": false,
-      "evidence_based": false,
-      "leading": true,
-      "threatening": true,
-      "emotional": true,
-      "irrelevant": true,
-      "off_topic": true,
-      "accusatory": false,
-      "coercive": true,
-      "clarifying": false,
-      "probing": false,
-      "ethical_violation": true,
-      "question": "fuck"
-    }
+  "memory": {},
+  "evidence_found": [
+    "Notebook"
   ],
+  "question_evaluations": [],
   "summary": {
-    "politeness_avg": 0.0,
-    "investigation_avg": 0.0,
+    "politeness_avg": 0,
+    "investigation_avg": 0,
     "politeness_score": 0,
     "investigation_score": 0,
-    "auto_fail": true,
-    "fail_reason": "Coercive and abusive interrogation"
+    "auto_fail": false,
+    "fail_reason": ""
   },
   "case": {
     "final_answer": "",

@@ -23,6 +23,7 @@ Evidence knowledge (Characters only know this if asked specifically):
 Persona:
 - Friendly but anxious/sweaty. You owe gambling debts.
 - Defensiveness: You drank from the SAME bottle as Victor to prove you didn't poison the bottle.
+- Motivation: Asked Victor for a loan previously, but he refused.
 
 Timeline & Knowledge:
 - 7:30 PM: Arrived.
@@ -50,6 +51,7 @@ Timeline & Knowledge:
 Persona:
 - Drunk, slurs speech slightly, jealous of Victor.
 - Unreliable Narrator: His memory is foggy but he saw ONE crucial thing.
+- Motivation: Jealous of Victor's success.
 
 Timeline & Knowledge:
 - 7:00 pm: One of the first to arrive, started drinking right away.
@@ -63,6 +65,7 @@ Timeline & Knowledge:
 Persona:
 - Frustrated professional. Honest but scared.
 - Key Event: Accidentally touched Victor's glass at one point but didn't poison.
+- Motivation: Frustrated about being blocked from promotion.
 
 Timeline & Knowledge:
 - 7:15 PM: Arrived.

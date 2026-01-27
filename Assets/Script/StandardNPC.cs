@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class StandardNPC : MonoBehaviour
 {
     [Header("RAG Settings")]
-    public string npcName = "Brian";
+    public string npcName = "";
 
     [Header("UI")]
     [SerializeField] GameObject dialoguePanel;
@@ -22,6 +22,10 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] InputActionReference talkAction;
     [SerializeField] InputActionReference closeAction;
     [SerializeField] InputActionReference sendAction;
+
+    [Header("Evidence UI")]
+    [SerializeField] Transform evidenceButtonContainer;
+    [SerializeField] EvidenceChoiceButton evidenceButtonPrefab;
 
     bool playerInRange = false;
     bool dialogueOpen = false;
@@ -43,6 +47,8 @@ public class StandardNPC : MonoBehaviour
         talkAction.action.Enable();
         closeAction.action.Enable();
         sendAction.action.Enable();
+        if (EvidenceManager.I != null)
+        EvidenceManager.I.OnEvidenceUpdated += BuildEvidenceChoices;
     }
 
     void OnDisable()
@@ -50,7 +56,39 @@ public class StandardNPC : MonoBehaviour
         talkAction.action.Disable();
         closeAction.action.Disable();
         sendAction.action.Disable();
+        if (EvidenceManager.I != null)
+        EvidenceManager.I.OnEvidenceUpdated -= BuildEvidenceChoices;
     }
+
+    void BuildEvidenceChoices()
+{
+    // ล้างปุ่มเก่าก่อน
+    foreach (Transform c in evidenceButtonContainer)
+        Destroy(c.gameObject);
+
+    if (EvidenceDatabase.I == null || EvidenceManager.I == null)
+        return;
+
+    var reveals = EvidenceDatabase.I.GetRevealsForNPC(
+        npcName.ToUpper(),
+        EvidenceManager.I.CollectedEvidence
+    );
+
+    foreach (var r in reveals)
+    {
+        Debug.Log($"🧠 Evidence unlock for {npcName}: {r.auto_text}");
+        var btn = Instantiate(evidenceButtonPrefab, evidenceButtonContainer);
+        btn.Setup(r, OnEvidenceChosen);
+    }
+}
+
+    void OnEvidenceChosen(EvidenceReveal reveal)
+{
+    // ใส่ auto text ลง input field
+    inputField.text = reveal.auto_text;
+    inputField.Select();
+    inputField.ActivateInputField();
+}
 
     // ========================= OPEN =========================
     void TryOpen()
@@ -64,6 +102,9 @@ public class StandardNPC : MonoBehaviour
 
         if (dialoguePanel) dialoguePanel.SetActive(true);
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
+
+        BuildEvidenceChoices();
+        Debug.Log("🧪 BuildEvidenceChoices called for " + npcName);
 
         if (inputField)
         {
