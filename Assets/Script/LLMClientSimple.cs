@@ -43,6 +43,20 @@ public class LLMClientSimple
         public string fail_reason;
     }
 
+    [Serializable]
+public class UseEvidenceRequest
+{
+    public string evidence_id;
+}
+
+[Serializable]
+public class CaseGateResponse
+{
+    public bool blocked;
+    public string reason;
+    public string[] missing_evidence;
+}
+
     // ================= Fields =================
 
     readonly string baseUrl;
@@ -106,6 +120,37 @@ public class LLMClientSimple
         }
     }
 
+    public IEnumerator UseEvidence(string evidenceId)
+{
+    var url = $"{baseUrl}/use-evidence";
+
+    UseEvidenceRequest data = new UseEvidenceRequest
+    {
+        evidence_id = evidenceId
+    };
+
+    string json = JsonUtility.ToJson(data);
+
+    using (UnityWebRequest req = new UnityWebRequest(url, "POST"))
+    {
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+        req.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        req.downloadHandler = new DownloadHandlerBuffer();
+        req.SetRequestHeader("Content-Type", "application/json");
+
+        yield return req.SendWebRequest();
+
+        if (req.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("❌ UseEvidence failed: " + req.error);
+        }
+        else
+        {
+            Debug.Log($"✅ Evidence used: {evidenceId}");
+        }
+    }
+}
+
     // ================= FINAL SCORE =================
 
     public IEnumerator GetFinalScore(
@@ -153,7 +198,30 @@ public class LLMClientSimple
             yield break;
         }
 
-        onDone?.Invoke(req.downloadHandler.text);
+        var textResp = req.downloadHandler.text;
+
+    // 🔒 ลอง parse gate response ก่อน
+    CaseGateResponse gate = null;
+    try
+    {
+        gate = JsonUtility.FromJson<CaseGateResponse>(textResp);
+    }
+    catch { /* ignore */ }
+
+    if (gate != null && gate.blocked)
+    {
+        string missing = gate.missing_evidence != null
+            ? string.Join(", ", gate.missing_evidence)
+            : "unknown evidence";
+
+        onError?.Invoke(
+            $"You must collect all evidence before accusing.\nMissing evidence: {missing}"
+        );
+        yield break;
+    }
+
+    // ถ้าไม่โดน block → ถือว่าเป็นผล evaluator ปกติ
+    onDone?.Invoke(textResp);
     }
 
     [Serializable]

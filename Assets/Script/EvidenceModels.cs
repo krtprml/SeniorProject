@@ -18,6 +18,7 @@ public class EvidenceReveal
     public string conflict;
     public string auto_text;
     // public string ui_hint;
+    public string evidence_id;
 }
 
 [Serializable]

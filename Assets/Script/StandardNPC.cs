@@ -96,6 +96,11 @@ public class StandardNPC : MonoBehaviour
     inputField.text = reveal.auto_text;
     inputField.Select();
     inputField.ActivateInputField();
+
+    // 🔥 บอก server ว่าใช้ evidence นี้แล้ว
+    StartCoroutine(
+        GameManagerSimple.I.Client.UseEvidence(reveal.evidence_id)
+    );
 }
 
     // ========================= OPEN =========================
