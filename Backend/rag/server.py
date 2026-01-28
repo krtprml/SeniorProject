@@ -482,9 +482,26 @@ async def chat(req: PlayerRequest):
 # ==============================
 # CASE EVALUATION
 # ==============================
+REQUIRED_EVIDENCE = {
+    "Calendar",
+    "Notebook",
+    "Mobile Phone"
+}
 @app.post("/evaluate-case")
+
 async def evaluate_case(req: FinalCaseRequest):
     state = load_state()
+
+    found = set(state.get("evidence_found", []))
+    missing = REQUIRED_EVIDENCE - found
+
+    # 🔒 HARD GATE
+    if missing:
+        return {
+            "blocked": True,
+            "reason": "Not enough evidence",
+            "missing_evidence": list(missing)
+        }
 
     # results = case_collection.query(
     #     query_texts=[req.final_answer],
