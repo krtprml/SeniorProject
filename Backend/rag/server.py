@@ -178,6 +178,11 @@ ANSWERING RULES
 - If not confronted, continue to deny or downplay your conflict
 
 Answer naturally as {npc}.
+
+NEUTRAL EVIDENCE RULE:
+If the detective asks about an object without accusing you of a conflict,
+you may answer truthfully but briefly.
+Do not confess unless directly confronted with conflict evidence.
 """
 
 # ==============================
