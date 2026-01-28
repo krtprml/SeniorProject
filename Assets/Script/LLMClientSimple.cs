@@ -43,6 +43,12 @@ public class LLMClientSimple
         public string fail_reason;
     }
 
+    [Serializable]
+public class UseEvidenceRequest
+{
+    public string evidence_id;
+}
+
     // ================= Fields =================
 
     readonly string baseUrl;
@@ -105,6 +111,37 @@ public class LLMClientSimple
             onError?.Invoke("JSON Parse Error: " + e.Message);
         }
     }
+
+    public IEnumerator UseEvidence(string evidenceId)
+{
+    var url = $"{baseUrl}/use-evidence";
+
+    UseEvidenceRequest data = new UseEvidenceRequest
+    {
+        evidence_id = evidenceId
+    };
+
+    string json = JsonUtility.ToJson(data);
+
+    using (UnityWebRequest req = new UnityWebRequest(url, "POST"))
+    {
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+        req.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        req.downloadHandler = new DownloadHandlerBuffer();
+        req.SetRequestHeader("Content-Type", "application/json");
+
+        yield return req.SendWebRequest();
+
+        if (req.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("❌ UseEvidence failed: " + req.error);
+        }
+        else
+        {
+            Debug.Log($"✅ Evidence used: {evidenceId}");
+        }
+    }
+}
 
     // ================= FINAL SCORE =================
 

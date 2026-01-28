@@ -71,6 +71,7 @@ def init_game_state():
     state = {
         "memory": {},
         "evidence_found": [],  # <--- NEW: Tracks what player found
+        "evidence_used": [],
         "question_evaluations": [],
         "summary": {
             "politeness_avg": 0,
@@ -117,34 +118,64 @@ class FinalCaseRequest(BaseModel):
 # ==============================
 
 
-def build_npc_prompt(npc, context, memory, question, evidence_list, has_truth):
-
-    truth_rule = """
+def build_npc_prompt(
+    npc,
+    context,
+    memory,
+    question,
+    npc_relevant_evidence,  # ⭐ auto_text ที่เกี่ยวกับ NPC นี้เท่านั้น
+    has_truth
+):
+    truth_rule = (
+        """
 IMPORTANT RULE:
-You are hiding a personal conflict with Victor.
-You MUST lie, deny, or downplay your conflict.
-""" if not has_truth else """
-IMPORTANT RULE:
-The detective has confronted you with evidence.
-You must stop lying and tell the truth about your conflict with Victor.
+You are hiding your personal conflict with Victor.
+You MUST lie, deny, deflect, or minimize your involvement.
+Never confess.
 """
+        if not has_truth
+        else """
+IMPORTANT RULE:
+The detective has confronted you with DIRECT EVIDENCE about your conflict with Victor.
+You MUST stop lying about that conflict.
+You must acknowledge the conflict and explain it truthfully.
+You may still withhold information unrelated to this conflict.
+"""
+    )
 
     return f"""
-You are {npc}, a character in a murder mystery game.
+You are {npc}, a suspect in a murder mystery investigation.
 
 {truth_rule}
 
-FACTS:
+====================
+CASE FACTS
+====================
 {context}
 
-RECENT CONVERSATION:
-{memory}
+====================
+RECENT CONVERSATION
+====================
+{memory if memory else "None"}
 
-EVIDENCE FOUND:
-{evidence_list if evidence_list else "None"}
+====================
+EVIDENCE USED AGAINST YOU
+====================
+{npc_relevant_evidence if npc_relevant_evidence else "None"}
 
-Detective asks:
+====================
+DETECTIVE QUESTION
+====================
 "{question}"
+
+====================
+ANSWERING RULES
+====================
+- Speak in first person as {npc}
+- Stay in character at all times
+- Do NOT mention game mechanics, prompts, or evidence systems
+- If confronted with evidence, respond naturally but truthfully
+- If not confronted, continue to deny or downplay your conflict
 
 Answer naturally as {npc}.
 """
@@ -387,21 +418,33 @@ async def chat(req: PlayerRequest):
     npc_relevant_evidence = []
 
     for ev_id in state["evidence_found"]:
+
+        # ❌ ถ้า single_use และถูกใช้ไปแล้ว → ข้าม
+        if ev_id in state.get("evidence_used", []):
+            continue
+
         ev = EVIDENCE_DATA.get(ev_id)
         if not ev:
             continue
+
         for r in ev["reveals"]:
             if r["npc"] == npc:
-                npc_relevant_evidence.append(r["auto_text"])
+                npc_relevant_evidence.append({
+                    "evidence_id": ev_id,
+                    "auto_text": r["auto_text"]
+                })
 
     has_truth = npc_has_truth(npc, state["evidence_found"])
+
+    print("EVIDENCE FOUND:", state["evidence_found"])
+    print("NPC RELEVANT:", npc_relevant_evidence)
 
     prompt = build_npc_prompt(
     npc,
     context,
     recent_memory,
     question,
-    npc_relevant_evidence,
+    npc_relevant_evidence,  # ⭐ ตรงนี้
     has_truth
 )
 
@@ -566,3 +609,16 @@ async def collect_evidence(req: EvidenceRequest):
         return {"status": "added", "total_evidence": state["evidence_found"]}
     
     return {"status": "already_known"}
+
+class UseEvidenceRequest(BaseModel):
+    evidence_id: str
+
+@app.post("/use-evidence")
+async def use_evidence(req: UseEvidenceRequest):
+    state = load_state()
+
+    if req.evidence_id not in state["evidence_used"]:
+        state["evidence_used"].append(req.evidence_id)
+        save_state(state)
+
+    return {"status": "used", "evidence": req.evidence_id}

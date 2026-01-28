@@ -30,7 +30,11 @@ public class EvidenceChoiceButton : MonoBehaviour
     }
 
     void OnPressed()
-    {
-        callback?.Invoke(reveal);
-    }
+{
+    callback?.Invoke(reveal);
+
+    // ❌ disable ตัวเองทันที
+    button.interactable = false;
+    gameObject.SetActive(false);
+}
 }
