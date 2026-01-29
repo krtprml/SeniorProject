@@ -44944,7 +44944,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -451}
+  m_AnchoredPosition: {x: 0, y: -488}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1129899914
@@ -101764,8 +101764,9 @@ MonoBehaviour:
   objectName: Mobile Phone
   description: 
   isCollectable: 1
-  showOnCollect: 0
-  inspectSprite: {fileID: 0}
+  showOnCollect: 1
+  inspectSprite: {fileID: 21300000, guid: 634dc20865a9f449985a10a6646ed3e6, type: 3}
+  displayMode: 1
 --- !u!65 &3469287836580131222
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -101834,6 +101835,7 @@ MonoBehaviour:
   isCollectable: 1
   showOnCollect: 1
   inspectSprite: {fileID: 21300000, guid: 3589c439c7732449d814613d6f1fdc38, type: 3}
+  displayMode: 0
 --- !u!114 &3469287836854193815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101841,7 +101843,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148818533259}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8e799bebd3974e4d9072f0fe84fd447, type: 3}
   m_Name: 
@@ -101875,6 +101877,7 @@ MonoBehaviour:
   isCollectable: 1
   showOnCollect: 0
   inspectSprite: {fileID: 0}
+  displayMode: 0
 --- !u!65 &3469287836895677562
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -106322,6 +106325,7 @@ MonoBehaviour:
   isCollectable: 1
   showOnCollect: 0
   inspectSprite: {fileID: 0}
+  displayMode: 0
 --- !u!65 &5507066300702840990
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114832,6 +114836,7 @@ MonoBehaviour:
   isCollectable: 1
   showOnCollect: 0
   inspectSprite: {fileID: 0}
+  displayMode: 0
 --- !u!65 &9197225546284210360
 BoxCollider:
   m_ObjectHideFlags: 0
