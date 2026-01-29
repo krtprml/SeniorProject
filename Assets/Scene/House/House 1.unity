@@ -101875,9 +101875,9 @@ MonoBehaviour:
   objectName: Notebook
   description: 
   isCollectable: 1
-  showOnCollect: 0
-  inspectSprite: {fileID: 0}
-  displayMode: 0
+  showOnCollect: 1
+  inspectSprite: {fileID: 21300000, guid: 3bbb4036bf2df437f9cffacaa464efb2, type: 3}
+  displayMode: 1
 --- !u!65 &3469287836895677562
 BoxCollider:
   m_ObjectHideFlags: 0
