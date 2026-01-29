@@ -17,7 +17,10 @@ public class EvidencePickup : MonoBehaviour
 
         if (showOnCollect && EvidenceViewerUI.I != null)
         {
-            EvidenceViewerUI.I.Show(inspectSprite);
+            EvidenceViewerUI.I.Show(
+            inspectSprite,
+            EvidenceDisplayMode.Default // 👈 ใส่ mode
+        );
         }
 
         gameObject.SetActive(false); // หรือ Destroy(gameObject)
