@@ -40,10 +40,79 @@
         "npc": "EDWARD",
         "conflict": "firing",
         "auto_text": "I saw on Victor's notebook that Victor was not satisfied with you in the company. Why did you lie?"
+      },
+      {
+        "npc": "CHARLES",
+        "conflict": "jealous",
+        "auto_text": "I saw on Victor's notebook that Victor knew that you're always gossiping behind Victor's back. Why did you lie?"
       }
     ],
     "single_use": true,
     "ui_hint": "Confront with Victor's Notebook"
+    },
+    "Wine Bottle": {
+    "display_name": "Wine Bottle",
+    "reveals": [
+      {
+        "npc": "BRIAN",
+        "conflict": "",
+        "auto_text": "Did you drink the same wine bottle as Victor?"
+      },
+      {
+        "npc": "ANNA",
+        "conflict": "",
+        "auto_text": "Did you drink the same wine bottle as Victor?"
+      },
+      {
+        "npc": "EDWARD",
+        "conflict": "",
+        "auto_text": "Did you drink the same wine bottle as Victor?"
+      },
+      {
+        "npc": "CHARLES",
+        "conflict": "",
+        "auto_text": "Did you drink the same wine bottle as Victor?"
+      },
+      {
+        "npc": "DANA",
+        "conflict": "",
+        "auto_text": "Did you drink the same wine bottle as Victor?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Ask about Wine Bottle"
+    },
+    "Wine Glass": {
+    "display_name": "Wine Glass",
+    "reveals": [
+      {
+        "npc": "BRIAN",
+        "conflict": "",
+        "auto_text": "Did you see anyone touching Victor's glass?"
+      },
+      {
+        "npc": "ANNA",
+        "conflict": "",
+        "auto_text": "Did you see anyone touching Victor's glass?"
+      },
+      {
+        "npc": "EDWARD",
+        "conflict": "",
+        "auto_text": "Did you see anyone touching Victor's glass?"
+      },
+      {
+        "npc": "CHARLES",
+        "conflict": "",
+        "auto_text": "Did you see anyone touching Victor's glass?"
+      },
+      {
+        "npc": "DANA",
+        "conflict": "",
+        "auto_text": "Did you see anyone touching Victor's glass?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Ask about Wine Glass"
     }
     
 

@@ -14,6 +14,10 @@ public class HighlightableObject : MonoBehaviour
     public void OnHighlightEnter() { /* Existing code... */ }
     public void OnHighlightExit() { /* Existing code... */ }
 
+    [Header("Evidence View")]
+    public bool showOnCollect = false;
+    public Sprite inspectSprite;
+
     // 🔥 NEW FUNCTION
     public void Interact()
     {
@@ -26,5 +30,10 @@ public class HighlightableObject : MonoBehaviour
 
         // Send to Manager
         EvidenceManager.I.CollectEvidence(objectName);
+
+        if (showOnCollect && inspectSprite != null)
+        {
+            EvidenceViewerUI.I.Show(inspectSprite);
+        }
     }
 }

@@ -43,6 +43,11 @@
         "npc": "EDWARD",
         "conflict": "firing",
         "auto_text": "I saw on Victor's notebook that Victor was not satisfied with you in the company. Why did you lie?"
+      },
+      {
+        "npc": "CHARLES",
+        "conflict": "jealous",
+        "auto_text": "I saw on Victor's notebook that Victor knew that you're always gossiping behind Victor's back. Why did you lie?"
       }
     ],
     "single_use": true,
