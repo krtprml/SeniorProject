@@ -33,13 +33,13 @@ public class EvidenceViewerUI : MonoBehaviour
         switch (mode)
         {
             case EvidenceDisplayMode.PhoneChat:
-                imageRT.sizeDelta = new Vector2(120, 120);
+                imageRT.sizeDelta = new Vector2(150, 150);
                 imageRT.anchoredPosition = Vector2.zero;
                 evidenceImage.preserveAspect = true;
                 break;
 
             default:
-                imageRT.sizeDelta = new Vector2(100, 100);
+                imageRT.sizeDelta = new Vector2(120, 120);
                 imageRT.anchoredPosition = Vector2.zero;
                 evidenceImage.preserveAspect = true;
                 break;
