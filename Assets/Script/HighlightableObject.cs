@@ -17,6 +17,10 @@ public class HighlightableObject : MonoBehaviour
     [Header("Evidence View")]
     public bool showOnCollect = false;
     public Sprite inspectSprite;
+    public EvidenceDisplayMode displayMode = EvidenceDisplayMode.Default; // ⭐ เพิ่ม
+
+    
+
 
     // 🔥 NEW FUNCTION
     public void Interact()
@@ -33,7 +37,7 @@ public class HighlightableObject : MonoBehaviour
 
         if (showOnCollect && inspectSprite != null)
         {
-            EvidenceViewerUI.I.Show(inspectSprite);
+            EvidenceViewerUI.I.Show(inspectSprite, displayMode);
         }
     }
 }
