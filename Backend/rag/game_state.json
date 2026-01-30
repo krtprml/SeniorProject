@@ -1,0 +1,105 @@
+{
+  "memory": {
+    "EDWARD": [
+      {
+        "role": "user",
+        "content": "Hey"
+      },
+      {
+        "role": "assistant",
+        "content": "Not much, just enjoying the evening. What's on your mind?"
+      }
+    ],
+    "ANNA": [
+      {
+        "role": "user",
+        "content": "Did you see anyone touching Victor's glass?"
+      },
+      {
+        "role": "assistant",
+        "content": "(pausing for a moment) I... I did see something strange. I was standing near Victor, and I saw Edward take the glass from Dana. I didn't think much of it at the time, but now that you mention it, it does seem suspicious. (pausing again) But I didn't see Edward touch the glass. I just saw him take it from Dana."
+      },
+      {
+        "role": "user",
+        "content": "Did you drink the same wine bottle as Victor?"
+      },
+      {
+        "role": "assistant",
+        "content": "(pausing for a moment) Yes, I did drink from the same wine bottle as Victor. We were both enjoying the wine together that evening."
+      }
+    ]
+  },
+  "evidence_found": [
+    "Wine Bottle",
+    "Wine Glass"
+  ],
+  "evidence_used": [
+    ""
+  ],
+  "question_evaluations": [
+    {
+      "politeness": 1,
+      "investigation": 0,
+      "direct": false,
+      "evidence_based": false,
+      "leading": true,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": true,
+      "off_topic": true,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": false,
+      "ethical_violation": false,
+      "question": "Hey"
+    },
+    {
+      "politeness": 3,
+      "investigation": 3,
+      "direct": true,
+      "evidence_based": false,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": true,
+      "ethical_violation": false,
+      "question": "Did you see anyone touching Victor's glass?"
+    },
+    {
+      "politeness": 3,
+      "investigation": 3,
+      "direct": true,
+      "evidence_based": true,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": true,
+      "ethical_violation": false,
+      "question": "Did you drink the same wine bottle as Victor?"
+    }
+  ],
+  "summary": {
+    "politeness_avg": 2.33,
+    "investigation_avg": 2.0,
+    "politeness_score": 78,
+    "investigation_score": 62,
+    "auto_fail": false,
+    "fail_reason": ""
+  },
+  "case": {
+    "final_answer": "",
+    "score": 0,
+    "reason": ""
+  }
+}
