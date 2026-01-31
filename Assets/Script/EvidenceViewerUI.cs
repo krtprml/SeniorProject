@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // ⭐ สำคัญมาก
 
 public class EvidenceViewerUI : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class EvidenceViewerUI : MonoBehaviour
 
     [SerializeField] GameObject root;
     [SerializeField] Image evidenceImage;
+    [SerializeField] TMP_Text descriptionText;
 
     RectTransform imageRT;
 
@@ -17,9 +19,11 @@ public class EvidenceViewerUI : MonoBehaviour
         root.SetActive(false);
     }
 
-    public void Show(Sprite sprite, EvidenceDisplayMode mode)
+    public void Show(Sprite sprite, EvidenceDisplayMode mode, string description)
     {
         evidenceImage.sprite = sprite;
+        descriptionText.text = description;
+        descriptionText.gameObject.SetActive(!string.IsNullOrEmpty(description));
         ApplyLayout(mode);
 
         root.SetActive(true);
@@ -34,16 +38,19 @@ public class EvidenceViewerUI : MonoBehaviour
         {
             case EvidenceDisplayMode.PhoneChat:
                 imageRT.sizeDelta = new Vector2(150, 150);
-                imageRT.anchoredPosition = Vector2.zero;
-                evidenceImage.preserveAspect = true;
+                break;
+
+            case EvidenceDisplayMode.Wine:
+                imageRT.sizeDelta = new Vector2(80, 80);
                 break;
 
             default:
                 imageRT.sizeDelta = new Vector2(120, 120);
-                imageRT.anchoredPosition = Vector2.zero;
-                evidenceImage.preserveAspect = true;
                 break;
         }
+
+        imageRT.anchoredPosition = Vector2.zero;
+        evidenceImage.preserveAspect = true;
     }
 
     public void Hide()

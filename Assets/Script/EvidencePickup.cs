@@ -6,6 +6,8 @@ public class EvidencePickup : MonoBehaviour
     public Sprite inspectSprite;
     public bool showOnCollect = true;
 
+    public string description;
+
     bool collected = false;
 
     public void Collect()
@@ -19,7 +21,8 @@ public class EvidencePickup : MonoBehaviour
         {
             EvidenceViewerUI.I.Show(
             inspectSprite,
-            EvidenceDisplayMode.Default // 👈 ใส่ mode
+            EvidenceDisplayMode.Default, // 👈 ใส่ mode
+            description
         );
         }
 
