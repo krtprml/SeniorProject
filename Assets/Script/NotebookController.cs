@@ -1,33 +1,26 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // For keyboard input
-using TMPro; // For the text input
+using UnityEngine.InputSystem;
 
 public class NotebookController : MonoBehaviour
 {
     public static NotebookController I;
 
-    [Header("UI References")]
-    [SerializeField] GameObject notebookPanel; // The entire UI Parent (Canvas or Panel)
-    [SerializeField] NotebookNotesPage notesPage; // The script handling the typing
-
-    [Header("Settings")]
-    public Key toggleKey = Key.Tab; // Default to TAB key
+    [Header("References")]
+    [SerializeField] GameObject notebookPanel; // The UI object to show/hide
+    [SerializeField] NotebookNotesPage notesScript; // The script that handles saving text
 
     private bool isOpen = false;
-    private float previousTimeScale = 1f;
 
     void Awake()
     {
-        if (I == null) I = this;
-        else Destroy(gameObject);
-
-        if (notebookPanel) notebookPanel.SetActive(false);
+        I = this;
+        if (notebookPanel) notebookPanel.SetActive(false); // Start closed
     }
 
     void Update()
     {
-        // Simple Input Check (New Input System)
-        if (Keyboard.current[toggleKey].wasPressedThisFrame)
+        // Toggle when TAB is pressed
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
             ToggleNotebook();
         }
@@ -37,50 +30,39 @@ public class NotebookController : MonoBehaviour
     {
         isOpen = !isOpen;
 
-        if (isOpen) Open();
-        else Close();
+        if (isOpen)
+        {
+            Open();
+        }
+        else
+        {
+            Close();
+        }
     }
 
     void Open()
     {
-        // 1. Show UI
-        if (notebookPanel) notebookPanel.SetActive(true);
+        notebookPanel.SetActive(true);
+        Time.timeScale = 0f; // Pause the game
 
-        // 2. Pause Game
-        previousTimeScale = Time.timeScale;
-        Time.timeScale = 0f;
-
-        // 3. Unlock Cursor
+        // Unlock the cursor so you can click the text box
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        // 4. Ensure Notes are ready (Load saved text)
-        if (notesPage) notesPage.OnNotebookOpened();
+        // Tell the notes page to load the saved text
+        if (notesScript) notesScript.OnOpen();
     }
 
     void Close()
     {
-        // 1. Save Notes immediately
-        if (notesPage) notesPage.SaveNotes();
+        // Tell the notes page to save text immediately
+        if (notesScript) notesScript.OnClose();
 
-        // 2. Hide UI
-        if (notebookPanel) notebookPanel.SetActive(false);
+        notebookPanel.SetActive(false);
+        Time.timeScale = 1f; // Unpause the game
 
-        // 3. Unpause (Restore previous state)
-        Time.timeScale = previousTimeScale;
-
-        // 4. Lock Cursor (Only if we aren't in another menu)
-        // Check DialogueManager to make sure we don't lock cursor if a dialogue is waiting
-        if (DialogueManager.I != null && !DialogueManager.I.IsAnyDialogueOpen())
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-    }
-
-    // Force close if needed by other scripts
-    public void ForceClose()
-    {
-        if (isOpen) ToggleNotebook();
+        // Lock the cursor again so you can look around
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

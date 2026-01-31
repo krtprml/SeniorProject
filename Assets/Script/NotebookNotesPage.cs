@@ -3,47 +3,31 @@ using TMPro;
 
 public class NotebookNotesPage : MonoBehaviour
 {
-    [Header("UI Reference")]
+    [Header("UI")]
     [SerializeField] TMP_InputField inputField;
 
-    private const string SAVE_KEY = "DetectiveNotes_Save";
-
-    void Start()
+    // Called when the notebook opens
+    public void OnOpen()
     {
-        // Load notes when the game starts
+        // Load the text from the last time you played
         if (inputField != null)
         {
-            string savedText = PlayerPrefs.GetString(SAVE_KEY, "");
-            inputField.text = savedText;
-        }
-    }
+            inputField.text = PlayerPrefs.GetString("DetectiveNotes", "");
 
-    // Called by Controller when UI opens
-    public void OnNotebookOpened()
-    {
-        if (inputField)
-        {
-            // Optional: Move caret to end of text
+            // Move the blinking cursor to the end of the text
             inputField.caretPosition = inputField.text.Length;
             inputField.ActivateInputField();
         }
     }
 
-    // Called by Controller when UI closes
-    public void SaveNotes()
+    // Called when the notebook closes
+    public void OnClose()
     {
+        // Save the text to the computer's storage
         if (inputField != null)
         {
-            PlayerPrefs.SetString(SAVE_KEY, inputField.text);
+            PlayerPrefs.SetString("DetectiveNotes", inputField.text);
             PlayerPrefs.Save();
-            Debug.Log("📝 Notes Saved!");
         }
-    }
-
-    // Optional: Call this on InputField "OnValueChanged" event in Inspector
-    // if you want to save every single character typed (safer but more expensive)
-    public void AutoSave(string content)
-    {
-        PlayerPrefs.SetString(SAVE_KEY, content);
     }
 }
