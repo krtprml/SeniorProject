@@ -3164,7 +3164,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1840213327}
+  m_Mesh: {fileID: 1076373179}
 --- !u!33 &84482760
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -3624,7 +3624,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2117310693}
+  m_Mesh: {fileID: 1039960377}
 --- !u!33 &86144526
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -8208,7 +8208,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2069636172}
+  m_Mesh: {fileID: 1008189123}
 --- !u!33 &174789837
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -10529,6 +10529,7 @@ RectTransform:
   - {fileID: 139877904}
   - {fileID: 2088482634}
   - {fileID: 150099182}
+  - {fileID: 1981143473}
   - {fileID: 1129899913}
   m_Father: {fileID: 377087086}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10689,7 +10690,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1882395811}
+  m_Mesh: {fileID: 556541606}
 --- !u!33 &219028081
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -12575,7 +12576,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 737297566}
+  m_Mesh: {fileID: 1930947158}
 --- !u!33 &261564145
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -13472,7 +13473,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 993961957}
+  m_Mesh: {fileID: 312048680}
 --- !u!33 &277039303
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -13818,7 +13819,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1656350128}
+  m_Mesh: {fileID: 203757284}
 --- !u!33 &285782661
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -24284,7 +24285,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 889298989}
+  m_Mesh: {fileID: 1542290672}
 --- !u!33 &512445714
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -25422,7 +25423,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1667494833}
+  m_Mesh: {fileID: 1936600770}
 --- !u!33 &525368660
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -29199,7 +29200,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1270892132}
+  m_Mesh: {fileID: 579463236}
 --- !u!33 &593272829
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -40624,7 +40625,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1792535335}
+  m_Mesh: {fileID: 1538094620}
 --- !u!33 &803817470
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -50429,7 +50430,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1930947158}
+  m_Mesh: {fileID: 1136291774}
 --- !u!33 &1024146252
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -51083,7 +51084,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1076373179}
+  m_Mesh: {fileID: 1627285647}
 --- !u!33 &1027698135
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -69661,7 +69662,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1794695571}
+  m_Mesh: {fileID: 692489921}
 --- !u!33 &1291177534
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -70427,7 +70428,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 150946165}
+  m_Mesh: {fileID: 344274557}
 --- !u!33 &1298779051
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -72834,7 +72835,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 433247612}
+  m_Mesh: {fileID: 1612193503}
 --- !u!33 &1344463578
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -77502,7 +77503,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1538094620}
+  m_Mesh: {fileID: 770916527}
 --- !u!33 &1425232957
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -83834,7 +83835,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1858667200}
+  m_Mesh: {fileID: 797991898}
 --- !u!33 &1548073654
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -84284,6 +84285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 213290026}
   evidenceImage: {fileID: 2088482635}
+  descriptionText: {fileID: 1981143474}
 --- !u!1001 &1554552619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86611,7 +86613,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 594085994}
+  m_Mesh: {fileID: 535846724}
 --- !u!33 &1596541716
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -89141,7 +89143,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1296141847}
+  m_Mesh: {fileID: 1187388867}
 --- !u!33 &1634595429
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -105651,7 +105653,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1187388867}
+  m_Mesh: {fileID: 1205532254}
 --- !u!33 &1885331924
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -110651,6 +110653,142 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1981143472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1981143473}
+  - component: {fileID: 1981143475}
+  - component: {fileID: 1981143474}
+  m_Layer: 0
+  m_Name: descriptionText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1981143473
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981143472}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 213290027}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -203, y: -348}
+  m_SizeDelta: {x: 677.3547, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1981143474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981143472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 156.21054, y: 0, z: -238.16833, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1981143475
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981143472}
+  m_CullTransparentMesh: 1
 --- !u!4 &1982971039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3629cb88b0ec16c49a5340de6780e5c9, type: 3}
@@ -117279,7 +117417,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1721557133}
+  m_Mesh: {fileID: 2096080738}
 --- !u!33 &2098196393
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -128235,6 +128373,7 @@ MonoBehaviour:
   showOnCollect: 1
   inspectSprite: {fileID: 21300000, guid: 634dc20865a9f449985a10a6646ed3e6, type: 3}
   displayMode: 1
+  inspectText: 
 --- !u!65 &3469287836580131222
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128304,6 +128443,7 @@ MonoBehaviour:
   showOnCollect: 1
   inspectSprite: {fileID: 21300000, guid: 3589c439c7732449d814613d6f1fdc38, type: 3}
   displayMode: 0
+  inspectText: 
 --- !u!114 &3469287836854193815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128319,6 +128459,7 @@ MonoBehaviour:
   evidenceId: Calendar
   inspectSprite: {fileID: 21300000, guid: 3589c439c7732449d814613d6f1fdc38, type: 3}
   showOnCollect: 1
+  description: 
 --- !u!33 &3469287836895677560
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -128346,6 +128487,7 @@ MonoBehaviour:
   showOnCollect: 1
   inspectSprite: {fileID: 21300000, guid: 3bbb4036bf2df437f9cffacaa464efb2, type: 3}
   displayMode: 1
+  inspectText: 
 --- !u!65 &3469287836895677562
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -132791,9 +132933,11 @@ MonoBehaviour:
   objectName: Wine Glass
   description: 
   isCollectable: 1
-  showOnCollect: 0
-  inspectSprite: {fileID: 0}
-  displayMode: 0
+  showOnCollect: 1
+  inspectSprite: {fileID: 21300000, guid: a7f68c394c4394eaf87c27d0e8977d3d, type: 3}
+  displayMode: 2
+  inspectText: "Victor\u2019s wine glass shows traces of light green sediment, which
+    could indicate the presence of rat poison."
 --- !u!65 &5507066300702840990
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -141302,9 +141446,10 @@ MonoBehaviour:
   objectName: Wine Bottle
   description: 
   isCollectable: 1
-  showOnCollect: 0
-  inspectSprite: {fileID: 0}
-  displayMode: 0
+  showOnCollect: 1
+  inspectSprite: {fileID: 21300000, guid: 5af1ef376509b45c89a463ecd1bd5ec7, type: 3}
+  displayMode: 2
+  inspectText: Victor drank wine from this bottle
 --- !u!65 &9197225546284210360
 BoxCollider:
   m_ObjectHideFlags: 0
