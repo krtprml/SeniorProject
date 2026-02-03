@@ -32,7 +32,7 @@
       {
         "npc": "DANA",
         "conflict": "promotion",
-        "auto_text": "I saw on Victor's notebook that Victor Blocked you from the promotion. Why did you lie?"
+        "auto_text": "I saw on Victor's notebook that Victor Blocked you from the promotion because you were arrogant and mean to your coworkers. Why did you lie?"
       },
       {
         "npc": "BRIAN",

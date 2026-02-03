@@ -1,5 +1,6 @@
 public enum EvidenceDisplayMode
 {
     Default,
-    PhoneChat
+    PhoneChat,
+    Wine
 }
