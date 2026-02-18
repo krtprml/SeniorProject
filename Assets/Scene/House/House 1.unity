@@ -2703,7 +2703,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1475419435}
+  m_Mesh: {fileID: 862459131}
 --- !u!33 &87725196
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -9965,7 +9965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &193903550
 Transform:
   m_ObjectHideFlags: 0
@@ -25109,6 +25109,50 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &433853964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 433853965}
+  - component: {fileID: 433853966}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &433853965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433853964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 939106722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &433853966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433853964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89da4bcc2481b4b849d05d06659a9dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &434898578
 GameObject:
   m_ObjectHideFlags: 0
@@ -34555,7 +34599,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1475419435}
+  m_Mesh: {fileID: 964816049}
 --- !u!33 &601434983
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -35898,7 +35942,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1873955335}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.4295401
+  m_Size: 0.40663874
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -47934,7 +47978,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1057985740}
+  m_Mesh: {fileID: 1618658908}
 --- !u!33 &776491338
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -58328,6 +58372,7 @@ Transform:
   - {fileID: 569711914}
   - {fileID: 375183323}
   - {fileID: 1550013475}
+  - {fileID: 433853965}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &940212506
@@ -59526,7 +59571,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1628404143}
+  m_Mesh: {fileID: 2082367881}
 --- !u!33 &973896554
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -61031,7 +61076,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1475419435}
+  m_Mesh: {fileID: 1628404143}
 --- !u!33 &996127089
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -82958,7 +83003,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 73125720}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.8289519
+  m_Size: 0.80605066
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -100052,7 +100097,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1628404143}
+  m_Mesh: {fileID: 1867644940}
 --- !u!33 &1611624360
 MeshFilter:
   m_ObjectHideFlags: 10
