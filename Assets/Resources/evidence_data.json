@@ -118,5 +118,38 @@
     ],
     "single_use": true,
     "ui_hint": "Ask about Wine Glass"
+  },
+  {
+    "id": "Medicine Cabinet",
+    "display_name": "Medicine Cabinet",
+    "reveals": [
+      {
+        "npc": "BRIAN",
+        "conflict": "",
+        "auto_text": "Did you see anyone taking out rat poison from the medicine cabinet?"
+      },
+      {
+        "npc": "ANNA",
+        "conflict": "",
+        "auto_text": "Did you see anyone taking out rat poison from the medicine cabinet?"
+      },
+      {
+        "npc": "EDWARD",
+        "conflict": "",
+        "auto_text": "Did you see anyone taking out rat poison from the medicine cabinet?"
+      },
+      {
+        "npc": "CHARLES",
+        "conflict": "",
+        "auto_text": "Did you see anyone taking out rat poison from the medicine cabinet?"
+      },
+      {
+        "npc": "DANA",
+        "conflict": "",
+        "auto_text": "Did you see anyone taking out rat poison from the medicine cabinet?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Ask about Medicine Cabinet"
   }
 ]
