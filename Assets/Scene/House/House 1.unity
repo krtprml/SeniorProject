@@ -5412,7 +5412,6 @@ Transform:
   - {fileID: 5826538691520642539}
   - {fileID: 7578083016500158345}
   - {fileID: 9192182081003056681}
-  - {fileID: 1793048204}
   - {fileID: 1460878291087636085}
   - {fileID: 945610742424681322}
   m_Father: {fileID: 0}
@@ -206031,7 +206030,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 113454288}
+    m_TransformParent: {fileID: 9192182081003056681}
     m_Modifications:
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_Pivot.x
@@ -206067,11 +206066,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0049999985
+      value: 0.0045454525
+      objectReference: {fileID: 0}
+    - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0045454544
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0049999985
+      value: 0.0045454525
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -206083,11 +206086,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.36
+      value: 0.01785337
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.99952674
+      value: 0.061548837
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalRotation.x
@@ -206095,7 +206098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.030761357
+      value: 0.9981041
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalRotation.z
@@ -206103,11 +206106,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -15.558
+      value: -0.08215904
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.98
+      value: 2.0436363
       objectReference: {fileID: 0}
     - target: {fileID: 3509848996197384325, guid: 2e6cd7b099e584a0bb651eab7c15cba6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -254507,6 +254510,7 @@ GameObject:
   - component: {fileID: 945610742424681324}
   - component: {fileID: 945610742424681323}
   - component: {fileID: 945610742424681325}
+  - component: {fileID: 945610742424681326}
   m_Layer: 0
   m_Name: npc_edward
   m_TagString: Untagged
@@ -255799,6 +255803,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &945610742424681326
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456177862432809424}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5, y: 2.5, z: 2.5}
+  m_Center: {x: -0.03, y: 1, z: -0.11}
 --- !u!1 &957719509377050985
 GameObject:
   m_ObjectHideFlags: 0
@@ -258524,6 +258549,7 @@ GameObject:
   - component: {fileID: 2237662002374503633}
   - component: {fileID: 2237662002374503632}
   - component: {fileID: 2237662002374503634}
+  - component: {fileID: 2237662002374503635}
   m_Layer: 0
   m_Name: npc_dana
   m_TagString: Untagged
@@ -258600,6 +258626,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &2237662002374503635
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2237662002374503631}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5, y: 2.5, z: 2.5}
+  m_Center: {x: 0.1, y: 1, z: -0.02}
 --- !u!1 &2243789143222285053
 GameObject:
   m_ObjectHideFlags: 0
@@ -265841,7 +265888,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6599979887389861713}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.99952507, z: -0, w: -0.03081639}
+  m_LocalRotation: {x: -0, y: 0.9999765, z: -0, w: 0.0068581053}
   m_LocalPosition: {x: -5.34, y: -0.253, z: 1.7511699}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_ConstrainProportionsScale: 0
@@ -265855,7 +265902,7 @@ Transform:
   - {fileID: 181609893}
   - {fileID: 1864047481}
   m_Father: {fileID: 113454288}
-  m_LocalEulerAnglesHint: {x: 0, y: 183.532, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 179.214, z: 0}
 --- !u!1 &5844017077822340833
 GameObject:
   m_ObjectHideFlags: 0
@@ -267606,6 +267653,7 @@ GameObject:
   - component: {fileID: 6599979887389861714}
   - component: {fileID: 6599979887389861717}
   - component: {fileID: 6599979887389861716}
+  - component: {fileID: 6599979887389861718}
   m_Layer: 0
   m_Name: npc_brian
   m_TagString: Untagged
@@ -267694,6 +267742,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &6599979887389861718
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6599979887389861713}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0.43, y: 1, z: 0.65}
 --- !u!1 &6616490700135623247
 GameObject:
   m_ObjectHideFlags: 0
@@ -268747,6 +268816,7 @@ GameObject:
   - component: {fileID: 7578083016500158347}
   - component: {fileID: 7578083016500158346}
   - component: {fileID: 7578083016500158348}
+  - component: {fileID: 7578083016500158349}
   m_Layer: 0
   m_Name: npc_anna
   m_TagString: Untagged
@@ -269969,6 +270039,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &7578083016500158349
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7088968140496422195}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0.04, y: 1, z: 0.65}
 --- !u!4 &7579171027047531194
 Transform:
   m_ObjectHideFlags: 0
@@ -271399,6 +271490,7 @@ GameObject:
   - component: {fileID: 9192182081003056683}
   - component: {fileID: 9192182081003056682}
   - component: {fileID: 9192182081003056684}
+  - component: {fileID: 9192182081003056685}
   m_Layer: 0
   m_Name: npc_charles
   m_TagString: Untagged
@@ -272907,6 +272999,7 @@ Transform:
   - {fileID: 7524047699014344775}
   - {fileID: 2538188276788498673}
   - {fileID: 1567421895}
+  - {fileID: 1793048204}
   m_Father: {fileID: 113454288}
   m_LocalEulerAnglesHint: {x: 0, y: -105, z: 0}
 --- !u!114 &9192182081003056682
@@ -272978,6 +273071,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &9192182081003056685
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420289062196589715}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5, y: 2, z: 2.5}
+  m_Center: {x: -0.02, y: 1, z: -0.02}
 --- !u!23 &9197225546284210358
 MeshRenderer:
   m_ObjectHideFlags: 0
