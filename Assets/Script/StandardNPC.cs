@@ -11,6 +11,7 @@ public class StandardNPC : MonoBehaviour
     [SerializeField] GameObject dialoguePanel;
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI answerText;
+    [SerializeField] UnityEngine.UI.ScrollRect chatScrollRect; 
 
     [Header("Camera")]
     [SerializeField] GameObject virtualFrontCam;
@@ -195,6 +196,9 @@ void TrySend()
             inputField.Select();
             inputField.ActivateInputField();
 
+            // 🔥 ADD THIS LINE to auto-scroll down
+            StartCoroutine(ScrollToBottom());
+
             // ❌ ลบบรรทัดนี้ทิ้งไปเลยครับ! ตัวการที่ทำให้ดีเลย์
             // GameManagerSimple.I.CheckAutoFail(); <--- ลบออก!
         },
@@ -226,6 +230,19 @@ void TrySend()
             // ถ้าเดินออกระหว่างคุย → ปิดอัตโนมัติ
             if (dialogueOpen)
                 TryClose();
+        }
+    }
+
+    // 🔥 ADD THIS COROUTINE
+    System.Collections.IEnumerator ScrollToBottom()
+    {
+        // Wait for Unity to update the UI text size
+        yield return null;
+
+        if (chatScrollRect != null)
+        {
+            // 0 is the bottom, 1 is the top
+            chatScrollRect.verticalNormalizedPosition = 0f;
         }
     }
 }

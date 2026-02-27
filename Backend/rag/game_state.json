@@ -1,42 +1,42 @@
 {
   "memory": {
-    "EDWARD": [
+    "CHARLES": [
       {
         "role": "user",
         "content": "Hey"
       },
       {
         "role": "assistant",
-        "content": "Not much, just enjoying the evening. I was just about to head home when I saw you. What brings you here?"
+        "content": "(slightly slurring my words) Oh, hey... What's up? I'm just trying to piece together what happened last night. I don't really remember much after... after we started drinking. (laughs) I think I might've had a bit too much to drink."
       },
       {
         "role": "user",
-        "content": "There is a person dead from something. We think it might be a murder case"
+        "content": "Where is Victor"
       },
       {
         "role": "assistant",
-        "content": "I had no idea. I just got here, and I'm still trying to process what's going on. I was just walking by and saw some people gathered around. I didn't see anything suspicious, but I did see some police officers talking to each other. I'm not sure what's going on, but I'm happy to cooperate with the investigation if I can be of any help."
-      }
-    ],
-    "ANNA": [
+        "content": "I... uh... I think he's still at the hospital. Yeah, I remember now. He was taken in after... after the incident. I'm pretty sure he's still there, being treated. I haven't seen him since we left the house, to be honest. I'm worried about him, though. Poor guy."
+      },
       {
         "role": "user",
-        "content": "Did you drink the same wine bottle as Victor?"
+        "content": "He is dead. Victor is not at the hospital now"
       },
       {
         "role": "assistant",
-        "content": "Yes, I did drink from the same wine bottle as Victor. We were having a discussion and I had a glass of wine."
+        "content": "(stunned) Oh, no... That's terrible. I... I had no idea. I thought he was still at the hospital. I'm shocked. (pauses, trying to process the information) I don't know what to say. This is just... (shakes head) I'm really sorry to hear that. I had no idea it was that serious. (looks down, trying to appear somber)"
+      },
+      {
+        "role": "user",
+        "content": "Sad"
+      },
+      {
+        "role": "assistant",
+        "content": "(sighs) Yeah, I'm... I'm really sad about what happened to Victor. I didn't think it would end like that. We were all just having a good time, and then... (shakes head) I don't know, it just got out of hand, I guess. I'm still trying to process everything. It's just really sad. (pauses, looking down)"
       }
     ]
   },
-  "evidence_found": [
-    "Mobile Phone",
-    "Calendar",
-    "Wine Bottle"
-  ],
-  "evidence_used": [
-    ""
-  ],
+  "evidence_found": [],
+  "evidence_used": [],
   "question_evaluations": [
     {
       "politeness": 1,
@@ -70,31 +70,48 @@
       "clarifying": false,
       "probing": false,
       "ethical_violation": false,
-      "question": "There is a person dead from something. We think it might be a murder case"
+      "question": "Where is Victor"
     },
     {
       "politeness": 3,
-      "investigation": 3,
+      "investigation": 0,
       "direct": true,
-      "evidence_based": true,
+      "evidence_based": false,
       "leading": false,
       "threatening": false,
       "emotional": false,
-      "irrelevant": false,
-      "off_topic": false,
+      "irrelevant": true,
+      "off_topic": true,
       "accusatory": false,
       "coercive": false,
       "clarifying": false,
-      "probing": true,
+      "probing": false,
       "ethical_violation": false,
-      "question": "Did you drink the same wine bottle as Victor?"
+      "question": "He is dead. Victor is not at the hospital now"
+    },
+    {
+      "politeness": 0,
+      "investigation": 0,
+      "direct": false,
+      "evidence_based": false,
+      "leading": true,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": true,
+      "off_topic": true,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": false,
+      "ethical_violation": false,
+      "question": "Sad"
     }
   ],
   "summary": {
-    "politeness_avg": 2.33,
-    "investigation_avg": 1.0,
-    "politeness_score": 78,
-    "investigation_score": 8,
+    "politeness_avg": 1.75,
+    "investigation_avg": 0.0,
+    "politeness_score": 58,
+    "investigation_score": 0,
     "auto_fail": false,
     "fail_reason": ""
   },
