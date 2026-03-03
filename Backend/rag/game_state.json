@@ -7,35 +7,18 @@
       },
       {
         "role": "assistant",
-        "content": "(slightly slurring my words) Oh, hey... What's up? I'm just trying to piece together what happened last night. I don't really remember much after... after we started drinking. (laughs) I think I might've had a bit too much to drink."
-      },
-      {
-        "role": "user",
-        "content": "Where is Victor"
-      },
-      {
-        "role": "assistant",
-        "content": "I... uh... I think he's still at the hospital. Yeah, I remember now. He was taken in after... after the incident. I'm pretty sure he's still there, being treated. I haven't seen him since we left the house, to be honest. I'm worried about him, though. Poor guy."
-      },
-      {
-        "role": "user",
-        "content": "He is dead. Victor is not at the hospital now"
-      },
-      {
-        "role": "assistant",
-        "content": "(stunned) Oh, no... That's terrible. I... I had no idea. I thought he was still at the hospital. I'm shocked. (pauses, trying to process the information) I don't know what to say. This is just... (shakes head) I'm really sorry to hear that. I had no idea it was that serious. (looks down, trying to appear somber)"
-      },
-      {
-        "role": "user",
-        "content": "Sad"
-      },
-      {
-        "role": "assistant",
-        "content": "(sighs) Yeah, I'm... I'm really sad about what happened to Victor. I didn't think it would end like that. We were all just having a good time, and then... (shakes head) I don't know, it just got out of hand, I guess. I'm still trying to process everything. It's just really sad. (pauses, looking down)"
+        "content": "(slightly slurring my words) Oh, hey... what's up? Just enjoying a good night with the gang, you know? We were just having some drinks and... (pausing, trying to remember) what were we talking about again?"
       }
     ]
   },
-  "evidence_found": [],
+  "evidence_found": [
+    "Medicine Cabinet",
+    "Wine Bottle",
+    "Wine Glass",
+    "Notebook",
+    "Calendar",
+    "Mobile Phone"
+  ],
   "evidence_used": [],
   "question_evaluations": [
     {
@@ -54,70 +37,19 @@
       "probing": false,
       "ethical_violation": false,
       "question": "Hey"
-    },
-    {
-      "politeness": 3,
-      "investigation": 0,
-      "direct": true,
-      "evidence_based": false,
-      "leading": false,
-      "threatening": false,
-      "emotional": false,
-      "irrelevant": true,
-      "off_topic": true,
-      "accusatory": false,
-      "coercive": false,
-      "clarifying": false,
-      "probing": false,
-      "ethical_violation": false,
-      "question": "Where is Victor"
-    },
-    {
-      "politeness": 3,
-      "investigation": 0,
-      "direct": true,
-      "evidence_based": false,
-      "leading": false,
-      "threatening": false,
-      "emotional": false,
-      "irrelevant": true,
-      "off_topic": true,
-      "accusatory": false,
-      "coercive": false,
-      "clarifying": false,
-      "probing": false,
-      "ethical_violation": false,
-      "question": "He is dead. Victor is not at the hospital now"
-    },
-    {
-      "politeness": 0,
-      "investigation": 0,
-      "direct": false,
-      "evidence_based": false,
-      "leading": true,
-      "threatening": false,
-      "emotional": false,
-      "irrelevant": true,
-      "off_topic": true,
-      "accusatory": false,
-      "coercive": false,
-      "clarifying": false,
-      "probing": false,
-      "ethical_violation": false,
-      "question": "Sad"
     }
   ],
   "summary": {
-    "politeness_avg": 1.75,
+    "politeness_avg": 1.0,
     "investigation_avg": 0.0,
-    "politeness_score": 58,
+    "politeness_score": 33,
     "investigation_score": 0,
     "auto_fail": false,
     "fail_reason": ""
   },
   "case": {
-    "final_answer": "",
-    "score": 0,
-    "reason": ""
+    "final_answer": "The killer is Edward. His motive was the business conflict; Victor was going to force him out of the company, which is why there was a major meeting scheduled on the wall calendar. He poisoned Victor's specific glass and then swapped it to ensure Victor drank it. Both Charles and Brian saw him manipulating the glasses during the party.",
+    "score": 9,
+    "reason": "The player's accusation is: \"The killer is Edward. His motive was the business conflict; Victor was going to force him out of the company, which is why there was a major meeting scheduled on the wall calendar. He poisoned Victor's specific glass and then swapped it to ensure Victor drank it. Both Charles and Brian saw him manipulating the glasses during the party.\"\n\nThis accusation contains factual evidence from the CORE KNOWLEDGE section, specifically the witness testimony of Charles and Brian seeing Edward manipulating the glasses, the motive of the business conflict, and the method of poisoning Victor's specific glass.\n\nThat is correct. Edward is the killer. You've identified the killer, his primary motive, and the method he used to commit the crime. Score: 9/10."
   }
 }
