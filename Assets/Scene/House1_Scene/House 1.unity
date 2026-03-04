@@ -57604,9 +57604,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notebookPanel: {fileID: 1612915894}
   notesScript: {fileID: 408183428}
-  playerScriptsToDisable:
-  - {fileID: 1502032771}
-  - {fileID: 477335881}
+  playerMovement: {fileID: 1502032771}
+  cameraLook: {fileID: 477335878}
 --- !u!1 &466749117
 GameObject:
   m_ObjectHideFlags: 0
