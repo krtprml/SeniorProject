@@ -1,27 +1,42 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems; // 🔥 REQUIRED for the UI text fix
 
 public class NotebookController : MonoBehaviour
 {
     public static NotebookController I;
 
     [Header("References")]
-    [SerializeField] GameObject notebookPanel; // The UI object to show/hide
-    [SerializeField] NotebookNotesPage notesScript; // The script that handles saving text
+    [SerializeField] GameObject notebookPanel;
+    [SerializeField] NotebookNotesPage notesScript;
+
+    [Header("Player Control")]
+    [Tooltip("Drag your FirstPersonController and FirstPersonCameraController here")]
+    [SerializeField] MonoBehaviour[] playerScriptsToDisable; // 🔥 ADDED THIS
 
     private bool isOpen = false;
 
     void Awake()
     {
         I = this;
-        if (notebookPanel) notebookPanel.SetActive(false); // Start closed
+        if (notebookPanel) notebookPanel.SetActive(false);
     }
 
     void Update()
     {
+        // Ignore input if talking to an NPC
+        if (DialogueManager.I != null && DialogueManager.I.IsAnyDialogueOpen())
+            return;
+
         // Toggle when TAB is pressed
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
+            // 🔥 FIX: Instantly drop UI focus so the text field doesn't eat the TAB key and delete text!
+            if (EventSystem.current != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+
             ToggleNotebook();
         }
     }
@@ -30,39 +45,41 @@ public class NotebookController : MonoBehaviour
     {
         isOpen = !isOpen;
 
-        if (isOpen)
-        {
-            Open();
-        }
-        else
-        {
-            Close();
-        }
+        if (isOpen) Open();
+        else Close();
     }
 
     void Open()
     {
         notebookPanel.SetActive(true);
-        Time.timeScale = 0f; // Pause the game
+        Time.timeScale = 0f;
 
-        // Unlock the cursor so you can click the text box
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        // Tell the notes page to load the saved text
+        // 🔥 FIX: Disable player movement scripts
+        foreach (var script in playerScriptsToDisable)
+        {
+            if (script) script.enabled = false;
+        }
+
         if (notesScript) notesScript.OnOpen();
     }
 
     void Close()
     {
-        // Tell the notes page to save text immediately
         if (notesScript) notesScript.OnClose();
 
         notebookPanel.SetActive(false);
-        Time.timeScale = 1f; // Unpause the game
+        Time.timeScale = 1f;
 
-        // Lock the cursor again so you can look around
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // 🔥 FIX: Re-enable player movement scripts
+        foreach (var script in playerScriptsToDisable)
+        {
+            if (script) script.enabled = true;
+        }
     }
 }
