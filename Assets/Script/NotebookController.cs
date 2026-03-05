@@ -18,6 +18,17 @@ public class NotebookController : MonoBehaviour
         if (notebookPanel) notebookPanel.SetActive(false);
     }
 
+    // 🔥 FIX: By making this an IEnumerator, Unity lets us wait a frame!
+    System.Collections.IEnumerator Start()
+    {
+        // Wait exactly 1 frame for GameEndManager and the Camera to finish their setups
+        yield return null;
+
+        // Now open the notebook and freeze the game!
+        isOpen = true;
+        Open();
+    }
+
     void Update()
     {
         if (DialogueManager.I != null && DialogueManager.I.IsAnyDialogueOpen())
