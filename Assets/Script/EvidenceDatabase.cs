@@ -27,7 +27,14 @@ public class EvidenceDatabase : MonoBehaviour
         );
 
         foreach (var item in wrapper.items)
+        {
+            // Set evidence_id for each reveal to the parent item's ID
+            foreach (var reveal in item.reveals)
+            {
+                reveal.evidence_id = item.id;
+            }
             evidenceMap[item.id] = item;
+        }
 
         Debug.Log($"✅ Loaded Evidence: {evidenceMap.Count}");
     }

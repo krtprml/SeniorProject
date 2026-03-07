@@ -378,8 +378,13 @@ def update_summary_scores(state):
         "fail_reason": fail_reason
     }
 
-def npc_has_truth(npc: str, evidence_found: list[str]) -> bool:
-    for ev_id in evidence_found:
+def npc_has_truth(npc: str, evidence_used: list[str]) -> bool:
+    # Only check evidence that has been USED (confronted), not just collected
+    for ev_id in evidence_used:
+        # Skip empty strings that might be in the list
+        if not ev_id or ev_id.strip() == "":
+            continue
+
         ev = EVIDENCE_DATA.get(ev_id)
         if not ev:
             continue
@@ -439,10 +444,12 @@ async def chat(req: PlayerRequest):
                     "auto_text": r["auto_text"]
                 })
 
-    has_truth = npc_has_truth(npc, state["evidence_found"])
+    has_truth = npc_has_truth(npc, state.get("evidence_used", []))
 
     print("EVIDENCE FOUND:", state["evidence_found"])
+    print("EVIDENCE USED:", state.get("evidence_used", []))
     print("NPC RELEVANT:", npc_relevant_evidence)
+    print(f"has_truth for {npc}:", has_truth)
 
     prompt = build_npc_prompt(
     npc,

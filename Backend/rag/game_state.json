@@ -1,49 +1,87 @@
 {
   "memory": {
-    "CHARLES": [
+    "DANA": [
       {
         "role": "user",
-        "content": "Hey"
+        "content": "do you want promotion"
       },
       {
         "role": "assistant",
-        "content": "(slightly slurring my words) Oh, hey... What's up? I'm just trying to piece together what happened last night. I don't really remember much after... after we started drinking. (laughs) I think I might've had a bit too much to drink."
+        "content": "Yes, I do want a promotion. I believe I have the skills and qualifications to take on more responsibility and contribute to the company's growth. I'm confident in my abilities and feel that I would be a valuable asset in a leadership role."
       },
       {
         "role": "user",
-        "content": "Where is Victor"
+        "content": "did victor want to promote you"
       },
       {
         "role": "assistant",
-        "content": "I... uh... I think he's still at the hospital. Yeah, I remember now. He was taken in after... after the incident. I'm pretty sure he's still there, being treated. I haven't seen him since we left the house, to be honest. I'm worried about him, though. Poor guy."
+        "content": "Well, I'm not entirely sure what Victor's thoughts were on the matter. He did mention that he was considering a few candidates for the promotion, and I was one of them. But I don't think it's accurate to say that he definitely wanted to promote me. He was still evaluating the options, and I'm sure he had his reasons for choosing not to promote me in the end."
       },
       {
         "role": "user",
-        "content": "He is dead. Victor is not at the hospital now"
+        "content": "did victor block you from promotion"
       },
       {
         "role": "assistant",
-        "content": "(stunned) Oh, no... That's terrible. I... I had no idea. I thought he was still at the hospital. I'm shocked. (pauses, trying to process the information) I don't know what to say. This is just... (shakes head) I'm really sorry to hear that. I had no idea it was that serious. (looks down, trying to appear somber)"
+        "content": "Victor and I had a discussion about the promotion, and he mentioned that he was considering a few candidates. I'm not entirely sure what his final decision was, but I don't recall him saying that he blocked me from the promotion. I think it's possible that he just decided to go with another candidate, but I'm not aware of any specific reason why he might have blocked me."
       },
       {
         "role": "user",
-        "content": "Sad"
+        "content": "I saw on Victor's notebook that Victor Blocked you from the promotion because you were arrogant and mean to your coworkers. Why did you lie?"
       },
       {
         "role": "assistant",
-        "content": "(sighs) Yeah, I'm... I'm really sad about what happened to Victor. I didn't think it would end like that. We were all just having a good time, and then... (shakes head) I don't know, it just got out of hand, I guess. I'm still trying to process everything. It's just really sad. (pauses, looking down)"
+        "content": "(sighing) Alright, fine. I lied. I didn't want to admit it, but... (pausing, choosing my words carefully) ...I did have a conflict with Victor. He blocked me from the promotion, and it was because of my personality. I've always been a bit... direct, and I suppose that's been misinterpreted as being arrogant or mean. But the truth is, I'm just a straightforward person who values competence over likability. I've never been one to sugarcoat things or pretend to be someone I'm not. And Victor didn't like that about me.\n\n(looking down, my voice taking on a slightly defensive tone) But that's not an excuse for what happened later. I know I made a mistake with the glass, and I'm not trying to shift the focus away from that. But I do want to be honest about why Victor blocked me from the promotion. It wasn't just about my skills or qualifications - it was about how he perceived me as a person. And I'm not proud of the way I reacted to it, either."
       }
     ]
   },
-  "evidence_found": [],
-  "evidence_used": [],
+  "evidence_found": [
+    "Notebook"
+  ],
+  "evidence_used": [
+    "Notebook"
+  ],
   "question_evaluations": [
     {
-      "politeness": 1,
-      "investigation": 0,
-      "direct": false,
+      "politeness": 3,
+      "investigation": 2,
+      "direct": true,
       "evidence_based": false,
-      "leading": true,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": true,
+      "ethical_violation": false,
+      "question": "what's your relationship with victor?"
+    },
+    {
+      "politeness": 3,
+      "investigation": 3,
+      "direct": true,
+      "evidence_based": false,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": true,
+      "ethical_violation": false,
+      "question": "were there any conflict?"
+    },
+    {
+      "politeness": 2,
+      "investigation": 0,
+      "direct": true,
+      "evidence_based": false,
+      "leading": false,
       "threatening": false,
       "emotional": false,
       "irrelevant": true,
@@ -53,7 +91,7 @@
       "clarifying": false,
       "probing": false,
       "ethical_violation": false,
-      "question": "Hey"
+      "question": "do you want promotion"
     },
     {
       "politeness": 3,
@@ -70,48 +108,48 @@
       "clarifying": false,
       "probing": false,
       "ethical_violation": false,
-      "question": "Where is Victor"
+      "question": "did victor want to promote you"
     },
     {
       "politeness": 3,
-      "investigation": 0,
+      "investigation": 2,
       "direct": true,
       "evidence_based": false,
       "leading": false,
       "threatening": false,
       "emotional": false,
-      "irrelevant": true,
-      "off_topic": true,
+      "irrelevant": false,
+      "off_topic": false,
       "accusatory": false,
       "coercive": false,
       "clarifying": false,
-      "probing": false,
+      "probing": true,
       "ethical_violation": false,
-      "question": "He is dead. Victor is not at the hospital now"
+      "question": "did victor block you from promotion"
     },
     {
-      "politeness": 0,
-      "investigation": 0,
-      "direct": false,
-      "evidence_based": false,
-      "leading": true,
+      "politeness": 2,
+      "investigation": 2,
+      "direct": true,
+      "evidence_based": true,
+      "leading": false,
       "threatening": false,
       "emotional": false,
-      "irrelevant": true,
-      "off_topic": true,
+      "irrelevant": false,
+      "off_topic": false,
       "accusatory": false,
       "coercive": false,
       "clarifying": false,
-      "probing": false,
+      "probing": true,
       "ethical_violation": false,
-      "question": "Sad"
+      "question": "I saw on Victor's notebook that Victor Blocked you from the promotion because you were arrogant and mean to your coworkers. Why did you lie?"
     }
   ],
   "summary": {
-    "politeness_avg": 1.75,
-    "investigation_avg": 0.0,
-    "politeness_score": 58,
-    "investigation_score": 0,
+    "politeness_avg": 2.67,
+    "investigation_avg": 1.5,
+    "politeness_score": 89,
+    "investigation_score": 50,
     "auto_fail": false,
     "fail_reason": ""
   },
