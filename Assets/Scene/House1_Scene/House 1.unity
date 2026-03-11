@@ -58925,6 +58925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 2
   maxLookAngle: 80
+  smoothTime: 0.05
 --- !u!114 &477335879
 MonoBehaviour:
   m_ObjectHideFlags: 0

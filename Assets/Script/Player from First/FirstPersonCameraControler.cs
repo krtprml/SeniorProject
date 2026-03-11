@@ -8,9 +8,9 @@ public class FirstPersonCameraController : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 1.5f;
     [SerializeField] private float maxLookAngle = 80f;
 
-    [Header("Smoothing Settings")]
-    [Tooltip("How much 'glide' the camera has. Lower is snappier, higher is floatier. 0.05 is a good default.")]
-    [SerializeField] private float smoothTime = 0.05f;
+    [Header("Tight Smoothing")]
+    [Tooltip("Keep this VERY low. 0.01 to 0.03 is the sweet spot for crisp but smooth movement.")]
+    [SerializeField] private float smoothTime = 0.02f;
 
     // Components
     private PlayerInput playerInput;
@@ -25,13 +25,9 @@ public class FirstPersonCameraController : MonoBehaviour
     private float xRotation = 0f;
     private float yRotation = 0f;
 
-    // Target rotations (where the mouse actually is)
-    private float targetX = 0f;
-    private float targetY = 0f;
-
-    // Velocity references used by the smoothing math
-    private float xRotationVelocity;
-    private float yRotationVelocity;
+    // The smoothed mouse speed
+    private Vector2 currentMouseDelta;
+    private Vector2 currentMouseVelocity;
 
     void Awake()
     {
@@ -47,10 +43,6 @@ public class FirstPersonCameraController : MonoBehaviour
         {
             lookAction = playerInput.actions["Look"];
             playerTransform = playerInput.transform;
-        }
-        else
-        {
-            Debug.LogError("PlayerInput not found! Make sure the player has a PlayerInput component.");
         }
     }
 
@@ -71,9 +63,7 @@ public class FirstPersonCameraController : MonoBehaviour
 
         if (playerTransform != null)
         {
-            // Sync both actual and target rotations at the start
             yRotation = playerTransform.eulerAngles.y;
-            targetY = yRotation;
         }
     }
 
@@ -87,19 +77,26 @@ public class FirstPersonCameraController : MonoBehaviour
 
     void HandleMouseLook()
     {
-        Vector2 mouseDelta = lookAction.ReadValue<Vector2>();
-        mouseDelta *= mouseSensitivity * 0.1f;
+        // 1. Get the raw, snappy mouse movement
+        Vector2 targetMouseDelta = lookAction.ReadValue<Vector2>();
 
-        // 1. Calculate where the camera WANTS to be (Target)
-        targetY += mouseDelta.x;
-        targetX -= mouseDelta.y;
-        targetX = Mathf.Clamp(targetX, -maxLookAngle, maxLookAngle);
+        // 2. Smooth the SPEED of the mouse, not the camera position!
+        currentMouseDelta = Vector2.SmoothDamp(
+            currentMouseDelta,
+            targetMouseDelta,
+            ref currentMouseVelocity,
+            smoothTime
+        );
 
-        // 2. Smoothly glide the ACTUAL rotation towards the TARGET rotation
-        xRotation = Mathf.SmoothDampAngle(xRotation, targetX, ref xRotationVelocity, smoothTime);
-        yRotation = Mathf.SmoothDampAngle(yRotation, targetY, ref yRotationVelocity, smoothTime);
+        // 3. Apply sensitivity to the smoothed speed
+        Vector2 finalDelta = currentMouseDelta * mouseSensitivity * 0.1f;
 
-        // 3. Apply the smoothed rotations
+        // 4. Add it to our rotation
+        yRotation += finalDelta.x;
+        xRotation -= finalDelta.y;
+        xRotation = Mathf.Clamp(xRotation, -maxLookAngle, maxLookAngle);
+
+        // 5. Apply the crisp rotation instantly
         panTilt.PanAxis.Value = yRotation;
         panTilt.TiltAxis.Value = xRotation;
 
