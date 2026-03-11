@@ -1,68 +1,82 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class NotebookController : MonoBehaviour
 {
-    public static NotebookController I;
+    public GameObject notebookPanel;
 
-    [Header("References")]
-    [SerializeField] GameObject notebookPanel; // The UI object to show/hide
-    [SerializeField] NotebookNotesPage notesScript; // The script that handles saving text
+    [Header("Player Lock Settings")]
+    [Tooltip("Drag ONLY your Camera Look script and Movement script here.")]
+    public MonoBehaviour[] playerScriptsToDisable;
 
-    private bool isOpen = false;
+    [Header("Tutorial Settings")]
+    public bool isLockedOpen = true;
 
-    void Awake()
+    void Start()
     {
-        I = this;
-        if (notebookPanel) notebookPanel.SetActive(false); // Start closed
+        notebookPanel.SetActive(true);
+        isLockedOpen = true;
+        SetPlayerLock(true);
     }
 
     void Update()
     {
-        // Toggle when TAB is pressed
-        if (Keyboard.current.tabKey.wasPressedThisFrame)
+        // 🔥 THE SMART MOUSE ENFORCER: 
+        // Checks if the camera script stole the mouse. If it did, it steals it back! (Zero Lag)
+        if (notebookPanel.activeInHierarchy)
         {
-            ToggleNotebook();
+            if (Cursor.lockState != CursorLockMode.None || !Cursor.visible)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+
+        // Handle the TAB key
+        if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            if (!isLockedOpen)
+            {
+                ToggleNotebook();
+            }
         }
     }
 
     public void ToggleNotebook()
     {
-        isOpen = !isOpen;
+        bool isOpen = !notebookPanel.activeSelf;
+        notebookPanel.SetActive(isOpen);
+        SetPlayerLock(isOpen);
+    }
 
-        if (isOpen)
+    private void SetPlayerLock(bool isNotebookOpen)
+    {
+        // Disable or enable the scripts
+        foreach (MonoBehaviour script in playerScriptsToDisable)
         {
-            Open();
+            if (script != null)
+            {
+                script.enabled = !isNotebookOpen;
+            }
+        }
+
+        // Initial setup for pausing/unpausing
+        if (isNotebookOpen)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f; // Pause the world safely
         }
         else
         {
-            Close();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1f; // Unpause the world
         }
     }
 
-    void Open()
+    public void UnlockNotebook()
     {
-        notebookPanel.SetActive(true);
-        Time.timeScale = 0f; // Pause the game
-
-        // Unlock the cursor so you can click the text box
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        // Tell the notes page to load the saved text
-        if (notesScript) notesScript.OnOpen();
-    }
-
-    void Close()
-    {
-        // Tell the notes page to save text immediately
-        if (notesScript) notesScript.OnClose();
-
-        notebookPanel.SetActive(false);
-        Time.timeScale = 1f; // Unpause the game
-
-        // Lock the cursor again so you can look around
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        isLockedOpen = false;
     }
 }

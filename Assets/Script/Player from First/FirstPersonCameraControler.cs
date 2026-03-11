@@ -5,21 +5,33 @@ using Unity.Cinemachine;
 public class FirstPersonCameraController : MonoBehaviour
 {
     [Header("Mouse Look Settings")]
-    [SerializeField] private float mouseSensitivity = 1.5f; // You may need to slightly adjust this in the Inspector now!
+    [SerializeField] private float mouseSensitivity = 1.5f;
     [SerializeField] private float maxLookAngle = 80f;
+
+    [Header("Smoothing Settings")]
+    [Tooltip("How much 'glide' the camera has. Lower is snappier, higher is floatier. 0.05 is a good default.")]
+    [SerializeField] private float smoothTime = 0.05f;
 
     // Components
     private PlayerInput playerInput;
     private CinemachineCamera cinemachineCamera;
     private CinemachinePanTilt panTilt;
-    private Transform playerTransform; // Reference to the player
+    private Transform playerTransform;
 
     // Input
     private InputAction lookAction;
 
-    // Mouse look values
+    // Actual rotations applied to the camera
     private float xRotation = 0f;
     private float yRotation = 0f;
+
+    // Target rotations (where the mouse actually is)
+    private float targetX = 0f;
+    private float targetY = 0f;
+
+    // Velocity references used by the smoothing math
+    private float xRotationVelocity;
+    private float yRotationVelocity;
 
     void Awake()
     {
@@ -59,53 +71,41 @@ public class FirstPersonCameraController : MonoBehaviour
 
         if (playerTransform != null)
         {
+            // Sync both actual and target rotations at the start
             yRotation = playerTransform.eulerAngles.y;
+            targetY = yRotation;
         }
     }
 
     void Update()
     {
-        // 🔥 FIX: Only read mouse input if the cursor is actually locked into the game
         if (lookAction != null && panTilt != null && Cursor.lockState == CursorLockMode.Locked)
         {
             HandleMouseLook();
         }
-
-        // ❌ We deleted the hardcoded Escape key check here! 
-        // Let PauseManager and the NPCs handle the Escape key instead.
     }
 
     void HandleMouseLook()
     {
         Vector2 mouseDelta = lookAction.ReadValue<Vector2>();
-
-        // 🔥 FIX: Removed Time.deltaTime! Mouse delta is already frame-independent.
         mouseDelta *= mouseSensitivity * 0.1f;
 
-        yRotation += mouseDelta.x;
-        xRotation -= mouseDelta.y;
-        xRotation = Mathf.Clamp(xRotation, -maxLookAngle, maxLookAngle);
+        // 1. Calculate where the camera WANTS to be (Target)
+        targetY += mouseDelta.x;
+        targetX -= mouseDelta.y;
+        targetX = Mathf.Clamp(targetX, -maxLookAngle, maxLookAngle);
 
+        // 2. Smoothly glide the ACTUAL rotation towards the TARGET rotation
+        xRotation = Mathf.SmoothDampAngle(xRotation, targetX, ref xRotationVelocity, smoothTime);
+        yRotation = Mathf.SmoothDampAngle(yRotation, targetY, ref yRotationVelocity, smoothTime);
+
+        // 3. Apply the smoothed rotations
         panTilt.PanAxis.Value = yRotation;
         panTilt.TiltAxis.Value = xRotation;
 
         if (playerTransform != null)
         {
             playerTransform.rotation = Quaternion.Euler(0f, yRotation, 0f);
-        }
-    }
-
-    void ToggleCursorLock()
-    {
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
     }
 

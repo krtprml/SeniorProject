@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -75,6 +75,9 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
+        // 🔥 ADD THIS LINE: If the game is paused, stop calculating movement immediately
+        if (Time.timeScale == 0f) return;
+
         HandleGroundCheck();
         HandleInput();
         HandleMovement();

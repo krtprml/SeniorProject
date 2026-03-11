@@ -7,6 +7,7 @@
       },
       {
         "role": "assistant",
+<<<<<<< HEAD
         "content": "Yes, I do want a promotion. I believe I have the skills and qualifications to take on more responsibility and contribute to the company's growth. I'm confident in my abilities and feel that I would be a valuable asset in a leadership role."
       },
       {
@@ -32,15 +33,29 @@
       {
         "role": "assistant",
         "content": "(sighing) Alright, fine. I lied. I didn't want to admit it, but... (pausing, choosing my words carefully) ...I did have a conflict with Victor. He blocked me from the promotion, and it was because of my personality. I've always been a bit... direct, and I suppose that's been misinterpreted as being arrogant or mean. But the truth is, I'm just a straightforward person who values competence over likability. I've never been one to sugarcoat things or pretend to be someone I'm not. And Victor didn't like that about me.\n\n(looking down, my voice taking on a slightly defensive tone) But that's not an excuse for what happened later. I know I made a mistake with the glass, and I'm not trying to shift the focus away from that. But I do want to be honest about why Victor blocked me from the promotion. It wasn't just about my skills or qualifications - it was about how he perceived me as a person. And I'm not proud of the way I reacted to it, either."
+=======
+        "content": "(slightly slurring my words) Oh, hey... what's up? Just enjoying a good night with the gang, you know? We were just having some drinks and... (pausing, trying to remember) what were we talking about again?"
+>>>>>>> game-build-test
       }
     ]
   },
   "evidence_found": [
+<<<<<<< HEAD
     "Notebook"
   ],
   "evidence_used": [
     "Notebook"
   ],
+=======
+    "Medicine Cabinet",
+    "Wine Bottle",
+    "Wine Glass",
+    "Notebook",
+    "Calendar",
+    "Mobile Phone"
+  ],
+  "evidence_used": [],
+>>>>>>> game-build-test
   "question_evaluations": [
     {
       "politeness": 3,
@@ -91,6 +106,7 @@
       "clarifying": false,
       "probing": false,
       "ethical_violation": false,
+<<<<<<< HEAD
       "question": "do you want promotion"
     },
     {
@@ -150,12 +166,22 @@
     "investigation_avg": 1.5,
     "politeness_score": 89,
     "investigation_score": 50,
+=======
+      "question": "Hey"
+    }
+  ],
+  "summary": {
+    "politeness_avg": 1.0,
+    "investigation_avg": 0.0,
+    "politeness_score": 33,
+    "investigation_score": 0,
+>>>>>>> game-build-test
     "auto_fail": false,
     "fail_reason": ""
   },
   "case": {
-    "final_answer": "",
-    "score": 0,
-    "reason": ""
+    "final_answer": "The killer is Edward. His motive was the business conflict; Victor was going to force him out of the company, which is why there was a major meeting scheduled on the wall calendar. He poisoned Victor's specific glass and then swapped it to ensure Victor drank it. Both Charles and Brian saw him manipulating the glasses during the party.",
+    "score": 9,
+    "reason": "The player's accusation is: \"The killer is Edward. His motive was the business conflict; Victor was going to force him out of the company, which is why there was a major meeting scheduled on the wall calendar. He poisoned Victor's specific glass and then swapped it to ensure Victor drank it. Both Charles and Brian saw him manipulating the glasses during the party.\"\n\nThis accusation contains factual evidence from the CORE KNOWLEDGE section, specifically the witness testimony of Charles and Brian seeing Edward manipulating the glasses, the motive of the business conflict, and the method of poisoning Victor's specific glass.\n\nThat is correct. Edward is the killer. You've identified the killer, his primary motive, and the method he used to commit the crime. Score: 9/10."
   }
 }
