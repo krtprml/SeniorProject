@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859a9b4d132c1a14293e1daecbc003db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: House 1
+  gameSceneName: CrimeSceneLevel
 --- !u!4 &73789664
 Transform:
   m_ObjectHideFlags: 0
