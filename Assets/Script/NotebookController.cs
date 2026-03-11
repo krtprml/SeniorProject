@@ -1,75 +1,82 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 
 public class NotebookController : MonoBehaviour
 {
-    public static NotebookController I;
+    public GameObject notebookPanel;
 
-    [Header("References")]
-    [SerializeField] GameObject notebookPanel;
-    [SerializeField] NotebookNotesPage notesScript;
+    [Header("Player Lock Settings")]
+    [Tooltip("Drag ONLY your Camera Look script and Movement script here.")]
+    public MonoBehaviour[] playerScriptsToDisable;
 
-    private bool isOpen = false;
+    [Header("Tutorial Settings")]
+    public bool isLockedOpen = true;
 
-    void Awake()
+    void Start()
     {
-        I = this;
-        if (notebookPanel) notebookPanel.SetActive(false);
-    }
-
-    // 🔥 FIX: By making this an IEnumerator, Unity lets us wait a frame!
-    System.Collections.IEnumerator Start()
-    {
-        // Wait exactly 1 frame for GameEndManager and the Camera to finish their setups
-        yield return null;
-
-        // Now open the notebook and freeze the game!
-        isOpen = true;
-        Open();
+        notebookPanel.SetActive(true);
+        isLockedOpen = true;
+        SetPlayerLock(true);
     }
 
     void Update()
     {
-        if (DialogueManager.I != null && DialogueManager.I.IsAnyDialogueOpen())
-            return;
-
-        if (Keyboard.current.tabKey.wasPressedThisFrame)
+        // 🔥 THE SMART MOUSE ENFORCER: 
+        // Checks if the camera script stole the mouse. If it did, it steals it back! (Zero Lag)
+        if (notebookPanel.activeInHierarchy)
         {
-            if (EventSystem.current != null)
-                EventSystem.current.SetSelectedGameObject(null);
+            if (Cursor.lockState != CursorLockMode.None || !Cursor.visible)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
 
-            ToggleNotebook();
+        // Handle the TAB key
+        if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            if (!isLockedOpen)
+            {
+                ToggleNotebook();
+            }
         }
     }
 
     public void ToggleNotebook()
     {
-        isOpen = !isOpen;
-
-        if (isOpen) Open();
-        else Close();
+        bool isOpen = !notebookPanel.activeSelf;
+        notebookPanel.SetActive(isOpen);
+        SetPlayerLock(isOpen);
     }
 
-    void Open()
+    private void SetPlayerLock(bool isNotebookOpen)
     {
-        notebookPanel.SetActive(true);
-        Time.timeScale = 0f;
+        // Disable or enable the scripts
+        foreach (MonoBehaviour script in playerScriptsToDisable)
+        {
+            if (script != null)
+            {
+                script.enabled = !isNotebookOpen;
+            }
+        }
 
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        if (notesScript) notesScript.OnOpen();
+        // Initial setup for pausing/unpausing
+        if (isNotebookOpen)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f; // Pause the world safely
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1f; // Unpause the world
+        }
     }
 
-    void Close()
+    public void UnlockNotebook()
     {
-        if (notesScript) notesScript.OnClose();
-
-        notebookPanel.SetActive(false);
-        Time.timeScale = 1f;
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        isLockedOpen = false;
     }
 }
