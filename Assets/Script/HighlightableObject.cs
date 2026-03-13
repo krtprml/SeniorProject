@@ -8,7 +8,7 @@ public class HighlightableObject : MonoBehaviour
     public string description = "";
 
     [Header("Collection Settings")]
-    public bool isCollectable = true; // Can this be picked up/noted?
+    public bool isCollectable = true;
     private bool hasBeenCollected = false;
 
     public void OnHighlightEnter() { /* Existing code... */ }
@@ -17,28 +17,30 @@ public class HighlightableObject : MonoBehaviour
     [Header("Evidence View")]
     public bool showOnCollect = false;
     public Sprite inspectSprite;
-    public EvidenceDisplayMode displayMode = EvidenceDisplayMode.Default; // ⭐ เพิ่ม
-    public string inspectText; 
+    public EvidenceDisplayMode displayMode = EvidenceDisplayMode.Default;
+    public string inspectText;
 
-    
-
-
-    // 🔥 NEW FUNCTION
     public void Interact()
     {
         if (!isCollectable || hasBeenCollected) return;
 
         hasBeenCollected = true;
 
-        // Disable highlighting so it feels "done" (Optional)
-        // canBeHighlighted = false; 
-
-        // Send to Manager
+        // 1. Send to your Backend Manager (Keeps your evaluator and NPCs working!)
         EvidenceManager.I.CollectEvidence(objectName);
 
+        // 2. The Old Screen UI (You can delete this block later if you ONLY want the notebook)
         if (showOnCollect && inspectSprite != null)
         {
             EvidenceViewerUI.I.Show(inspectSprite, displayMode, inspectText);
+        }
+
+        // 🔥 3. THE NEW NOTEBOOK CONNECTION 🔥
+        EvidenceUIManager notebookUI = Object.FindFirstObjectByType<EvidenceUIManager>();
+        if (notebookUI != null)
+        {
+            // Unlocks the notebook slot that perfectly matches the "objectName"
+            notebookUI.UnlockEvidence(objectName);
         }
     }
 }
