@@ -6,14 +6,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.Networking;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
 public class PauseManager : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] GameObject pauseMenuPanel;
+
+    [Header("Player Lock Settings")]
+    [Tooltip("Drag ONLY your Camera Look script and Movement script here.")]
+    public MonoBehaviour[] playerScriptsToDisable; // 🔥 THIS FIXES THE PAUSE ISSUE
 
     [Header("Input Action")]
     [SerializeField] InputActionReference pauseAction;
@@ -30,9 +30,7 @@ public class PauseManager : MonoBehaviour
 
     void Start()
     {
-        if (pauseMenuPanel)
-            pauseMenuPanel.SetActive(false);
-
+        if (pauseMenuPanel) pauseMenuPanel.SetActive(false);
         EnsureEventSystem();
         SetCursorState(false);
     }
@@ -57,10 +55,17 @@ public class PauseManager : MonoBehaviour
 
     private void OnPausePressed(InputAction.CallbackContext ctx)
     {
-        if (DialogueManager.I != null)
+        // 🔥 TRAFFIC LIGHT CHECK
+        if (UIStateManager.I != null)
         {
-            if (DialogueManager.I.IsAnyDialogueOpen()) return;
-            if (DialogueManager.I.IsPauseBlocked()) return;
+            if (UIStateManager.I.isDialogueOpen || UIStateManager.I.isEvidenceViewerOpen || UIStateManager.I.isIntroOpen) return;
+
+            // If the notebook is open, ESC should just close the notebook!
+            if (UIStateManager.I.isNotebookOpen)
+            {
+                FindFirstObjectByType<NotebookController>()?.ToggleNotebook();
+                return;
+            }
         }
 
         if (isPaused) ResumeGame();
@@ -70,13 +75,14 @@ public class PauseManager : MonoBehaviour
     public void PauseGame()
     {
         isPaused = true;
+        if (UIStateManager.I != null) UIStateManager.I.isPauseMenuOpen = true; // Tell traffic light
         wasTimeAlreadyPaused = (Time.timeScale == 0f);
 
-        if (!wasTimeAlreadyPaused)
-            Time.timeScale = 0f;
+        if (!wasTimeAlreadyPaused) Time.timeScale = 0f;
+        if (pauseMenuPanel) pauseMenuPanel.SetActive(true);
 
-        if (pauseMenuPanel)
-            pauseMenuPanel.SetActive(true);
+        // 🔥 Freeze the Player
+        foreach (var script in playerScriptsToDisable) { if (script != null) script.enabled = false; }
 
         SetCursorState(true);
         StartCoroutine(EnsureCursorNextFrame());
@@ -85,61 +91,38 @@ public class PauseManager : MonoBehaviour
     public void ResumeGame()
     {
         isPaused = false;
+        if (UIStateManager.I != null) UIStateManager.I.isPauseMenuOpen = false; // Tell traffic light
 
-        if (pauseMenuPanel)
-            pauseMenuPanel.SetActive(false);
+        if (pauseMenuPanel) pauseMenuPanel.SetActive(false);
+        if (!wasTimeAlreadyPaused) Time.timeScale = 1f;
 
-        if (!wasTimeAlreadyPaused)
-            Time.timeScale = 1f;
+        // 🔥 Unfreeze the Player
+        foreach (var script in playerScriptsToDisable) { if (script != null) script.enabled = true; }
 
         SetCursorState(false);
     }
-
-    // ========================= SERVER =========================
 
     IEnumerator CallEndGame()
     {
         using var req = new UnityWebRequest(serverBaseUrl + "/end-game", "POST");
         req.downloadHandler = new DownloadHandlerBuffer();
-
         yield return req.SendWebRequest();
-
-        if (req.result != UnityWebRequest.Result.Success)
-            Debug.LogWarning("end-game failed: " + req.error);
-        else
-            Debug.Log("Server game_state.json cleared");
     }
-
-    // ========================= EXIT =========================
 
     public void ExitToMainMenu()
     {
         Time.timeScale = 1f;
-        Debug.Log("Pause → Exit to Main Menu");
-
         StartCoroutine(ExitRoutine());
     }
 
     IEnumerator ExitRoutine()
     {
-        yield return StartCoroutine(CallEndGame());   // 🔥 DELETE game_state.json
-
-        if (pauseMenuPanel)
-            pauseMenuPanel.SetActive(false);
-
+        yield return StartCoroutine(CallEndGame());
+        if (pauseMenuPanel) pauseMenuPanel.SetActive(false);
         SetCursorState(true);
-
-        try
-        {
-            SceneManager.LoadScene(mainMenuSceneIndex);
-        }
-        catch
-        {
-            SceneManager.LoadScene(mainMenuSceneName);
-        }
+        try { SceneManager.LoadScene(mainMenuSceneIndex); }
+        catch { SceneManager.LoadScene(mainMenuSceneName); }
     }
-
-    // ========================= UTIL =========================
 
     private void SetCursorState(bool show)
     {
@@ -163,6 +146,4 @@ public class PauseManager : MonoBehaviour
             es.AddComponent<InputSystemUIInputModule>();
         }
     }
-
-    public bool IsPaused => isPaused;
 }

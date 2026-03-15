@@ -1,32 +1,30 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class EvidenceUIManager : MonoBehaviour
 {
-    // 1. THE DATA (What the clues are)
     [System.Serializable]
     public class EvidenceData
     {
-        public string evidenceID; // Matches 3D object
+        public string evidenceID;
         public Sprite discoveredPicture;
         public string discoveredName;
         [TextArea(3, 5)] public string detailedInformation;
     }
 
-    // 2. THE UI (The blank lines on your paper)
     [System.Serializable]
     public class EvidenceUISlot
     {
-        public Button slotButton;         // The text button on the Left Page
+        public Button slotButton;
         public TextMeshProUGUI slotNameText;
-        public Image slotIcon;            // The photo square on the Right Page
+        public Image slotIcon;
     }
 
     [Header("1. Evidence Database")]
     public EvidenceData[] evidenceDatabase;
 
-    [Header("2. UI Slots (Put these in order 1 to 6)")]
+    [Header("2. UI Slots (Order 1 to 6)")]
     public EvidenceUISlot[] uiSlots;
 
     [Header("3. Detail Pop-up Panel UI")]
@@ -34,12 +32,9 @@ public class EvidenceUIManager : MonoBehaviour
     public Image detailBigPicture;
     public TextMeshProUGUI detailInfoText;
 
-    // This tracks which line on the paper we are writing on next!
-    private int currentSlotIndex = 0;
-
     void Start()
     {
-        // Hide all the text lines and photo squares so the notebook starts BLANK
+        // Hide all slots at the start
         foreach (EvidenceUISlot slot in uiSlots)
         {
             slot.slotButton.gameObject.SetActive(false);
@@ -47,47 +42,101 @@ public class EvidenceUIManager : MonoBehaviour
         }
 
         if (detailPanel != null) detailPanel.SetActive(false);
+
+        // 🔥 HOOK INTO YOUR FRIEND'S MANAGER! 🔥
+        if (EvidenceManager.I != null)
+        {
+            // Tell the notebook to refresh every time the EvidenceManager shouts!
+            EvidenceManager.I.OnEvidenceUpdated += RefreshNotebook;
+            RefreshNotebook(); // Do a quick check right when the game starts
+        }
+        else
+        {
+            Debug.LogError("Notebook Error: Could not find EvidenceManager in the scene!");
+        }
     }
 
-    public void UnlockEvidence(string foundEvidenceID)
+    void Update()
     {
-        // If the notebook is full, stop
-        if (currentSlotIndex >= uiSlots.Length) return;
-
-        // 1. Find the clue data in our database
-        EvidenceData foundData = null;
-        foreach (EvidenceData data in evidenceDatabase)
+        // If the detail screen is open AND the player presses ESC...
+        if (detailPanel != null && detailPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
-            if (data.evidenceID == foundEvidenceID)
-            {
-                foundData = data;
-                break;
-            }
+            CloseDetailPanel(); // ...Close it and go back to the notebook!
+        }
+    }
+
+    void OnDisable()
+    {
+        // This runs automatically whenever the entire Notebook is turned off/closed.
+        // It guarantees the Detail Panel resets so it's never "stuck" when you reopen it.
+        if (detailPanel != null)
+        {
+            CloseDetailPanel();
+        }
+    }
+
+    void OnDestroy()
+    {
+        // Clean up the connection when the game closes
+        if (EvidenceManager.I != null)
+        {
+            EvidenceManager.I.OnEvidenceUpdated -= RefreshNotebook;
+        }
+    }
+
+    // This runs automatically whenever EvidenceManager gets a new clue!
+    public void RefreshNotebook()
+    {
+        Debug.Log("Notebook is flipping its pages and refreshing...");
+
+        // 1. Reset the paper to blank
+        int currentSlotIndex = 0;
+        foreach (EvidenceUISlot slot in uiSlots)
+        {
+            slot.slotButton.gameObject.SetActive(false);
+            if (slot.slotIcon != null) slot.slotIcon.gameObject.SetActive(false);
         }
 
-        // 2. If we found it, write it on the next blank line!
-        if (foundData != null)
+        // 2. Read the OFFICIAL list from your friend's EvidenceManager!
+        foreach (string foundEvidenceID in EvidenceManager.I.CollectedEvidence)
         {
-            EvidenceUISlot nextBlankSlot = uiSlots[currentSlotIndex];
+            if (currentSlotIndex >= uiSlots.Length) break; // Notebook is full!
 
-            // Turn the UI back on
-            nextBlankSlot.slotButton.gameObject.SetActive(true);
-            if (nextBlankSlot.slotIcon != null) nextBlankSlot.slotIcon.gameObject.SetActive(true);
-
-            // Fill it with the data
-            nextBlankSlot.slotNameText.text = "- " + foundData.discoveredName;
-            if (nextBlankSlot.slotIcon != null)
+            EvidenceData foundData = null;
+            foreach (EvidenceData data in evidenceDatabase)
             {
-                nextBlankSlot.slotIcon.sprite = foundData.discoveredPicture;
-                nextBlankSlot.slotIcon.color = Color.white;
+                if (data.evidenceID == foundEvidenceID)
+                {
+                    foundData = data;
+                    break;
+                }
             }
 
-            // Hook up the click event to open the Detail Pop-up
-            nextBlankSlot.slotButton.onClick.RemoveAllListeners();
-            nextBlankSlot.slotButton.onClick.AddListener(() => OpenDetailPanel(foundData));
+            if (foundData != null)
+            {
+                // Write it on the next blank line
+                EvidenceUISlot nextBlankSlot = uiSlots[currentSlotIndex];
 
-            // Move down to the next blank line for the next clue!
-            currentSlotIndex++;
+                nextBlankSlot.slotButton.gameObject.SetActive(true);
+                if (nextBlankSlot.slotIcon != null) nextBlankSlot.slotIcon.gameObject.SetActive(true);
+
+                nextBlankSlot.slotNameText.text = "- " + foundData.discoveredName;
+                if (nextBlankSlot.slotIcon != null)
+                {
+                    nextBlankSlot.slotIcon.sprite = foundData.discoveredPicture;
+                    nextBlankSlot.slotIcon.color = Color.white;
+                }
+
+                nextBlankSlot.slotButton.onClick.RemoveAllListeners();
+                nextBlankSlot.slotButton.onClick.AddListener(() => OpenDetailPanel(foundData));
+
+                currentSlotIndex++;
+                Debug.Log($"Notebook successfully wrote down: {foundData.evidenceID}");
+            }
+            else
+            {
+                Debug.LogWarning($"Notebook couldn't find database info for: {foundEvidenceID}");
+            }
         }
     }
 

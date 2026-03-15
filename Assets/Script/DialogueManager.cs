@@ -16,11 +16,13 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueOpened()
     {
+        if (UIStateManager.I != null) UIStateManager.I.isDialogueOpen = true;
         openDialogues++;
     }
 
     public void DialogueClosed()
     {
+        if (UIStateManager.I != null) UIStateManager.I.isDialogueOpen = false;
         openDialogues = Mathf.Max(0, openDialogues - 1);
 
         // 🔥 block ESC → Pause for 0.1 sec

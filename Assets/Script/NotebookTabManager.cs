@@ -28,7 +28,7 @@ public class NotebookTabManager : MonoBehaviour
     private bool isTutorialActive = true;
     private Color originalColor;
 
-    void OnEnable()
+    void Start()
     {
         if (tutorialTabToClick != null)
         {

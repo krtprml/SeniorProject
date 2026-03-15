@@ -22,25 +22,17 @@ public class HighlightableObject : MonoBehaviour
 
     public void Interact()
     {
+        if (UIStateManager.I != null && UIStateManager.I.IsAnyBlockingUIOpen()) return;
         if (!isCollectable || hasBeenCollected) return;
 
         hasBeenCollected = true;
 
-        // 1. Send to your Backend Manager (Keeps your evaluator and NPCs working!)
+        // This triggers your friend's manager, which automatically triggers the notebook!
         EvidenceManager.I.CollectEvidence(objectName);
 
-        // 2. The Old Screen UI (You can delete this block later if you ONLY want the notebook)
         if (showOnCollect && inspectSprite != null)
         {
             EvidenceViewerUI.I.Show(inspectSprite, displayMode, inspectText);
-        }
-
-        // 🔥 3. THE NEW NOTEBOOK CONNECTION 🔥
-        EvidenceUIManager notebookUI = Object.FindFirstObjectByType<EvidenceUIManager>();
-        if (notebookUI != null)
-        {
-            // Unlocks the notebook slot that perfectly matches the "objectName"
-            notebookUI.UnlockEvidence(objectName);
         }
     }
 }
