@@ -176,12 +176,11 @@ public class CaseGateResponse
     // ================= CASE JUDGE =================
 
     public IEnumerator EvaluateCase(
-        string text,
+        InvestigationReport report,
         Action<string> onDone,
         Action<string> onError)
     {
-        var obj = new CaseRequest { final_answer = text };
-        var json = JsonUtility.ToJson(obj);
+        var json = JsonUtility.ToJson(report);
         var body = Encoding.UTF8.GetBytes(json);
 
         using var req = new UnityWebRequest(baseUrl + "/evaluate-case", "POST");

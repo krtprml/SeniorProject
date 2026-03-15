@@ -11,6 +11,9 @@ public class CaseEvaluatorNPC : MonoBehaviour
     [SerializeField] TextMeshProUGUI answerText;
     [SerializeField] GameObject nextButton;
 
+    [Header("Investigation Report Form")]
+    [SerializeField] InvestigationReportForm investigationForm;
+
     [Header("Camera (World-Space)")]
     [SerializeField] GameObject virtualFrontCam;
 
@@ -80,18 +83,16 @@ public class CaseEvaluatorNPC : MonoBehaviour
     {
         talkAction.action.performed += _ => TryOpen();
         closeAction.action.performed += _ => TryClose();
-        sendAction.action.performed += _ => TrySend();
 
         talkAction.action.Enable();
         closeAction.action.Enable();
-        sendAction.action.Enable();
+        // sendAction no longer used with form UI
     }
 
     void OnDisable()
     {
         talkAction.action.Disable();
         closeAction.action.Disable();
-        sendAction.action.Disable();
     }
 
     // ========================= OPEN =========================
@@ -107,13 +108,16 @@ public class CaseEvaluatorNPC : MonoBehaviour
         if (dialoguePanel) dialoguePanel.SetActive(true);
         if (virtualFrontCam) virtualFrontCam.SetActive(true);
 
-        if (inputField)
+        // Hide old input field, show investigation form
+        if (inputField) inputField.gameObject.SetActive(false);
+
+        if (investigationForm != null)
         {
-            inputField.gameObject.SetActive(true);
-            inputField.text = "";
-            inputField.interactable = true;
-            inputField.Select();
-            inputField.ActivateInputField();
+            investigationForm.ClearForm();
+            investigationForm.Show(
+                OnReportSubmitted,
+                () => TryClose() // Cancel closes the dialogue
+            );
         }
 
         if (nextButton) nextButton.SetActive(false);
@@ -123,6 +127,45 @@ public class CaseEvaluatorNPC : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    void OnReportSubmitted(InvestigationReport report)
+    {
+        // Hide the form
+        if (investigationForm != null)
+        {
+            investigationForm.Hide();
+        }
+
+        // Show loading state
+        if (answerText != null)
+        {
+            answerText.text = "Evaluating your case...";
+        }
+
+        // Submit to backend
+        StartCoroutine(GameManagerSimple.I.Client.EvaluateCase(
+            report,
+            reply =>
+            {
+                StartCoroutine(ProcessFinalAnswer(reply));
+            },
+            err =>
+            {
+                if (answerText != null)
+                {
+                    answerText.text = "Error: " + err;
+                }
+                // Show form again on error
+                if (investigationForm != null)
+                {
+                    investigationForm.Show(
+                        OnReportSubmitted,
+                        () => TryClose()
+                    );
+                }
+            }
+        ));
     }
 
     // ========================= CLOSE =========================
@@ -138,6 +181,12 @@ public class CaseEvaluatorNPC : MonoBehaviour
         if (dialoguePanel) dialoguePanel.SetActive(false);
         if (virtualFrontCam) virtualFrontCam.SetActive(false);
 
+        // Hide investigation form if visible
+        if (investigationForm != null)
+        {
+            investigationForm.Hide();
+        }
+
         foreach (var c in playerScriptsToDisable)
             if (c) c.enabled = true;
 
@@ -145,31 +194,9 @@ public class CaseEvaluatorNPC : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // ========================= SEND =========================
-    void TrySend()
-    {
-        if (!dialogueOpen) return;
-        if (!inputField || string.IsNullOrWhiteSpace(inputField.text)) return;
-
-        string text = inputField.text.Trim();
-        inputField.interactable = false;
-        answerText.text = "...thinking...";
-
-        StartCoroutine(GameManagerSimple.I.Client.EvaluateCase(
-            text,
-            reply =>
-            {
-                StartCoroutine(ProcessFinalAnswer(reply));
-            },
-            err =>
-            {
-                answerText.text = "Error: " + err;
-                inputField.interactable = true;
-                inputField.Select();
-                inputField.ActivateInputField();
-            }
-        ));
-    }
+    // ========================= SEND (Legacy - Not used with form) =========================
+    // This method is no longer used with the investigation form UI
+    // Kept for reference in case you want to support both approaches
 
     // ========================= RESULT =========================
     IEnumerator ProcessFinalAnswer(string reply)
