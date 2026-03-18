@@ -89602,7 +89602,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1873955336}
   m_HandleRect: {fileID: 1873955335}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000001
   m_Size: 0.4295401
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -199748,8 +199748,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 73125721}
   m_HandleRect: {fileID: 73125720}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.8289519
+  m_Value: 0.9999994
+  m_Size: 0.82895184
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -237316,27 +237316,31 @@ MonoBehaviour:
   - evidenceID: Wine Glass
     discoveredPicture: {fileID: 21300000, guid: 08087ca9606c9c54ab92320cff65c79d, type: 3}
     discoveredName: Wine Glass
-    detailedInformation: 
+    detailedInformation: "Victor\u2019s wine glass shows traces of light green sediment,
+      which could indicate the presence of rat poison."
   - evidenceID: Wine Bottle
     discoveredPicture: {fileID: 21300000, guid: 5af1ef376509b45c89a463ecd1bd5ec7, type: 3}
     discoveredName: Wine Bottle
-    detailedInformation: 
+    detailedInformation: Victor consumed wine from this bottle, and it carries numerous
+      fingerprints.
   - evidenceID: Notebook
     discoveredPicture: {fileID: 21300000, guid: 3bbb4036bf2df437f9cffacaa464efb2, type: 3}
     discoveredName: Notebook
-    detailedInformation: 
+    detailedInformation: "The notebook contains Victor\u2019s true feelings toward
+      his friends and colleague."
   - evidenceID: Calendar
     discoveredPicture: {fileID: 21300000, guid: 3589c439c7732449d814613d6f1fdc38, type: 3}
     discoveredName: Calendar
-    detailedInformation: 
+    detailedInformation: The calendar marked June 22, 2025 as a highlighted date.
   - evidenceID: Mobile Phone
     discoveredPicture: {fileID: 21300000, guid: 634dc20865a9f449985a10a6646ed3e6, type: 3}
     discoveredName: Mobile Phone
-    detailedInformation: 
+    detailedInformation: The phone chat highlights tension between Victor and Anna.
   - evidenceID: Medicine Cabinet
     discoveredPicture: {fileID: 21300000, guid: 264bf09c9a8254178ac45fc2f85098fb, type: 3}
     discoveredName: Medicine Cabinet
-    detailedInformation: 
+    detailedInformation: The medicine cabinet shows evidence of something being taken
+      quickly, and the rat poison appears to be missing.
   uiSlots:
   - slotButton: {fileID: 190683798}
     slotNameText: {fileID: 1916594327}
@@ -295974,11 +295978,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1429745113}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 918, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -161, y: -361}
+  m_SizeDelta: {x: 1000, y: 1600}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1909022093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296026,15 +296030,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 96
+  m_fontSizeBase: 96
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
