@@ -175,23 +175,27 @@ public class CaseGateResponse
 
     // ================= CASE JUDGE =================
 
+    // ================= CASE JUDGE =================
+
+    // 🔥 Changed the first parameter to accept your new InvestigationReport!
     public IEnumerator EvaluateCase(
         InvestigationReport report,
-        Action<string> onDone,
-        Action<string> onError)
+        System.Action<string> onDone,
+        System.Action<string> onError)
     {
+        // Convert the form into a JSON package
         var json = JsonUtility.ToJson(report);
-        var body = Encoding.UTF8.GetBytes(json);
+        var body = System.Text.Encoding.UTF8.GetBytes(json);
 
-        using var req = new UnityWebRequest(baseUrl + "/evaluate-case", "POST");
-        req.uploadHandler = new UploadHandlerRaw(body);
-        req.downloadHandler = new DownloadHandlerBuffer();
+        using var req = new UnityEngine.Networking.UnityWebRequest(baseUrl + "/evaluate-case", "POST");
+        req.uploadHandler = new UnityEngine.Networking.UploadHandlerRaw(body);
+        req.downloadHandler = new UnityEngine.Networking.DownloadHandlerBuffer();
         req.SetRequestHeader("Content-Type", "application/json");
         req.timeout = 60;
 
         yield return req.SendWebRequest();
 
-        if (req.result != UnityWebRequest.Result.Success)
+        if (req.result != UnityEngine.Networking.UnityWebRequest.Result.Success)
         {
             onError?.Invoke(req.error);
             yield break;
@@ -199,28 +203,26 @@ public class CaseGateResponse
 
         var textResp = req.downloadHandler.text;
 
-    // 🔒 ลอง parse gate response ก่อน
-    CaseGateResponse gate = null;
-    try
-    {
-        gate = JsonUtility.FromJson<CaseGateResponse>(textResp);
-    }
-    catch { /* ignore */ }
+        // Check for the "Gate" (Did they miss evidence?)
+        CaseGateResponse gate = null;
+        try
+        {
+            gate = JsonUtility.FromJson<CaseGateResponse>(textResp);
+        }
+        catch { /* ignore */ }
 
-    if (gate != null && gate.blocked)
-    {
-        string missing = gate.missing_evidence != null
-            ? string.Join(", ", gate.missing_evidence)
-            : "unknown evidence";
+        if (gate != null && gate.blocked)
+        {
+            string missing = gate.missing_evidence != null
+                ? string.Join(", ", gate.missing_evidence)
+                : "unknown evidence";
 
-        onError?.Invoke(
-            $"You must collect all evidence before accusing.\nMissing evidence: {missing}"
-        );
-        yield break;
-    }
+            onError?.Invoke($"Missing evidence: {missing}");
+            yield break;
+        }
 
-    // ถ้าไม่โดน block → ถือว่าเป็นผล evaluator ปกติ
-    onDone?.Invoke(textResp);
+        // Success! Send the AI's final answer back to the game
+        onDone?.Invoke(textResp);
     }
 
     [Serializable]

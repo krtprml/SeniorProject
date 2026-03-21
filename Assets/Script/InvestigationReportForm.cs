@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
@@ -57,8 +57,8 @@ public class InvestigationReportForm : MonoBehaviour
         if (cancelButton != null)
             cancelButton.onClick.AddListener(OnCancel);
 
-        // Hide initially
-        Hide();
+        // 🔥 FIXED: We commented out Hide() so the Notebook Tab Manager can do its job!
+        // Hide(); 
     }
 
     #region Dropdown Initialization
