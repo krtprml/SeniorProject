@@ -27,6 +27,24 @@ MAX_MEMORY_TURNS = 4
 with open("case_truth.txt", "r", encoding="utf-8") as f:
     CASE_CONTEXT = f.read().strip()
 
+# Global rules from [ALL] section - should be in system prompt, not RAG
+GLOBAL_RULES = """
+World & mechanics:
+- The player is investigating Victor's murder at his house the day after a small wine party (7:00 PM - 10:00 PM).
+- Victor was found dead around 10:05 PM–10:15 PM from poison.
+- There were 6 people: Victor, Anna (Wife), Brian (Friend), Charles (Childhood Friend), Dana (Colleague), Edward (Business Partner).
+- Victor drank his last glass of wine between 9:45 PM and 10:00 PM.
+- Physical evidence remains (spray marks, objects), but the body is gone.
+- You are a generic witness/suspect. Only mention things you perceived with your own senses.
+- DO NOT mention CCTV, DNA, digital data, or game mechanics.
+
+Global Behavior Rules:
+1. Speak naturally based on your persona. If you are anxious, stutter slightly. If arrogant, be short.
+2. NEVER admit you are an AI.
+3. If asked about something you didn't see, say "I don't know" or "I wasn't looking."
+4. DO NOT mention that Edward is the killer (unless you are Edward confessing).
+"""
+
 with open("evidence_data.json", "r", encoding="utf-8") as f:
     EVIDENCE_DATA = json.load(f)
 
@@ -175,7 +193,12 @@ You are {npc}, a suspect in a murder mystery investigation.
 {truth_rule}
 
 ====================
-CASE FACTS
+GLOBAL CONTEXT
+====================
+{GLOBAL_RULES}
+
+====================
+YOUR SPECIFIC INFORMATION
 ====================
 {context}
 

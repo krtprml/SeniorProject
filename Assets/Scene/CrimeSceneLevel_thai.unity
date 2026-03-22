@@ -509003,7 +509003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031112607312d46a386063a50d8c717f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: CHAIWAT
+  npcName: "\u0E0A\u0E31\u0E22\u0E27\u0E31\u0E12\u0E19\u0E4C"
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
@@ -512097,7 +512097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031112607312d46a386063a50d8c717f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: SOMYING
+  npcName: "\u0E2A\u0E21\u0E2B\u0E0D\u0E34\u0E07"
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
@@ -521339,7 +521339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031112607312d46a386063a50d8c717f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: THUNWA
+  npcName: "\u0E18\u0E31\u0E19\u0E27\u0E32"
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
@@ -523817,7 +523817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031112607312d46a386063a50d8c717f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: PORNTIP
+  npcName: "\u0E1E\u0E23\u0E17\u0E34\u0E1E\u0E22\u0E4C "
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
@@ -527149,7 +527149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031112607312d46a386063a50d8c717f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: MAYSA
+  npcName: "\u0E40\u0E21\u0E29\u0E32"
   dialoguePanel: {fileID: 848419006}
   inputField: {fileID: 1648313444}
   answerText: {fileID: 1200734604}
