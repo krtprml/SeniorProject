@@ -15,7 +15,7 @@ public class EvidenceDatabase : MonoBehaviour
 
     void LoadEvidence()
     {
-        TextAsset json = Resources.Load<TextAsset>("evidence_data");
+        TextAsset json = Resources.Load<TextAsset>("evidence_data_thai");
         if (json == null)
         {
             Debug.LogError("❌ evidence_data.json not found");
