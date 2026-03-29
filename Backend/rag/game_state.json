@@ -2,7 +2,9 @@
   "memory": {},
   "evidence_found": [
     "Wine Glass",
-    "Wine Bottle"
+    "Notebook",
+    "Calendar",
+    "Mobile Phone"
   ],
   "evidence_used": [],
   "question_evaluations": [],
@@ -15,8 +17,74 @@
     "fail_reason": ""
   },
   "case": {
-    "final_answer": "",
-    "score": 0,
-    "reason": ""
+    "suspect_id": "EDWARD",
+    "motive_type": "business_conflict",
+    "method_type": "poison_glass_swap",
+    "final_answer": "\nSUSPECT: EDWARD\nMOTIVE: business_conflict (angry)\nMETHOD: poison_glass_swap (swap glass)\n\nSUPPORTING EVIDENCE:\n- Calendar (motive): No notes\n- Notebook (motive): No notes\n- Mobile Phone (): No notes\n- Wine Bottle (): No notes\n- Wine Glass (): No notes\n- Medicine Cabinet (): No notes\n\nWITNESS TESTIMONY:\n- ANNA (): No notes\n- BRIAN (): No notes\n- CHARLES (): No notes\n- DANA (): No notes\n",
+    "score": 80,
+    "reason": "Score: 80/100\n\nSuspect Assessment: Correct\nThe investigator correctly identified Edward as the killer. The evidence, including witness testimony from Brian and Charles, and the manipulation of the wine glasses, all point to Edward's guilt.\n\nMotive Assessment: Correct\nThe motive is correctly identified as business_conflict, as Victor planned to fire Edward from the company. This is supported by the wall calendar and Victor's notebook.\n\nMethod Assessment: Partial\nThe method is partially correct, as it involves poisoning a specific glass. However, the investigator only scored 10 points for this category, as they did not accurately describe the method as poison_glass_swap. The correct method involves poisoning the glass and then swapping it with another glass to ensure the victim drinks from the poisoned one.\n\nEvidence Assessment: 15/20\nThe investigator failed to mention the key evidence against Edward, including the witness testimony from Brian and Charles, and the manipulation of the wine glasses. They also failed to mention the wall calendar and Victor's notebook, which provide strong evidence for the motive. However, they did mention the wine glass, which is relevant to the method.\n\nTestimony Assessment: 0/10\nThe investigator failed to mention the crucial testimony from Brian and Charles, who saw Edward manipulating the wine glasses. This is a critical piece of evidence that supports the investigator's conclusion.\n\nOverall Feedback:\nThe investigator correctly identified the suspect and motive, but failed to accurately describe the method and provide sufficient evidence to support their conclusion. They also failed to mention crucial witness testimony, which is a critical component of a strong case. To improve their score, the investigator should provide more detailed and accurate information about the evidence and witness testimony. With some refinement, this case could be considered a solid case, scoring 70-89 points.",
+    "structured_report": {
+      "suspect_id": "EDWARD",
+      "motive_type": "business_conflict",
+      "motive_explanation": "angry",
+      "method_type": "poison_glass_swap",
+      "method_explanation": "swap glass",
+      "supporting_evidence": [
+        {
+          "evidence_id": "Calendar",
+          "relevance_type": "motive",
+          "player_notes": ""
+        },
+        {
+          "evidence_id": "Notebook",
+          "relevance_type": "motive",
+          "player_notes": ""
+        },
+        {
+          "evidence_id": "Mobile Phone",
+          "relevance_type": "",
+          "player_notes": ""
+        },
+        {
+          "evidence_id": "Wine Bottle",
+          "relevance_type": "",
+          "player_notes": ""
+        },
+        {
+          "evidence_id": "Wine Glass",
+          "relevance_type": "",
+          "player_notes": ""
+        },
+        {
+          "evidence_id": "Medicine Cabinet",
+          "relevance_type": "",
+          "player_notes": ""
+        }
+      ],
+      "witness_testimony": [
+        {
+          "witness_id": "ANNA",
+          "testimony_type": "",
+          "player_notes": ""
+        },
+        {
+          "witness_id": "BRIAN",
+          "testimony_type": "",
+          "player_notes": ""
+        },
+        {
+          "witness_id": "CHARLES",
+          "testimony_type": "",
+          "player_notes": ""
+        },
+        {
+          "witness_id": "DANA",
+          "testimony_type": "",
+          "player_notes": ""
+        }
+      ],
+      "additional_notes": "",
+      "confidence_level": ""
+    }
   }
 }

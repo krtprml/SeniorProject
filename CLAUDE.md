@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a detective/mystery game built with Unity (6000.1.13f1) and a Python FastAPI backend. Players investigate a murder scene, collect evidence, interrogate NPCs, and ultimately accuse a suspect. The game uses LLM (via Groq) and RAG (Retrieval Augmented Generation) for dynamic NPC dialogue.
+This is a detective/mystery game built with Unity 6 (6000.1.13f1) and a Python FastAPI backend. Players investigate a murder scene, collect evidence, interrogate NPCs, and ultimately accuse a suspect. The game uses LLM (via Groq) and RAG (Retrieval Augmented Generation) for dynamic NPC dialogue.
+
+**Language Support:** The game supports both English and Thai languages. See "Language Switching" section below.
 
 ## Architecture
 
@@ -48,12 +50,71 @@ This is a detective/mystery game built with Unity (6000.1.13f1) and a Python Fas
 
 **Data Files:**
 - `evidence_data.json` - Evidence definitions with NPC reveals and auto-generated confrontation text
+- `case_data.txt` / `case_data_Thai.txt` - Case knowledge base for RAG (NPC personas, timeline, evidence)
 - `case_truth.txt` - Ground truth about the murder case
 - `game_state.json` - Runtime state (memory, evidence, evaluations) - reset on `/start-game`
-- `system_prompt.txt` - Base system prompt for NPCs
+- `system_prompt.txt` - Base system prompt for NPCs (includes dialogue rules and evidence info)
 - `police_interrogation_rules.txt` - Question evaluation rules
 
+**Vector Database Structure:**
+- ChromaDB collection `murder_case` stores facts from `case_data.txt`
+- Each fact has metadata `owner` (ALL, BRIAN, ANNA, etc.) for filtering
+- Facts are segmented by NPC sections: `[ALL]`, `[BRIAN]`, `[ANNA]`, etc.
+- RAG retrieves relevant facts based on player questions
+
+**Initialization Scripts:**
+- `create_knowledge_base.py` - Builds ChromaDB vector database from case data
+- `create_police_rules_db.py` - (Optional) Creates database for question evaluation
+- `create_case_evaluator_db.py` - (Optional) Creates database for case evaluation
+
+### Project Structure
+
+```
+SeniorProject/
+├── Assets/
+│   ├── Scene/                      # Unity scenes
+│   │   ├── CrimeSceneLevel.unity   # Main investigation scene
+│   │   └── MainScene.unity         # Menu/intro scene
+│   ├── Script/                     # C# scripts
+│   │   ├── GameManagerSimple.cs    # Main game manager
+│   │   ├── StandardNPC.cs          # NPC dialogue system
+│   │   ├── EvidenceManager.cs      # Evidence tracking
+│   │   ├── InvestigationReportForm.cs  # Case submission UI
+│   │   └── Player from First/      # First-person controller
+│   ├── Resources/                  # Runtime-loaded assets
+│   │   └── evidence_data.json      # Evidence definitions (array format)
+│   └── Prefabs/                    # Reusable UI components
+│       ├── EvidenceRowPrefab.prefab
+│       └── WitnessRowPrefab.prefab
+├── Backend/
+│   └── rag/
+│       ├── server.py               # FastAPI backend
+│       ├── create_knowledge_base.py # DB initialization
+│       ├── evidence_data.json      # Evidence definitions (key-value format)
+│       ├── case_data.txt           # English case knowledge
+│       ├── case_data_Thai.txt      # Thai case knowledge
+│       ├── system_prompt.txt       # NPC system prompts
+│       ├── game_db/                # English vector database
+│       └── game_db_thai/           # Thai vector database
+└── ProjectSettings/                # Unity project settings
+```
+
 ## Development Commands
+
+### First-Time Setup
+
+**Initialize Vector Database (required before first run):**
+```bash
+cd Backend/rag
+
+# For English version
+python create_knowledge_base.py
+
+# For Thai version
+python create_knowledge_base.py  # Edit script to use case_data_Thai.txt and game_db_thai/
+```
+
+This creates the ChromaDB vector database from `case_data.txt` (or `case_data_Thai.txt`) needed for RAG-based NPC dialogue.
 
 ### Running the Backend
 
@@ -77,10 +138,27 @@ uvicorn server:app --reload --host 127.0.0.1 --port 8000
 - chromadb
 - pydantic
 
+### Language Switching (English/Thai)
+
+The project supports both English and Thai languages:
+
+**English (default):**
+- Data files: `case_data.txt`, `system_prompt.txt`
+- Database: `./game_db/`
+- Edit `server.py`: `DB_PATH = "./game_db"`
+
+**Thai:**
+- Data files: `case_data_Thai.txt`, `system_prompt.txt` (with Thai persona prompts)
+- Database: `./game_db_thai/`
+- Edit `server.py`: `DB_PATH = "./game_db_thai"`
+- Run: `python create_knowledge_base.py` (after modifying DATA_FILE and DB_PATH in the script)
+
 ### Unity Development
 
-1. Open project in Unity Editor 6000.1.13f1
-2. Main scene: `Assets/Scene/`
+1. Open project in Unity Editor 6000.1.13f1 (Unity 6)
+2. Main scenes in `Assets/Scene/`:
+   - `CrimeSceneLevel.unity` - Main investigation scene (murder house)
+   - `MainScene.unity` - Menu/intro scene
 3. Build Settings configured for the target platform
 
 **Key Unity Packages:**
@@ -173,6 +251,31 @@ The backend can trigger auto-fail for rule violations (e.g., unethical interroga
 2. `StandardNPC.TrySend()` checks `resp.auto_fail`
 3. If true, closes dialogue and calls `GameEndManager.ShowAutoFail(resp.fail_reason)`
 
+### Game Flow
+
+1. **Main Menu** (`MainScene.unity`):
+   - Player clicks "Start Game"
+   - `MainMenuManager.StartGame()` calls `GameManagerSimple.StartGame()`
+   - Sends `POST /start-game` to backend (resets `game_state.json`)
+   - Loads `CrimeSceneLevel.unity`
+
+2. **Investigation Phase** (`CrimeSceneLevel.unity`):
+   - Player explores murder scene in first-person view
+   - Collects evidence via `EvidencePickup.cs` triggers
+   - Interrogates NPCs via dialogue system
+   - Uses notebook to review evidence and build case
+
+3. **Case Submission**:
+   - Player approaches `CaseEvaluatorNPC` (typically a special NPC or object)
+   - Opens investigation report form (structured UI)
+   - Fills out suspect, motive, method, evidence, witnesses
+   - Submits via `POST /evaluate-case`
+
+4. **Game End**:
+   - Backend evaluates submission with 100-point scoring system
+   - `GameEndManager` displays results (victory/failure)
+   - Shows final score, feedback, and option to restart
+
 ### Case Evaluation (Structured Report System)
 
 The game uses a **structured investigation report** instead of free-text accusations:
@@ -231,9 +334,15 @@ The game uses a **structured investigation report** instead of free-text accusat
 
 ### Backend Configuration
 
-Edit `server.py` top section:
+**Environment Variables:**
+Create a `.env` file in `Backend/rag/` (git-ignored):
+```bash
+GROQ_API_KEY="your-groq-api-key-here"
+```
+
+Then edit `server.py` top section:
 ```python
-DB_PATH = "./game_db"
+DB_PATH = "./game_db"  # or "./game_db_thai" for Thai
 GROQ_API_KEY = os.getenv("GROQ_API_KEY") or "PUT_YOUR_GROQ_KEY_HERE"
 MODEL_NAME = "llama-3.1-8b-instant"
 ```
@@ -261,7 +370,17 @@ The investigation report form is a complex multi-section UI. Key components:
 **Important Prefabs:**
 - `EvidenceRowPrefab` - Horizontal layout with Toggle, Text, Dropdown, InputField
 - `WitnessRowPrefab` - Same structure for witnesses
+- `EvidenceButton.prefab` - Individual evidence choice button in NPC dialogue
+- `NameplateCanvas.prefab` - NPC name label (billboard style)
 - Both use `Horizontal Layout Group` for automatic arrangement
+
+**Notebook UI Structure:**
+The notebook is a complex multi-tab system (`Assets/notebook/`):
+- Evidence tab - Lists collected evidence with details
+- Notes tab - Player's personal notes
+- Report tab - Investigation report submission form
+- Uses `NotebookTabManager.cs` for tab switching
+- `TabPulse.cs` provides visual feedback when new evidence is collected
 
 **Data Flow:**
 1. Player fills form → clicks Submit
@@ -289,8 +408,10 @@ The investigation report form is a complex multi-section UI. Key components:
 - Verify Input System actions are assigned (Talk, Close, Send)
 
 **VectorDB errors:**
-- Run `create_knowledge_base.py` to initialize ChromaDB
-- Ensure `game_db/` directory exists
+- Run `create_knowledge_base.py` to initialize ChromaDB (first-time setup)
+- Ensure `game_db/` or `game_db_thai/` directory exists
+- Verify `DB_PATH` in `server.py` matches your database directory
+- If switching languages, re-run `create_knowledge_base.py` after updating DATA_FILE and DB_PATH
 
 **NPCs not telling the truth after confrontation:**
 - Check `evidence_data.json` - evidence must have non-empty `conflict` field for the NPC

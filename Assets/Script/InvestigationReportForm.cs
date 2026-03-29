@@ -52,7 +52,14 @@ public class InvestigationReportForm : MonoBehaviour
 
         // Setup button listeners
         if (submitButton != null)
+        {
             submitButton.onClick.AddListener(OnSubmit);
+            Debug.Log("✅ Submit button listener registered");
+        }
+        else
+        {
+            Debug.LogError("❌ Submit button is NULL! Check Inspector assignment.");
+        }
 
         if (cancelButton != null)
             cancelButton.onClick.AddListener(OnCancel);
@@ -201,22 +208,24 @@ public class InvestigationReportForm : MonoBehaviour
 
     void OnSubmit()
     {
+        Debug.Log("🔵 Submit button clicked - starting validation");
+
         // Validate required fields
         if (suspectDropdown.value == 0)
         {
-            Debug.LogWarning("Please select a suspect");
+            Debug.LogWarning("❌ Please select a suspect");
             return;
         }
 
         if (motiveDropdown.value == 0)
         {
-            Debug.LogWarning("Please select a motive");
+            Debug.LogWarning("❌ Please select a motive");
             return;
         }
 
         if (methodDropdown.value == 0)
         {
-            Debug.LogWarning("Please select a method");
+            Debug.LogWarning("❌ Please select a method");
             return;
         }
 
@@ -224,9 +233,11 @@ public class InvestigationReportForm : MonoBehaviour
         var selectedEvidence = GetSelectedEvidence();
         if (selectedEvidence.Length == 0)
         {
-            Debug.LogWarning("Please select at least one piece of supporting evidence");
+            Debug.LogWarning("❌ Please select at least one piece of supporting evidence");
             return;
         }
+
+        Debug.Log($"✅ Validation passed - {selectedEvidence.Length} evidence items selected");
 
         var report = new InvestigationReport
         {
@@ -241,7 +252,9 @@ public class InvestigationReportForm : MonoBehaviour
             confidence_level = GetConfidenceLevel(confidenceDropdown.value)
         };
 
+        Debug.Log($"📤 Invoking onSubmit callback - onSubmit is null: {onSubmit == null}");
         onSubmit?.Invoke(report);
+        Debug.Log("✅ onSubmit callback invoked");
     }
 
     void OnCancel()
