@@ -17,6 +17,11 @@ public class NotebookReportSubmitter : MonoBehaviour
         if (reportForm != null)
         {
             reportForm.Show(OnReportSubmitted, OnCancelClicked);
+            Debug.Log("✅ NotebookReportSubmitter: Registered submit callbacks");
+        }
+        else
+        {
+            Debug.LogError("❌ NotebookReportSubmitter: reportForm is NULL! Check Inspector assignment.");
         }
     }
 
@@ -28,13 +33,16 @@ public class NotebookReportSubmitter : MonoBehaviour
 
     void OnReportSubmitted(InvestigationReport report)
     {
+        Debug.Log("🟢 OnReportSubmitted called!");
+        Debug.Log($"📋 Report: Suspect={report.suspect_id}, Motive={report.motive_type}, Method={report.method_type}");
+
         if (statusText != null) statusText.text = "Submitting report to HQ...";
 
         // Send the paperwork to the server!
         StartCoroutine(GameManagerSimple.I.Client.EvaluateCase(
             report,
-            reply => { StartCoroutine(ProcessFinalAnswer(reply)); },
-            err => { if (statusText != null) statusText.text = "<color=red>Error:</color> " + err; }
+            reply => { Debug.Log("✅ Server response received"); StartCoroutine(ProcessFinalAnswer(reply)); },
+            err => { Debug.LogError("❌ Server error: " + err); if (statusText != null) statusText.text = "<color=red>Error:</color> " + err; }
         ));
     }
 

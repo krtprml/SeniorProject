@@ -528,18 +528,27 @@ REQUIRED_EVIDENCE = {
 @app.post("/evaluate-case")
 
 async def evaluate_case(req: InvestigationReport):
+    print("🔵 DEBUG: /evaluate-case endpoint called!")
+    print(f"📋 Request received: suspect={req.suspect_id}, motive={req.motive_type}")
+
     state = load_state()
 
     found = set(state.get("evidence_found", []))
     missing = REQUIRED_EVIDENCE - found
 
+    print(f"📦 Evidence found: {found}")
+    print(f"❌ Missing evidence: {missing}")
+
     # 🔒 HARD GATE
     if missing:
+        print(f"🚫 Request BLOCKED - missing required evidence")
         return {
             "blocked": True,
             "reason": "Not enough evidence",
             "missing_evidence": list(missing)
         }
+
+    print("✅ Evidence gate passed - evaluating case...")
 
     # Build structured summary for LLM
     report_summary = f"""
@@ -618,6 +627,7 @@ Testimony Assessment: [quality score and why]
 Overall Feedback: [detailed explanation]
 """
 
+    print("🤖 Calling LLM for case evaluation...")
     completion = llm_client.chat.completions.create(
         model=MODEL_NAME,
         messages=[{"role": "system", "content": prompt}],
@@ -626,9 +636,19 @@ Overall Feedback: [detailed explanation]
 
     text = completion.choices[0].message.content
 
+    print("=" * 80)
+    print("🎯 LLM EVALUATION RESULT:")
+    print("=" * 80)
+    print(text)
+    print("=" * 80)
+
     # Extract score with regex (supports both X/100 and X formats)
     match = re.search(r"score\s*:\s*(\d+)", text.lower())
     score = int(match.group(1)) if match else 0
+
+    print(f"📊 Extracted Score: {score}/100")
+    print(f"✅ Case evaluation complete!")
+    print()
 
     # Store both structured report and serialized version
     state["case"] = {
@@ -642,6 +662,8 @@ Overall Feedback: [detailed explanation]
     }
 
     save_state(state)
+    print(f"💾 Saved to game_state.json")
+    print(f"📤 Returning response to client")
     return state["case"]
 
 # ==============================
