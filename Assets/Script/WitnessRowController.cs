@@ -39,7 +39,9 @@ public class WitnessRowController : MonoBehaviour
 
         if (checkbox != null)
         {
+            checkbox.isOn = false; // Force it off by default
             checkbox.onValueChanged.AddListener(OnCheckboxChanged);
+            OnCheckboxChanged(false); // Force the UI to update to the locked state
         }
     }
 
