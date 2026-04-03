@@ -39,7 +39,14 @@ public class EvidenceRowController : MonoBehaviour
 
         if (checkbox != null)
         {
+            // 1. Force the checkbox off by default so it matches the locked dropdowns
+            checkbox.isOn = false;
+
+            // 2. Listen for the player clicking it
             checkbox.onValueChanged.AddListener(OnCheckboxChanged);
+
+            // 3. Force the dropdown and input field to instantly update to the 'off' state
+            OnCheckboxChanged(false);
         }
     }
 
