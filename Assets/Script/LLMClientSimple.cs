@@ -47,6 +47,7 @@ public class LLMClientSimple
 public class UseEvidenceRequest
 {
     public string evidence_id;
+    public string npc_name;  // <--- NEW: Which NPC was confronted
 }
 
 [Serializable]
@@ -120,13 +121,14 @@ public class CaseGateResponse
         }
     }
 
-    public IEnumerator UseEvidence(string evidenceId)
+    public IEnumerator UseEvidence(string evidenceId, string npcName)
 {
     var url = $"{baseUrl}/use-evidence";
 
     UseEvidenceRequest data = new UseEvidenceRequest
     {
-        evidence_id = evidenceId
+        evidence_id = evidenceId,
+        npc_name = npcName  // <--- NEW: Send NPC name
     };
 
     string json = JsonUtility.ToJson(data);

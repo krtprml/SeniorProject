@@ -98,9 +98,9 @@ public class StandardNPC : MonoBehaviour
     inputField.Select();
     inputField.ActivateInputField();
 
-    // 🔥 บอก server ว่าใช้ evidence นี้แล้ว
+    // 🔥 บอก server ว่าใช้ evidence นี้แล้วกับ NPC นี้
     StartCoroutine(
-        GameManagerSimple.I.Client.UseEvidence(reveal.evidence_id)
+        GameManagerSimple.I.Client.UseEvidence(reveal.evidence_id, npcName)
     );
 }
 

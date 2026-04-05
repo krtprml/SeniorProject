@@ -71,8 +71,9 @@ except Exception:
 def init_game_state():
     state = {
         "memory": {},
-        "evidence_found": [],  # <--- NEW: Tracks what player found
-        "evidence_used": [],
+        "evidence_found": [],  # <--- Tracks what player found
+        "evidence_used": {},   # <--- Changed: Tracks which evidence used against which NPC
+                                # Format: {"EDWARD": ["Notebook", "Calendar"], "DANA": []}
         "question_evaluations": [],
         "summary": {
             "politeness_avg": 0,
@@ -500,19 +501,33 @@ def update_summary_scores(state):
         "fail_reason": fail_reason
     }
 
-def npc_has_truth(npc: str, evidence_used: list[str]) -> bool:
-    # Only check evidence that has been USED (confronted), not just collected
-    for ev_id in evidence_used:
-        # Skip empty strings that might be in the list
+def npc_has_truth(npc: str, evidence_used: dict) -> bool:
+    # Check if this specific NPC has been confronted with conflict evidence
+    # evidence_used is now a dict: {"EDWARD": ["Notebook"], "DANA": []}
+
+    # Backward compatibility: handle old list format
+    if isinstance(evidence_used, list):
+        # Old format - return False for now (force new game)
+        return False
+
+    # Get evidence used against THIS NPC specifically
+    npc_evidence = evidence_used.get(npc, [])
+
+    for ev_id in npc_evidence:
+        # Skip empty strings
         if not ev_id or ev_id.strip() == "":
             continue
 
         ev = EVIDENCE_DATA.get(ev_id)
         if not ev:
             continue
+
+        # Check if this evidence has a conflict reveal for this NPC
         for r in ev.get("reveals", []):
-            if r.get("npc") == npc:
+            if r.get("npc") == npc and r.get("conflict"):
+                # Only trigger truth if evidence has non-empty conflict
                 return True
+
     return False    
 
 # ==============================
@@ -556,10 +571,23 @@ async def chat(req: PlayerRequest):
 
     npc_relevant_evidence = []
 
+    # Get evidence already used against THIS specific NPC
+    evidence_used_state = state.get("evidence_used", {})
+
+    # Backward compatibility: handle old list format
+    if isinstance(evidence_used_state, list):
+        # Old format: ["Notebook", "Calendar"]
+        # Convert to dict format
+        evidence_used_state = {}
+        state["evidence_used"] = evidence_used_state
+        save_state(state)
+
+    evidence_used_for_npc = evidence_used_state.get(npc, [])
+
     for ev_id in state["evidence_found"]:
 
-        # ❌ ถ้า single_use และถูกใช้ไปแล้ว → ข้าม
-        if ev_id in state.get("evidence_used", []):
+        # ❌ ถ้า single_use และถูกใช้กับ NPC นี้ไปแล้ว → ข้าม
+        if ev_id in evidence_used_for_npc:
             continue
 
         ev = EVIDENCE_DATA.get(ev_id)
@@ -573,10 +601,11 @@ async def chat(req: PlayerRequest):
                     "auto_text": r["auto_text"]
                 })
 
-    has_truth = npc_has_truth(npc, state.get("evidence_used", []))
+    has_truth = npc_has_truth(npc, state.get("evidence_used", {}))
 
     print("EVIDENCE FOUND:", state["evidence_found"])
-    print("EVIDENCE USED:", state.get("evidence_used", []))
+    print("EVIDENCE USED:", state.get("evidence_used", {}))
+    print(f"EVIDENCE USED AGAINST {npc}:", evidence_used_for_npc)
     print("NPC RELEVANT:", npc_relevant_evidence)
     print(f"has_truth for {npc}:", has_truth)
 
@@ -813,13 +842,26 @@ async def collect_evidence(req: EvidenceRequest):
 
 class UseEvidenceRequest(BaseModel):
     evidence_id: str
+    npc_name: str  # <--- NEW: Track which NPC was confronted
 
 @app.post("/use-evidence")
 async def use_evidence(req: UseEvidenceRequest):
     state = load_state()
 
-    if req.evidence_id not in state["evidence_used"]:
-        state["evidence_used"].append(req.evidence_id)
-        save_state(state)
+    npc = req.npc_name.upper()
 
-    return {"status": "used", "evidence": req.evidence_id}
+    # Initialize evidence_used dict if needed
+    if "evidence_used" not in state or not isinstance(state["evidence_used"], dict):
+        state["evidence_used"] = {}
+
+    # Initialize list for this NPC if needed
+    if npc not in state["evidence_used"]:
+        state["evidence_used"][npc] = []
+
+    # Add evidence to this NPC's list if not already there
+    if req.evidence_id not in state["evidence_used"][npc]:
+        state["evidence_used"][npc].append(req.evidence_id)
+        save_state(state)
+        print(f"✅ Evidence '{req.evidence_id}' used against {npc}")
+
+    return {"status": "used", "evidence": req.evidence_id, "npc": npc}
