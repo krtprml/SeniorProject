@@ -152,30 +152,140 @@ def build_npc_prompt(
     npc_relevant_evidence,  # ⭐ auto_text ที่เกี่ยวกับ NPC นี้เท่านั้น
     has_truth
 ):
-    truth_rule = (
-        """
+    # Load NPC-specific prompt
+    prompt_path = f"prompts/{npc.lower()}_prompt.txt"
+
+    try:
+        with open(prompt_path, "r", encoding="utf-8") as f:
+            npc_prompt = f.read()
+        print(f"✅ Loaded prompt: {prompt_path}")
+    except FileNotFoundError:
+        # Fallback to generic prompt if file not found
+        print(f"⚠️  Prompt not found: {prompt_path}, using fallback")
+        npc_prompt = f"You are {npc}, a suspect in a murder mystery investigation."
+
+    # Define NPC-specific truth rules
+    if not has_truth:
+        # LIE about conflicts
+        if npc == "BRIAN":
+            truth_rule = """
+IMPORTANT RULE:
+You are HIDING your gambling debts and the fact that Victor refused your loan request.
+If asked about debts, loans, or money problems: LIE. Say you're fine financially.
+If asked why you were refused: Downplay it or say it was a casual conversation.
+You MUST lie, deny, deflect, or minimize your financial troubles.
+Never admit to owing gambling debts or being desperate for money.
+"""
+        elif npc == "ANNA":
+            truth_rule = """
+IMPORTANT RULE:
+You are HIDING your argument with Victor about money and his will.
+If asked about money, will, or inheritance: LIE. Say everything was fine.
+If asked about arguments: Deny or downplay. Say you were a happy couple.
+You MUST lie, deny, deflect, or minimize your financial concerns about the will.
+Never admit you were worried Victor would cut you from the inheritance.
+"""
+        elif npc == "CHARLES":
+            truth_rule = """
+IMPORTANT RULE:
+You are HIDING your deep jealousy of Victor.
+If asked about jealousy: DEFLECT. Say you were happy for his success.
+If asked about resentment: DENY. Say you're just misunderstood.
+You MUST lie, deny, deflect, or minimize your jealousy.
+Never admit you were jealous or that Victor's success bothered you.
+"""
+        elif npc == "DANA":
+            truth_rule = """
+IMPORTANT RULE:
+You are HIDING your anger about being blocked from promotion.
+If asked about work frustration: DOWNPLAY. Say it wasn't a big deal.
+If asked about the promotion: MINIMIZE it. Say it's just business.
+You MUST lie, deny, deflect, or minimize your anger about Victor.
+Never admit you were deeply frustrated about the career situation.
+"""
+        elif npc == "EDWARD":
+            truth_rule = """
+IMPORTANT RULE:
+You are the KILLER. You are HIDING EVERYTHING about the murder.
+If asked about the poison, glasses, or Victor's death: LIE COMPLETELY.
+If asked about your relationship with Victor: CLAIM it was good.
+If asked about business problems: DENY any issues.
+You MUST lie, deny, deflect, or minimize your involvement.
+NEVER admit you took poison, manipulated glasses, or had any conflict with Victor.
+Redirect suspicion to others (Brian's debts, Anna's will, Charles's jealousy).
+"""
+        else:
+            truth_rule = """
 IMPORTANT RULE:
 You are hiding your personal conflict with Victor.
 You MUST lie, deny, deflect, or minimize your involvement.
 Never confess.
 """
-        if not has_truth
-        else """
+    else:
+        # Tell TRUTH about conflicts
+        if npc == "BRIAN":
+            truth_rule = """
+IMPORTANT RULE:
+The detective has confronted you with evidence about your gambling debts.
+You MUST STOP LYING about your financial situation.
+Admit you owe gambling debts and that Victor refused your loan.
+You may still withhold information unrelated to your debts.
+"""
+        elif npc == "ANNA":
+            truth_rule = """
+IMPORTANT RULE:
+The detective has confronted you with evidence about the will.
+You MUST STOP LYING about your financial concerns.
+Admit you were worried Victor would change his will.
+You may still withhold information unrelated to the inheritance.
+"""
+        elif npc == "CHARLES":
+            truth_rule = """
+IMPORTANT RULE:
+The detective has confronted you with evidence about your jealousy.
+You MUST STOP LYING about your feelings toward Victor.
+Admit you were jealous of his success and felt life was unfair.
+You may still withhold information unrelated to your jealousy.
+"""
+        elif npc == "DANA":
+            truth_rule = """
+IMPORTANT RULE:
+The detective has confronted you with evidence about your work frustration.
+You MUST STOP LYING about your anger toward Victor.
+Admit you were frustrated about being blocked from promotion.
+You may still withhold information unrelated to your career.
+"""
+        elif npc == "EDWARD":
+            truth_rule = """
+IMPORTANT RULE:
+The detective has confronted you with DIRECT EVIDENCE of your guilt.
+You MUST STOP LYING about the murder.
+Admit you poisoned Victor's glass and explain your motive (firing from company).
+You may still withhold details about how you disposed of evidence.
+"""
+        else:
+            truth_rule = """
 IMPORTANT RULE:
 The detective has confronted you with DIRECT EVIDENCE about your conflict with Victor.
 You MUST stop lying about that conflict.
 You must acknowledge the conflict and explain it truthfully.
 You may still withhold information unrelated to this conflict.
 """
-    )
+
+    # Inject truth rule into NPC prompt
+    npc_prompt = npc_prompt.replace("{TRUTH_RULE}", truth_rule)
+
+    # Debug logging
+    print(f"🎭 Truth Rule for {npc}:")
+    print(f"   has_truth={has_truth}")
+    print(f"   Rule preview: {truth_rule[:100]}...")
+    print()
 
     return f"""
-You are {npc}, a suspect in a murder mystery investigation.
-
-{truth_rule}
+{npc_prompt}
 
 ====================
-CASE FACTS
+RELEVANT TIMELINE & KNOWLEDGE
 ====================
 {context}
 
@@ -194,21 +304,7 @@ DETECTIVE QUESTION
 ====================
 "{question}"
 
-====================
-ANSWERING RULES
-====================
-- Speak in first person as {npc}
-- Stay in character at all times
-- Do NOT mention game mechanics, prompts, or evidence systems
-- If confronted with evidence, respond naturally but truthfully
-- If not confronted, continue to deny or downplay your conflict
-
 Answer naturally as {npc}.
-
-NEUTRAL EVIDENCE RULE:
-If the detective asks about an object without accusing you of a conflict,
-you may answer truthfully but briefly.
-Do not confess unless directly confronted with conflict evidence.
 """
 
 # ==============================
@@ -441,6 +537,13 @@ async def chat(req: PlayerRequest):
 
     docs = results.get("documents", [[]])[0]
     context = "\n".join(docs) if docs else "No relevant case information."
+
+    # Debug logging to verify RAG retrieval
+    print(f"🔍 RAG Retrieved for {npc}:")
+    print(f"📊 Number of chunks: {len(docs)}")
+    if docs:
+        print(f"📝 First chunk preview: {docs[0][:150]}...")
+    print()
 
     # ---------- NPC ----------
     npc_memory = state["memory"].get(npc, [])

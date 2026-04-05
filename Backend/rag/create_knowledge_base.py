@@ -25,6 +25,8 @@ def create_database():
     ids = []
 
     current_owner = "ALL"
+    current_chunk = []
+    current_category = None
 
     # -------------------------
     # อ่านและ parse case data
@@ -34,19 +36,64 @@ def create_database():
             line = line.strip()
 
             if not line:
+                # Save current chunk when hitting empty line
+                if current_chunk:
+                    chunk_text = "\n".join(current_chunk).strip()
+                    if chunk_text:
+                        documents.append(chunk_text)
+                        metadatas.append({"owner": current_owner, "category": current_category or "general"})
+                        ids.append(f"fact_{len(documents)}")
+                    current_chunk = []
+                    current_category = None
                 continue
 
             # เปลี่ยน NPC owner เช่น [BRIAN]
             if line.startswith("[") and line.endswith("]"):
+                # Save previous chunk before switching
+                if current_chunk:
+                    chunk_text = "\n".join(current_chunk).strip()
+                    if chunk_text:
+                        documents.append(chunk_text)
+                        metadatas.append({"owner": current_owner, "category": current_category or "general"})
+                        ids.append(f"fact_{len(documents)}")
+                    current_chunk = []
+
                 current_owner = line[1:-1].upper()
                 print(f"   👉 Switch to owner: {current_owner}")
                 continue
 
-            documents.append(line)
-            metadatas.append({"owner": current_owner})
-            ids.append(f"fact_{i}")
+            # Detect category changes for semantic chunking
+            if line.startswith("-") or line.startswith("Timeline") or line.startswith("Knowledge"):
+                # Start of a new logical chunk
+                if current_chunk and current_category:
+                    # Save previous chunk
+                    chunk_text = "\n".join(current_chunk).strip()
+                    if chunk_text:
+                        documents.append(chunk_text)
+                        metadatas.append({"owner": current_owner, "category": current_category})
+                        ids.append(f"fact_{len(documents)}")
+                    current_chunk = []
 
-    print(f"📦 Total facts loaded: {len(documents)}")
+                # Determine category
+                if "Timeline" in line or "PM" in line or "PM" in line:
+                    current_category = "timeline"
+                elif "Knowledge" in line:
+                    current_category = "knowledge"
+                else:
+                    current_category = "general"
+
+            # Add line to current chunk
+            current_chunk.append(line)
+
+    # Save final chunk
+    if current_chunk:
+        chunk_text = "\n".join(current_chunk).strip()
+        if chunk_text:
+            documents.append(chunk_text)
+            metadatas.append({"owner": current_owner, "category": current_category or "general"})
+            ids.append(f"fact_{len(documents)}")
+
+    print(f"📦 Total semantic chunks loaded: {len(documents)}")
 
     # -------------------------
     # Create ChromaDB
@@ -70,8 +117,14 @@ def create_database():
         ids=ids
     )
 
-    print(f"✅ Saved {len(documents)} facts into database.")
+    print(f"✅ Saved {len(documents)} semantic chunks into database.")
     print("🎉 Vector database is ready!")
+
+    # Print sample chunks for verification
+    print("\n📋 Sample chunks:")
+    for i in range(min(3, len(documents))):
+        print(f"\n--- Chunk {i+1} ({metadatas[i]['owner']}, {metadatas[i].get('category', 'general')}) ---")
+        print(documents[i][:200] + "..." if len(documents[i]) > 200 else documents[i])
 
 # =========================
 # MAIN
