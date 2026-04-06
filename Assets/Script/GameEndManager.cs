@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using TMPro;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -16,13 +17,17 @@ public class GameEndManager : MonoBehaviour
     public GameObject loseScreenUI;
     public GameObject autoFailScreenUI;
 
+    [Header("Result Screen UI")]
+    public GameObject resultScreenUI;
+    public TMP_Text resultFeedbackText;
+
     [Header("Player Controller")]
     public ObjectHighlighter playerController;
 
     [Header("Server")]
     [SerializeField] string serverBaseUrl = "http://127.0.0.1:8000";
 
-    [Header("Auto Fail Screen")]    
+    [Header("Auto Fail Screen")]
     [SerializeField] AutoFailScreen autoFailScreen;
 
     void Awake()
@@ -34,61 +39,52 @@ public class GameEndManager : MonoBehaviour
     }
 
     void Start()
-{
-    HideGameEndPanels();
+    {
+        HideGameEndPanels();
 
-    if (autoFailScreen != null)
-        autoFailScreen.Hide();
+        if (autoFailScreen != null)
+            autoFailScreen.Hide();
 
-    Cursor.visible = false;
-    Cursor.lockState = CursorLockMode.Locked;
-}
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     void HideGameEndPanels()
     {
         if (winScreenUI) winScreenUI.SetActive(false);
         if (loseScreenUI) loseScreenUI.SetActive(false);
         if (autoFailScreenUI) autoFailScreenUI.SetActive(false);
+        if (resultScreenUI) resultScreenUI.SetActive(false);
     }
 
     // ========================= GAME END =========================
 
-   // ใน GameEndManager.cs
-
-// ใน GameEndManager.cs
-
-public void ShowAutoFail(string reason)
-{
-    // เรียกใช้ Coroutine แทนการสั่งหยุดเวลาทันที
-    StartCoroutine(ShowAutoFailRoutine(reason));
-}
-
-IEnumerator ShowAutoFailRoutine(string reason)
-{
-    Debug.Log("❌ AUTO FAIL ROUTINE STARTED: " + reason);
-
-    // 1. ปิดหน้าจอ Win/Lose อื่นๆ ก่อน
-    HideGameEndPanels();
-
-    // 2. แสดงหน้าจอ Auto Fail
-    if (autoFailScreen != null)
+    public void ShowAutoFail(string reason)
     {
-        autoFailScreen.gameObject.SetActive(true); // กันเหนียว เปิด GameObject ก่อน
-        autoFailScreen.transform.SetAsLastSibling(); // ดันมาหน้าสุด
-        autoFailScreen.Show(reason); // ใส่ข้อความ
+        StartCoroutine(ShowAutoFailRoutine(reason));
     }
 
-    // 3. ปิดการควบคุมของผู้เล่น
-    if (playerController) playerController.enabled = false;
-    Cursor.visible = true;
-    Cursor.lockState = CursorLockMode.None;
+    IEnumerator ShowAutoFailRoutine(string reason)
+    {
+        Debug.Log("❌ AUTO FAIL ROUTINE STARTED: " + reason);
 
-    // 🔥 4. สำคัญมาก: รอ 1 เฟรม ให้ Unity วาด UI ให้เสร็จก่อน
-    yield return null; 
+        HideGameEndPanels();
 
-    // 5. ค่อยสั่งหยุดเวลา
-    Time.timeScale = 0f;
-}
+        if (autoFailScreen != null)
+        {
+            autoFailScreen.gameObject.SetActive(true);
+            autoFailScreen.transform.SetAsLastSibling();
+            autoFailScreen.Show(reason);
+        }
+
+        if (playerController) playerController.enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        yield return null;
+
+        Time.timeScale = 0f;
+    }
 
     public void ShowEndScreen(bool didWin)
     {
@@ -113,6 +109,37 @@ IEnumerator ShowAutoFailRoutine(string reason)
             winScreenUI.SetActive(true);
         else if (!didWin && loseScreenUI)
             loseScreenUI.SetActive(true);
+
+        Time.timeScale = 0f;
+    }
+
+    // --- NEW: Shows the detailed LLM Feedback ---
+    public void ShowDetailedResult(int score, string feedback)
+    {
+        Debug.Log($"=== SHOWING DETAILED RESULTS: Score {score}/100 ===");
+
+        if (playerController)
+            playerController.enabled = false;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        StartCoroutine(ShowDetailedResultNextFrame(score, feedback));
+    }
+
+    IEnumerator ShowDetailedResultNextFrame(int score, string feedback)
+    {
+        yield return null; // Wait 1 frame so Unity updates UI properly
+
+        HideGameEndPanels();
+
+        if (resultFeedbackText != null)
+        {
+            resultFeedbackText.text = feedback;
+        }
+
+        if (resultScreenUI != null)
+            resultScreenUI.SetActive(true);
 
         Time.timeScale = 0f;
     }
@@ -156,13 +183,9 @@ IEnumerator ShowAutoFailRoutine(string reason)
 
     IEnumerator RestartRoutine()
     {
-        // 1. Clear old game state
         yield return StartCoroutine(CallEndGame());
-
-        // 2. Create fresh game state
         yield return StartCoroutine(CallStartGame());
 
-        // 3. Reload scene
         HideGameEndPanels();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -182,7 +205,7 @@ IEnumerator ShowAutoFailRoutine(string reason)
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        SceneManager.LoadScene(0); // Main menu
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()

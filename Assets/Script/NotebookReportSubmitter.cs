@@ -9,11 +9,18 @@ public class NotebookReportSubmitter : MonoBehaviour
     public NotebookController notebookController;
 
     [Header("UI Feedback")]
-    public TextMeshProUGUI statusText; // To show "Loading..." when submitting
+    public TextMeshProUGUI statusText;
+
+    // This class structure matches the JSON sent back by the Python server
+    [System.Serializable]
+    public class CaseEvaluationResponse
+    {
+        public int score;
+        public string reason;
+    }
 
     void OnEnable()
     {
-        // Tell the form: "When the player clicks submit/cancel, run these functions!"
         if (reportForm != null)
         {
             reportForm.Show(OnReportSubmitted, OnCancelClicked);
@@ -27,7 +34,6 @@ public class NotebookReportSubmitter : MonoBehaviour
 
     void OnCancelClicked()
     {
-        // Close the notebook if they hit cancel
         if (notebookController != null) notebookController.ToggleNotebook();
     }
 
@@ -38,11 +44,16 @@ public class NotebookReportSubmitter : MonoBehaviour
 
         if (statusText != null) statusText.text = "Submitting report to HQ...";
 
-        // Send the paperwork to the server!
         StartCoroutine(GameManagerSimple.I.Client.EvaluateCase(
             report,
-            reply => { Debug.Log("✅ Server response received"); StartCoroutine(ProcessFinalAnswer(reply)); },
-            err => { Debug.LogError("❌ Server error: " + err); if (statusText != null) statusText.text = "<color=red>Error:</color> " + err; }
+            reply => {
+                Debug.Log("✅ Server response received");
+                StartCoroutine(ProcessFinalAnswer(reply));
+            },
+            err => {
+                Debug.LogError("❌ Server error: " + err);
+                if (statusText != null) statusText.text = "<color=red>Error:</color> " + err;
+            }
         ));
     }
 
@@ -54,12 +65,28 @@ public class NotebookReportSubmitter : MonoBehaviour
         // Close the notebook so they can see the end screen
         if (notebookController != null) notebookController.ToggleNotebook();
 
-        // Trigger the Win/Lose screen!
-        bool playerWon = false;
-        if (reply.ToLower().Contains("correct")) playerWon = true;
+        CaseEvaluationResponse responseData = null;
 
-        if (GameEndManager.instance != null)
+        try
         {
+            // Parse the JSON coming from the Python backend
+            responseData = JsonUtility.FromJson<CaseEvaluationResponse>(reply);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to parse server JSON response: " + e.Message);
+        }
+
+        // Check if parsing was successful and pass it to the GameEndManager
+        if (GameEndManager.instance != null && responseData != null && !string.IsNullOrEmpty(responseData.reason))
+        {
+            GameEndManager.instance.ShowDetailedResult(responseData.score, responseData.reason);
+        }
+        else if (GameEndManager.instance != null)
+        {
+            // Fallback: If JSON parsing fails, just use the old "Win/Lose" screen method
+            Debug.LogWarning("Falling back to standard Win/Lose screen because JSON parse failed or reason was empty.");
+            bool playerWon = reply.ToLower().Contains("correct");
             GameEndManager.instance.ShowEndScreen(playerWon);
         }
     }
