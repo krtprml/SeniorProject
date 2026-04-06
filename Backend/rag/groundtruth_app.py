@@ -55,17 +55,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 # --- 3. ฟังก์ชันโหลดไฟล์ ---
 def load_questions():
-    # สร้าง Path แบบ Dynamic โดยอ้างอิงจาก Base Directory
-    file_path = os.path.join(BASE_DIR, "Backend", "rag", "questions_thai.txt")
+    # 1. ลองหาจาก Path สัมพัทธ์ (กรณีรันบน Cloud จาก Root)
+    path_options = [
+        "Backend/rag/questions_thai.txt",                         # รันจาก Root (Cloud)
+        os.path.join(os.path.dirname(__file__), "questions_thai.txt"), # รันจากโฟลเดอร์เดียวกับสคริปต์ (Local)
+        "questions_thai.txt"                                      # เผื่อไว้กรณีอื่นๆ
+    ]
     
-    if os.path.exists(file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
-            lines = [line.strip() for line in f.readlines() if line.strip()]
-            return lines
-    else:
-        # ใช้ st.warning แทน st.error เพื่อความปลอดภัยในการรันช่วงแรก
-        st.warning(f"⚠️ ไม่พบไฟล์ที่พาธ: {file_path}")
-        return ["ไม่พบข้อมูลประโยคในไฟล์ กรุณาเช็ค Path"]
+    for file_path in path_options:
+        if os.path.exists(file_path):
+            with open(file_path, "r", encoding="utf-8") as f:
+                return [line.strip() for line in f.readlines() if line.strip()]
+    
+    # ถ้าวนหาจนครบแล้วไม่เจอ
+    st.error("❌ ไม่พบไฟล์คำถามในระบบ กรุณาตรวจสอบตำแหน่งไฟล์ Backend/rag/questions_thai.txt")
+    return ["Error: File not found"]
 
 # --- 4. การจัดการข้อมูล (Session State) ---
 if 'sentences' not in st.session_state:
