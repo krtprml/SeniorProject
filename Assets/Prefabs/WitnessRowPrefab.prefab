@@ -1811,6 +1811,7 @@ GameObject:
   - component: {fileID: 8923530818691408380}
   - component: {fileID: 7527105611510444587}
   - component: {fileID: 150987182578287734}
+  - component: {fileID: -4779246761802899441}
   m_Layer: 0
   m_Name: WitnessRowPrefab
   m_TagString: Untagged
@@ -1874,7 +1875,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8193995990200408528}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82619ce50c19c4344be3627837af9ea4, type: 3}
   m_Name: 
@@ -1882,6 +1883,22 @@ MonoBehaviour:
   checkbox: {fileID: 144497359419022817}
   evidenceNameText: {fileID: 2376512555979687010}
   relevanceDropdown: {fileID: 9118680972761047875}
+  notesInput: {fileID: 1056127520031486900}
+--- !u!114 &-4779246761802899441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193995990200408528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b706d484a3355488f8fd02e097262393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkbox: {fileID: 144497359419022817}
+  witnessNameText: {fileID: 2376512555979687010}
+  testimonyDropdown: {fileID: 9118680972761047875}
   notesInput: {fileID: 1056127520031486900}
 --- !u!1 &8413900687849502352
 GameObject:
