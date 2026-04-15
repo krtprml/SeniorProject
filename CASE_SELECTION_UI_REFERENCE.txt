@@ -1,0 +1,178 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                    UNITY UI STRUCTURE - VISUAL REFERENCE                        ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Canvas                                                                       │
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │ MainMenuPanel (Panel)                                                   │ │
+│ │                                                                         │ │
+│ │     ┌───────────────────────────────────────┐                          │ │
+│ │     │ Title                                  │  ← Text (TMP)           │ │
+│ │     │ "Detective Game"                       │                          │ │
+│ │     └───────────────────────────────────────┘                          │ │
+│ │                                                                         │ │
+│ │                    ┌──────────────┐                                    │ │
+│ │                    │   Start      │  ← Button                          │ │
+│ │                    │   Button     │  → OnClick: MainMenuManager.StartGame│
+│ │                    └──────────────┘                                    │ │
+│ │                                                                         │ │
+│ │                    ┌──────────────┐                                    │ │
+│ │                    │   Exit       │  ← Button                          │ │
+│ │                    │   Button     │  → OnClick: MainMenuManager.ExitGame│
+│ │                    └──────────────┘                                    │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+│                                                                             │
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │ CaseSelectionPanel (Panel)  ← Initially SetActive(false)               │ │
+│ │                                                                         │ │
+│ │     ┌───────────────────────────────────────┐                          │ │
+│ │     │ CaseSelectionTitle                     │  ← Text (TMP)           │ │
+│ │     │ "Select Case" / "เลือกคดี"             │                          │ │
+│ │     └───────────────────────────────────────┘                          │ │
+│ │                                                                         │ │
+│ │     ┌─────────────────┐       ┌─────────────────┐                      │ │
+│ │     │   Case 1        │       │   Case 2        │  ← Buttons           │ │
+│ │     │   (English)     │       │   (Thai)        │                      │ │
+│ │     │                 │       │   คดี 2          │                      │ │
+│ │     │  [Case1Button]  │       │  [Case2Button]  │                      │ │
+│ │     │  → SelectCase1  │       │  → SelectCase2  │                      │ │
+│ │     │    _English()   │       │    _Thai()      │                      │ │
+│ │     └─────────────────┘       └─────────────────┘                      │ │
+│ │                                                                         │ │
+│ │                                                                         │ │
+│ │               ┌──────────────┐                                         │ │
+│ │               │    Back      │  ← Button                               │ │
+│ │               │   Button     │  → OnClick: MainMenuManager.BackToMainMenu│
+│ │               └──────────────┘                                         │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                        BUTTON EVENT WIRING                                   ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ MainMenuPanel → Start Button                                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Inspector → Button Component → OnClick() → +                                │
+│   Object: MainMenuManager (GameObject)                                      │
+│   Function: MainMenuManager.StartGame                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ MainMenuPanel → Exit Button                                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Inspector → Button Component → OnClick() → +                                │
+│   Object: MainMenuManager (GameObject)                                      │
+│   Function: MainMenuManager.ExitGame                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CaseSelectionPanel → Case 1 Button                                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Inspector → Button Component → OnClick() → +                                │
+│   Object: MainMenuManager (GameObject)                                      │
+│   Function: MainMenuManager.SelectCase1_English                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CaseSelectionPanel → Case 2 Button                                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Inspector → Button Component → OnClick() → +                                │
+│   Object: MainMenuManager (GameObject)                                      │
+│   Function: MainMenuManager.SelectCase2_Thai                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CaseSelectionPanel → Back Button                                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Inspector → Button Component → OnClick() → +                                │
+│   Object: MainMenuManager (GameObject)                                      │
+│   Function: MainMenuManager.BackToMainMenu                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                   MAINMENUMANAGER INSPECTOR SETTINGS                          ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ MainMenuManager Component (on MainMenuManager GameObject)                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Script: MainMenuManager                                                      │
+│                                                                             │
+│ Scene Management                                                             │
+│   Case 1 Scene Name: CrimeSceneLevel1                                       │
+│   Case 2 Scene Name: CrimeSceneLevel2                                       │
+│                                                                             │
+│ UI Panels                                                                    │
+│   Main Menu Panel:    [MainMenuPanel]        ← Drag MainMenuPanel here     │
+│   Case Selection Panel: [CaseSelectionPanel]  ← Drag CaseSelectionPanel here│
+│                                                                             │
+│ Server URLs                                                                  │
+│   English Server Url: http://127.0.0.1:8000                                 │
+│   Thai Server Url:    http://127.0.0.1:8001                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                           FLOW DIAGRAM                                        ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+    ┌──────────────┐
+    │  Main Menu   │
+    │  Panel       │
+    └──────┬───────┘
+           │ Click Start
+           ↓
+    ┌──────────────┐
+    │   Case       │
+    │ Selection    │
+    │   Panel      │
+    └──┬──────┬────┘
+       │      │
+       │      └──────────────┐
+       │                     │
+    Case 1               Case 2
+  (English)            (Thai)
+       │                     │
+       ↓                     ↓
+┌─────────────────┐ ┌─────────────────┐
+│ Set URL         │ │ Set URL         │
+│ :8000           │ │ :8001           │
+└────────┬────────┘ └────────┬────────┘
+         │                    │
+         ↓                    ↓
+┌─────────────────┐ ┌─────────────────┐
+│ POST /start-game│ │ POST /start-game│
+│ to :8000        │ │ to :8001        │
+└────────┬────────┘ └────────┬────────┘
+         │                    │
+         ↓                    ↓
+┌─────────────────┐ ┌─────────────────┐
+│ Load Scene:     │ │ Load Scene:     │
+│ CrimeSceneLevel1│ │ CrimeSceneLevel2│
+└─────────────────┘ └─────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                     SUGGESTED LAYOUT POSITIONING                              ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+Canvas (Screen Space - Overlay, 1920x1080)
+│
+├─ MainMenuPanel
+│  ├─ Title (Anchored Top-Center, Y: 400)
+│  ├─ Start Button (Anchored Center, Y: 0)
+│  └─ Exit Button (Anchored Center, Y: -100)
+│
+└─ CaseSelectionPanel
+   ├─ Title (Anchored Top-Center, Y: 400)
+   ├─ Case 1 Button (Anchored Center, X: -200, Y: 0)
+   ├─ Case 2 Button (Anchored Center, X: 200, Y: 0)
+   └─ Back Button (Anchored Bottom-Center, Y: -400)
+
+Note: Adjust positioning based on your canvas resolution and design preference.
+Scene names (CrimeSceneLevel1, CrimeSceneLevel2) can be configured in the MainMenuManager Inspector.

@@ -20,6 +20,21 @@ public class GameManagerSimple : MonoBehaviour
         Client = new LLMClientSimple(baseUrl);
     }
 
+    // ------------------------------
+    // UPDATE BASE URL (for case selection)
+    // ------------------------------
+    public void SetBaseUrl(string url)
+    {
+        baseUrl = url;
+        Client = new LLMClientSimple(baseUrl);
+        Debug.Log("Base URL updated to: " + baseUrl);
+    }
+
+    public string GetBaseUrl()
+    {
+        return baseUrl;
+    }
+
     // ---------------- CHECK AUTO FAIL ----------------
 //     public void CheckAutoFail()
 // {
