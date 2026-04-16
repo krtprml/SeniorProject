@@ -9,6 +9,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import chromadb
 from openai import OpenAI
+from police_guidebook_search import PoliceGuidebookSearch
 
 # ==============================
 # CONFIG
@@ -80,6 +81,15 @@ except Exception:
     murder_collection = None
 
 # ==============================
+# LOAD POLICE GUIDEBOOK DB
+# ==============================
+try:
+    police_guidebook_search = PoliceGuidebookSearch(db_path="./police_guidebook_db")
+except Exception as e:
+    police_guidebook_search = None
+    print(f"⚠️  Police guidebook search not available: {e}")
+
+# ==============================
 # GAME STATE
 # ==============================
 def init_game_state():
@@ -104,7 +114,7 @@ def init_game_state():
         }
     }
     with open(GAME_STATE_FILE, "w", encoding="utf-8") as f:
-        json.dump(state, f, indent=2)
+        json.dump(state, f, indent=2, ensure_ascii=False)
 
 def load_state():
     if not os.path.exists(GAME_STATE_FILE):
@@ -114,7 +124,7 @@ def load_state():
 
 def save_state(state):
     with open(GAME_STATE_FILE, "w", encoding="utf-8") as f:
-        json.dump(state, f, indent=2)
+        json.dump(state, f, indent=2, ensure_ascii=False)
 
 # ==============================
 # REQUEST SCHEMAS
@@ -310,117 +320,102 @@ def build_npc_prompt(
 # ==============================
 def evaluate_question(question: str, context: str):
 
+    # Load police guidebook for authoritative references
+    police_guidebook_path = "police_guidebook.txt"
+    try:
+        with open(police_guidebook_path, "r", encoding="utf-8") as f:
+            POLICE_GUIDEBOOK = f.read()
+    except FileNotFoundError:
+        POLICE_GUIDEBOOK = ""
 
     prompt = f"""
-คุณคือผู้เชี่ยวชาญด้านการสอบสวนคดีอาญา
+คุณคือผู้เชี่ยวชาญด้านการสอบสวนคดีอาญา ประเมินคำถามของผู้สืบคดีตามหลักการสืบสวนสากล
 
-คุณกำลังประเมินคำถามของผู้สืบในคดีฆาตกรรม
-คุณเข้าใจวิธีการสอบสวนมืออาชีพ จริยธรรม และเทคนิคการสืบสวนเป็นอย่างดี
-
-คุณยังรู้ CONTEXT ของคดีทั้งหมดที่ให้มาด้านล่าง
-
-====================
-CONTEXT ของคดี
-====================
-{CASE_CONTEXT}
-====================
-
-คำถามของผู้สืบ:
-"{question}"
+คำถามของผู้สืบ: "{question}"
+บริบทของคดี: {CASE_CONTEXT}
 
 --------------------------------
-TASK 1: การให้คะแนน
+TASK 1: การให้คะแนน (0-3)
 --------------------------------
-
-ให้คะแนนคำถามใน 2 มิติ
-
-1) ความสุภาพ / การปฏิบัติตามมาตรฐานวิชาชีพ (0–3)
-- 3 = เป็นมืออาชีพ สงบ เคารพจริยธรรมตำรวจ
-- 2 = ยอมรับได้แต่ไม่สมบูรณ์
-- 1 = ไม่เหมาะสม ก้าวร้าว หรือมีอคติ
-- 0 = ไม่เป็นมืออาชีพ ใช้ความรุนแรง หรือข่มขู่
-
-2) คุณภาพการสืบสวน (0–3)
-- 3 = ใช้หลักฐาน เกี่ยวข้อง ขับเคลื่อนการสืบสวน
-- 2 = เกี่ยวข้องแต่อ่อน กำกวม หรือไม่มีประสิทธิภาพ
-- 1 = เทคนิคแย่ ใช้คำถามยัดเยียด หรือเสี่ยง
-- 0 = ไม่เกี่ยวข้อง เป็นอันตราย หรือขัดขวาง
+1) politeness (ความสุภาพ/มาตรฐานวิชาชีพ):
+   - 3: มืออาชีพ สงบ เคารพจริยธรรม
+   - 0: ก้าวร้าว ข่มขู่ หรือไม่เหมาะสมอย่างรุนแรง
+2) investigation (คุณภาพการสืบสวน):
+   - 3: ใช้หลักฐาน ขับเคลื่อนคดีได้จริง
+   - 0: ไร้ประสิทธิภาพ หรือขัดขวางการสืบสวน
 
 --------------------------------
-TASK 2: การให้ป้ายกำกับหลายประเภท
+TASK 2: การระบุลักษณะคำถาม (Labels)
 --------------------------------
+กำหนดให้เป็น true หรือ false สำหรับทุกลูกศร (Label):
 
-สำหรับแต่ละ label ด้านล่าง ให้กำหนด true หรือ false
-มากกว่าหนึ่ง label สามารถเป็น true ได้
+[รูปแบบคำถาม]
+- open_ended: ถามเพื่อให้เล่ารายละเอียด
+- closed_ended: ถามเพื่อให้ตอบ ใช่/ไม่ใช่ หรือข้อมูลสั้นๆ
+- leading: ถามแบบชี้นำหรือยัดเยียดคำตอบ
 
-Labels:
+[กลยุทธ์/เจตนา]
+- info_gathering: มุ่งหาข้อมูลใหม่ที่ยังไม่มีในสำนวน
+- evidence_based: อ้างอิงจากหลักฐาน ไทม์ไลน์ หรือวัตถุพยาน
+- rapport_building: พยายามสร้างความไว้ใจ/ความสัมพันธ์
+- confrontational: กดดัน จี้จุด หรือเผชิญหน้าเพื่อจับผิด
 
-- direct
-  → คำถามตรงตามข้อเท็จจริง
+[พฤติกรรม/โทน]
+- professional: สุภาพ มั่นคง ตามระเบียบ
+- threatening: ข่มขู่ คุกคาม หรือแสดงอำนาจในทางที่ผิด
+- emotional_appeal: ใช้ความสงสาร ความผิดปกติ หรืออารมณ์ร่วม
+- promise_of_favor: ให้สัญญา ยื่นข้อเสนอ หรือต่อรอง
 
-- evidence_based
-  → อ้างถึงหลักฐานที่รู้ ไทม์ไลน์ หรือข้อเท็จจริงที่ยืนยันแล้ว
-
-- leading
-  → ยัดเยียดคำตอบหรือกดดันผู้ต้องสงสัยไปยังข้อสรุป
-
-- threatening
-  → บ่งชี้ถึงการลงโทษ อันตราย หรือการข่มขู่
-
-- emotional
-  → ระดมความรู้สึก ความรู้สึกผิด ความกลัว ความสงสาร หรือความโกรธ
-
-- irrelevant
-  → ไม่เกี่ยวข้องกับข้อเท็จจริงคดีหรือเป้าหมายการสืบสวน
-
-- off_topic
-  → เกี่ยวกับคดีแต่ไม่มีประโยชน์ในขณะนี้
-
-- accusatory
-  → ปฏิบัติต่อบุคคนเหมือนผู้ต้องสาหายไม่มีหลักฐาน
-
-- coercive
-  → พยายามบังคับความร่วมมืออย่างไม่ถูกต้อง
-
-- clarifying
-  → ขอความชัดเจนของคำกล่าวก่อนหน้า
-
-- probing
-  → พยายามค้นหารายละเอียดหรือความไม่สอดคล้องที่ซ่อนอยู่
-
-- ethical_violation
-  → ละเมิดมาตรฐานการสอบสวนวิชาชีพหรือกฎหมาย
+[อื่นๆ]
+- context_required: ประโยคสั้นเกินไปจนตัดสินไม่ได้หากไม่มีบริบทก่อนหน้า
 
 --------------------------------
-OUTPUT RULES (สำคัญมาก)
+TASK 3: การอธิบายเหตุผล (Reasoning)
 --------------------------------
-- Output เฉพาะ JSON เท่านั้น
-- ห้ามใส่คำอธิบาย
-- ห้ามใช้ markdown
-- ห้ามใส่ข้อความพิเศษ
-- ต้องมี label ทั้งหมด
-- ใช้ true / false (ตัวพิมพ์เล็ก)
+อ้างอิงหลักการสอบสวนจากคู่มือตำรวจ (police_guidebook.txt) เพื่ออธิบายเหตุผล:
+
+1) reason_politeness: อธิบายว่าทำไมถึงให้คะแนนความสุภาพนี้
+   - อ้างอิงหลักการให้ความเคารพสิทธิ์ผู้ต้องหา มาตรฐานวิชาชีพ
+   - อธิบายว่าโทนและวาทะศิลป์เป็นไปตามหรือขัดต่อหลักการ
+   - หากมีการใช้คำข่มขู่ ให้อ้างอิงว่าขัดต่อมาตราใดในคู่มือ
+
+2) reason_investigation: อธิบายว่าทำไมถึงให้คะแนนคุณภาพการสืบสวนนี้
+   - อ้างอิงหลักการรวบรวมพยานหลักฐาน การสอบถามที่มีประสิทธิภาพ
+   - อธิบายว่าคำถามนี้ขับเคลื่อนคดีหรือไม่ และทำไม
+   - อ้างอิงวิธีการสอบปากคำพยานตามหลักการสืบสวน
+
+3) reason_labels: อธิบายว่าทำไมถึงจัดประเภทคำถามนี้เป็น Label เหล่านั้น
+   - สำหรับ Label ที่เป็น true ทั้งหมด ให้อธิบายเหตุผล
+   - อ้างอิงหลักการรูปแบบการสอบถาม กลยุทธ์ หรือพฤติกรรมตามคู่มือ
+   - อธิบายว่าแต่ละ Label สะท้อนแนวทางการสอบสวนที่ถูกต้องหรือผิด
+
+เนื้อหาอ้างอิงจากคู่มือตำรวจ:
+{POLICE_GUIDEBOOK[:3000]}
 
 --------------------------------
-รูปแบบ JSON
+OUTPUT RULES
 --------------------------------
+- Output เฉพาะ JSON เท่านั้น ห้ามมี Markdown หรือ Text อื่น
+- ต้องมีครบทุก Key ต่อไปนี้
 
 {{
   "politeness": 0-3,
   "investigation": 0-3,
-
-  "direct": true,
-  "evidence_based": true,
+  "open_ended": false,
+  "closed_ended": false,
   "leading": false,
+  "info_gathering": false,
+  "evidence_based": false,
+  "rapport_building": false,
+  "confrontational": false,
+  "professional": false,
   "threatening": false,
-  "emotional": false,
-  "irrelevant": false,
-  "off_topic": false,
-  "accusatory": false,
-  "coercive": false,
-  "clarifying": false,
-  "probing": false,
-  "ethical_violation": false
+  "emotional_appeal": false,
+  "promise_of_favor": false,
+  "context_required": false,
+  "reason_politeness": "อธิบายเหตุผลคะแนนความสุภาพพร้อมอ้างอิงหลักการ",
+  "reason_investigation": "อธิบายเหตุผลคะแนนคุณภาพการสืบสวนพร้อมอ้างอิงหลักการ",
+  "reason_labels": "อธิบายเหตุผลของ Label ทั้งหมดที่เป็น true พร้อมอ้างอิงหลักการ"
 }}
 """
 
@@ -434,7 +429,41 @@ OUTPUT RULES (สำคัญมาก)
     raw = r.choices[0].message.content.strip()
 
     try:
-        return json.loads(raw)
+        evaluation = json.loads(raw)
+
+        # NEW: Search police guidebook for enhanced reasoning
+        if police_guidebook_search:
+            try:
+                # Extract boolean labels
+                labels = {k: v for k, v in evaluation.items() if isinstance(v, bool)}
+
+                # Extract scores
+                scores = {
+                    "politeness": evaluation.get("politeness", 0),
+                    "investigation": evaluation.get("investigation", 0)
+                }
+
+                # Get explanation from guidebook
+                explanation = police_guidebook_search.get_explanation_for_evaluation(
+                    question=question,
+                    labels=labels,
+                    scores=scores
+                )
+
+                # Add enhanced guidebook explanation to evaluation
+                evaluation["guidebook_explanation"] = explanation
+                evaluation["guidebook_reference"] = "คู่มือการสอบสวนตำรวจ"
+
+                print(f"📖 Guidebook explanation added for question")
+            except Exception as e:
+                print(f"⚠️  Guidebook search error: {e}")
+                evaluation["guidebook_explanation"] = None
+                evaluation["guidebook_reference"] = None
+        else:
+            evaluation["guidebook_explanation"] = None
+            evaluation["guidebook_reference"] = None
+
+        return evaluation
     except json.JSONDecodeError:
         raise HTTPException(500, f"Invalid evaluator JSON:\n{raw}")
 
@@ -444,51 +473,46 @@ def update_summary_scores(state):
     if not questions:
         return
 
-    # ---------- Averages ----------
-    politeness_vals = [q["politeness"] for q in questions]
-    investigation_vals = [q["investigation"] for q in questions]
+    # คำนวณค่าเฉลี่ยดิบ
+    avg_pol = sum(q["politeness"] for q in questions) / len(questions)
+    avg_inv = sum(q["investigation"] for q in questions) / len(questions)
 
-    avg_pol = sum(politeness_vals) / len(politeness_vals)
-    avg_inv = sum(investigation_vals) / len(investigation_vals)
-
-    # ---------- Base Scores ----------
+    # แปลงเป็นคะแนนเต็ม 100
     politeness_score = (avg_pol / 3) * 100
     investigation_score = (avg_inv / 3) * 100
 
-    # ---------- Label Modifiers ----------
+    # ตัวแปรปรับแต่งคะแนน (Modifiers)
     for q in questions:
-        if q["evidence_based"]: investigation_score += 10
-        if q["probing"]: investigation_score += 5
-        if q["clarifying"]: investigation_score += 5
+        # --- ด้านบวก ---
+        if q.get("evidence_based"): investigation_score += 10
+        if q.get("open_ended"): investigation_score += 5
+        if q.get("professional"): politeness_score += 5
+        
+        # --- ด้านลบ ---
+        if q.get("leading"): investigation_score -= 10
+        if q.get("confrontational") and q["politeness"] < 2: investigation_score -= 5
+        if q.get("threatening"): 
+            politeness_score -= 25
+            investigation_score -= 10
+        if q.get("promise_of_favor") and not q.get("professional"):
+            politeness_score -= 15
 
-        if q["irrelevant"]: investigation_score -= 10
-        if q["off_topic"]: investigation_score -= 5
-        if q["leading"]: investigation_score -= 10
-        if q["accusatory"]: investigation_score -= 15
-        if q["threatening"]: investigation_score -= 30
-        if q["coercive"]: investigation_score -= 40
-
-    # Clamp
+    # Clamp คะแนนไม่ให้เกิน 0-100
     politeness_score = max(0, min(100, round(politeness_score)))
     investigation_score = max(0, min(100, round(investigation_score)))
 
-    # ---------- Auto Fail Rules ----------
+    # กฎ Auto Fail (ปรับให้เข้ากับ Label ใหม่)
     auto_fail = False
     fail_reason = ""
 
-    if any(q["ethical_violation"] for q in questions):
+    if sum(q.get("threatening", 0) for q in questions) >= 2:
         auto_fail = True
-        fail_reason = "Ethical violation during interrogation"
+        fail_reason = "มีการใช้พฤติกรรมคุกคามหรือข่มขู่ซ้ำซ้อน"
 
-    if sum(q["threatening"] for q in questions) >= 2:
+    if any(q.get("politeness") == 0 and q.get("threatening") for q in questions):
         auto_fail = True
-        fail_reason = "Repeated threatening behavior"
+        fail_reason = "ละเมิดจริยธรรมการสอบสวนอย่างร้ายแรง (ข่มขู่คุกคาม)"
 
-    if any(q["coercive"] and q["politeness"] == 0 for q in questions):
-        auto_fail = True
-        fail_reason = "Coercive and abusive interrogation"
-
-    # ---------- Save ----------
     state["summary"] = {
         "politeness_avg": round(avg_pol, 2),
         "investigation_avg": round(avg_inv, 2),
