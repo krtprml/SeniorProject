@@ -11,7 +11,9 @@ The case selection feature adds a new UI screen between the main menu and game s
 
 ### Running Both Servers Simultaneously
 
-You need to run both servers at the same time on different ports:
+You need to run both servers at the same time on different ports.
+
+#### Option 1: Manual (Two Terminals)
 
 **Terminal 1 - English Server (Case 1):**
 ```bash
@@ -26,6 +28,48 @@ cd Backend/rag
 export TYPHOON_API_KEY="your-typhoon-key"
 uvicorn server_thai:app --reload --host 127.0.0.1 --port 8001
 ```
+
+**Important:** Notice the difference:
+- First terminal: `server:app` → port 8000 (English)
+- Second terminal: `server_thai:app` → port 8001 (Thai)
+
+#### Option 2: Helper Script (macOS with tmux - Recommended)
+
+If you have [tmux](https://github.com/tmux/tmux) installed (install with `brew install tmux`):
+
+```bash
+cd Backend/rag
+./start_servers_tmux.sh
+```
+
+This will:
+1. Prompt for your API keys (if not already set)
+2. Start both servers in a single tmux session
+3. Let you switch between servers with `Ctrl+B` then `0` (English) or `1` (Thai)
+
+#### Option 3: Helper Script (macOS Terminal)
+
+```bash
+cd Backend/rag
+./start_servers.sh
+```
+
+This will open two separate Terminal windows automatically.
+
+#### Option 4: Single Terminal with tmux
+
+```bash
+cd Backend/rag
+tmux new-session -d -s detective-servers \; \
+  send-keys 'export GROQ_API_KEY="your-key"' C-m \; \
+  send-keys 'uvicorn server:app --reload --host 127.0.0.1 --port 8000' C-m \; \
+  new-window \; \
+  send-keys 'export TYPHOON_API_KEY="your-key"' C-m \; \
+  send-keys 'uvicorn server_thai:app --reload --host 127.0.0.1 --port 8001' C-m \; \
+  attach-session
+```
+
+Switch between windows with `Ctrl+B` then `0` (English) or `1` (Thai).
 
 ### Server Configuration
 
@@ -203,6 +247,22 @@ Loading scene: CrimeSceneLevel2
 ```
 
 ## Troubleshooting
+
+### "Address already in use" error when starting servers
+**Cause:** You're trying to run the same server twice on the same port.
+
+**Solution:**
+1. Make sure you're running different server files:
+   - English: `uvicorn server:app --port 8000`
+   - Thai: `uvicorn server_thai:app --port 8001`
+2. If port 8000 is already in use, find and kill the process:
+   ```bash
+   lsof -ti:8000 | xargs kill -9
+   ```
+3. Or use a different port:
+   ```bash
+   uvicorn server:app --reload --host 127.0.0.1 --port 8002
+   ```
 
 ### "Failed to start game on server" error
 - Verify the correct server is running on the correct port
