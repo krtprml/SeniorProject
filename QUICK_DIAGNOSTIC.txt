@@ -1,0 +1,173 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║           "CLICK CASE 1 BUT SCENE NOT STARTING" - QUICK FIX                     ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+🔴 SYMPTOM: Logs show but scene doesn't load
+═══════════════════════════════════════════════════════════════════════════════
+
+You see these logs:
+  === Case 1 (English) selected ===
+  ✓ GameManager found, setting URL to: http://127.0.0.1:8000
+  ✓ Starting coroutine for scene: CrimeSceneLevel
+  🔄 StartGameRoutine called:
+  📡 Calling server: http://127.0.0.1:8000/start-game
+
+But then... nothing happens. Scene doesn't load.
+
+
+🎯 ROOT CAUSE: Server Not Running or Request Hanging
+═══════════════════════════════════════════════════════════════════════════════
+
+The coroutine is waiting for the server response. If the server is:
+1. ❌ Not running → Request will timeout (10 seconds)
+2. ❌ Running on wrong port → Connection refused
+3. ❌ Slow to respond → Long wait time
+
+
+✅ SOLUTION #1: Test Server Connection (Recommended First)
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Open MainScene.unity in Unity
+2. Create empty GameObject named "ServerTester"
+3. Add Component → TestServerConnection
+4. Enter Play mode
+5. Press SPACE (test English server) or T (test Thai server)
+6. Check Console for results
+
+This will tell you immediately if the server is running!
+
+
+✅ SOLUTION #2: Start the Server
+═══════════════════════════════════════════════════════════════════════════════
+
+Open a NEW terminal (separate from Unity):
+
+```bash
+cd Backend/rag
+
+# Check if you have API key set
+echo $GROQ_API_KEY
+
+# If empty, set it:
+export GROQ_API_KEY="your-groq-api-key-here"
+
+# Start English server
+uvicorn server:app --reload --host 127.0.0.1 --port 8000
+```
+
+You should see:
+  INFO: Uvicorn running on http://127.0.0.1:8000
+
+
+✅ SOLUTION #3: Quick Server Test (Terminal)
+═══════════════════════════════════════════════════════════════════════════════
+
+In a terminal, test if server responds:
+
+```bash
+# Test English server
+curl http://127.0.0.1:8000/start-game -X POST
+
+# If you see: {"status":"ok"} or similar → Server is running! ✅
+# If you see: Connection refused → Server is NOT running ❌
+```
+
+
+✅ SOLUTION #4: Bypass Server Call (Temporary Debug)
+═══════════════════════════════════════════════════════════════════════════════
+
+If you want to test scene loading WITHOUT server:
+
+Comment out the server call in MainMenuManager.cs:
+
+```csharp
+IEnumerator StartGameRoutine(string serverUrl, string sceneName)
+{
+    Debug.Log("🔄 StartGameRoutine called");
+    Debug.Log("   Scene Name: " + sceneName);
+
+    // TEMPORARY: Skip server call to test scene loading
+    // TODO: Uncomment after fixing server
+    /*
+    using (var req = new UnityEngine.Networking.UnityWebRequest(...))
+    {
+        ...
+    }
+    */
+
+    // Direct to scene loading
+    SceneManager.LoadScene(sceneName);
+}
+```
+
+This will let you test if the scene loads correctly.
+
+
+🔍 CHECK LIST: Verify Everything Is Set Up Correctly
+═══════════════════════════════════════════════════════════════════════════════
+
+□ Unity Editor is running
+□ MainScene is open
+□ Both servers should be running (but test with English first)
+□ Terminal shows: "INFO: Uvicorn running on http://127.0.0.1:8000"
+□ MainMenuManager has panels assigned
+□ Case 1 Scene Name matches Build Settings (e.g., "CrimeSceneLevel")
+□ GameManagerSimple GameObject exists in MainScene
+
+
+🧪 TEST STEPS (In Order)
+═══════════════════════════════════════════════════════════════════════════════
+
+1️⃣ Start English Server (Terminal):
+   cd Backend/rag
+   export GROQ_API_KEY="your-key"
+   uvicorn server:app --reload --port 8000
+
+2️⃣ Test Server (Terminal):
+   curl http://127.0.0.1:8000/start-game -X POST
+   You should see a JSON response
+
+3️⃣ Test Server (Unity):
+   - Add TestServerConnection component to scene
+   - Press SPACE in Play mode
+   - Should see "✅ SUCCESS"
+
+4️⃣ Test Case Selection (Unity):
+   - Enter Play mode
+   - Click Start → Case Selection panel appears
+   - Click Case 1 → Console shows logs
+   - Wait up to 10 seconds
+   - Scene should load
+
+If scene still doesn't load after 10 seconds, check Console for timeout error.
+
+
+🐛 COMMON MISTAKES
+═══════════════════════════════════════════════════════════════════════════════
+
+❌ Wrong: uvicorn server:app (uses default port, might conflict)
+✅ Right: uvicorn server:app --port 8000
+
+❌ Wrong: Running both servers in same terminal
+✅ Right: Two separate terminals or use tmux
+
+❌ Wrong: Server running but on wrong port (e.g., 8000 instead of 8001)
+✅ Right: Check Unity Console for which URL it's trying
+
+❌ Wrong: Scene name is "CrimeSceneLevel.unity" (with extension)
+✅ Right: Scene name is "CrimeSceneLevel" (no extension)
+
+
+📞 STILL NOT WORKING?
+═══════════════════════════════════════════════════════════════════════════════
+
+Copy and paste these Console logs:
+
+1. When you click Case 1 button
+2. Any ERROR messages (red)
+3. Any WARNING messages (yellow)
+4. The response from "curl http://127.0.0.1:8000/start-game -X POST"
+
+This will help identify the exact issue!
+
+═══════════════════════════════════════════════════════════════════════════════

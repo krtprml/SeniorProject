@@ -16,6 +16,13 @@ public class GameManagerSimple : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
 
+        // Check if MainMenuManager stored a server URL for us to use
+        if (MainMenuManager.selectedServerUrl != null)
+        {
+            baseUrl = MainMenuManager.selectedServerUrl;
+            Debug.Log("✅ GameManager using URL from MainMenuManager: " + baseUrl);
+        }
+
         // 🔥 ส่งแค่ base URL
         Client = new LLMClientSimple(baseUrl);
     }
