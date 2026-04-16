@@ -1,0 +1,117 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                   DETECTIVE GAME - QUICK START GUIDE                           ║
+║                    Running Both Servers (English + Thai)                       ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+🚀 QUICK START (Two Terminal Windows)
+═══════════════════════════════════════════════════════════════════════════════
+
+Open TWO separate terminal windows and run:
+
+
+📦 TERMINAL 1 - English Server (Case 1)
+───────────────────────────────────────────────────────────────────────────────
+cd Backend/rag
+export GROQ_API_KEY="your-groq-api-key-here"
+uvicorn server:app --reload --host 127.0.0.1 --port 8000
+
+
+📦 TERMINAL 2 - Thai Server (Case 2)
+───────────────────────────────────────────────────────────────────────────────
+cd Backend/rag
+export TYPHOON_API_KEY="your-typhoon-api-key-here"
+uvicorn server_thai:app --reload --host 127.0.0.1 --port 8001
+
+
+⚡ ALTERNATIVE: Use Helper Script (Recommended)
+═══════════════════════════════════════════════════════════════════════════════
+
+If you have tmux installed:
+  cd Backend/rag
+  ./start_servers_tmux.sh
+
+Or for macOS Terminal:
+  cd Backend/rag
+  ./start_servers.sh
+
+
+🔍 VERIFY SERVERS ARE RUNNING
+═══════════════════════════════════════════════════════════════════════════════
+
+Check if servers are running:
+  curl http://127.0.0.1:8000/docs    # English server
+  curl http://127.0.0.1:8001/docs    # Thai server
+
+You should see FastAPI documentation pages in your browser.
+
+
+⚠️  COMMON ISSUES
+═══════════════════════════════════════════════════════════════════════════════
+
+❌ "Address already in use"
+   Cause: You're running the same server twice
+   Fix: Make sure you're running DIFFERENT files:
+        - Terminal 1: server (English)
+        - Terminal 2: server_thai (Thai)
+
+❌ "Module not found"
+   Fix: Make sure you're in the Backend/rag directory
+        Install dependencies: pip install -r requirements.txt
+
+❌ Port already in use
+   Fix: Kill the process using the port:
+        lsof -ti:8000 | xargs kill -9    # Kill port 8000
+        lsof -ti:8001 | xargs kill -9    # Kill port 8001
+
+
+🎮 TEST IN UNITY
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Open Unity Editor
+2. Enter Play mode
+3. Click "Start" → Should see case selection
+4. Click "Case 1 (English)" → Should connect to port 8000
+5. Click "Case 2 (Thai)" → Should connect to port 8001
+
+
+📋 TMUX CHEAT SHEET (if using tmux)
+═══════════════════════════════════════════════════════════════════════════════
+
+Ctrl+B then 0     → Switch to English Server window
+Ctrl+B then 1     → Switch to Thai Server window
+Ctrl+B then D     → Detach from session (servers keep running)
+tmux attach -t detective-servers  → Reattach to session
+tmux kill-session -t detective-servers  → Stop all servers
+
+
+🔧 STOPPING THE SERVERS
+═══════════════════════════════════════════════════════════════════════════════
+
+In each terminal, press: Ctrl+C
+
+Or if using tmux:
+  tmux kill-session -t detective-servers
+
+Or kill all Python processes on the ports:
+  lsof -ti:8000 | xargs kill -9
+  lsof -ti:8001 | xargs kill -9
+
+
+✅ CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════
+
+□ Set GROQ_API_KEY for English server
+□ Set TYPHOON_API_KEY for Thai server
+□ Initialized vector databases (game_db/ and game_db_thai/)
+□ Both terminals show "INFO: Uvicorn running on..."
+□ Can access http://127.0.0.1:8000/docs
+□ Can access http://127.0.0.1:8001/docs
+□ Unity MainMenuManager has correct server URLs
+
+
+📖 FULL DOCUMENTATION
+═══════════════════════════════════════════════════════════════════════════════
+
+See CASE_SELECTION_SETUP.md for complete setup instructions.
+
+═══════════════════════════════════════════════════════════════════════════════
