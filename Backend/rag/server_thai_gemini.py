@@ -8,7 +8,8 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import chromadb
-from openai import OpenAI
+from google import genai
+from google.genai import types
 from police_guidebook_search import PoliceGuidebookSearch
 
 # ==============================
@@ -17,12 +18,11 @@ from police_guidebook_search import PoliceGuidebookSearch
 DB_PATH = "./game_db_thai"
 MURDER_COLLECTION = "murder_case_thai"
 
-GAME_STATE_FILE = "game_state_thai.json"
+GAME_STATE_FILE = "game_state_thai_gemini.json"
 
-# Typhoon API Configuration
-TYPHOON_API_KEY = os.getenv("TYPHOON_API_KEY") or "PUT_YOUR_TYPHOON_KEY_HERE"
-TYPHOON_BASE_URL = "https://api.opentyphoon.ai/v1"  # Typhoon API endpoint
-MODEL_NAME = "typhoon-v2.5-30b-a3b-instruct"  # Typhoon model for Thai language
+# Gemini API Configuration
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or "PUT_YOUR_GEMINI_KEY_HERE"
+MODEL_NAME = "gemini-3.1-flash-lite-preview"  # Gemini 2.5 Flash-Lite model
 
 MAX_MEMORY_TURNS = 4
 
@@ -62,11 +62,13 @@ with open("evidence_data_thai.json", "r", encoding="utf-8") as f:
 # ==============================
 # INIT
 # ==============================
-app = FastAPI(title="Detective Game RAG Server - Thai Version (Typhoon)", port=8002)
-llm_client = OpenAI(
-    api_key=TYPHOON_API_KEY,
-    base_url=TYPHOON_BASE_URL
-)
+app = FastAPI(title="Detective Game RAG Server - Thai Version (Gemini)", port=8001)
+
+# Initialize Google GenAI client
+client = genai.Client(api_key=GEMINI_API_KEY)
+
+if os.path.exists(GAME_STATE_FILE):
+    os.remove(GAME_STATE_FILE)
 
 if os.path.exists(GAME_STATE_FILE):
     os.remove(GAME_STATE_FILE)
@@ -223,7 +225,7 @@ def build_npc_prompt(
         elif npc == "CHAIWAT":
             truth_rule = """
 กฎสำคัญ:
-คุณกำลังซ่อนความลับทั้งหมดเรื่องการฆาตกรรม
+คุณกำลังซ่อนความลับทั้งหมมดเรื่องการฆาตกรรม
 ถ้าถามถึงยาพิษ ฆาตกรรม หรือความสัมพันธ์: โกหกสิ้นเชิง
 ห้ามสารภาพใด ๆ ทั้งสิ้น
 เบี่ยงเบนความผิดไปยังบุคคลอื่น
@@ -290,6 +292,12 @@ def build_npc_prompt(
     print()
 
     return f"""
+ผู้ตาย:
+- นายวิชาญ ศรีวัฒน์
+- อายุ 68 ปี
+- เจ้าของบริษัทรับเหมาก่อสร้าง
+- เพิ่งแก้ไขพินัยกรรม 3 วันก่อนเสียชีวิต
+
 {npc_prompt}
 
 ====================
@@ -419,14 +427,16 @@ OUTPUT RULES
 }}
 """
 
-    r = llm_client.chat.completions.create(
+    r = client.models.generate_content(
         model=MODEL_NAME,
-        messages=[{"role": "system", "content": prompt}],
-        temperature=0,
-        max_tokens=16384
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            temperature=0,
+            max_output_tokens=16384,
+        )
     )
 
-    raw = r.choices[0].message.content.strip()
+    raw = r.text.strip()
 
     try:
         evaluation = json.loads(raw)
@@ -487,11 +497,11 @@ def update_summary_scores(state):
         if q.get("evidence_based"): investigation_score += 10
         if q.get("open_ended"): investigation_score += 5
         if q.get("professional"): politeness_score += 5
-        
+
         # --- ด้านลบ ---
         if q.get("leading"): investigation_score -= 10
         if q.get("confrontational") and q["politeness"] < 2: investigation_score -= 5
-        if q.get("threatening"): 
+        if q.get("threatening"):
             politeness_score -= 25
             investigation_score -= 10
         if q.get("promise_of_favor") and not q.get("professional"):
@@ -637,17 +647,19 @@ async def chat(req: PlayerRequest):
     has_truth
 )
 
-    completion = llm_client.chat.completions.create(
+    # Combine system prompt and user question for Gemini
+    full_prompt = f"{prompt}\n\nคำถาม: {question}"
+
+    completion = client.models.generate_content(
         model=MODEL_NAME,
-        messages=[
-            {"role": "system", "content": prompt},
-            {"role": "user", "content": question}
-        ],
-        temperature=0.3,
-        max_tokens=4096
+        contents=full_prompt,
+        config=types.GenerateContentConfig(
+            temperature=0.3,
+            max_output_tokens=4096,
+        )
     )
 
-    reply = completion.choices[0].message.content.strip()
+    reply = completion.text.strip()
 
     npc_memory.extend([
         {"role": "user", "content": question},
@@ -656,9 +668,35 @@ async def chat(req: PlayerRequest):
     state["memory"][npc] = npc_memory[-MAX_MEMORY_TURNS * 2:]
 
     # ---------- EVALUATION ----------
-    evaluation = evaluate_question(question, context)
-    evaluation["question"] = question
-    state["question_evaluations"].append(evaluation)
+    try:
+        evaluation = evaluate_question(question, context)
+        evaluation["question"] = question
+        state["question_evaluations"].append(evaluation)
+    except Exception as e:
+        # ถ้าติด 429 หรือ Error อื่น ๆ ให้ Print บอกแต่ไม่ต้องบึ้ม (raise)
+        print(f"⚠️ Evaluation Skipped (Quota full): {e}")
+        # ใส่ค่าหลอกไว้เพื่อให้ระบบทำงานต่อได้
+        dummy_eval = {
+            "politeness": 3,
+            "investigation": 3,
+            "open_ended": False,
+            "closed_ended": False,
+            "leading": False,
+            "info_gathering": False,
+            "evidence_based": False,
+            "rapport_building": False,
+            "confrontational": False,
+            "professional": False,
+            "threatening": False,
+            "emotional_appeal": False,
+            "promise_of_favor": False,
+            "context_required": False,
+            "reason_politeness": "ไม่สามารถประเมินได้เนื่องจากข้อผิดพลาดของ API",
+            "reason_investigation": "ไม่สามารถประเมินได้เนื่องจากข้อผิดพลาดของ API",
+            "reason_labels": "ไม่สามารถประเมินได้เนื่องจากข้อผิดพลาดของ API",
+            "question": question
+        }
+        state["question_evaluations"].append(dummy_eval)
 
     update_summary_scores(state)
     save_state(state)
@@ -769,14 +807,16 @@ async def evaluate_case(req: InvestigationReport):
 ข้อเสนอแนะทั่วไป: [คำอธิบายโดยละเอียด]
 """
 
-    completion = llm_client.chat.completions.create(
+    completion = client.models.generate_content(
         model=MODEL_NAME,
-        messages=[{"role": "system", "content": prompt}],
-        temperature=0,
-        max_tokens=2048
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            temperature=0,
+            max_output_tokens=2048,
+        )
     )
 
-    text = completion.choices[0].message.content
+    text = completion.text
 
     # Extract score with regex (supports both X/100 and X formats)
     match = re.search(r"คะแนน\s*[:：]\s*(\d+)", text)
