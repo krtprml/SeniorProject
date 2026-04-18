@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 public class CaseEvaluationNotebookDisplay : MonoBehaviour
 {
+    [Header("BlueRight Pages")]
+    [SerializeField] private GameObject blueRightLeftPage;
+    [SerializeField] private GameObject blueRightRightPage;
+
     [Header("Left Page UI (Raw LLM Response)")]
     [SerializeField] private TextMeshProUGUI leftPageTitleText;
     [SerializeField] private TextMeshProUGUI leftPageContentText;
@@ -64,6 +68,10 @@ public class CaseEvaluationNotebookDisplay : MonoBehaviour
     {
         public string reason;
         public int score;
+        public string suspect_id;
+        public string motive_type;
+        public string method_type;
+        public string final_answer;
     }
 
     void Start()
@@ -81,6 +89,10 @@ public class CaseEvaluationNotebookDisplay : MonoBehaviour
 
         currentEvaluationText = evaluationText;
 
+        // Activate BlueRight pages
+        if (blueRightLeftPage != null) blueRightLeftPage.SetActive(true);
+        if (blueRightRightPage != null) blueRightRightPage.SetActive(true);
+
         // Parse the JSON to extract the "reason" field
         string reasonText = ExtractReasonFromJson(evaluationText);
         DisplayLeftPage(reasonText);
@@ -93,15 +105,36 @@ public class CaseEvaluationNotebookDisplay : MonoBehaviour
     {
         try
         {
+            // Try to parse as a wrapper object with a "case" field
             GameStateResponse data = JsonUtility.FromJson<GameStateResponse>(jsonResponse);
-            if (data != null && data.@case != null && !string.IsNullOrEmpty(data.@case.reason))
+
+            if (data != null && data.@case != null)
             {
-                return data.@case.reason;
+                // Debug log to see what we're getting
+                Debug.Log($"📦 Parsed case data: score={data.@case.score}, reason length={data.@case.reason?.Length ?? 0}");
+
+                if (!string.IsNullOrEmpty(data.@case.reason))
+                {
+                    Debug.Log("✅ Successfully extracted reason field from case object");
+                    return data.@case.reason;
+                }
+                else
+                {
+                    Debug.LogWarning("⚠️ Case reason field is empty or null");
+                }
             }
+            else
+            {
+                Debug.LogWarning("⚠️ Case object is null in JSON response");
+            }
+
+            // Log the raw JSON for debugging
+            Debug.Log($"📄 Raw JSON response (first 500 chars): {jsonResponse.Substring(0, Mathf.Min(500, jsonResponse.Length))}...");
         }
-        catch (Exception e)
+        catch (System.Exception e)
         {
-            Debug.LogError("Failed to parse evaluation JSON: " + e.Message);
+            Debug.LogError($"❌ Failed to parse evaluation JSON: {e.Message}");
+            Debug.LogError($"JSON was: {jsonResponse.Substring(0, Mathf.Min(200, jsonResponse.Length))}...");
         }
 
         // If parsing fails, return the original text

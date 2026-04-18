@@ -8,6 +8,9 @@ public class NotebookReportSubmitter : MonoBehaviour
     public InvestigationReportForm reportForm;
     public NotebookController notebookController;
 
+    [Header("Pages")]
+    public GameObject yellowRightTabPage;
+
     [Header("Notebook Evaluation Display")]
     public CaseEvaluationNotebookDisplay notebookEvaluation;
 
@@ -64,14 +67,21 @@ public class NotebookReportSubmitter : MonoBehaviour
     {
         if (statusText != null) statusText.text = "Analyzing Results...";
 
-        // 🔥 NEW: Display evaluation on BlueRight tab
+        // 🔥 Display evaluation on BlueRight tab (activates pages automatically)
         if (notebookEvaluation != null)
         {
             notebookEvaluation.DisplayEvaluation(reply);
-            Debug.Log("✅ Evaluation displayed on BlueRight tab");
+            Debug.Log("✅ Evaluation displayed on BlueRight tab - pages activated");
         }
 
-        yield return new WaitForSeconds(1f);
+        // 🔥 Disable YellowRight tab after submission
+        if (yellowRightTabPage != null)
+        {
+            yellowRightTabPage.SetActive(false);
+            Debug.Log("✅ YellowRight tab disabled after submission");
+        }
+
+        yield return new WaitForSeconds(2f);
 
         // Close the notebook so they can see the end screen
         if (notebookController != null) notebookController.ToggleNotebook();

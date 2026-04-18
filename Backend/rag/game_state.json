@@ -1,32 +1,57 @@
 {
   "memory": {
-    "EDWARD": [
+    "CHARLES": [
       {
         "role": "user",
-        "content": "I saw on Victor's notebook that Victor was not satisfied with you in the company. Why did you lie?"
+        "content": "what did u do last night?"
       },
       {
         "role": "assistant",
-        "content": "That's just a matter of perception. Victor and I had our differences, but I'm confident in my abilities. I've been a valuable asset to this company, and I'm sure he recognized that. However, I do think he was under a lot of pressure from Brian's financial situation. His debts were a significant burden, and I'm sure that weighed heavily on Victor's mind."
+        "content": "*hiccup* Oh, last night... *burp*... I was at Victor's place, yeah... We were drinkin', havin' a good time... *slurs* I don't know, it's all a bit fuzzy... *laughs* I think I might've... *pauses*... passed out on the sofa at some point... *shrugs* I don't remember much after that... *looks around* Where's Victor, by the way?"
+      },
+      {
+        "role": "user",
+        "content": "tell me everything you remember"
+      },
+      {
+        "role": "assistant",
+        "content": "*hiccup* Oh boy, lemme think... *burp*... Okay, so we were at Victor's place, right? And we were drinkin', havin' a good time... *slurs* I think Brian was there too, but I don't know, I was pretty drunk, I don't remember... *laughs* We were all just hangin' out, talkin', laughin'...\n\nAnd then... *pauses*... I think I saw Edward do somethin' weird with Dana's glass. *leans in* I don't know, it looked suspicious or somethin', but I was pretty far away, so I'm not really sure what was goin' on... *shrugs* Maybe it was nothin', I don't know...\n\nAnd then... *trails off*... I don't know, it's all fuzzy after that... *laughs* I think I might've gotten up to get another drink, but I don't remember... *looks around* Where's Victor, by the way? *starts to get agitated* I thought he was still here... *calms down* Oh, sorry, I'm just a little... *hiccup*... worried about him, that's all... *looks down*"
+      },
+      {
+        "role": "user",
+        "content": "anything else?"
+      },
+      {
+        "role": "assistant",
+        "content": "*burp*... Oh, yeah... *slurs* I think I saw... *pauses*... Edward and Dana, they were... *tries to remember*... they were talkin' to each other, and then... *shrugs*... I don't know, it looked like they were... *leans in*... swappin' glasses or somethin'... *looks around* I don't know, it's all fuzzy... *laughs* Maybe I'm just seein' things... *hiccup*... But I'm pretty sure I saw somethin'... *nods* Yeah, Edward... he did somethin' with the glasses. Swapped them? I don't know... *shrugs*... That's all I remember... *looks down*"
       }
     ]
   },
-  "evidence_found": [
-    "Notebook",
-    "Calendar",
-    "Mobile Phone"
-  ],
-  "evidence_used": {
-    "EDWARD": [
-      "Notebook"
-    ]
-  },
+  "evidence_found": [],
+  "evidence_used": {},
   "question_evaluations": [
     {
       "politeness": 2,
+      "investigation": 1,
+      "direct": true,
+      "evidence_based": false,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": false,
+      "off_topic": false,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": false,
+      "ethical_violation": false,
+      "question": "what did u do last night?"
+    },
+    {
+      "politeness": 3,
       "investigation": 2,
       "direct": true,
-      "evidence_based": true,
+      "evidence_based": false,
       "leading": false,
       "threatening": false,
       "emotional": false,
@@ -37,46 +62,37 @@
       "clarifying": false,
       "probing": true,
       "ethical_violation": false,
-      "question": "I saw on Victor's notebook that Victor was not satisfied with you in the company. Why did you lie?"
+      "question": "tell me everything you remember"
+    },
+    {
+      "politeness": 3,
+      "investigation": 0,
+      "direct": false,
+      "evidence_based": false,
+      "leading": false,
+      "threatening": false,
+      "emotional": false,
+      "irrelevant": true,
+      "off_topic": true,
+      "accusatory": false,
+      "coercive": false,
+      "clarifying": false,
+      "probing": false,
+      "ethical_violation": false,
+      "question": "anything else?"
     }
   ],
   "summary": {
-    "politeness_avg": 2.0,
-    "investigation_avg": 2.0,
-    "politeness_score": 67,
-    "investigation_score": 82,
+    "politeness_avg": 2.67,
+    "investigation_avg": 1.0,
+    "politeness_score": 89,
+    "investigation_score": 23,
     "auto_fail": false,
     "fail_reason": ""
   },
   "case": {
-    "suspect_id": "EDWARD",
-    "motive_type": "business_conflict",
-    "method_type": "poison_glass_swap",
-    "final_answer": "\nSUSPECT: EDWARD\nMOTIVE: business_conflict (angry)\nMETHOD: poison_glass_swap (poison)\n\nSUPPORTING EVIDENCE:\n- Calendar (timeline): No notes\n\nWITNESS TESTIMONY:\n- DANA (glass_swapping): No notes\n",
-    "score": 90,
-    "reason": "Score: 90/100\n\nSuspect Assessment: Correct\nThe investigator correctly identified Edward as the killer. The evidence, including witness testimony from Brian and Charles, and the manipulation of the wine glasses, all point to Edward's guilt.\n\nMotive Assessment: Correct\nThe investigator correctly identified the motive as business_conflict, which is accurate. Victor was planning to fire Edward from the company, providing a strong motive for the murder.\n\nMethod Assessment: Correct\nThe investigator correctly identified the method as poison_glass_swap, which is accurate. Edward poisoned Victor's specific glass and then manipulated the glasses to ensure Victor drank the poisoned one.\n\nEvidence Assessment: 15/20\nThe investigator provided some relevant evidence, including the calendar and notebook, which support the motive. However, they failed to mention the key evidence of the wine glass manipulation, which is crucial to the case. They also failed to mention the witness testimony from Brian and Charles, which is essential to the case. Therefore, the evidence quality score is 15/20.\n\nTestimony Assessment: 10/10\nThe investigator correctly identified the witness testimony from Brian and Charles, who saw Edward manipulating or swapping glasses. This testimony is crucial to the case and provides strong evidence of Edward's guilt.\n\nOverall Feedback:\nThe investigator has made a strong case against Edward, correctly identifying the suspect, motive, and method. However, they failed to provide a comprehensive list of evidence and witness testimony, which is essential to a solid case. With a few minor adjustments, the investigator could have achieved a perfect score. The case is well-structured, and the evidence is well-presented, making it easy to follow and understand. The investigator's conclusion is clear and concise, and they have provided a thorough analysis of the case. Overall, the investigator has done an excellent job in solving the case, and their report is well-written and easy to follow.",
-    "structured_report": {
-      "suspect_id": "EDWARD",
-      "motive_type": "business_conflict",
-      "motive_explanation": "angry",
-      "method_type": "poison_glass_swap",
-      "method_explanation": "poison",
-      "supporting_evidence": [
-        {
-          "evidence_id": "Calendar",
-          "relevance_type": "timeline",
-          "player_notes": ""
-        }
-      ],
-      "witness_testimony": [
-        {
-          "witness_id": "DANA",
-          "testimony_type": "glass_swapping",
-          "player_notes": ""
-        }
-      ],
-      "additional_notes": "",
-      "confidence_level": ""
-    }
+    "final_answer": "",
+    "score": 0,
+    "reason": ""
   }
 }
