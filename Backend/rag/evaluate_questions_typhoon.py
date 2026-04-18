@@ -3,7 +3,7 @@ import time
 from openai import OpenAI
 
 client = OpenAI(
-    api_key="sk-j5PKvYqH6Whrn8271lcPzvpri5qMqXF1VGwUQxseHv1RKmw9",
+    api_key="",
     base_url="https://api.opentyphoon.ai/v1"
 )
 MODEL_ID = "typhoon-v2.5-30b-a3b-instruct"

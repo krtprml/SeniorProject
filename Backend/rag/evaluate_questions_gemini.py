@@ -3,7 +3,7 @@ import time
 from google import genai
 from google.genai import types
 
-client = genai.Client(api_key="AIzaSyAJwsnrRjS2TNwkYmd8kbE-14lQzqhLQ14")
+client = genai.Client(api_key="")
 MODEL_ID = "gemini-3.1-flash-lite-preview"
 
 with open("questions_thai.txt", "r", encoding="utf-8") as f:
