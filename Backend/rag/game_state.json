@@ -3,73 +3,27 @@
     "CHARLES": [
       {
         "role": "user",
-        "content": "what did u do last night?"
+        "content": "hi"
       },
       {
         "role": "assistant",
-        "content": "*hiccup* Oh, last night... *burp*... I was at Victor's place, yeah... We were drinkin', havin' a good time... *slurs* I don't know, it's all a bit fuzzy... *laughs* I think I might've... *pauses*... passed out on the sofa at some point... *shrugs* I don't remember much after that... *looks around* Where's Victor, by the way?"
-      },
-      {
-        "role": "user",
-        "content": "tell me everything you remember"
-      },
-      {
-        "role": "assistant",
-        "content": "*hiccup* Oh boy, lemme think... *burp*... Okay, so we were at Victor's place, right? And we were drinkin', havin' a good time... *slurs* I think Brian was there too, but I don't know, I was pretty drunk, I don't remember... *laughs* We were all just hangin' out, talkin', laughin'...\n\nAnd then... *pauses*... I think I saw Edward do somethin' weird with Dana's glass. *leans in* I don't know, it looked suspicious or somethin', but I was pretty far away, so I'm not really sure what was goin' on... *shrugs* Maybe it was nothin', I don't know...\n\nAnd then... *trails off*... I don't know, it's all fuzzy after that... *laughs* I think I might've gotten up to get another drink, but I don't remember... *looks around* Where's Victor, by the way? *starts to get agitated* I thought he was still here... *calms down* Oh, sorry, I'm just a little... *hiccup*... worried about him, that's all... *looks down*"
-      },
-      {
-        "role": "user",
-        "content": "anything else?"
-      },
-      {
-        "role": "assistant",
-        "content": "*burp*... Oh, yeah... *slurs* I think I saw... *pauses*... Edward and Dana, they were... *tries to remember*... they were talkin' to each other, and then... *shrugs*... I don't know, it looked like they were... *leans in*... swappin' glasses or somethin'... *looks around* I don't know, it's all fuzzy... *laughs* Maybe I'm just seein' things... *hiccup*... But I'm pretty sure I saw somethin'... *nods* Yeah, Edward... he did somethin' with the glasses. Swapped them? I don't know... *shrugs*... That's all I remember... *looks down*"
+        "content": "*hiccup* Oh, hi... *burp* What's up, buddy? *slurs* Victor's doin' great, you know? *pauses* I'm happy for him, really... *sways slightly* We were just talkin' 'bout old times, and... *trails off* Oh, man, I'm gettin' a little... *hiccup*... thirsty. You got a drink?"
       }
     ]
   },
-  "evidence_found": [],
+  "evidence_found": [
+    "Notebook",
+    "Calendar",
+    "Mobile Phone"
+  ],
   "evidence_used": {},
   "question_evaluations": [
     {
-      "politeness": 2,
-      "investigation": 1,
-      "direct": true,
-      "evidence_based": false,
-      "leading": false,
-      "threatening": false,
-      "emotional": false,
-      "irrelevant": false,
-      "off_topic": false,
-      "accusatory": false,
-      "coercive": false,
-      "clarifying": false,
-      "probing": false,
-      "ethical_violation": false,
-      "question": "what did u do last night?"
-    },
-    {
-      "politeness": 3,
-      "investigation": 2,
-      "direct": true,
-      "evidence_based": false,
-      "leading": false,
-      "threatening": false,
-      "emotional": false,
-      "irrelevant": false,
-      "off_topic": false,
-      "accusatory": false,
-      "coercive": false,
-      "clarifying": false,
-      "probing": true,
-      "ethical_violation": false,
-      "question": "tell me everything you remember"
-    },
-    {
-      "politeness": 3,
+      "politeness": 0,
       "investigation": 0,
       "direct": false,
       "evidence_based": false,
-      "leading": false,
+      "leading": true,
       "threatening": false,
       "emotional": false,
       "irrelevant": true,
@@ -79,20 +33,46 @@
       "clarifying": false,
       "probing": false,
       "ethical_violation": false,
-      "question": "anything else?"
+      "question": "hi"
     }
   ],
   "summary": {
-    "politeness_avg": 2.67,
-    "investigation_avg": 1.0,
-    "politeness_score": 89,
-    "investigation_score": 23,
+    "politeness_avg": 0.0,
+    "investigation_avg": 0.0,
+    "politeness_score": 0,
+    "investigation_score": 0,
     "auto_fail": false,
     "fail_reason": ""
   },
   "case": {
-    "final_answer": "",
+    "suspect_id": "BRIAN",
+    "motive_type": "financial",
+    "method_type": "poison_glass_swap",
+    "final_answer": "\nSUSPECT: BRIAN\nMOTIVE: financial (No explanation)\nMETHOD: poison_glass_swap (No explanation)\n\nSUPPORTING EVIDENCE:\n- Notebook (opportunity): No notes\n\nWITNESS TESTIMONY:\n- ANNA (motive_confirmed): No notes\n",
     "score": 0,
-    "reason": ""
+    "reason": "Score: 0/100\n\nSuspect Assessment: Incorrect\nThe suspect provided is Brian, but the correct killer is Edward. The evidence and witness testimony clearly point to Edward as the killer.\n\nMotive Assessment: Incorrect\nThe motive provided is financial, but the correct motive is business conflict. Victor was planning to fire Edward from the company, which is a strong motive for Edward to commit the crime.\n\nMethod Assessment: Incorrect\nThe method provided is poison_glass_swap, but the correct method is poison_glass_swap as well. However, the provided method lacks specificity and does not accurately describe the events that occurred. The correct method involves Edward poisoning Victor's specific glass and then manipulating the glasses to ensure Victor drank from the poisoned one.\n\nEvidence Assessment: 0/20\nThere is no evidence provided to support the accusation. The notebook and calendar are mentioned, but they are not used to support the accusation. The wine glass is mentioned, but it is not used to support the accusation.\n\nTestimony Assessment: 0/10\nThere is no witness testimony provided to support the accusation. The testimony from Anna is mentioned, but it is not used to support the accusation.\n\nOverall Feedback:\nThe investigation report is incomplete and lacks specific details to support the accusation. The suspect, motive, and method are all incorrect, and there is no evidence or witness testimony to support the accusation. To improve the investigation report, the investigator should provide specific details about the evidence and witness testimony that support the accusation, and ensure that the suspect, motive, and method are accurate.\n\nRecommendations:\n- Review the case file and provide specific details about the evidence and witness testimony that support the accusation.\n- Ensure that the suspect, motive, and method are accurate and supported by the evidence and witness testimony.\n- Provide a clear and concise explanation of the investigation findings and how they support the accusation.",
+    "structured_report": {
+      "suspect_id": "BRIAN",
+      "motive_type": "financial",
+      "motive_explanation": "",
+      "method_type": "poison_glass_swap",
+      "method_explanation": "",
+      "supporting_evidence": [
+        {
+          "evidence_id": "Notebook",
+          "relevance_type": "opportunity",
+          "player_notes": ""
+        }
+      ],
+      "witness_testimony": [
+        {
+          "witness_id": "ANNA",
+          "testimony_type": "motive_confirmed",
+          "player_notes": ""
+        }
+      ],
+      "additional_notes": "",
+      "confidence_level": ""
+    }
   }
 }
