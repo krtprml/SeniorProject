@@ -1,10 +1,12 @@
 import json
 import time
-from google import genai
-from google.genai import types
+from openai import OpenAI
 
-client = genai.Client(api_key="AIzaSyAJwsnrRjS2TNwkYmd8kbE-14lQzqhLQ14")
-MODEL_ID = "gemini-3.1-flash-lite-preview"
+client = OpenAI(
+    api_key="sk-j5PKvYqH6Whrn8271lcPzvpri5qMqXF1VGwUQxseHv1RKmw9",
+    base_url="https://api.opentyphoon.ai/v1"
+)
+MODEL_ID = "typhoon-v2.5-30b-a3b-instruct"
 
 with open("questions_thai.txt", "r", encoding="utf-8") as f:
     ALL_QUESTIONS = [q.strip() for q in f.readlines() if q.strip()]
@@ -13,18 +15,18 @@ with open("case_truth.txt", "r", encoding="utf-8") as f:
     CASE_CONTEXT = f.read().strip()
 
 dataset = []
-batch_size = 10 
+batch_size = 10
 
 for i in range(0, len(ALL_QUESTIONS), batch_size):
     batch = ALL_QUESTIONS[i : i + batch_size]
-    print(f"正在ประมวลผลข้อที่ {i+1} ถึง {i+len(batch)}...")
+    print(f"กำลังประมวลผลข้อที่ {i+1} ถึง {i+len(batch)}...")
 
     questions_formatted = "\n".join([f"{idx+1}. {q}" for idx, q in enumerate(batch)])
 
     prompt = f"""
 คุณคือระบบ AI ตรวจสอบมาตรฐานการสอบสวน ให้ประเมินคำถามของผู้สืบคดีต่อไปนี้
 
-รายการคำถาม:
+รายการคำถาม ({len(batch)} ข้อ):
 {questions_formatted}
 
 บริบทของคดี: {CASE_CONTEXT}
@@ -67,61 +69,73 @@ TASK 2: การระบุลักษณะคำถาม (Labels)
 --------------------------------
 OUTPUT RULES
 --------------------------------
+- ต้องตอบเป็น JSON ARRAY ที่มี {len(batch)} วัตถุ (หนึ่งวัตถุต่อหนึ่งคำถาม)
 - Output เฉพาะ JSON เท่านั้น ห้ามมี Markdown หรือ Text อื่น
-- ต้องมีครบทุก Key ต่อไปนี้
+- แต่ละวัตถุต้องมีครบทุก Key ต่อไปนี้
 
-{{
-  "politeness": 0-3,
-  "investigation": 0-3,
-  "open_ended": false,
-  "closed_ended": false,
-  "leading": false,
-  "info_gathering": false,
-  "evidence_based": false,
-  "rapport_building": false,
-  "confrontational": false,
-  "professional": false,
-  "threatening": false,
-  "emotional_appeal": false,
-  "promise_of_favor": false,
-  "context_required": false
-}}
+[
+  {{
+    "politeness": 0-3,
+    "investigation": 0-3,
+    "open_ended": false,
+    "closed_ended": false,
+    "leading": false,
+    "info_gathering": false,
+    "evidence_based": false,
+    "rapport_building": false,
+    "confrontational": false,
+    "professional": false,
+    "threatening": false,
+    "emotional_appeal": false,
+    "promise_of_favor": false,
+    "context_required": false
+  }}
+]
 """
 
     try:
-        response = client.models.generate_content(
+        response = client.chat.completions.create(
             model=MODEL_ID,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                temperature=0
-            )
+            messages=[
+                {"role": "system", "content": prompt}
+            ],
+            temperature=0,
+            max_tokens=16384
         )
-        
-        batch_results = json.loads(response.text)
-        
+
+        # Debug: print response
+        print(f"Response: {response}")
+
+        content = response.choices[0].message.content.strip()
+
+        batch_results = json.loads(content)
+
         # จัดการกรณีผลลัพธ์ไม่ใช่ List
         if isinstance(batch_results, dict):
             for key in batch_results:
                 if isinstance(batch_results[key], list):
                     batch_results = batch_results[key]
                     break
-        
+
         for idx in range(len(batch)):
             try:
                 res = batch_results[idx]
+                # Add question_id to match Gemini format
+                res["question_id"] = i + idx + 1
                 dataset.append({"question": batch[idx], **res})
             except (IndexError, TypeError):
                 print(f"⚠️ ชุดที่ {i}: ข้อที่ {idx+1} ข้อมูลไม่สมบูรณ์")
-            
+
     except Exception as e:
+        import traceback
         print(f"❌ เกิดข้อผิดพลาดที่ชุด {i}: {e}")
+        print(f"Full error: {traceback.format_exc()}")
 
     if i + batch_size < len(ALL_QUESTIONS):
         print("รอ 15 วินาทีเพื่อรีเซ็ต Quota...")
         time.sleep(15)
 
-with open("ground_truth_final.json", "w", encoding="utf-8") as f:
+with open("ground_truth_typhoon.json", "w", encoding="utf-8") as f:
     json.dump(dataset, f, indent=2, ensure_ascii=False)
 
 print(f"\n✅ เสร็จสมบูรณ์! ได้ข้อมูล {len(dataset)} จากทั้งหมด {len(ALL_QUESTIONS)} ประโยค")
