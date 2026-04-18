@@ -8,6 +8,9 @@ public class NotebookReportSubmitter : MonoBehaviour
     public InvestigationReportForm reportForm;
     public NotebookController notebookController;
 
+    [Header("Notebook Evaluation Display")]
+    public CaseEvaluationNotebookDisplay notebookEvaluation;
+
     [Header("UI Feedback")]
     public TextMeshProUGUI statusText;
 
@@ -60,6 +63,14 @@ public class NotebookReportSubmitter : MonoBehaviour
     IEnumerator ProcessFinalAnswer(string reply)
     {
         if (statusText != null) statusText.text = "Analyzing Results...";
+
+        // 🔥 NEW: Display evaluation on BlueRight tab
+        if (notebookEvaluation != null)
+        {
+            notebookEvaluation.DisplayEvaluation(reply);
+            Debug.Log("✅ Evaluation displayed on BlueRight tab");
+        }
+
         yield return new WaitForSeconds(1f);
 
         // Close the notebook so they can see the end screen

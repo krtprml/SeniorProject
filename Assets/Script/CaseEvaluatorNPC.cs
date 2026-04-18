@@ -28,6 +28,9 @@ public class CaseEvaluatorNPC : MonoBehaviour
     [Header("Feedback UI")]
     [SerializeField] TextMeshProUGUI feedbackText;
 
+    // [Header("Notebook Evaluation Display")]
+    // [SerializeField] CaseEvaluationNotebookDisplay notebookEvaluation;
+
     bool playerInRange = false;
     bool dialogueOpen = false;
     public bool IsDialogueOpen => dialogueOpen;
@@ -148,6 +151,12 @@ public class CaseEvaluatorNPC : MonoBehaviour
             report,
             reply =>
             {
+                // Store evaluation for notebook display
+                // if (notebookEvaluation != null)
+                // {
+                //     notebookEvaluation.DisplayEvaluation(reply);
+                // }
+
                 StartCoroutine(ProcessFinalAnswer(reply));
             },
             err =>
