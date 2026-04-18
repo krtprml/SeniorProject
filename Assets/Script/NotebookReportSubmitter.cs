@@ -75,6 +75,19 @@ public class NotebookReportSubmitter : MonoBehaviour
             Debug.Log("✅ Evaluation displayed on BlueRight tab - pages activated");
         }
 
+        // 🔥 Disable MurderReport pages after submission
+        if (murderReportLeft != null)
+        {
+            murderReportLeft.SetActive(false);
+            Debug.Log("✅ MurderReportLeft disabled after submission");
+        }
+
+        if (murderReportRight != null)
+        {
+            murderReportRight.SetActive(false);
+            Debug.Log("✅ MurderReportRight disabled after submission");
+        }
+
         yield return new WaitForSeconds(2f);
 
         // Close the notebook so they can see the end screen

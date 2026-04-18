@@ -3,11 +3,11 @@
     "CHARLES": [
       {
         "role": "user",
-        "content": "hi"
+        "content": "helo"
       },
       {
         "role": "assistant",
-        "content": "*hiccup* Oh, hi... *burp* What's up, buddy? *slurs* Victor's doin' great, you know? *pauses* I'm happy for him, really... *sways slightly* We were just talkin' 'bout old times, and... *trails off* Oh, man, I'm gettin' a little... *hiccup*... thirsty. You got a drink?"
+        "content": "*hiccup* Wha...? Oh, helo! *slurs* I was just thinkin' about Victor, ya know? *pauses* He's doin' so good, I'm happy for him, really... *burps* Excuse me."
       }
     ]
   },
@@ -33,7 +33,7 @@
       "clarifying": false,
       "probing": false,
       "ethical_violation": false,
-      "question": "hi"
+      "question": "helo"
     }
   ],
   "summary": {
@@ -45,29 +45,29 @@
     "fail_reason": ""
   },
   "case": {
-    "suspect_id": "BRIAN",
+    "suspect_id": "ANNA",
     "motive_type": "financial",
-    "method_type": "poison_glass_swap",
-    "final_answer": "\nSUSPECT: BRIAN\nMOTIVE: financial (No explanation)\nMETHOD: poison_glass_swap (No explanation)\n\nSUPPORTING EVIDENCE:\n- Notebook (opportunity): No notes\n\nWITNESS TESTIMONY:\n- ANNA (motive_confirmed): No notes\n",
+    "method_type": "poison",
+    "final_answer": "\nSUSPECT: ANNA\nMOTIVE: financial (No explanation)\nMETHOD: poison (No explanation)\n\nSUPPORTING EVIDENCE:\n- Notebook (method): No notes\n\nWITNESS TESTIMONY:\n- BRIAN (timeline): No notes\n",
     "score": 0,
-    "reason": "Score: 0/100\n\nSuspect Assessment: Incorrect\nThe suspect provided is Brian, but the correct killer is Edward. The evidence and witness testimony clearly point to Edward as the killer.\n\nMotive Assessment: Incorrect\nThe motive provided is financial, but the correct motive is business conflict. Victor was planning to fire Edward from the company, which is a strong motive for Edward to commit the crime.\n\nMethod Assessment: Incorrect\nThe method provided is poison_glass_swap, but the correct method is poison_glass_swap as well. However, the provided method lacks specificity and does not accurately describe the events that occurred. The correct method involves Edward poisoning Victor's specific glass and then manipulating the glasses to ensure Victor drank from the poisoned one.\n\nEvidence Assessment: 0/20\nThere is no evidence provided to support the accusation. The notebook and calendar are mentioned, but they are not used to support the accusation. The wine glass is mentioned, but it is not used to support the accusation.\n\nTestimony Assessment: 0/10\nThere is no witness testimony provided to support the accusation. The testimony from Anna is mentioned, but it is not used to support the accusation.\n\nOverall Feedback:\nThe investigation report is incomplete and lacks specific details to support the accusation. The suspect, motive, and method are all incorrect, and there is no evidence or witness testimony to support the accusation. To improve the investigation report, the investigator should provide specific details about the evidence and witness testimony that support the accusation, and ensure that the suspect, motive, and method are accurate.\n\nRecommendations:\n- Review the case file and provide specific details about the evidence and witness testimony that support the accusation.\n- Ensure that the suspect, motive, and method are accurate and supported by the evidence and witness testimony.\n- Provide a clear and concise explanation of the investigation findings and how they support the accusation.",
+    "reason": "Score: 0/100\n\nSuspect Assessment: Incorrect\nThe investigator incorrectly identified Anna as the suspect. The correct suspect is Edward, who was identified as the killer in the case file.\n\nMotive Assessment: Incorrect\nThe investigator failed to identify the correct motive. The correct motive is business_conflict, as Victor planned to fire Edward from the company. The investigator provided no explanation for the motive, and the motive listed (financial) is incorrect.\n\nMethod Assessment: Incorrect\nThe investigator failed to identify the correct method. The correct method is poison_glass_swap, as Edward poisoned Victor's specific glass and then swapped it. The investigator listed poison as the method, which is a partial but incorrect answer.\n\nEvidence Assessment: 0/20\nThe investigator failed to provide any relevant evidence to support their conclusion. The case file provided several key pieces of evidence, including the wall calendar, Victor's notebook, and witness testimony from Brian and Charles. The investigator did not mention any of these pieces of evidence.\n\nTestimony Assessment: 0/10\nThe investigator failed to mention any witness testimony that could support their conclusion. The case file provided witness testimony from Brian and Charles that saw Edward manipulating or swapping glasses. The investigator did not mention this testimony.\n\nOverall Feedback:\nThe investigator failed to accurately identify the suspect, motive, method, and evidence in this case. The correct suspect is Edward, who was identified as the killer in the case file. The correct motive is business_conflict, as Victor planned to fire Edward from the company. The correct method is poison_glass_swap, as Edward poisoned Victor's specific glass and then swapped it. The investigator failed to provide any relevant evidence or witness testimony to support their conclusion. To improve, the investigator should carefully review the case file and provide accurate and detailed information to support their conclusions.",
     "structured_report": {
-      "suspect_id": "BRIAN",
+      "suspect_id": "ANNA",
       "motive_type": "financial",
       "motive_explanation": "",
-      "method_type": "poison_glass_swap",
+      "method_type": "poison",
       "method_explanation": "",
       "supporting_evidence": [
         {
           "evidence_id": "Notebook",
-          "relevance_type": "opportunity",
+          "relevance_type": "method",
           "player_notes": ""
         }
       ],
       "witness_testimony": [
         {
-          "witness_id": "ANNA",
-          "testimony_type": "motive_confirmed",
+          "witness_id": "BRIAN",
+          "testimony_type": "timeline",
           "player_notes": ""
         }
       ],
