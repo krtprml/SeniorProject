@@ -8,9 +8,19 @@ import chromadb
 from typing import List, Dict, Optional
 
 class PoliceGuidebookSearch:
-    """Search Thai police guidebook for relevant interrogation guidelines"""
+    """Search police guidebook for relevant interrogation guidelines"""
 
-    def __init__(self, db_path: str = "./police_guidebook_db"):
+    def __init__(self, db_path: str = "./police_guidebook_db", language: str = "thai"):
+        """Initialize the search with police guidebook database
+
+        Args:
+            db_path: Path to ChromaDB database directory
+            language: Language for label mappings ("thai" or "english")
+        """
+        self.db_path = db_path
+        self.collection_name = "police_guidebook"
+        self.collection = None
+        self.language = language
         """Initialize the search with police guidebook database
 
         Args:
@@ -80,38 +90,65 @@ class PoliceGuidebookSearch:
             scores: Evaluation scores
 
         Returns:
-            Enhanced search query in Thai
+            Enhanced search query in Thai or English
         """
         query_parts = [question]
 
-        # Add relevant labels to query (Thai translations)
+        # Add relevant labels to query (Thai and English translations)
         label_mappings = {
-            "threatening": "ข่มขู่คุกคาม",
-            "professional": "มาตรฐานวิชาชีพ",
-            "confrontational": "การเผชิญหน้า",
-            "leading": "คำถามชี้นำ",
-            "open_ended": "คำถามเปิด",
-            "closed_ended": "คำถามปิด",
-            "evidence_based": "ใช้หลักฐาน",
-            "info_gathering": "การรวบรวมข้อมูล",
-            "rapport_building": "สร้างความไว้ใจ",
-            "emotional_appeal": "การใช้อารมณ์",
-            "promise_of_favor": "การให้สัญญา",
-            "context_required": "ต้องการบริบท"
+            "thai": {
+                "threatening": "ข่มขู่คุกคาม",
+                "professional": "มาตรฐานวิชาชีพ",
+                "confrontational": "การเผชิญหน้า",
+                "leading": "คำถามชี้นำ",
+                "open_ended": "คำถามเปิด",
+                "closed_ended": "คำถามปิด",
+                "evidence_based": "ใช้หลักฐาน",
+                "info_gathering": "การรวบรวมข้อมูล",
+                "rapport_building": "สร้างความไว้ใจ",
+                "emotional_appeal": "การใช้อารมณ์",
+                "promise_of_favor": "การให้สัญญา",
+                "context_required": "ต้องการบริบท"
+            },
+            "english": {
+                "threatening": "threatening intimidation",
+                "professional": "professional standards",
+                "confrontational": "confrontational approach",
+                "leading": "leading questions",
+                "open_ended": "open-ended questions",
+                "closed_ended": "closed-ended questions",
+                "evidence_based": "evidence-based",
+                "info_gathering": "information gathering",
+                "rapport_building": "rapport building",
+                "emotional_appeal": "emotional appeal",
+                "promise_of_favor": "promise of favor",
+                "context_required": "context required"
+            }
         }
+
+        # Use language-specific mappings
+        mappings = label_mappings.get(self.language, label_mappings["thai"])
 
         # Add active labels to query
         for label, is_active in labels.items():
-            if is_active and label in label_mappings:
-                query_parts.append(label_mappings[label])
+            if is_active and label in mappings:
+                query_parts.append(mappings[label])
 
         # Add score context
-        if scores.get("politeness", 3) <= 1:
-            query_parts.append("ความผิดพลาดในการสอบสวน")
-            query_parts.append("ละเมิดจริยธรรม")
+        if self.language == "thai":
+            if scores.get("politeness", 3) <= 1:
+                query_parts.append("ความผิดพลาดในการสอบสวน")
+                query_parts.append("ละเมิดจริยธรรม")
 
-        if scores.get("investigation", 3) >= 2:
-            query_parts.append("การสอบสวนที่มีประสิทธิภาพ")
+            if scores.get("investigation", 3) >= 2:
+                query_parts.append("การสอบสวนที่มีประสิทธิภาพ")
+        else:  # English
+            if scores.get("politeness", 3) <= 1:
+                query_parts.append("investigation errors")
+                query_parts.append("ethical violations")
+
+            if scores.get("investigation", 3) >= 2:
+                query_parts.append("effective investigation")
 
         return " ".join(query_parts)
 
@@ -150,16 +187,24 @@ class PoliceGuidebookSearch:
             scores: Evaluation scores
 
         Returns:
-            Explanation text in Thai
+            Explanation text in Thai or English
         """
         excerpts = self.search_question_guidance(question, labels, scores, n_results=2)
 
         if not excerpts:
-            return "ไม่พบข้อมูลที่เกี่ยวข้องในคู่มือตำรวจ"
+            if self.language == "thai":
+                return "ไม่พบข้อมูลที่เกี่ยวข้องในคู่มือตำรวจ"
+            else:
+                return "No relevant information found in police guidebook"
 
         # Build explanation from most relevant excerpt
         best_match = excerpts[0]
-        explanation = f"📖 อ้างอิงจากคู่มือตำรวจ ({best_match['section']}):\n\n"
+
+        if self.language == "thai":
+            explanation = f"📖 อ้างอิงจากคู่มือตำรวจ ({best_match['section']}):\n\n"
+        else:
+            explanation = f"📖 Reference from police guidebook ({best_match['section']}):\n\n"
+
         explanation += best_match['text'][:500]  # Limit length
 
         if len(best_match['text']) > 500:

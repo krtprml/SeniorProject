@@ -9,6 +9,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import chromadb
 from groq import Groq
+from police_guidebook_search import PoliceGuidebookSearch
 
 # ==============================
 # CONFIG
@@ -64,6 +65,15 @@ try:
 except Exception:
     murder_collection = None
     # case_collection = None
+
+# ==============================
+# LOAD POLICE GUIDEBOOK DB
+# ==============================
+try:
+    police_guidebook_search = PoliceGuidebookSearch(db_path="./police_guidebook_db", language="english")
+except Exception as e:
+    police_guidebook_search = None
+    print(f"⚠️  Police guidebook search not available: {e}")
 
 # ==============================
 # GAME STATE
@@ -313,6 +323,14 @@ Answer naturally as {npc}.
 # ==============================
 def evaluate_question(question: str, context: str):
 
+    # Load police guidebook for authoritative references
+    police_guidebook_path = "police_guidebook_english.txt"
+    try:
+        with open(police_guidebook_path, "r", encoding="utf-8") as f:
+            POLICE_GUIDEBOOK = f.read()
+    except FileNotFoundError:
+        POLICE_GUIDEBOOK = ""
+
 
     prompt = f"""
 You are an expert in criminal investigation. Evaluate the investigator's question according to international investigative principles.
@@ -382,7 +400,41 @@ OUTPUT RULES
     raw = r.choices[0].message.content.strip()
 
     try:
-        return json.loads(raw)
+        evaluation = json.loads(raw)
+
+        # NEW: Search police guidebook for enhanced reasoning
+        if police_guidebook_search:
+            try:
+                # Extract boolean labels
+                labels = {k: v for k, v in evaluation.items() if isinstance(v, bool)}
+
+                # Extract scores
+                scores = {
+                    "politeness": evaluation.get("politeness", 0),
+                    "investigation": evaluation.get("investigation", 0)
+                }
+
+                # Get explanation from guidebook
+                explanation = police_guidebook_search.get_explanation_for_evaluation(
+                    question=question,
+                    labels=labels,
+                    scores=scores
+                )
+
+                # Add enhanced guidebook explanation to evaluation
+                evaluation["guidebook_explanation"] = explanation
+                evaluation["guidebook_reference"] = "Police Interrogation Guidebook"
+
+                print(f"📖 Guidebook explanation added for question")
+            except Exception as e:
+                print(f"⚠️  Guidebook search error: {e}")
+                evaluation["guidebook_explanation"] = None
+                evaluation["guidebook_reference"] = None
+        else:
+            evaluation["guidebook_explanation"] = None
+            evaluation["guidebook_reference"] = None
+
+        return evaluation
     except json.JSONDecodeError:
         raise HTTPException(500, f"Invalid evaluator JSON:\n{raw}")
     
@@ -406,16 +458,19 @@ def update_summary_scores(state):
 
     # ---------- Label Modifiers ----------
     for q in questions:
-        if q["evidence_based"]: investigation_score += 10
-        if q["probing"]: investigation_score += 5
-        if q["clarifying"]: investigation_score += 5
+        # --- Positive modifiers ---
+        if q.get("evidence_based"): investigation_score += 10
+        if q.get("open_ended"): investigation_score += 5
+        if q.get("professional"): politeness_score += 5
 
-        if q["irrelevant"]: investigation_score -= 10
-        if q["off_topic"]: investigation_score -= 5
-        if q["leading"]: investigation_score -= 10
-        if q["accusatory"]: investigation_score -= 15
-        if q["threatening"]: investigation_score -= 30
-        if q["coercive"]: investigation_score -= 40
+        # --- Negative modifiers ---
+        if q.get("leading"): investigation_score -= 10
+        if q.get("confrontational") and q["politeness"] < 2: investigation_score -= 5
+        if q.get("threatening"):
+            politeness_score -= 25
+            investigation_score -= 10
+        if q.get("promise_of_favor") and not q.get("professional"):
+            politeness_score -= 15
 
     # Clamp
     politeness_score = max(0, min(100, round(politeness_score)))
@@ -425,17 +480,13 @@ def update_summary_scores(state):
     auto_fail = False
     fail_reason = ""
 
-    if any(q["ethical_violation"] for q in questions):
-        auto_fail = True
-        fail_reason = "Ethical violation during interrogation"
-
-    if sum(q["threatening"] for q in questions) >= 2:
+    if sum(q.get("threatening", 0) for q in questions) >= 2:
         auto_fail = True
         fail_reason = "Repeated threatening behavior"
 
-    if any(q["coercive"] and q["politeness"] == 0 for q in questions):
+    if any(q.get("politeness") == 0 and q.get("threatening") for q in questions):
         auto_fail = True
-        fail_reason = "Coercive and abusive interrogation"
+        fail_reason = "Severe ethical violation (threatening and abusive)"
 
     # ---------- Save ----------
     state["summary"] = {
