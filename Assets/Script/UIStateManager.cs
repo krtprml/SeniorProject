@@ -9,6 +9,7 @@ public class UIStateManager : MonoBehaviour
     public bool isEvidenceViewerOpen = false;
     public bool isPauseMenuOpen = false;
     public bool isIntroOpen = false;
+    public bool isEndGameActive = false;
 
     void Awake()
     {
@@ -19,6 +20,6 @@ public class UIStateManager : MonoBehaviour
     // The Master Check: Is ANY menu currently taking up the screen?
     public bool IsAnyBlockingUIOpen()
     {
-        return isNotebookOpen || isDialogueOpen || isEvidenceViewerOpen || isPauseMenuOpen || isIntroOpen;
+        return isNotebookOpen || isDialogueOpen || isEvidenceViewerOpen || isPauseMenuOpen || isIntroOpen || isEndGameActive;
     }
 }

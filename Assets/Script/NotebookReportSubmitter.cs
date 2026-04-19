@@ -13,6 +13,13 @@ public class NotebookReportSubmitter : MonoBehaviour
     public GameObject murderReportLeft;
     public GameObject murderReportRight;
 
+    [Header("End Game Lock Settings")]
+    [Tooltip("Drag your Player movement and Camera scripts here (same as PauseManager)")]
+    public MonoBehaviour[] playerScriptsToDisable;
+
+    [Header("Optional: Reference to PauseManager for shared settings")]
+    public PauseManager pauseManager;
+
     [Header("Notebook Evaluation Display")]
     public CaseEvaluationNotebookDisplay notebookEvaluation;
 
@@ -88,6 +95,10 @@ public class NotebookReportSubmitter : MonoBehaviour
         SetPostSubmissionButtonsActive(true);
         Debug.Log("✅ Post-submission buttons activated");
 
+        // 🔥 Lock the game (end game state)
+        LockGame();
+        Debug.Log("✅ Game locked - end game state active");
+
         // 🔥 Disable MurderReport pages after submission
         if (murderReportLeft != null)
         {
@@ -137,5 +148,71 @@ public class NotebookReportSubmitter : MonoBehaviour
         if (restartButton != null) restartButton.gameObject.SetActive(active);
         if (mainMenuButton != null) mainMenuButton.gameObject.SetActive(active);
         if (exitButton != null) exitButton.gameObject.SetActive(active);
+    }
+
+    private void LockGame()
+    {
+        // Pause time
+        Time.timeScale = 0f;
+
+        // Disable player scripts
+        if (playerScriptsToDisable != null)
+        {
+            foreach (var script in playerScriptsToDisable)
+            {
+                if (script != null) script.enabled = false;
+            }
+        }
+
+        // Show and unlock cursor for button interaction
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        // Lock notebook (prevent Tab toggle)
+        if (notebookController != null)
+        {
+            notebookController.SetEndGameState(true);
+        }
+
+        // Set end game state in UIStateManager (blocks ESC/pause)
+        if (UIStateManager.I != null)
+        {
+            UIStateManager.I.isEndGameActive = true;
+        }
+
+        Debug.Log("🔒 Game locked: Player controls disabled, cursor unlocked, time paused, notebook locked, ESC blocked");
+    }
+
+    private void UnlockGame()
+    {
+        // Resume time
+        Time.timeScale = 1f;
+
+        // Re-enable player scripts
+        if (playerScriptsToDisable != null)
+        {
+            foreach (var script in playerScriptsToDisable)
+            {
+                if (script != null) script.enabled = true;
+            }
+        }
+
+        // Hide and lock cursor
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        // Unlock notebook (allow Tab toggle)
+        if (notebookController != null)
+        {
+            notebookController.SetEndGameState(false);
+        }
+
+        // Clear end game state in UIStateManager (allow ESC/pause)
+        if (UIStateManager.I != null)
+        {
+            UIStateManager.I.isEndGameActive = false;
+        }
+
+        Debug.Log("🔓 Game unlocked: Player controls enabled, cursor locked, time resumed, notebook unlocked, ESC enabled");
     }
 }

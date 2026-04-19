@@ -12,6 +12,9 @@ public class NotebookController : MonoBehaviour
     [Header("Tutorial Settings")]
     public bool isLockedOpen = true;
 
+    // 🔥 End Game State
+    private bool isEndGameActive = false;
+
     // 🔥 NEW: A reference to your Evidence UI
     private EvidenceUIManager evidenceUI;
 
@@ -43,6 +46,9 @@ public class NotebookController : MonoBehaviour
         // 🔥 THE NEW SMART TAB LOGIC 🔥
         if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame)
         {
+            // 🔥 BLOCK: Prevent notebook toggle during end game state
+            if (isEndGameActive) return;
+
             if (!isLockedOpen)
             {
                 // 🔥 TRAFFIC LIGHT: If notebook is closed, make sure nothing else is open before opening!
@@ -96,5 +102,11 @@ public class NotebookController : MonoBehaviour
     public void UnlockNotebook()
     {
         isLockedOpen = false;
+    }
+
+    public void SetEndGameState(bool isActive)
+    {
+        isEndGameActive = isActive;
+        Debug.Log($"🎮 End game state: {(isActive ? "ACTIVE - Notebook locked" : "INACTIVE - Notebook unlocked")}");
     }
 }

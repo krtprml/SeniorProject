@@ -3,11 +3,11 @@
     "CHARLES": [
       {
         "role": "user",
-        "content": "hello"
+        "content": "hi"
       },
       {
         "role": "assistant",
-        "content": "*hiccup* Oh, hi... *burp*... friend... *slurring*... what's up? You know, just... just enjoying the... the party... *laughs*... Victor's doin' great, huh? *smirks*..."
+        "content": "*hiccup* Oh, hi... *burp* Nice to see ya... *slurring* What's goin' on? You're not here for the party, are ya? *laughs* Victor's got a real bash goin' on... *hiccup*"
       }
     ]
   },
@@ -33,12 +33,12 @@
       "emotional_appeal": false,
       "promise_of_favor": false,
       "context_required": false,
-      "reason_politeness": "The politeness score is 0 because the question 'hello' is not a professional or respectful inquiry. According to [CH1] General Principles of Criminal Investigation, an investigating officer must know what powers and duties they hold, and this question does not demonstrate any understanding of the investigation or its protocols. Furthermore, it does not respect the principles of respecting suspect rights and professional standards.",
-      "reason_investigation": "The investigation quality score is 0 because the question 'hello' does not drive the case forward or gather any new information. According to [CH1] General Principles of Criminal Investigation, an investigation must be carried out by an investigating officer with competent authority under the Criminal Procedure Code (CPC), Section 2(6), read together with Section 2(11). This question does not demonstrate any understanding of the investigation or its protocols, and it does not effectively collect evidence or question witnesses/suspects.",
-      "reason_labels": "The question 'hello' is classified as open-ended because it does not ask for a specific piece of information or a yes/no answer. However, it is not a professional or respectful inquiry, which is why it is also classified as confrontational. The question does not demonstrate any understanding of the investigation or its protocols, which is why it is not classified as evidence-based or info-gathering. According to [CH1] General Principles of Criminal Investigation, an investigating officer must know what powers and duties they hold, and this question does not demonstrate any understanding of this principle.",
+      "reason_politeness": "The politeness score is 0 because the question 'hi' is not a professional or respectful inquiry. According to [CH1] General Principles of Criminal Investigation, an investigating officer must know what powers and duties they hold, and this question does not demonstrate any understanding of the investigation or its protocols.",
+      "reason_investigation": "The investigation quality score is 0 because the question 'hi' does not drive the case forward or gather any relevant information. According to [CH1] General Principles of Criminal Investigation, an investigation must be carried out by an investigating officer with competent authority, and this question does not demonstrate any effort to gather evidence or follow up on leads.",
+      "reason_labels": "The question 'hi' is classified as open-ended because it does not ask for a specific piece of information, but rather a response. However, it is not a professional or respectful inquiry, which is why it is also classified as confrontational. The question is not evidence-based, as it does not refer to any physical exhibits or timelines. It is not an attempt to build rapport, as it does not show any interest in the suspect's well-being or emotions. Finally, it is not a promise of favor, as it does not offer any incentives or rewards.",
       "guidebook_explanation": "\ud83d\udcd6 Reference from police guidebook ([CH11]\u0e1e\u0e22\u0e32\u0e19\u0e2b\u0e25\u0e31\u0e01\u0e10\u0e32\u0e19\u0e01\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e2a\u0e2d\u0e1a\u0e2a\u0e27\u0e19):\n\n2.3 \u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e2d\u0e37\u0e48\u0e19\n2.3.1 \u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e2b\u0e25\u0e48\u0e2d\u0e23\u0e2d\u0e22\u0e40\u0e17\u0e49\u0e32 \u0e23\u0e2d\u0e22\u0e22\u0e32\u0e07\u0e23\u0e16\u0e22\u0e19\u0e15\u0e4c\n2.3.2 \u0e16\u0e38\u0e07\u0e40\u0e01\u0e47\u0e1a\u0e27\u0e31\u0e15\u0e16\u0e38\u0e1e\u0e22\u0e32\u0e19\u0e02\u0e19\u0e32\u0e14\u0e15\u0e48\u0e32\u0e07 \u0e46\n2.3.3 \u0e40\u0e17\u0e1b\u0e1b\u0e34\u0e14\u0e1c\u0e19\u0e36\u0e01 \u0e2b\u0e35\u0e1a\u0e2b\u0e48\u0e2d\u0e27\u0e31\u0e15\u0e16\u0e38\u0e1e\u0e22\u0e32\u0e19\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e17\u0e33\u0e01\u0e32\u0e23\u0e1a\u0e23\u0e23\u0e08\u0e38\u0e41\u0e25\u0e49\u0e27\n2.3.4 \u0e0a\u0e38\u0e14\u0e2b\u0e23\u0e37\u0e2d\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e01\u0e32\u0e23\u0e1b\u0e19\u0e40\u0e1b\u0e37\u0e49\u0e2d\u0e19\u0e41\u0e25\u0e30\u0e2d\u0e31\u0e19\u0e15\u0e23\u0e32\u0e22\u0e02\u0e2d\u0e07\u0e1c\u0e39\u0e49\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e40\u0e01\u0e34\u0e14\u0e40\u0e2b\u0e15\u0e38\n2.3.5 \u0e44\u0e1f\u0e09\u0e32\u0e22\u0e02\u0e19\u0e32\u0e14\u0e15\u0e48\u0e32\u0e07 \u0e46 \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e41\u0e1a\u0e15\u0e40\u0e15\u0e2d\u0e23\u0e35\u0e48\u0e17\u0e35\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e43\u0e19\u0e23\u0e30\u0e22\u0e30\u0e40\u0e27\u0e25\u0e32\u0e19\u0e32\u0e19\n2.3.6 \u0e20\u0e32\u0e0a\u0e19\u0e30\u0e17\u0e35\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e43\u0e2a\u0e48\u0e19\u0e49\u0e33\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e0a\u0e49\u0e40\u0e01\u0e47\u0e1a\u0e27\u0e31\u0e15\u0e16\u0e38\u0e1e\u0e22\u0e32\u0e19\u0e17\u0e35\u0e48\u0e1e\u0e1a\u0e43\u0e19\u0e19\u0e49\u0e33 \u0e40\u0e0a\u0e48\u0e19 \u0e1b\u0e37\u0e19\u0e17\u0e35\u0e48\u0e16\u0e39\u0e01\u0e17\u0e34\u0e49\u0e07\u0e43\u0e19\u0e19\u0e49\u0e33\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e2a\u0e19\u0e34\u0e21\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e32\u0e23\u0e01\u0e31\u0e14\u0e01\u0e23\u0e48\u0e2d\u0e19\u0e40\u0e1e\u0e34\u0e48\u0e21\n\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e17\u0e35\u0e48 2 \u0e01\u0e32\u0e23\u0e14\u0e33\u0e40\u0e19\u0e34\u0e19\u0e01\u0e32\u0e23\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e16\u0e36\u0e07\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e40\u0e01\u0e34\u0e14\u0e40\u0e2b\u0e15\u0e38 (Approach of Scene)\n\u0e40\u0e08\u0e49\u0e32\u0e2b\u0e19\u0e49\u0e32\u0e17\u0e35\u0e48\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48\u0e40\u0e01\u0e34\u0e14\u0e40\u0e2b\u0e15\u0e38 \u0e40\u0e21\u0e37\u0e48\u0e2d\u0e40\u0e14...",
       "guidebook_reference": "Police Interrogation Guidebook",
-      "question": "hello"
+      "question": "hi"
     }
   ],
   "summary": {
@@ -53,9 +53,9 @@
     "suspect_id": "ANNA",
     "motive_type": "revenge",
     "method_type": "poison",
-    "final_answer": "\nSUSPECT: ANNA\nMOTIVE: revenge (No explanation)\nMETHOD: poison (No explanation)\n\nSUPPORTING EVIDENCE:\n- Calendar (exoneration): No notes\n\nWITNESS TESTIMONY:\n- ANNA (motive_confirmed): No notes\n",
+    "final_answer": "\nSUSPECT: ANNA\nMOTIVE: revenge (No explanation)\nMETHOD: poison (No explanation)\n\nSUPPORTING EVIDENCE:\n- Notebook (method): No notes\n\nWITNESS TESTIMONY:\n- BRIAN (timeline): No notes\n",
     "score": 0,
-    "reason": "Score: 0/100\n\nSuspect Assessment: Incorrect\nThe investigator incorrectly identified Anna as the suspect. The correct suspect is Edward, as established in the core knowledge.\n\nMotive Assessment: Incorrect\nThe investigator failed to identify the correct motive. The correct motive is business_conflict, as Victor planned to fire Edward from the company. The motive provided by the investigator is revenge, which is not supported by any evidence.\n\nMethod Assessment: Incorrect\nThe investigator failed to identify the correct method. The correct method is poison_glass_swap, as Edward poisoned Victor's specific glass and then swapped it. The method provided by the investigator is poison, which is incomplete and incorrect.\n\nEvidence Assessment: 0/20\nThe investigator failed to provide any relevant evidence to support their conclusion. The calendar and notebook are mentioned, but they are not used to support the incorrect conclusion. The wine glass is mentioned, but it is not used to support the incorrect method.\n\nTestimony Assessment: 0/10\nThe investigator failed to provide any relevant witness testimony to support their conclusion. The witness testimony provided is incomplete and does not support the incorrect conclusion.\n\nOverall Feedback:\nThe investigator's report is incomplete and inaccurate. They failed to identify the correct suspect, motive, and method. They also failed to provide any relevant evidence or witness testimony to support their conclusion. The report lacks detail and analysis, and it does not demonstrate a thorough understanding of the case. To improve, the investigator should re-examine the evidence and testimony, and provide a more detailed and accurate report.",
+    "reason": "Score: 0/100\n\nSuspect Assessment: Incorrect\nThe investigator incorrectly identified Anna as the suspect. The correct suspect is Edward, as established in the case file.\n\nMotive Assessment: Incorrect\nThe investigator failed to provide a motive for Anna's supposed crime. The correct motive is business conflict, as Victor planned to fire Edward from the company.\n\nMethod Assessment: Incorrect\nThe investigator did not specify a method for Anna's supposed crime. The correct method is poison glass swap, where Edward poisoned Victor's specific glass and then swapped it.\n\nEvidence Assessment: 0/20\nThe investigator failed to provide any relevant evidence to support their conclusion. The case file provides several key pieces of evidence, including the wall calendar, Victor's notebook, and witness testimony from Brian and Charles.\n\nTestimony Assessment: 0/10\nThe investigator failed to provide any relevant witness testimony to support their conclusion. The case file provides testimony from Brian and Charles that directly implicates Edward in the crime.\n\nOverall Feedback:\nThe investigator's report is severely lacking in accuracy and detail. They failed to identify the correct suspect, motive, and method, and provided no relevant evidence or witness testimony to support their conclusion. The case file provides a clear and detailed account of the events surrounding Victor's murder, and the investigator's report does not demonstrate a thorough understanding of the case. To improve, the investigator should focus on accurately identifying the suspect, motive, and method, and providing relevant evidence and witness testimony to support their conclusion.",
     "structured_report": {
       "suspect_id": "ANNA",
       "motive_type": "revenge",
@@ -64,15 +64,15 @@
       "method_explanation": "",
       "supporting_evidence": [
         {
-          "evidence_id": "Calendar",
-          "relevance_type": "exoneration",
+          "evidence_id": "Notebook",
+          "relevance_type": "method",
           "player_notes": ""
         }
       ],
       "witness_testimony": [
         {
-          "witness_id": "ANNA",
-          "testimony_type": "motive_confirmed",
+          "witness_id": "BRIAN",
+          "testimony_type": "timeline",
           "player_notes": ""
         }
       ],

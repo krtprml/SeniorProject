@@ -58,6 +58,9 @@ public class PauseManager : MonoBehaviour
         // 🔥 TRAFFIC LIGHT CHECK
         if (UIStateManager.I != null)
         {
+            // 🔥 BLOCK: Prevent pause during end game state
+            if (UIStateManager.I.isEndGameActive) return;
+
             if (UIStateManager.I.isDialogueOpen || UIStateManager.I.isEvidenceViewerOpen || UIStateManager.I.isIntroOpen) return;
 
             // If the notebook is open, ESC should just close the notebook!
