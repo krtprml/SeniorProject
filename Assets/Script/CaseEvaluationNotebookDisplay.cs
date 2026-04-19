@@ -42,6 +42,13 @@ public class CaseEvaluationNotebookDisplay : MonoBehaviour
         public bool clarifying;
         public bool probing;
         public bool ethical_violation;
+
+        // NEW: Evaluation reasoning fields
+        public string reason_politeness;
+        public string reason_investigation;
+        public string reason_labels;
+        public string guidebook_explanation;
+        public string guidebook_reference;
     }
 
     [System.Serializable]
@@ -245,8 +252,8 @@ public class CaseEvaluationNotebookDisplay : MonoBehaviour
         {
             QuestionEvaluation q = questions[i];
             sb.AppendLine($"<b>Question {i + 1}:</b> {q.question}");
-            sb.AppendLine($"  Politeness: {q.politeness}/10");
-            sb.AppendLine($"  Investigation: {q.investigation}/10");
+            sb.AppendLine($"  Politeness: {q.politeness}/3");
+            sb.AppendLine($"  Investigation: {q.investigation}/3");
 
             // Show tags
             List<string> tags = new List<string>();
@@ -267,6 +274,31 @@ public class CaseEvaluationNotebookDisplay : MonoBehaviour
             {
                 sb.AppendLine($"  Tags: {string.Join(", ", tags.ToArray())}");
             }
+
+            // NEW: Display reasoning fields
+            if (!string.IsNullOrEmpty(q.reason_politeness))
+            {
+                sb.AppendLine($"\n  <i>Politeness Reasoning:</i>");
+                sb.AppendLine($"  {q.reason_politeness}");
+            }
+
+            if (!string.IsNullOrEmpty(q.reason_investigation))
+            {
+                sb.AppendLine($"\n  <i>Investigation Reasoning:</i>");
+                sb.AppendLine($"  {q.reason_investigation}");
+            }
+
+            if (!string.IsNullOrEmpty(q.reason_labels))
+            {
+                sb.AppendLine($"\n  <i>Label Reasoning:</i>");
+                sb.AppendLine($"  {q.reason_labels}");
+            }
+
+            // if (!string.IsNullOrEmpty(q.guidebook_explanation))
+            // {
+            //     sb.AppendLine($"\n  <i>{q.guidebook_reference ?? "Police Guidebook"}:</i>");
+            //     sb.AppendLine($"  {q.guidebook_explanation}");
+            // }
 
             sb.AppendLine();
         }
@@ -319,11 +351,31 @@ public class CaseEvaluationNotebookDisplay : MonoBehaviour
         if (texts.Length >= 2)
         {
             texts[0].text = $"Question: {q.question}";
-            texts[1].text = $"Politeness: {q.politeness}/10\n" +
-                           $"Investigation: {q.investigation}/10\n" +
-                           $"Direct: {q.direct}\n" +
-                           $"Evidence-based: {q.evidence_based}\n" +
-                           $"Leading: {q.leading}";
+
+            System.Text.StringBuilder details = new System.Text.StringBuilder();
+            details.AppendLine($"Politeness: {q.politeness}/3");
+            details.AppendLine($"Investigation: {q.investigation}/3");
+            details.AppendLine($"Direct: {q.direct}");
+            details.AppendLine($"Evidence-based: {q.evidence_based}");
+            details.AppendLine($"Leading: {q.leading}");
+
+            // NEW: Add reasoning sections
+            if (!string.IsNullOrEmpty(q.reason_politeness))
+            {
+                details.AppendLine($"\n<i>Politeness Reason:</i> {q.reason_politeness}");
+            }
+
+            if (!string.IsNullOrEmpty(q.reason_investigation))
+            {
+                details.AppendLine($"\n<i>Investigation Reason:</i> {q.reason_investigation}");
+            }
+
+            if (!string.IsNullOrEmpty(q.guidebook_explanation))
+            {
+                details.AppendLine($"\n<i>Guidebook:</i> {q.guidebook_explanation}");
+            }
+
+            texts[1].text = details.ToString();
         }
     }
 
