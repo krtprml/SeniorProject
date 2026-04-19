@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
@@ -15,6 +16,11 @@ public class NotebookReportSubmitter : MonoBehaviour
     [Header("Notebook Evaluation Display")]
     public CaseEvaluationNotebookDisplay notebookEvaluation;
 
+    [Header("Post-Submission Buttons")]
+    public Button restartButton;
+    public Button mainMenuButton;
+    public Button exitButton;
+
     [Header("UI Feedback")]
     public TextMeshProUGUI statusText;
 
@@ -28,6 +34,9 @@ public class NotebookReportSubmitter : MonoBehaviour
 
     void OnEnable()
     {
+        // Initialize post-submission buttons as inactive
+        SetPostSubmissionButtonsActive(false);
+
         if (reportForm != null)
         {
             reportForm.Show(OnReportSubmitted, OnCancelClicked);
@@ -75,6 +84,10 @@ public class NotebookReportSubmitter : MonoBehaviour
             Debug.Log("✅ Evaluation displayed on BlueRight tab - pages activated");
         }
 
+        // 🔥 Activate post-submission buttons
+        SetPostSubmissionButtonsActive(true);
+        Debug.Log("✅ Post-submission buttons activated");
+
         // 🔥 Disable MurderReport pages after submission
         if (murderReportLeft != null)
         {
@@ -117,5 +130,12 @@ public class NotebookReportSubmitter : MonoBehaviour
             bool playerWon = reply.ToLower().Contains("correct");
             GameEndManager.instance.ShowEndScreen(playerWon);
         }
+    }
+
+    private void SetPostSubmissionButtonsActive(bool active)
+    {
+        if (restartButton != null) restartButton.gameObject.SetActive(active);
+        if (mainMenuButton != null) mainMenuButton.gameObject.SetActive(active);
+        if (exitButton != null) exitButton.gameObject.SetActive(active);
     }
 }

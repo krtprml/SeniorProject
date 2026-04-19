@@ -1,0 +1,1190 @@
+[CH1] General Principles of Criminal Investigation
+
+When a criminal offense occurs, the parties authorized to prosecute a criminal case in court are the injured party and the public prosecutor. In cases where the public prosecutor acts as the plaintiff, the law prohibits the public prosecutor from filing a case in court if no prior investigation of that offense has been conducted. An investigation — which is the essential condition that empowers the public prosecutor to file a criminal case in court — must also be conducted lawfully. If the investigation is unlawful, it is considered that no prior investigation of that offense has been conducted, and the public prosecutor similarly has no power to prosecute. Therefore, the investigation must be carried out by an investigating officer with competent authority under the Criminal Procedure Code (CPC), Section 2(6), read together with Section 2(11), where the incident falls within the investigative jurisdiction under CPC Sections 18, 19, and 20. Initially, the investigating officer must know what powers and duties the investigating officer holds, what area falls within their investigative jurisdiction, how it connects with the investigative authority under CPC Sections 18 and 19, understand the structure of criminal liability, know the procedures and methods for compiling investigation files, the types of investigation files, and investigation file administration.
+
+1. Structure of Criminal Liability
+
+Criminal law refers to law carrying criminal penalties, namely: death, imprisonment, detention, fine, and forfeiture of property — not limited solely to the Penal Code. Therefore, provisions in various Acts carrying criminal penalties constitute criminal law. To determine whether a person must bear criminal liability, the Structure of Crime must be considered.
+
+A person shall be criminally liable only when:
+(1) The act satisfies all elements prescribed by law;
+(2) The act has no legal ground for exemption from the offense;
+(3) The act has no legal ground for exemption from punishment.
+
+In determining whether a person must bear criminal liability, first one must consider whether the person's act satisfies all elements prescribed by law. If so, one must then consider whether there is a legal ground for exemption from the offense. If not, one must then consider whether there is a legal ground for exemption from punishment. If none exists, it means that person must bear criminal liability.
+
+Structure Element 1: The Act Satisfies All Elements Prescribed by Law
+
+"The act satisfies all elements prescribed by law" means:
+- There is an act, i.e., a bodily movement performed consciously, under the direction of the mind, including omission under CPC Section 59, final paragraph;
+- The act satisfies the external elements of the offense;
+- The act satisfies the internal elements of the offense (committed intentionally, or negligently only for offenses prescribed by law);
+- The result of the act relates to the act under the principle of causation between act and result.
+
+Structure Element 2: The Act Has No Legal Ground for Exemption from the Offense
+
+An act satisfying all elements prescribed by law under Element 1, if it falls under a legal ground for exemption from the offense, the actor need not be liable — or it may be said that the law recognizes such an act as lawful and the actor has legal authority to perform it. For example, Section 68 ends with "that person commits no offense." Acts arising from lawful consent from a contract or custom, such as parental authority over a child or a teacher's authority over a student.
+
+Structure Element 3: The Act Has No Legal Ground for Exemption from Punishment
+
+An act satisfying all criminal elements as prescribed by law and with no legal ground for exemption from the offense — the actor may nonetheless not have to receive criminal punishment if there is a legal ground for exemption from punishment for such offenses. For example: acts of necessity under Penal Code Section 67; acts of children under 10 years and under 15 years under Penal Code Sections 73 and 74; acts of a person of unsound mind under Penal Code Section 65; acts of an intoxicated person under Penal Code Section 66; acts committed in compliance with an unlawful order of an official under Penal Code Section 70; certain property offenses between spouses under Penal Code Section 71, paragraph one.
+
+2. Meaning of "Investigation"
+
+CPC Section 2(11) defines "investigation" as the collection of evidence and all other proceedings under the provisions of this Code, which the investigating officer undertakes concerning the alleged offense, in order to ascertain the facts or prove the offense and in order to bring the offender to prosecution and punishment. The provisions in the CPC relating to investigation appear in Part 2, Investigation, Chapter 1, General Principles, Sections 120 to 129, and Chapter 2, Investigation, Division 1, Ordinary Investigation, Sections 130 to 147, and Division 2, Inquest, Sections 148 to 156.
+
+The investigation process begins with receiving a complaint or accusation under CPC Section 123 or 127, then conducting the investigation to gather evidence and carry out all other proceedings as authorized by law, until the investigation file is complete with an opinion sent to the public prosecutor under CPC Sections 140, 141, or 142. Once the investigation file has been sent to the public prosecutor, the investigating officer has no further power to investigate that case, unless the public prosecutor orders further investigation under CPC Section 143 — in which case the investigating officer has authority only to investigate the specific issues the public prosecutor ordered investigated — or unless new evidence is found under CPC Section 147.
+
+In investigations, the investigating officer has powers by law, such as: power to order any person not to leave a place for as long as necessary under CPC Section 137; power to send investigation issues to other officials under CPC Section 128(1); power to examine the injured party's body with the injured party's consent, or to examine the suspect's body, or examine objects or places that may be used as evidence under CPC Section 132(1); power to release on bail or detain an arrested person under CPC Section 84/1; power to issue a summons to the injured party or any person whose statements may be useful in the case under CPC Section 133, paragraph one; power to petition the court to issue arrest warrants, search warrants, detention warrants, or release warrants for suspects, etc.
+
+3. Three Essential Principles of Criminal Investigation
+
+1) It is a matter that the investigating officer undertakes in connection with the alleged offense, comprising the following procedural steps:
+
+(1) Considering the offense in the alleged case, as stated in the complaint or accusation, which must contain details of the alleged acts, circumstances of various acts, damage suffered, and information about persons, objects, and places involved as appropriate. It is the duty of the investigating officer to determine which charge and under which provision of law the alleged act constitutes.
+
+(2) Questioning and recording statements from the injured party and witnesses under CPC Section 133, whereby the investigating officer has power to summon the injured party or any person whose statements may be useful in the case to be questioned and have their statements recorded.
+
+(3) Charging and recording statements from the suspect. When there is reasonable evidence that a particular person is likely to have committed a criminal offense, the investigating officer has authority to inform that person of the charge, question them, and record their statements as a suspect under CPC Section 134. When taking a suspect's statement, the investigating officer must pay attention to notifying the suspect of the charge, the facts alleged against them, the date, time, place, persons, and objects involved, so the suspect understands the charge well. Additionally, the investigating officer must follow the procedures and methods prescribed by law, such as: before questioning the suspect, informing them of their rights during the investigation under Sections 134/1, 134/2, 134/3, and 134/4; providing an interpreter if the person cannot listen and answer questions in Thai; inquiring about legal counsel or providing counsel; arranging for a public prosecutor, psychologist or social worker, or person trusted by the child to attend, in categories of cases prescribed by law. If the investigating officer fails to comply fully, any statement the suspect gives to the investigating officer may not be admitted as evidence to prove that person's guilt. When the suspect willingly gives a statement of any kind, it shall be recorded; if the suspect is unwilling to give any statement at all, that shall also be recorded.
+
+(4) Evidence collection under CPC Sections 131, 131/1, 132. The investigating officer has authority to collect all types of evidence possible, namely: witness evidence, documentary evidence, and physical evidence, as well as photographs, maps, drawings, models, or fingerprints, handprints, or footprints; all details likely to clarify the case shall be recorded.
+
+2) In order to ascertain the facts or prove the offense. Collecting various evidence has the objective of ascertaining facts related to the alleged offense, or proving whether the act constitutes an offense or not. Additionally, the accused may not be the perpetrator; the investigating officer must also collect evidence indicating the accused is innocent. The court may convict a defendant in a criminal case only when the evidence is certain that an offense actually occurred and the defendant committed it, under CPC Section 227.
+
+3) In order to bring the offender to prosecution and punishment. Methods for bringing the suspect into the investigation process:
+
+(1) Issue a summons to appear before the investigating officer under CPC Section 52;
+(2) File a petition with the court for the court to issue an arrest warrant under CPC Section 66;
+(3) Receive the person from an official or citizen making the arrest under CPC Section 84;
+(4) The suspect presents themselves or surrenders to the investigating officer under CPC Section 134.
+
+4. Investigating Officers and Investigative Jurisdiction
+
+4.1 Investigating Officers
+
+The investigation must be conducted by an investigating officer with authority. CPC Section 2(6) defines "investigating officer" as an official whom the law grants authority and duty to conduct investigations.
+
+CPC Section 18 prescribes investigative authority. For police officials, police officials with a rank of Third Class Police Sub-Lieutenant or equivalent and above have authority to investigate criminal offenses that occurred, are alleged to have occurred, or are believed to have occurred within their jurisdiction, or where the suspect resides or was arrested within their jurisdiction. However, it does not specify which investigating officer has jurisdiction over which area; this must be considered under CPC Section 16. The authority of the investigating officer must be in accordance with laws and regulations governing police powers and duties.
+
+The Royal Thai Police Office, exercising authority under Section 11(4) of the National Police Act B.E. 2547 (2004), issued Police Order No. 419/56 dated July 1, 2013, on the Administration of Criminal Justice, Compilation of Investigation Files and Measures to Control, Monitor, and Expedite Criminal Investigations, as guidelines for conducting investigations under the CPC. This order was issued by the Commissioner-General as a regulation under CPC Section 16 regarding the scope of authority and duties for police officials in criminal investigations to ensure that investigation processes and procedures are lawfully conducted.
+
+"Investigating agency" means a police station, an investigation group, or a division with authority and duty for investigation and investigation under the Metropolitan Police Bureau, Provincial Police Region 1-9, Central Investigation Bureau, Immigration Bureau, and the Investigation and Asset Examination Group under the Narcotics Suppression Bureau. Subsequently, two additional agencies with investigative authority were established: the Tourist Police Bureau (TPB) and the Technology Crime Suppression Division (TCSD).
+
+The head investigating officer is defined in Chapter 4, Clause 2.5, as follows:
+
+(1) The head of a police station, the head of an investigating agency, or the acting officer with criminal investigative authority, is the head investigating officer under CPC Section 18, paragraph four, and Section 140, within their area of responsibility.
+
+(2) The police commissioner, or acting officer, with criminal investigative authority, is the head investigating officer under CPC Section 18, paragraph four, and Section 140, within their area of responsibility.
+
+(3) The police commander, or acting officer, with criminal investigative authority, is the head investigating officer under CPC Section 18, paragraph four, and Section 140, within their area of responsibility.
+
+(4) The Commissioner-General of the Royal Thai Police, or acting officer, is the head investigating officer throughout the kingdom and has authority to issue orders in all cases in all circumstances.
+
+The head investigating officers under (1)-(4) have authority to assign police officials with a rank of Third Class Police Sub-Lieutenant or equivalent and above within their command to perform investigative duties within their area of responsibility, as specified by the Royal Thai Police Office.
+
+To designate a particular police official as an investigating officer, the Royal Thai Police Office has established criteria for appointing police officials to perform duties as investigating officers under the National Police Act B.E. 2547 and the NCPO Order No. 7/2559 dated February 5, 2016, on Defining Positions of Police Officials with Investigative Authority and Duties. Item 2 abolishes the positions of investigating officer and senior specialist investigating officer, replacing them with Deputy Superintendent to Commander positions under Section 44(6)-(11), treating those holding investigating officer — senior specialist investigating officer positions under the old Section 44 as Deputy Superintendent — Commander positions as the case may be (per Item 9).
+
+The Royal Thai Police Office divides its administrative structure into two parts: the Office of the Commissioner-General and Bureaus. Under the Royal Decree on Administrative Division of the Royal Thai Police B.E. 2552 (2009), Section 5(A), the Office of the Commissioner-General does not specify authority and duty for investigation or performance of duties under the CPC and other criminal laws. Only the Bureaus or equivalent agencies under Section 5(B) are granted authority and duties related to performing duties under the CPC and other criminal laws:
+
+(1) Provincial Police Regions 1-9 under Section 5(10)-(18)(f), with authority over their respective territorial areas;
+(2) Central Investigation Bureau (CIB) (20)(c), with jurisdiction throughout the kingdom;
+(3) Narcotics Suppression Bureau (NSB) (21)(b), with jurisdiction throughout the kingdom;
+(4) Immigration Bureau (23)(b), with jurisdiction throughout the kingdom.
+
+Additionally, two new bureaus have been established: the Tourist Police Bureau (TPB), established under the Royal Decree on Administrative Division of the Royal Thai Police (No. 3) B.E. 2560 (2017) dated August 27, 2017, and the Technology Crime Suppression Division (TCSD), established under the Royal Decree on Administrative Division of the Royal Thai Police (No. 5) B.E. 2563 (2020) dated September 6, 2020, both with authority to investigate criminal offenses within their jurisdiction.
+
+Furthermore, each Bureau or equivalent agency has sub-units including Divisions, Subdivisions, Investigation Groups, and Police Stations, which the law specifies to have authority and duties for investigation or performance under the CPC or other criminal laws within their respective areas of jurisdiction. Additionally, there are Legal and Litigation Divisions in Provincial Police Regions 1-9, established under the Ministerial Regulation on Administrative Division as a Division B.E. 2563 (2020) dated June 24, 2020, which also specifies investigative authority under Item 2, Sub-item 7).
+
+Beyond police station-level investigating officers, other agencies with investigative authority serve as supporting units. The type of cases they have investigative authority over will be governed by regulations laying out criteria and guidelines, or orders of the superior officer who is the head of the investigating agency at each level.
+
+Considering Police Order No. 537/55 dated September 27, 2012, on Defining the Authority and Duties of Positions in Police Stations, the station structure divides work in Metropolitan and Provincial Police Stations into 5 service lines and 1 special operations unit: (1) Administration; (2) Prevention and Suppression; (3) Traffic; (4) Investigation (Detective); (5) Inquiry (Investigation); and a Special Operations Unit, with the station head as the highest commanding officer supervising all service lines.
+
+Under CPC Section 18, paragraph four (final paragraph), where multiple investigating officers exist in a territory, the investigation shall be the responsibility of the head investigating officer or acting officer. Combined with Police Order No. 419/2556, Chapter 4, Clause 2.5(1), the station head or head of investigating agency or acting officer with criminal investigative authority is the head investigating officer under CPC Section 18, paragraph four, and Section 140, within their area of responsibility.
+
+Above the station level, there are the levels of Commissioner, Commander, and Commissioner-General, with authority within their respective jurisdictions as described above.
+
+The investigating officers described above are investigating officers under CPC Section 2(6) and have authority to investigate under CPC Section 2(11). Other police official service lines have no investigative authority unless a superior officer with lawful authority issues an order assigning them to perform investigative duties.
+
+4.2 Investigative Jurisdiction and Responsible Investigating Officer
+
+Investigative jurisdiction refers to the geographical area for which an investigating officer has lawful authority, duties, and responsibility — generally meaning the jurisdiction of that particular police station. The investigative jurisdiction of police investigating officers is governed by CPC Sections 18 and 19. Section 20 concerns investigative jurisdiction where the Attorney-General is the responsible investigating officer.
+
+4.2.1 Investigative Jurisdiction and Responsible Investigating Officer under CPC Section 18
+
+Investigating officers appointed from police officials with a rank of Third Class Police Sub-Lieutenant or equivalent and above are investigating officers under CPC Section 2(6) and have authority to investigate criminal offenses that occurred, are alleged to have occurred, or are believed to have occurred within their jurisdiction, or where the suspect resides or was arrested within their jurisdiction, under CPC Section 18.
+
+(1) Criminal offense "occurred" within their jurisdiction — e.g., Mr. Daeng stole property from Mr. Dam at Bang Lamphu; the theft offense occurred within the jurisdiction of Chanasongkram Police Station; the investigating officer at Chanasongkram Station has authority to investigate.
+
+- A defendant was traveling from Saudi Arabia to Thailand. The victim had entrusted property to the defendant to give to the victim's wife in Thailand. The victim later returned to Thailand and learned that the defendant had not delivered the entrusted property to the victim's wife, so went to demand it at the defendant's house in Kumphawapi District, Udon Thani Province. The defendant said he would return it later, then denied receiving the entrusted property. The offense thus occurred in Kumphawapi District, Udon Thani Province — not in Saudi Arabia. The victim filed a complaint at Kumphawapi Police Station, so the investigating officer there had authority to investigate. (Supreme Court Judgment No. 1573/2535)
+
+- The defendant gave the deceased poisonous substances at the deceased's house, so the offense occurred at the deceased's house, which fell within the jurisdiction of Don Mueang Police Station. The deceased then died at Phramongkutklao Hospital. Death is the "result" of the criminal act; the investigating officer at Don Mueang Station had authority to investigate. (Supreme Court Judgment No. 3337/2543)
+
+(2) Criminal offense "alleged to have occurred" within their jurisdiction — e.g., a victim files a complaint alleging that theft occurred at Bang Lamphu; the investigating officer at Chanasongkram Station has authority to investigate.
+
+(3) Criminal offense "believed to have occurred" within their jurisdiction — meaning the investigating officer believes a criminal case occurred in their jurisdiction, whether through receipt of a complaint or accusation, or because evidence appears to indicate a criminal case occurred. For example: a body with gunshot wounds was found in Sam Phran District. Even though there are no eyewitnesses, when the investigating officer considers the trail of evidence, they believe a homicide occurred in Sam Phran District; thus the investigating officer at Sam Phran Police Station has authority to investigate. Even if it later becomes clear that the deceased was killed by the suspect Daeng in Nakhon Chai Si District and the body was dumped in Sam Phran District, the investigation already conducted by the Sam Phran investigating officer was lawful.
+
+(4) The suspect has a residence within their jurisdiction — as in case (3) above, if Daeng the suspect has a home in Sam Phran District, the Sam Phran investigating officer has the same authority as the Nakhon Chai Si investigating officer.
+
+(5) The suspect was arrested within their jurisdiction — as in case (3), if Daeng was subsequently arrested in Mueang Nakhon Pathom District, the Mueang Nakhon Pathom investigating officer has authority to investigate.
+
+Note: From the homicide example in Nakhon Chai Si District, the investigating officers at Nakhon Chai Si (offense occurred), Sam Phran (suspect's residence), and Mueang Nakhon Pathom (suspect arrested) all have authority to investigate this case.
+
+However, when a criminal offense occurs, only one territorial investigating officer is responsible and has the duty to compile the investigation file from various investigating officers and formulate a case opinion to send to the public prosecutor. CPC Section 18, paragraph three, designates the investigating officer of the territory where the offense occurred as the responsible investigating officer, as the law recognizes that where an offense occurred generally has key evidence present. For the investigating officer of the territory where the suspect resides or was arrested to be the responsible investigating officer, the following conditions must be met:
+
+(1) There is a necessity, e.g., flooding, road blockage, and there is urgency to complete the investigation and summarize the file with an opinion for the public prosecutor because the case is approaching the statute of limitations; or
+
+(2) For convenience, e.g., the evidence and exhibits are located in the territory where the suspect resides or was arrested.
+
+If neither necessity nor convenience as described above applies, the investigating officer of the territory where the offense occurred shall be the responsible investigating officer.
+
+"Responsible investigating officer" means the investigating officer who has the duty to finally compile the evidence in the investigation file, then formulate an opinion for the public prosecutor on whether the case should be prosecuted or not prosecuted, or the investigation suspended, under CPC Sections 140, 141, 142 (see Supreme Court Judgment No. 1974/2539 as reference). Ordinarily, whichever investigating officer's jurisdiction an offense occurred in shall have responsibility for investigating that offense under CPC Section 18, paragraph three.
+
+Where a territory has multiple investigating officers, the investigation shall be under the responsibility of the head investigating officer or acting officer in that territory, under CPC Section 18, paragraph four, and Police Order No. 419/2556, Chapter 4, Measure 2.5.
+
+4.2.2 Investigative Jurisdiction and Responsible Investigating Officer in Cases Involving Multiple Connected Territories under CPC Section 19
+
+Investigating officers with authority to investigate:
+
+Section 19, paragraph two, discusses which investigating officers have authority to investigate when an offense occurs in multiple connected or continuous territories under Section 19(1)-(6): "an investigating officer of any one connected territory has authority to investigate." This means investigating officers of all territories connected with the offense under Section 19(1)-(6) have authority to investigate the alleged offense as well as other related offenses occurring outside their own territory. (See Supreme Court Judgment No. 1180/2537 as reference)
+
+Responsible investigating officer:
+
+The responsible investigating officer is the one with authority to summarize the file, formulate a case opinion, and send the investigation file to the public prosecutor under CPC Sections 140, 141, 142. Section 19, paragraphs three (a) and (b) lay down criteria for identifying the responsible investigating officer as follows:
+
+(a) If the suspect has been arrested: the investigating officer in whose jurisdiction the suspect was arrested;
+(b) If the suspect has not yet been arrested: the investigating officer in whose jurisdiction the offense was first discovered.
+
+When Section 19, paragraphs three (a) and (b) have established the criteria, if the investigating officer who summarizes the file and formulates the case opinion is not the responsible investigating officer, the investigation will be unlawful and it will not be considered that an investigation of that offense was previously conducted; the public prosecutor will have no authority to prosecute. (See Supreme Court Judgments No. 1974/2539, 3466/2547, 1204/2542, 1126/2544, 4512/2530, 2280/2548 as reference)
+
+(1) When it is uncertain in which territory the criminal act was committed among several territories, under Section 19(1). Examples:
+
+- The deceased's body was found in Chanasongkram Police Station's territory but the deceased's blood was found in Phra Ratchawang Police Station's territory; or an employee responsible for collecting money from the employer's debtors in other provinces and delivering it to the employer domiciled in Bang Rak Police Station's territory collected the money from a debtor in another territory and used it personally. It is uncertain in which territory the embezzlement was intended, and it was decided that the Bang Rak investigating officer had authority to investigate. (Supreme Court Judgment No. 1655/2530)
+
+- The defendant made a false report about a criminal offense to the investigating officer at Pa Phayom Police Station, and gave false testimony in proceedings before the Phatthalung Provincial Court, which is in Mueang Phatthalung Police Station's territory. This is considered to be a case where it is uncertain in which territory among several the defendant's acts of false reporting and false testimony were committed, under CPC Section 19(1). The Pa Phayom investigating officer therefore had authority to investigate. (Supreme Court Judgment No. 1691/2561)
+
+(2) Where one part of the offense was committed in one territory, but another part in another territory, under Section 19(2). Examples:
+
+- Daeng stood in Chanasongkram Police Station's territory and shot at Dam who was in Phra Ratchawang Police Station's territory; investigating officers at each station had authority to investigate as territories connected under CPC Section 19, paragraph two. As to which territory's investigating officer is the responsible one for formulating the case opinion, Section 19, paragraph three must be considered.
+
+- The defendant poisoned the deceased at the deceased's home in Sattahip District, Chonburi Province. While the deceased was in hospital in Mueang Rayong District, the defendant went and forced more poison on the deceased. This is a case under CPC Section 19(2), so the Mueang Rayong investigating officer had authority to investigate.
+
+(3) When the offense is a continuing offense committed continuously in more than one territory, under CPC Section 19(3).
+
+A continuing offense is an offense arising from an act with a continuously connected nature — an offense in which commission persists at all times, e.g., possessing counterfeit currency under Penal Code Section 244, possessing counterfeiting instruments under Penal Code Section 246, possessing narcotic substances, etc.
+
+Examples:
+
+- Daeng from Saraburi deceived Miss Dam, age 22, from her residence in Taling Chan District, Bangkok, to stay overnight at a house in Chombueng District, Ratchaburi Province, intending to rape her, and was arrested before doing so. Daeng committed the offense under Penal Code Section 284, paragraph one, which is a continuing offense committed in multiple territories starting from Taling Chan Police Station (where she was deceived) through to Chombueng Police Station. Every police station through which Daeng transported Miss Dam has authority to investigate. (Supreme Court Judgment No. 1974/2539)
+
+- Daeng issued a check to pay for goods purchased from Dam, issuing the check in Mueang Songkhla District, but the bank in Hat Yai District refused payment. The Mueang Songkhla investigating officer had authority to investigate because the offense was continuous between the territory where the check was issued and the territory where the bank refused payment. (Supreme Court Judgments No. 1010/2508, 1702-1703/2523)
+
+Note: Regarding this Supreme Court Judgment, an offense under the Act on Liabilities Arising from the Use of Checks, Section 4, has acts separable into parts — one being the issuance of a check with intent not to honor it; another being the bank's refusal to pay. The date of check issuance is thus a date when part of the offense was committed. Whether classified under Section 19(2) or (3), the result is the same: investigating officers in each territory have authority to investigate, overriding Supreme Court Judgment No. 1575/2521.
+
+Note of caution: Where a check is transferred before presentation for collection, the territory where the check is transferred is not considered continuous with the territory where the bank refuses payment.
+
+- The defendants compelled, detained, and confined Malaysian victims to demand ransom and forced victims to drive to the Thai border, apparently detaining them within Thai territory since the defendants' domiciles were in the kingdom — constituting a continuing offense both inside and outside the kingdom. The Kwandon Sub-district Police Station investigating officer who arrested the defendants had authority to investigate and prosecute. (Supreme Court Judgment No. 1586/2526)
+
+Note: Section 19(3) requires a continuing offense committed continuously in multiple territories. If acts are continuous across multiple territories but do not constitute a continuing offense, Section 19(3) does not apply but another subsection may.
+
+- Deceiving the victim from Bang Yi Khan Police Station's territory, taking her to the scene in Tha Maka District, confining and raping her — this is a continuing offense committed continuously in multiple territories, and together with detention, confinement, and rape constituting multiple offenses in different territories, including Bang Yi Khan and Tha Maka territories. The Tha Maka investigating officer is the responsible investigating officer under Section 19, paragraph three (a) since the suspect was arrested there. Bang Yi Khan does not have authority to summarize the file and formulate the case opinion. When Bang Yi Khan in fact did so, the case was considered to have had no investigation, and the public prosecutor had no authority to prosecute. (Supreme Court Judgment No. 1974/2539)
+
+(4) When the offense involves multiple criminal acts committed in different territories, under CPC Section 19(4).
+
+This differs from Section 19(2) in that Section 19(2) involves a single criminal act where the actor commits part in one territory and another part in another territory, while Section 19(4) involves the actor committing multiple different criminal acts, each in different territories.
+
+Example: On the night of the incident, the defendant stole a motorcycle in one territory, then drove it to rob someone in another territory; after that, used a firearm to resist and attempted to kill a police officer at a checkpoint in yet another territory. Each police station whose territory is connected has authority to investigate all charges under Section 19(4). The territory's investigating officer where the suspect was arrested is the responsible investigating officer under Section 19, paragraph two (a).
+
+- The suspect snatched a necklace from the victim in Chanasongkram's territory, fled to Nang Loeng's territory and stole a motorcycle, then fled to Phaya Thai's territory. Phaya Thai police learned of the situation and set up a blockade; a shootout occurred; the suspect was arrested in Phaya Thai's territory. Investigating officers at Chanasongkram, Nang Loeng, and Phaya Thai all have authority to investigate. Phaya Thai is the responsible investigating officer under Section 19, paragraph two (a) as the territory of first arrest — with authority to investigate the robbery in Chanasongkram's territory and the theft in Nang Loeng's territory. However, if Chanasongkram's investigating officer learned of the offense before the arrest at Phaya Thai, Chanasongkram would be the responsible investigating officer under Section 19, paragraph two (b) as the territory where the offense was first discovered.
+
+(5) When the offense occurred while the suspect was traveling, under CPC Section 19(5).
+
+Example: A suspect transporting narcotics boarded a train traveling from Chiang Mai to Bangkok. Investigating officers of all territories the suspect traveled through have authority to investigate under Section 19(5).
+
+- The victim and suspect were passengers on a regular bus from the Mo Chit Transport Terminal in Bang Sue Police Station's territory to Nakhon Sawan Province. During the journey, the suspect induced the victim to gamble, then stole from the victim. The suspect alighted at Sing Buri Transport Terminal; the victim continued to Nakhon Sawan Transport Terminal and filed a complaint at Mueang Nakhon Sawan Station. The offense occurred between Bang Sue and Mueang Sing Buri territories; all investigating officers along that route had authority to investigate; Mueang Nakhon Sawan had no authority. Whichever station between Bang Sue and Mueang Sing Buri received the complaint first is the responsible investigating officer under Section 19, paragraph two (b).
+
+(6) When the offense occurred while the victim was traveling, under CPC Section 19(6).
+
+Example: A victim traveling by train from Hua Lamphong Station put their bag on the overhead rack, fell asleep, and when they arrived at Uttaradit Station found the bag gone, then filed a complaint at Mueang Uttaradit Station. Mueang Uttaradit is the responsible investigating officer under Section 19, paragraph two (b). But if the victim realized the bag was missing at Phitsanulok Station but continued to Uttaradit before filing the complaint, then investigating officers from Pathum Wan Station through Mueang Phitsanulok had authority to investigate, and whichever first received the complaint is the responsible investigating officer under Section 19, paragraph two (b).
+
+In any case, a victim filing a complaint with an investigating officer lacking jurisdiction does not prevent the complaint from being received; complaints may be filed with any police officer. The Royal Thai Police Office has established the practice of allowing complaints to be filed in any territory under Police Order No. 419/2556, Chapter 2, Clause 1.1.3, and Police Order No. 177/2564 dated April 9, 2021, on Receiving Criminal Complaints or Accusations Outside the Investigative Jurisdiction. The investigating officer must forward the matter to the investigating officer with jurisdiction to proceed, using electronic systems as available.
+
+4.2.3 Responsible Investigating Officer Where the Offense Occurred Outside the Kingdom, under CPC Section 20
+
+The three principles of criminal punishment under Thai law, as laid out in the CPC, are: the territorial principle under Sections 4, 5, and 6; the universal jurisdiction principle under Section 7; and the personal principle under Sections 8 and 9. Offenses punishable under Thai law committed outside the kingdom include cases under Penal Code Sections 7, 8, and 9. For cases under Penal Code Sections 4(2), 5, and 6 — which the Penal Code deems committed within the kingdom — Thai courts have jurisdiction to try such cases, but the investigation must comply with CPC Section 20, i.e., the Attorney-General is the responsible investigating officer.
+
+CPC Section 20 (newly added, amended by CPC Amendment Act (No. 29) B.E. 2551, Section 3) lays down the following principles:
+
+(1) The Attorney-General or acting officer is the responsible investigating officer, or may assign a public prosecutor or any investigating officer as the responsible person to conduct the investigation in their place.
+
+(2) If the Attorney-General or acting officer assigns an investigating officer as the responsible person, the Attorney-General may also assign a public prosecutor to conduct the investigation jointly with that investigating officer.
+
+(3) The assigned public prosecutor serving as responsible investigating officer or assigned to investigate jointly with the investigating officer has the same authority and duties as the investigating officer, while retaining other authority and duties prescribed for public prosecutors.
+
+(4) Where a public prosecutor jointly investigates with an investigating officer, the investigating officer must follow the public prosecutor's orders and recommendations regarding evidence collection.
+
+(5) When the public prosecutor or investigating officer who is the responsible person considers the investigation complete, an opinion shall be formulated under CPC Sections 140, 141, or 142 — i.e., an opinion for suspending investigation, an opinion for prosecution, or an opinion against prosecution — together with the file, and sent to the Attorney-General.
+
+(6) In cases of necessity while awaiting the Attorney-General's or acting officer's order, the following investigating officers have authority to investigate:
+a. The investigating officer in whose jurisdiction the suspect is detained;
+b. The investigating officer to whom the government of another country or the injured person has made a request to punish the suspect.
+
+Guidelines on Investigation of Offenses Committed Outside the Kingdom:
+
+(1) Under Office of the Attorney-General Regulations on the Criminal Proceedings of Public Prosecutors (No. 8) B.E. 2551, Clauses 28-29: Where the Attorney-General assigns a public prosecutor to jointly investigate with an investigating officer, the assigned public prosecutor shall:
+- Consult with the investigating officer to establish investigation directions;
+- Jointly interrogate witnesses or suspects and participate in or issue orders and recommendations to the investigating officer regarding evidence collection as deemed appropriate;
+- Report investigation results to the Attorney-General or acting officer periodically;
+- Upon completion of the investigation, formulate an opinion under CPC Sections 140, 141, or 142 and send the investigation file to the Attorney-General or acting officer for a decision, forwarding to the public prosecutor in the territory with jurisdiction to then forward to the Attorney-General;
+- During the wait for the Attorney-General's order, handle provisional release of suspects, detention, petitions for court remand, or other necessary actions as the case may be.
+
+(2) Office of the Attorney-General Letter No. 0007(PG)/V349 dated September 28, 2016, on Guidelines for Public Prosecutors' Work in Investigating Offenses Punishable under Thai Law Committed Outside Thailand under CPC Section 20, circulated to all units of the Office of the Attorney-General.
+
+Where the Attorney-General assigns a public prosecutor to investigate jointly with an investigating officer, the investigation is divided into three phases:
+
+Phase 1: From when the investigating officer receives the complaint or accusation, before the investigating officer requests the Attorney-General to consider the matter under CPC Section 20. During this phase, the investigating officer has authority to investigate independently without a public prosecutor's participation — investigation under CPC Sections 18 or 19 from the outset.
+
+Phase 2: While awaiting the Attorney-General's order, from the date the investigating officer sends a letter to the Attorney-General until the date the investigating officer receives the assignment letter from the Attorney-General. During this phase, the investigating officer may investigate when necessary and as prescribed by CPC Section 20, paragraph five. "Cases of necessity" include: a witness is about to travel abroad; a witness is near death; or urgent needs regarding evidence that will be lost or degraded if not immediately collected.
+
+Phase 3: After the Attorney-General orders a public prosecutor to participate in the investigation. From when the investigating officer receives the assignment letter until the investigation is complete. During this phase, the assigned public prosecutor must always participate in the investigation.
+
+(3) Office of Criminal Affairs Letter No. 0031.212/1331 dated December 29, 2006, on Questions Concerning Investigation of Offenses Punishable under Thai Law Committed Outside the Kingdom under CPC Section 20, addressed to various commanders, conveying the Attorney-General's response on this legal issue to remind investigating officers to exercise care when investigating under CPC Section 20.
+
+The Attorney-General responded that offenses punishable under Thai law committed outside the kingdom under CPC Section 20 are determined by geographic fact. Even if an offense is deemed committed within the kingdom under Penal Code Section 5, if the actual act occurred outside the kingdom, the Attorney-General is the responsible investigating officer under CPC Section 20. The case involved all suspects acting jointly as principals under Penal Code Section 83 and could not be separated by individual acts.
+
+The criteria under CPC Section 20 are: the Attorney-General's or acting officer's investigative jurisdiction covers cases of offenses punishable under Thai law that actually occurred outside Thailand — evaluated geographically as fact — without applying the principles of Penal Code Sections 4(2), 5, or 6 (which deem certain acts committed within the kingdom). The reason Penal Code Sections 4(2), 5, and 6 cannot be applied to investigative authority under CPC Section 20 is that the intent of the two provisions differs: the Penal Code provisions are intended to give Thai courts jurisdiction over such offenses; but for investigative authority, CPC Section 20 applies, with the intent that when an offense occurs in another state's sovereign territory and criminal proceedings arise, this may risk affecting international relations and thus requires careful handling. Additionally, the Attorney-General is the central coordinating body under the Act on Mutual Assistance in Criminal Matters and has authority to coordinate with other countries regarding evidence and court judgments.
+
+Relevant Supreme Court Judgments:
+
+- The plaintiff alleged the defendant transported a victim from Thailand to Japan, detained her, and arranged for her to work in prostitution in Japan by fraud and coercion. The acts constitute offenses under the Anti-Human Trafficking Act B.E. 2551, Anti-Prostitution Act B.E. 2539, and Penal Code Section 283. Since the acts also occurred outside the kingdom, CPC Section 20 requires the Attorney-General to be the responsible investigating officer. The Attorney-General assigned the Anti-Human Trafficking Division investigating officer to investigate with a public prosecutor from the Criminal Case Office; the prosecution therefore had authority to prosecute. (Supreme Court Judgment No. 6552/2559)
+
+- A Thai airline offense occurring above Singapore's airspace is considered to have occurred outside the kingdom, subject to CPC Section 20, even though the Penal Code deems it committed within the kingdom under Section 4(2).
+
+- The plaintiff alleged the defendant committed multiple offenses in different territories including Nong Bua Lam Phu Province, Bang Na District Bangkok, and Singapore. This is a case of multiple offenses in different territories under CPC Section 19(4); the responsible investigating officer is the officer in whose jurisdiction the suspect was arrested — not a case of an offense committed solely outside Thailand under CPC Section 20. The investigation was lawfully conducted, and the prosecution had authority to prosecute. (Supreme Court Judgment No. 3118/2559)
+
+- A defamatory Facebook post: where both the suspect and victim were in Thailand and the Facebook provider is based in the United States, the Attorney-General's view is that without evidence showing the posting occurred while outside Thailand, it does not constitute an offense committed outside the kingdom. The Attorney-General therefore is not the responsible investigating officer under Section 20.
+
+5. Authority to Determine the Responsible Investigating Officer under CPC Sections 21 and 21/1
+
+(Police officers only are addressed here.)
+
+- In Bangkok: a superior officer of the investigating officers holding a rank of at least Deputy Director-General of the Police Department (Deputy Commissioner-General and above) has authority to determine, under CPC Section 21, paragraph one.
+
+- In other provinces outside Bangkok, for investigations within a single province or bureau: the Commander who is the superior of those investigating officers has authority to determine, under CPC Section 21/1.
+
+- For multiple provinces in different bureaus: the Director-General of the Attorney-General's Office or acting officer (now the Attorney-General) has authority to determine, under CPC Section 21.
+
+Notes:
+- Awaiting determination does not suspend the investigation, under CPC Sections 21 and 21/1.
+- In provinces outside Bangkok, determination authority belongs exclusively to the Commander who is the superior of those officers and cannot be delegated except through acting appointment.
+- In Bangkok, determination authority belongs to the Commissioner-General and Deputy Commissioner-General(s); other positions have no such authority as it is an exclusive personal power.
+- For cases within the jurisdiction of administrative officials (under 16 specified laws), in provinces outside Bangkok, if uncertain which administrative investigating officer in the same province should be the responsible officer, the Provincial Governor has authority to determine. For disputes spanning multiple provinces, the Attorney-General or acting officer determines under CPC Section 21.
+
+6. Significance of Investigation for Prosecution in Criminal Cases
+
+The investigation is a condition for prosecution. Where the public prosecutor acts as plaintiff, CPC Section 120 prohibits the public prosecutor from filing a case in court without a prior investigation of that offense. "Without prior investigation" includes investigation conducted unlawfully. An unlawful investigation must be one that invalidates the entire file, not merely part of it, since an investigation that is only partially invalidated merely renders specific evidence from that non-compliant portion inadmissible.
+
+Only investigations not conducted in accordance with the jurisdictional provisions of CPC Section 2(6) together with Sections 18, 19, or 20 (where the Attorney-General is the responsible investigating officer), and investigations into private offenses without a proper complaint under CPC Section 121, will completely invalidate the investigation and affect the authority to prosecute.
+
+Examples:
+- The investigation under CPC Section 120 must be by an investigating officer specified under CPC Section 2(6) together with Section 18. When the offense occurred in Samrong Tai Police Station's territory, an officer from Bang Sue Station lacked authority to investigate. When Bang Sue's investigation of the complainant was unlawful, and even though Sam Roi Yot Station's investigation was valid but only covered part of the case, the entire investigation was not lawful under CPC Section 18; the prosecution had no authority to prosecute. (Supreme Court Judgment No. 371/2531)
+
+- When both possession of methamphetamine for sale and sale occurred entirely in Samae Dam Police Station's territory, and the prosecution did not allege the defendant jointly committed the offense with persons arrested in Bang Bon's territory, the acts did not constitute a continuing offense in multiple territories under Section 19(3). The case fell within Samae Dam Station's jurisdiction under Section 18(2). The Bang Bon Station investigating officer had no authority. The prosecution had no authority to prosecute under Section 120. (Supreme Court Judgment No. 1756/2550)
+
+Conditions for a Lawful Investigation Enabling the Public Prosecutor to Prosecute:
+
+(1) Investigation must be by an investigating officer with jurisdiction under CPC Sections 18, 19, or 20;
+
+(2) The person who formulates the case opinion and sends the investigation file to the public prosecutor under CPC Sections 140, 141, or 142 must be the responsible investigating officer under CPC Sections 18, 19, or 20 — under Section 18, ordinarily the officer in whose territory the offense occurred, unless there is necessity; under Section 19, as per Section 19, paragraphs two (a) and (b); under Section 20, the Attorney-General or acting officer;
+
+(3) In private offense cases, a complaint must be filed under CPC Section 123 or 124 first. For complaints under Section 124, the complaint is forwarded to the responsible investigating officer's territory before the investigating officer has authority to investigate and the public prosecutor has authority to prosecute.
+- The complaint must be an allegation with intent to have the offender punished.
+- The complaint must be filed within the complaint limitation period under Penal Code Section 96, i.e., within 3 months from the date the complainant knows of the offense and the offender. The case must also be pursued within the criminal statute of limitations under Penal Code Section 95.
+
+7. Effect of Sending the Investigation File to the Public Prosecutor After the Investigation is Complete
+
+Once the investigating officer has completed the investigation, formulated an opinion, and sent the investigation file to the public prosecutor under CPC Sections 140, 141, or 142, the investigation is deemed complete, and the investigating officer no longer has authority to investigate that case, unless the public prosecutor orders additional investigation under CPC Section 143. If an investigating officer conducts additional investigation without a public prosecutor's order, the additional investigation is unlawful and the specifically added evidence cannot be admitted. For example:
+
+- After the investigating officer completed the investigation and sent the file to the public prosecutor, any further summons of witnesses by the investigating officer — if the witness refuses to testify — is not an offense. (Supreme Court Judgment No. 9/2481)
+
+The Royal Thai Police Office's guidance: once the investigating officer sends the investigation file to the public prosecutor, the investigating officer loses all investigative authority. If, after the file has been sent, the suspect is later arrested, the investigating officer must charge and take the suspect's statement under Section 134, then send only the charging record to the public prosecutor without formulating a new opinion.
+
+However, the investigating officer may only investigate the specific suspect and take actions related to that suspect: provisional release, filing for remand, fingerprinting, sending fingerprints for criminal record verification. The investigating officer may not independently collect other evidence, such as taking additional witness statements or sending evidence for examination.
+
+8. Procedures for Compiling the Investigation File
+
+1. Receive the complaint or accusation under CPC Sections 123 and 127.
+2. Record the complaint or accusation in the Royal Thai Police's information system (Crimes); also enter in the General Criminal Case Registry (Form S 56-72) or Traffic Case Registry (Form S 56-73) and receive the criminal or traffic case number per regulations.
+3. Record the complaint or accusation in the daily duty log relating to the case with the case number.
+4. Update information in the Royal Thai Police Crimes information system at each stage of the investigation.
+5. If exhibits are seized in criminal or traffic cases, record details in the Seizure and Property Custody Registry (Form K. 48-T. 40) with sequential seizure numbers; also enter seizure in the daily duty log with matching seizure numbers. Storage, disposal, and auction are governed by CPC Sections 85 and 85/1, Police Regulations on Cases, and other relevant orders.
+6. Take a statement from the complainant or accuser in the capacity of "complainant."
+7. When taking the complainant's statement, frame the case and set investigation issues according to the circumstances; consider whether the circumstances constitute a criminal offense and whether it falls within the complaint limitation period under Penal Code Section 96, the prosecution limitation under Penal Code Section 95, or any special law's limitation. Apply the criminal liability structure to framing the case and setting investigation issues. The investigating officer must also collect all categories of evidence: witness evidence, physical evidence, documentary evidence, and expert evidence, fully supporting the case framework.
+8. Submit the investigation file to the supervisor for review and instruction at intervals per Police Order No. 419/2556.
+9. Where necessary, examine the crime scene; involve the forensic evidence unit in scene examination; collect evidence for examination to establish facts.
+10. Charging the suspect requires reasonable evidence that the suspect likely committed the offense under CPC Section 134.
+11. Taking statements from complainants, witnesses, and suspects must be done lawfully with full notification of legal rights.
+12. Evidence collection must be conducted under the authority of CPC Sections 131, 131/1, 132, 133, and other relevant laws.
+13. Carry out all other proceedings under CPC Section 2(11): arrest, detention, provisional release, search, checking arrests, deferral of prosecution and remand, etc.
+14. In cases with an injured party, send written updates on the case progress to the injured party at each interval until the investigation is complete, strictly following Police Order No. 419/2556.
+15. Upon completing the investigation and evidence collection, prepare the investigation report with a case opinion submitted through the head of the investigation section and the head investigating officer under CPC Sections 140, 141, or 142.
+16. After sending the investigation file to the public prosecutor, the investigating officer's investigative authority ends; further investigation must be ordered by the public prosecutor under CPC Section 143.
+17. Where there has been a definitive order not to prosecute from the public prosecutor and new evidence is subsequently found, the same matter may be re-investigated if the new evidence is important to the case and likely to enable the court to convict the accused, under CPC Section 147.
+18. Compiling an inquest file follows the same procedures as an ordinary investigation under CPC Section 129.
+
+9. Types of Investigation
+
+Under the CPC, investigations are of two types:
+
+(1) Ordinary investigation: investigation of all general criminal offenses under all laws defining criminal offenses.
+
+(2) Inquest: file compilation when it appears clearly or there is reasonable cause to suspect that a person died unnaturally, or died while in official custody — except death by lawful execution — under CPC Sections 148 and 150-156. CPC Section 155 applies investigation provisions to inquests by analogy. Section 129 provides that the investigation, including an inquest, shall be conducted where the death results from a criminal offense; if the inquest is not yet complete, the suspect may not be prosecuted in court.
+
+Investigation files can be classified by registry into three types:
+(1) General criminal case files;
+(2) Road traffic case files;
+(3) Inquest files.
+
+Investigation files can be classified by factual knowledge of the offender into two types:
+(1) Files where the offender is unknown;
+(2) Files where the offender is known.
+
+When the responsible investigating officer considers the investigation complete, they summarize the file with an opinion and send it to the public prosecutor. Such files are divided into three parts:
+
+Part 1 — Known offender files, subdivided into:
+a. Files where the offender is detained, imprisoned, on bail, or believed to be obtainable by summons. Upon completion, the investigating officer formulates an opinion and sends the file — if recommending prosecution, along with the suspect — to the public prosecutor. If recommending no prosecution, only the file and opinion are sent. (CPC Section 142)
+b. Files where the offender is known but cannot be summoned or arrested. Upon completion, the investigating officer formulates a prosecution or no-prosecution recommendation and sends the file to the public prosecutor. (CPC Section 141)
+
+Part 2 — Unknown offender files: where the investigating officer has investigated and cannot yet identify the offender. Upon completing the prescribed investigation period, the investigating officer summarizes the file with an opinion to suspend or recommend suspension of the investigation and sends it to the public prosecutor. (CPC Section 140)
+
+Part 3 — Inquest files:
+(a) Files compiled where death was caused by an official claiming to perform official duties or death occurred while in official custody: after the inquest, the file is sent to the public prosecutor to file a petition with the court for inquiry and order under CPC Section 150.
+(b) Files compiled where death occurred unnaturally: after the inquest and the investigating officer's opinion, the file is sent to the public prosecutor to issue an order that the death did not result from a criminal offense, then forwarded to the Provincial Governor under CPC Section 156.
+
+10. Control and Administration of Investigation Files
+
+1) Control, Review, Guidance, and Direction
+
+Police Order No. 419/2556 establishes measures to control, review, and expedite criminal investigations, with supervisory review cycles:
+
+1.1 Control and review after receiving complaint or accusation:
+
+a. The investigating officer who received the complaint and is responsible for the investigation shall record data in the Investigation File Review Record attached to the front cover of the investigation file, check boxes for completed items, and submit the file to the head of the investigation section for initial review, guidance, and direction within 3 days of receiving the complaint.
+b. The investigating officer must act promptly on all instructions and record outcomes and obstacles in the investigation file review record.
+c. The head of the investigating agency must maintain a statistics register of cases requiring investigation files within their jurisdiction.
+d. The investigating officer must maintain a personal case log and prepare the investigation file along with their case log for review by supervisors at all levels at any time.
+
+1.2 Periodic review and direction:
+
+a. The investigating officer submits the file to the head of the investigation section within 3 days of receiving the complaint.
+b. The head of the investigation section reviews, guides, and issues directions on all case files every no more than 15 days until the investigation is complete.
+c. The station head or head of the investigating agency reviews, guides, and issues directions on all case files every no more than 30 days until the file is complete.
+d. The Commissioner or Deputy Commissioner assigned to oversee investigations reviews, guides, and issues directions on all case files every no more than 3 months until the investigation is complete.
+
+2) Authority to Control Investigations
+
+Under Police Order No. 419/2556, Chapter 4, Clause 2.6: where an injured party, suspect, or complainant in any case requests justice regarding the investigation or provisional release, the Commissioner, Commander, or Commissioner-General, or their acting officer, may call the head of the investigating agency to explain and may call the investigation file for review, providing guidance and expediting appropriate and lawful processing.
+
+If the Commissioner, Commander, or Commissioner-General considers that guidance under paragraph one is ineffective, they have authority to take control of the investigation, issue orders to the investigating officer as deemed appropriate — including ordering or refusing provisional release, changing the investigating officer, or ordering another investigating officer to jointly investigate. In such cases, the Commissioner, Commander, or Commissioner-General or acting officer is deemed the head investigating officer under Section 18, final paragraph, and Section 140 within their jurisdiction.
+
+3) Administration of Investigation Files
+
+- In unknown offender cases: after receiving the complaint, the investigating officer shall promptly take a statement from the complainant as the complainant. If a crime scene examination is necessary to collect forensic evidence or seize exhibits, do so promptly, then prepare a memo directing the investigation section to investigate to confirm the offense and identify the offender or recover the property, then report investigation results to supplement the investigation file at each interval.
+
+- In cases within the jurisdiction of the District Court: where the suspect has confessed and must be prosecuted orally, and the public prosecutor needs supporting evidence, and the investigating officer cannot complete in time — if the investigating officer charges without an arrest warrant and the suspect has not been arrested or detained, the investigating officer must prosecute within 48 hours of charging (if the suspect confesses, no postponement of prosecution is possible; oral prosecution only). The investigating officer must administer the file by first completing all other evidence collection before scheduling the suspect to come and be charged under Section 134 on a court business day, then immediately prosecuting that same day.
+
+- In District Court cases where the suspect denies and has no arrest warrant: if prosecuted, must be within 48 hours of charging; if unable to prosecute in time, may request postponement up to 5 times at no more than 6 days each. Some cases requiring extensive evidence collection may not complete within the statutory postponement period, so the investigating officer must administer the file by completing all other evidence collection before summoning the suspect to be charged.
+
+- In juvenile and family cases (juveniles not arrested and with no court warrant): under Section 70 of the Juvenile and Family Court and Juvenile and Family Case Procedure Act B.E. 2553, charges and prosecution must occur within 30 days of charging under Section 78. If unable to prosecute in time, a court petition for postponement of prosecution is required every 15 days. Each postponement requires the juvenile's presence in court; otherwise the court will not allow postponement. Therefore, investigating officers often bring juveniles before the Juvenile Court to remand them in the observation center so that they need not be brought to every postponement hearing, as juveniles may flee and make postponements impossible.
+
+- Other cases with prosecution postponement and remand must complete the investigation within the statutory postponement/remand periods. Cases with bail under criminal court, provincial court, or military court allow up to 6 months for investigation from provisional release; if unable to file in time, the suspect can still be brought to court for remand.
+
+The investigating officer must efficiently administer each investigation file according to the case's importance, within the legally prescribed deadlines, within the statute of limitations, and ensuring fairness to all parties.
+
+11. Investigation Time Periods
+
+For ordinary criminal case investigation files and road traffic case files, to prevent files from remaining with the investigating officer longer than necessary, once the responsible investigating officer considers that a sufficient period has been investigated to formulate a case opinion, the following timeframes from Police Order No. 419/2556 shall apply:
+
+1. Unknown offender cases — two sub-categories:
+
+(1) Where the investigating officer has investigated and found no further facts or evidence to investigate:
+a. General criminal and road traffic cases: investigation must have been continuously conducted for at least 3 months from receipt of complaint;
+b. Serious criminal cases: at least 1 year.
+
+Upon reaching the above periods with no identified offender, the investigating officer formulates a "suspend investigation" opinion, submits the file up the chain of command to the Commissioner or Commander, who then sends it to the public prosecutor under CPC Section 140(1).
+
+(2) Where there are facts or evidence that warrant continued investigation to identify the offender: investigation may continue within the statute of limitations. Upon reaching the period in (1) (a) or (b), the investigating officer must submit the file with reasons to the chain of command within 30 days. The Commissioner or Commander may authorize extension for the first time by up to 3 months; subsequent extensions may be authorized by the head of the investigating agency at up to 3 months each as necessary, unless otherwise ordered.
+
+2. Known offender but not yet summoned or arrested — two sub-categories:
+
+(1) No further facts or evidence to investigate:
+a. General criminal and traffic cases: must complete investigation within 2 months from receipt of complaint or identification of offender;
+b. Serious criminal cases: 3 months.
+
+When the period elapses and the offender has not been prosecuted but evidence collection is complete, the investigating officer formulates a case opinion and submits the file up the chain to the appropriate authority, then sends it to the public prosecutor under CPC Section 141.
+
+(2) Further facts or evidence to investigate: investigation may continue within the statute of limitations, with extension requests authorized in 3-month increments as needed.
+
+3. Suspect detained, subject to prosecution postponement, or remanded during investigation:
+
+(1) The responsible investigating officer and supervisors shall expedite the investigation to complete before the prosecution postponement or remand period expires. Postponement or remand should only be requested when necessary for the investigation to be completed.
+
+(2) If the court denies postponement or remand, or if the postponement/remand expires but the investigation is not complete, the head of the investigating agency must immediately report to superiors for remedial action and assess whether the investigating officer was at fault.
+
+4. Suspect released on bail:
+
+(1) Investigation must be completed within 2 months for general and traffic cases, and 3 months for serious cases, from the date of provisional release. Extensions are available at up to 30 days each, not exceeding 6 months total.
+
+(2) Upon reaching 6 months after provisional release, if further detention is necessary, the head of the investigating agency must personally appear before the court to explain why the investigation is not yet complete and detention is still required.
+
+5. Suspect charged without arrest:
+
+(1) Investigation must be completed within 2 months for general and traffic cases, and 3 months for serious cases, from the date of charging without arrest. Extensions are available at up to 30 days each, not exceeding 6 months total.
+
+(2) If investigation exceeds 6 months, further extension requests may be made with justification to the Commissioner or Commander.
+
+12. Conducting Additional Investigation
+
+Where the investigating officer has completed the investigation and summarized the file, the following applies:
+
+1. Where the supervisor or authority orders additional investigation before the file is sent to the public prosecutor:
+(1) Conduct additional investigation per the order;
+(2) Additional documents shall be appended after the supervisor's instruction record; additional document numbers continue from the investigation report. Inserting additional documents into the original file is prohibited.
+
+2. Where the file has been sent to the public prosecutor and the public prosecutor orders additional investigation:
+(1) Strictly conduct additional investigation per the public prosecutor's order and promptly send results by the deadline; report any obstacles immediately;
+(2) If the file is returned with an order for additional investigation, append the additional documents following the same rule as above.
+
+3. Where the public prosecutor orders suspension of investigation and returns the file, stating that if the offender is later identified the investigation may continue: once the offender is identified and either cannot be arrested or is arrested, bring additional documents together with the original file, prepare a new investigation report and case opinion.
+
+4. Where the public prosecutor recommends prosecution but the suspect has fled and directs the investigating officer to secure the suspect within the statute of limitations, and the suspect is subsequently arrested: record the suspect's statement and take all relevant actions; notify the public prosecutor of the arrest and issues to be further investigated. Follow the public prosecutor's subsequent orders.
+
+If clear evidence shows the arrested suspect is not the perpetrator, or their alleged conduct is not an offense, the investigating officer recommends no prosecution and sends the opinion with additional investigation documents to the public prosecutor.
+
+
+[CH6] Interviewing Injured Parties, Witnesses, and Suspects
+
+After receiving a complaint or accusation, the investigating officer must consider which offense is indicated by the circumstances, under which law, which section, and whether it constitutes a criminal offense under Penal Code Sections 2, 3, and 59, together with the provisions defining the offense and prescribing punishment, within the statute of limitations. The investigating officer must first analyze the elements of each offense before framing the case and preparing investigation issues, then seek facts and evidence to support the charge. The investigating officer has authority to summon the injured party or any person whose statements may be useful to the case under CPC Section 133, and authority to charge the suspect under CPC Section 134 when there is reasonable evidence. The questioning procedures are guided by the Police Regulations on Cases, Chapter 5.
+
+1. Interviewing the Injured Party
+
+There are two categories of injured parties: private individuals as injured parties in offenses against private individuals or compoundable offenses; and the state as injured party in public criminal offenses (non-compoundable offenses). Some public offenses have both private individuals and the state as injured parties.
+
+When an incident occurs, the private injured party reports to the investigating officer to proceed against the suspect — whether a private offense or public offense — which is called a "complaint." When another private individual who is not the injured party, or a government official, reports a public criminal offense to the investigating officer, it is called an "accusation." In both cases, once the investigating officer receives the complaint or accusation, a statement will be taken from that person as the "complainant," using the Complainant or Witness Statement Form (Form S 56-4) per Police Order No. 419/56.
+
+1.1 General Questions/Issues
+
+(1) Name, surname, age, ethnicity, nationality, religion, occupation;
+(2) National ID number;
+(3) Domicile, address, birthplace;
+(4) Names of father and mother;
+(5) Relationship or connection with the other party;
+(6) Brief personal history: marital status (married, divorced, cohabitating), children, education level, contact information including home, work, personal telephone number, and a contact person's number if unreachable, or other electronic contact;
+(7) Whether the person can understand and answer the investigating officer's questions;
+(8) If a foreigner or using a local dialect not understood, use an interpreter;
+(9) If mute, deaf, or blind, use alternative communication methods or an interpreter;
+(10) If using an interpreter, the interpreter must interpret accurately, take an oath or affirmation to perform duties faithfully, not add or omit anything, and sign the translation under CPC Section 13;
+(11) In sexual offenses, a female investigating officer must take the statement of a female injured party, unless the injured party consents or there is another necessity — record the consent or necessity. The injured party may request any person to be present during questioning, under CPC Section 133, paragraph four;
+(12) An oath or affirmation per the person's religion may be administered first.
+
+1.2 Notifying the Injured Party's Rights
+
+(1) Inform the injured party of rights under CPC Section 44/1 in cases where civil damages can be claimed in conjunction with criminal proceedings;
+(2) Inform rights under the Compensation for Injured Parties and Compensation and Expenses for Defendants in Criminal Cases Act B.E. 2544, Section 6/1: the investigating officer must inform the injured party or their heirs of the right to receive compensation under this Act, with a filing deadline of 1 year from the date the injured party knew of the offense;
+(3) Inform rights under the Anti-Human Trafficking Act B.E. 2551, Sections 34 and 35: inform the injured party at the first opportunity of the right to claim compensation resulting from trafficking offenses;
+(4) For persons under 18 years, multidisciplinary team participation or a person requested by the child must be present during questioning, under CPC Section 133 bis;
+(5) If the offense is eligible for mediation under the Dispute Mediation Act B.E. 2562, inform the parties at the first opportunity of the right to file a petition for criminal dispute mediation under Section 43.
+
+1.3 Where the Complainant is a Government Official
+
+(1) Specify title/position and agency;
+(2) Scope of legal authority and duties or duties assigned by a supervisor;
+(3) Manner of involvement in the case.
+
+1.4 Questions Related to the Case
+
+(1) Purpose of coming to the investigating officer; whether to file a complaint or accusation — in private offenses, the injured party must specifically file a complaint and hand the case to the investigating officer, otherwise the officer has no investigative authority. Whether the person is an authorized agent or legal representative under CPC Sections 4, 5, or 6 should be noted. Relevant evidence should be provided;
+(2) Exact date, month, year, time, and place of the incident (exact location, sub-district, district);
+(3) Actions of the complainant and the perpetrator; circumstances of the case and related events before, during, and after the incident; crime scene examination if necessary;
+(4) Motive;
+(5) Who was the perpetrator — known, recognized, or not known at all? If known by name, specify all names. If unknown, describe the perpetrator's physical features in as much detail as possible, including parents', spouse's, children's, or relatives' names if available. For multiple perpetrators, separate details for each;
+(6) Basis for recognition — whether previously acquainted, reasons for remembering;
+(7) If unknown and previously unseen — how long was the face visible, why the memory is reliable; whether they could identify the person again; sketch if possible;
+(8) Review criminal photo files, registration photo copies, parolee/probationer files, criminal records, and compare criminal patterns of various offense groups — if matching, record as evidence and have relevant persons sign;
+(9) If the perpetrator or suspect is found, conduct a lineup (if previously unknown) or a viewing (if previously known);
+(10) Was it daytime or nighttime? Visibility? What light source? At what distance was visibility clear? At night, what was the light source and at what distance did it illuminate? For borderline day/night, consult the Meteorological Department;
+(11) What property was lost or damaged, who owned it, how was it acquired, what was its value per item and total value (detailed description: type, brand, model, serial number, distinguishing marks);
+(12) Who were the injured parties; how were they harmed or damaged; why were they at the scene together? If multiple injured parties, number them sequentially;
+(13) How did the complainant travel to or through the scene — what vehicle, from where, via what route, going where, via what route to the destination;
+(14) If the complainant was injured, what weapon was used, how was the injury inflicted, extent of wounds; if life-threatening, the investigating officer should promptly go to take the statement of the injured person — a dying declaration may carry significant weight if made when the person believes they are going to die;
+(15) What vehicle did the perpetrator use — type, brand, color, features, license plate; where did they come from before the incident; where did they flee after;
+(16) What exhibits; seized from whom or from the scene; was the seizure location photographed; if a knife exhibit, describe width, length of blade, and handle length; photograph exhibits with a scale ruler;
+(17) Any eyewitnesses, anyone nearby, any suspects, what other physical/documentary/witness evidence is there;
+(18) Will the complainant oppose provisional release of the suspect and why (CPC Section 108/2);
+(19) Questions should follow the sequence of events to avoid confusion;
+(20) Other questions as appropriate to the case.
+
+2. Interviewing Witnesses
+
+1) Interviewing eyewitnesses — same issues as for the injured party under Section 1, as applicable;
+2) Interviewing circumstantial witnesses — same issues as for the injured party under Section 1, as applicable.
+
+3. Interviewing the Suspect
+
+When the investigation evidence reasonably indicates the person likely committed the offense, the investigating officer may exercise authority under CPC Section 134 to charge the suspect. The suspect may come to be in the investigating officer's power by summons, being brought by others, presenting themselves, or appearing before the investigating officer. When taking the suspect's statement, the investigating officer is prohibited from making or arranging any promise, threat, deception, torture, use of force, or any improper act to induce the suspect to give any particular statement about the matter for which they are being investigated, under CPC Section 135.
+
+3.1 General Questions/Issues
+
+(1) First name, middle name, surname, ethnicity, nationality, age, religion, occupation;
+(2) National ID number;
+(3) Father and mother;
+(4) Domicile, address, birthplace, work address, home address, telephone number;
+(5) Relationship or connection with the other party;
+(6) Whether the person can understand and answer the investigating officer's questions and can defend themselves — not subject to conditions under CPC Section 14;
+(7) If using an interpreter, as per Section 13;
+(8) Inform the suspect of the facts alleged, then inform them of the charge (specifying the offense as per Police Order No. 419/56);
+(9) If multiple suspects, number them sequentially; if a legal entity, verify the representative's authority under CPC Section 7; separate personal and corporate capacities clearly;
+(10) Brief personal history: marital status, children, education level, prior criminal history;
+(11) If an eligible mediation offense, inform the suspect at the first opportunity of the right to petition for criminal mediation under Section 43.
+
+3.2 Notifying the Suspect's Rights
+
+(1) The suspect has the right to be investigated promptly, continuously, and fairly;
+(2) In capital offense cases or where the suspect is under 18 years on the date of charging, the investigating officer must ask whether the suspect has counsel; if not, counsel must be provided, under CPC Section 134/1, paragraph one;
+(3) In imprisonment cases, before taking a statement the investigating officer asks whether the suspect has counsel; if not and the suspect wants counsel, provide counsel, under CPC Section 134/1, paragraph two;
+(4) If the suspect is under 18 years, CPC Section 133 bis applies — a public prosecutor, psychologist or social worker, and a person trusted by the child must participate;
+(5) The suspect has the right to have counsel or a trusted person present during questioning, under CPC Section 134/3;
+(6) Before taking the suspect's statement, the investigating officer must inform the suspect under CPC Section 134/4:
+    - The suspect has the right to give or not give a statement; if they give one, it may be used as evidence in court proceedings;
+    - The suspect has the right to have counsel or a trusted person present during questioning;
+(7) For certain offenses, a confession and useful information may lead the court to impose a sentence below the statutory minimum, such as under Section 100/2 of the Narcotics Act B.E. 2522. The investigating officer must inform the suspect of this right and record it in the investigation file.
+
+Note:
+Any statement the suspect gives before rights notification under Section 134/4 or before compliance with Sections 134/1, 134/2, and 134/3 may not be admitted as evidence to prove that person's guilt.
+
+3.3 Questions Related to the Case
+
+(1) Is the allegation true or not?
+(2) If not, what was the suspect doing at the time of the incident, where, and what evidence do they have?
+(3) If the suspect confesses, do not assume they will confess in court as well — investigate as if the suspect denies and verify all statements against other evidence. Question all relevant persons cited or implicated as fully as possible, except in District Court cases requiring oral prosecution within 48 hours of arrest.
+(4) Motive for the offense;
+(5) Where multiple charges include the word "or" (e.g., theft or receiving stolen goods), clarify which the suspect admits and which they deny to avoid confusion;
+(6) Verify confessions through physical evidence: weapons, illegal items, vehicles, forensic evidence, documentary evidence of all kinds;
+(7) If the suspect alleges use of a phone, Line, or online/electronic communication to any agency or person, verify and request communication evidence from the service provider; question the persons communicated with;
+(8) For references to persons or places, include information or photographs in the file;
+(9) If money transfers were made, request transfer evidence from the financial institution and question involved parties;
+(10) In non-oral prosecution cases, if the suspect voluntarily leads to the scene, arrange a scene demonstration with the suspect's confession;
+(11) Check the crime scene, entry/exit routes, escape routes; survey for CCTV cameras — if present, include footage in the investigation file;
+(12) If the suspect denies and requests to testify in court, the investigating officer should not ask a single question and accept a single "deny" answer; break the issues into sub-questions and seek all types of evidence;
+(13) Questioning the suspect need not follow the sequence of events — non-sequential questioning makes it harder for a suspect to fabricate answers;
+(14) Ask the suspect what witness, documentary, or physical evidence they intend to adduce.
+
+4. Additional Issues for Common Offense Categories
+
+4.1 Offenses Against Life and Body
+
+4.1.1 Determining Intent to Kill or Intent to Harm
+
+Intent is an internal mental state. The guiding principle is that acts reveal intent — by considering the weapon, body part targeted, condition of the victim, and the perpetrator's behavior together.
+
+1) Weapon:
+(1) Explosive — definite intent to kill;
+(2) Firearm — depends on the weapon's destructive power:
+    - High-caliber firearms (.44, .357, .38, .32): possible intent to kill;
+    - Low-caliber (.22, homemade muzzle-loader): likely intent to harm; air guns — likely only intent to harm;
+    - Aiming a powerful firearm at a person within effective range: intent to kill; if the person is wounded but not killed: attempted murder;
+    - If the shooter chose to aim low at the feet after having the opportunity to aim elsewhere: intent to harm;
+    - Firing into an occupied house along a trajectory at human level: intent to kill by foreseen consequence;
+    - Firing into a vehicle carrying passengers: intent to kill by foreseen consequence;
+    - Firing into a crowd: intent to kill by foreseen consequence;
+    - Firing into the air or elsewhere as intimidation: not intent to kill;
+(3) Knife — consider the type and size:
+    - Sharp-pointed, large bolo knife, heavy axe: possible intent to kill;
+    - Kitchen knife, fruit peeler: likely intent to harm;
+(4) Poison — consider the quantity and severity:
+    - If the poison is potent enough and the dose is lethal, it is intent to kill;
+    - Continuous poisoning over time to prevent immediate death and mask illness before death: intent to kill;
+(5) Other objects — consider size, weight, and length of blunt instruments.
+
+2) Body part targeted: vital organs (head, chest, abdomen): possible intent to kill; limbs (arms, legs, hands, feet): intent to harm — but consider whether the vital area was targeted and the victim moved, causing the blow to land on a limb.
+
+3) Nature of wounds:
+    - Serious wounds to vital organs: possible intent to kill;
+    - Non-vital area wounds: likely intent to harm; if severe, constitutes grievous bodily harm;
+    - Doctor's certification of injury duration and the 20-day threshold under Penal Code Section 297(8) must be assessed by actual injury, not solely the physician's report.
+
+4) Perpetrator's behavior: outward behavior can reveal intent. Words used ("I'll kill you right now" vs. "I'll teach you a lesson"), manner of attack (stabbing vital areas vs. swinging a weapon), whether there was opportunity to strike again but didn't — all contribute to determining intent. Motive also plays a role.
+
+Offenses may be spontaneous (ordinary intent) or premeditated (deliberate intent), carrying heavier punishment.
+
+4.1.2 Determining Whether an Act Is Negligent
+
+Under Penal Code Section 59, paragraph four, negligent acts are those not committed intentionally but committed without the care required of a person in that situation and which the person was capable of exercising but did not exercise sufficiently.
+
+Characteristics of negligent acts:
+- No motive for committing the offense;
+- Resulting from carelessness, inadvertence, lack of care;
+- Carries lighter penalties than intentional offenses.
+
+For criminal liability for negligent acts, there must be an express provision: e.g., Penal Code Sections 291 (negligent homicide), 300 (negligent causing grievous bodily harm), 390 (negligent causing physical or mental harm).
+
+Questions for negligent traffic offenses:
+
+(1) Regarding the driver:
+    - Physical readiness: drowsiness, fatigue, illness, poor eyesight, age, intoxication by alcohol or narcotics impairing brain function and balance;
+    - Unfamiliarity with the route and traffic laws;
+    - Speed appropriate to conditions: rain, night, community areas all require greater care;
+    - Presence of children vs. adults vs. animals near the road — children and animals require more caution;
+    - Curves, bends, slopes, intersections require more care than straight flat roads;
+    - Compliance with traffic signs and speed limits.
+
+(2) Regarding the vehicle:
+    - Roadworthiness: aging vehicle with inadequate maintenance — failure due to brake failure cannot be claimed as force majeure;
+    - Proper functioning of all lights: headlights, taillights, turn signals, brake lights — malfunctions that prevent other drivers from seeing signals may give rise to negligence liability.
+
+4.2 Property Offenses
+
+Additional issues to determine:
+- Who is the owner, possessor, or custodian of the property?
+- Is there documentary evidence of ownership, possession, or custody?
+- Is there any dispute over ownership or possessory rights?
+- Theft, robbery, and armed robbery involve taking away possession, not ownership; the possessor is the injured party;
+- Embezzlement involves the owner entrusting possession; the possessor later misappropriates with fraudulent intent; the injured party is the owner; this is a compoundable offense;
+- Briefly picking up property for someone who has stepped away does not transfer possessory rights; taking such property constitutes theft, not embezzlement;
+- Taking property without fraudulent intent but with intent to damage (e.g., throwing it away, destroying it) constitutes criminal damage to property;
+- Criminal damage to property is only intentional — there is no negligent criminal damage to property;
+- Even owners or co-owners may commit property offenses including theft, robbery, armed robbery, embezzlement, and criminal damage;
+- Theft is committed furtively out of fear of the possessor — distinguished from robbery and armed robbery which are committed openly;
+- Robbery requires prior satisfaction of the theft elements, but is committed by use of force or immediate threat thereof to facilitate the taking, transport, or retention of the property or to obstruct arrest;
+- Robbery differs from extortion: robbery involves an immediate taking; extortion causes the victim to fear and voluntarily hand over property — not an immediate taking;
+- Extortion involves compelling another to allow or agree to allow the extortioner or a third party to benefit in terms of property, by force or threat to harm life, body, freedom, reputation, or property;
+- If the threat is to expose a secret to damage the victim, causing the victim to hand over property, it constitutes blackmail;
+- Armed robbery requires robbery elements plus three or more perpetrators;
+- Fraud requires deceiving another by false statements or concealing material facts, which results in the victim or a third party handing over property or destroying a document of right — the perpetrator must have fraudulent intent before committing the act; mere civil breach of contract is not fraud;
+- Receiving stolen goods: aiding in hiding, selling, carrying away, buying, pawning, or receiving in any manner property obtained through certain offenses, knowing or having reason to know the property's origin;
+- For receiving stolen goods, factors indicating knowledge or constructive knowledge:
+    (1) Property with registration numbers that could be verified but was not;
+    (2) Price far below market value;
+    (3) Property in incomplete condition (e.g., broken gold chain);
+    (4) Inability to identify source; hiding the property.
+
+4.3 Sexual Offenses
+
+4.3.1 Indecent Act
+- Must be intentional, not accidental contact;
+- Involves touching sexual or intimate body parts — genitals, female breasts, etc.;
+- The victim must not consent (unless victim is under 15, consent is irrelevant);
+- If perpetrator causes the victim to mistake the perpetrator for another person, consent is not valid.
+
+4.3.2 Rape
+- Examine the crime scene for marks of struggle, blood, semen — send the injured party and suspect to a physician immediately for examination and opinion;
+- The victim may be male or female;
+- Spouses may be victims;
+- Age of the victim and suspect;
+- Relationship between the parties;
+- Whether consent was given — if the victim is under 15 and not the suspect's spouse, consent is irrelevant;
+- Lack of consent includes being misled about the perpetrator's identity;
+- How the victim came to be in the situation;
+- Whether force or threats were used; whether resistance was attempted; calls for help;
+- Method of rape — what body part or object was used, where applied (mouth, genitals, anus);
+- If multiple perpetrators, details of each individual's acts;
+- Injuries, bleeding;
+- After the incident, who was told and when; how soon reported to police.
+
+4.4 Drug Trafficking Cases
+- Prior surveillance period and its basis;
+- Prior informants' tip-offs;
+- Community leader information;
+- Written reports to superiors;
+- Prior searches of suspect's home;
+- Suspect's prior drug-related criminal history;
+- Plans for an undercover purchase;
+- Identity of the informant;
+- Photocopies of currency used in undercover purchase; verification that the currency matches after the purchase;
+- Planning location and time, and informant's presence;
+- Phone numbers used for communications; phone records if seized as exhibit;
+- CCTV review;
+- Suspect's financial trails;
+- Surveillance positioning relative to the scene;
+- Vehicle used to travel to the scene;
+- Distance and travel time from the staging point to the scene;
+- How the undercover signal was given; who ordered the arrest;
+- Handover of purchased drugs and seizure;
+- Suspect's property unrelated to the case vs. property derived from drug offenses — seize for ONCB and process under the Measures for Suppression of Offenders Related to Narcotics Act B.E. 2534;
+- Exhibits in the suspect's possession not belonging to the suspect — question the owner about how they came to be with the suspect and whether they are involved.
+
+5. Examples of Relevant Supreme Court Judgments on Interviewing
+
+- Law does not require witnesses to take an oath or affirmation before giving a statement; the official has authority to administer one if deemed appropriate. Failure to do so does not invalidate the investigation. (Supreme Court Judgment No. 614/2486)
+
+- A dying declaration made when the deceased clearly knew they were near death may be admitted as evidence (Supreme Court Judgment No. 5916/2531); in some cases, even if the speaker believed they might not die, the statement may be admitted as a statement close in time to the event (Supreme Court Judgment No. 308/2510).
+
+- An expert's opinion is not hearsay; the court may weigh it in its discretion. (Supreme Court Judgment No. 1204/2536)
+
+- A suspect's statement during investigation may only be used as evidence in trial proceedings if the statement was taken in the capacity of a suspect, not as a witness. (Supreme Court Judgment No. 6281/2533)
+
+- A record of statements obtained from a person as a declarant — not as a suspect — because it was unclear whether that person was the offender, does not require rights notification; such record is lawful. (Supreme Court Judgment No. 1418/2553)
+
+- CPC Section 134/2 read with Section 133 bis aims to protect suspects under 18 years old. If the suspect was over 18 at the time of the investigating officer's questioning — even if under 18 at the time of the offense — no psychologist, social worker, or trusted person is required to participate. (Supreme Court Judgment No. 2132/2548)
+
+- CPC Section 133 bis applies only to the taking of the defendant's statement, not to other evidence collection. A scene walkthrough by the defendant without the required participants does not invalidate the investigation. (Supreme Court Judgment No. 647/2549)
+
+- In capital cases or where the suspect is under 18 years on the date of charging, if the investigating officer fails to provide counsel, any statement made — even if the suspect confesses and counsel later countersigns the record — does not remedy the defect; the statement is inadmissible under CPC Section 134/4, final paragraph. (Supreme Court Judgment No. 8199/2560)
+
+- In calculating age, start from the date of birth. If the injured party was born March 5, 1989, the 15th birthday is March 4, 2004. An incident on March 5, 2004 at 02:00 means the injured party was already over 15. (Supreme Court Judgment No. 7841/2552)
+
+- Investigating a child suspect with a public prosecutor and psychologist present is a protection mechanism — not a violation of the defendant's rights or a public shaming. The investigation was lawful. (Supreme Court Judgment No. 7113/2559)
+
+- Even though eyewitnesses at trial said they could no longer recognize the perpetrator after more than ten years, witness statements taken during the investigation that are detailed, consistent, and showing signs of reliability (especially for witnesses who had not previously known the defendant) may be admitted as hearsay under CPC Section 226/3, paragraph two (1) as circumstantial supporting evidence. (Supreme Court Judgment No. 1952/2561)
+
+
+[CH11] Evidence and the Investigation
+
+To punish an offender in a criminal case, the court must hear evidence beyond reasonable doubt before convicting. The burden of proof in court proceedings generally rests with the prosecution; if the prosecution fails to prove the case, the court must acquit — the court may not rely on the defendant's shortcomings to convict. The investigating officer must investigate and collect all types of evidence to identify the perpetrator and prove the guilt or innocence of the suspect.
+
+Evidence that may enter the investigation file must arise and be obtained lawfully. If evidence arose unlawfully, the court will not admit it at all. If evidence arose lawfully but was obtained unlawfully, the general rule is that the court will not admit it, unless the conditions for an exception are met.
+
+1. Types of Evidence
+
+Evidence is of three types:
+
+(1) Direct Evidence: evidence that can directly prove a particular fact, e.g., an eyewitness to a murder scene. Perception may be through any sense — sight, hearing, smell, taste, or touch.
+
+(2) Circumstantial Evidence: evidence that cannot directly prove a fact but relates to some part of the events; when considered with other evidence, creates a reasonable inference that a certain fact occurred, e.g., a person was seen entering a house with a knife before a stabbing occurred inside.
+
+(3) Real Evidence (Physical Evidence): material objects that are self-evident, conform to scientific principles, and can be proven by cause and effect. Such evidence is highly credible and can directly confirm facts or be linked to the case, e.g., fingerprints at the scene, a button found at the scene matching buttons on the suspect's clothing.
+
+Note: Evidence can also be classified as:
+- Primary and secondary evidence: primary evidence is the best available; courts generally prefer it.
+- Corroborative evidence: two or more witnesses confirming the same fact — more weight than a single witness. Contradictory testimony from multiple witnesses reduces their collective weight.
+
+2. Evidence Capable of Proving Guilt or Innocence
+
+Under CPC Section 226, any evidence that may prove the defendant's guilt or innocence may be adduced, provided it did not arise from inducement, promise, threat, deception, or improper means, and it is presented according to the CPC or other laws on evidence. Such evidence includes:
+
+(1) Witness evidence (testimony);
+(2) Documentary evidence;
+(3) Physical evidence (exhibits).
+
+Witness evidence refers to any person who personally knows or has direct knowledge of the facts at issue — who can understand and answer questions. Examples:
+- A 2-year-old child may be a witness if capable of understanding questions and answering them. (Supreme Court Judgment No. 504/2476)
+- A 15-year-old with intellectual disability who could testify coherently in court was admitted as a witness. (Supreme Court Judgment No. 1199/2526)
+- A very elderly person whose memory is confused, or a person of unsound mind who cannot understand and answer questions, cannot be a witness.
+- A deaf person, mute person, or deaf-mute may be a witness; questions may be put in writing or other appropriate means. (Civil Procedure Code Section 96)
+- A foreign national who does not understand Thai is not barred from being a witness — an interpreter must be provided.
+
+Documentary evidence refers to any content in a document adduced as evidence relying on the meaning of the text to prove the truth. But not all use of documents constitutes documentary evidence — using a document's content to prove a fact is documentary evidence; using the document's appearance (e.g., the falsity of a signature) or as a physical object (e.g., an infringing book) is physical evidence.
+
+Physical evidence refers to any object adduced by a party for examination for the benefit of their case. The same document may be documentary or physical evidence depending on the purpose for which it is adduced. Real property and locations may also be physical evidence.
+
+Physical evidence is especially important in criminal cases as it is the best evidence for proving specific facts, e.g., narcotics, timber exhibits, shell casings, wounds. For exhibits that are inconvenient or inappropriate to bring to court, photographic evidence may be used with the court's discretion. Expert opinions regarding physical evidence may substitute for presenting the actual item.
+
+Additionally, there is expert witness evidence — not a witness who personally observed the facts, but an expert in a particular field whose opinion is useful, e.g., a forensic physician, scientific examiner, Thai language expert in defamation cases.
+
+3. Investigation and the Admissibility of Evidence
+
+3.1 Admissibility Relating to Witness Testimony
+
+When evidence is collected from an injured party, witness, or suspect, it must comply with CPC Sections 133 and 226. Forcing witnesses to testify, discouraging them, or using other stratagems to prevent them from testifying freely is prohibited. Any statement obtained through inducement, promise, threat, deception, or improper means is inadmissible as evidence to prove guilt.
+
+For injured parties or witnesses who are children or juveniles, interviewing and identification procedures must comply with CPC Sections 133 bis and 133 ter — with a multidisciplinary team (prosecutor, psychologist/social worker, or person the child requests) present. Failure to comply renders the statement inadmissible.
+
+3.2 Admissibility Relating to Suspect Statements
+
+When the investigating officer has collected reasonable evidence that the suspect likely committed the offense, they may charge the suspect under CPC Section 134. All steps must comply with Section 135 and Section 226 — no promise, threat, deception, torture, force, or improper conduct may be used to induce a statement.
+
+(1) CPC Section 134/1 requirements:
+a. Capital offense cases or cases where the suspect is under 18: counsel must participate; absent counsel, any statement is inadmissible (Section 134/4, final paragraph);
+b. Imprisonment cases: ask if the suspect has counsel; if not and they want counsel, provide it; absent this, any statement is inadmissible.
+c. Exception: if counsel cannot appear in time without explanation or despite explanation fails to appear within a reasonable time in urgent circumstances, the investigation may proceed without counsel, but the reason must be recorded.
+
+(2) Suspects under 18: Section 133 bis applies — a prosecutor, psychologist/social worker, and a person trusted by the child must participate. Absent this, any statement is inadmissible.
+
+(3) The suspect has the right to have counsel or a trusted person present during questioning (Section 134/3). Denial of this right renders the statement inadmissible.
+
+(4) Before questioning, the investigating officer must inform the suspect:
+a. The suspect has the right to give or not give a statement; a given statement may be used as evidence;
+b. The suspect has the right to have counsel or a trusted person present.
+
+3.3 Admissibility Relating to Physical Evidence
+
+The investigating officer has authority to collect all types of evidence including scientific evidence in criminal cases with a maximum imprisonment penalty exceeding 3 years (Section 131/1), collect evidence under Section 132, and seize objects under Section 132(4) together with Section 85.
+
+Physical evidence at the crime scene — photographs, maps, drawings, models, fingerprints, handprints, footprints — must be stored with proper procedures to prevent contamination or deterioration. If physical evidence arises lawfully and the investigating officer exercises lawful authority in seizing it, such evidence carries weight and may be admitted.
+
+3.4 Admissibility Relating to Documentary Evidence
+
+The authority to collect evidence includes documentary evidence. "Seizure of things" covers any movable property usable as evidence in a criminal case, including letters, telegrams, and other documents under CPC Section 2(18).
+
+Under CPC Section 238:
+- Only the original document may be adduced as evidence;
+- If the original is unavailable, a certified copy or a person who knows the contents may be adduced;
+- For official documents, a certified copy may be submitted even if the original exists, unless the summons specifies otherwise.
+
+4. Evidence Seized by Administrative or Police Officials and Delivered to the Investigating Officer
+
+Administrative or police officials have authority to investigate, gather facts, and evidence under CPC Section 2(10); to arrest and suppress offenders under Section 2(16); and to seize items from search of the suspect's person (Section 85) or from premises (Sections 69 or 92). Evidence legally seized may be admitted if it arose and was obtained lawfully.
+
+5. Evidence in Another's Possession Delivered to the Investigating Officer
+
+Beyond investigating officers or administrative/police officials seizing evidence, a private citizen may arrest a flagrant offender and deliver them with exhibits to officials or to the investigating officer; or the investigating officer may summon a person in possession of items usable as evidence (Section 132(3)) and seize them under Section 85. Where evidence arises and is obtained lawfully, it may be admitted.
+
+6. Conditionally Admissible Evidence
+
+Evidence that arose lawfully but was obtained unlawfully — the general rule bars the court from admitting it. Under CPC Section 226/1, paragraph one, such evidence may not be admitted unless admitting it would benefit the administration of justice more than the harm caused to criminal justice standards or fundamental civil liberties. Paragraph two provides factors for the court's discretion:
+
+(1) The probative value, importance, and reliability of the evidence;
+(2) Circumstances and seriousness of the offense in the case;
+(3) Nature and harm caused by the improper conduct;
+(4) Whether and to what extent the person who acted improperly was punished.
+
+Note: Regarding factor (4), to maintain the weight of the evidence, the official may face criminal prosecution or disciplinary action for improper conduct. Therefore, when evidence already exists or arose lawfully, it must be obtained by lawful authority — if there are grounds to believe evidence is in private premises without a basis for warrantless search, a search warrant must first be obtained.
+
+7. Admissibility Relating to Prior Bad Acts
+
+Under CPC Section 226/2, the court generally may not admit evidence of a defendant's other criminal acts or bad conduct to prove the defendant committed the offense in the current case, except:
+
+(1) Evidence directly connected to the offense elements of the current charge;
+(2) Evidence showing a characteristic, method, or particular pattern of the defendant's criminal conduct — e.g., evidence that the defendant committed prior murders with a distinctive act (finger amputation) to identify the defendant in the current case;
+(3) Evidence rebutting the defendant's claims of good conduct.
+
+However, evidence to assist the court in determining punishment or increasing punishment (recidivism) is not barred.
+
+Note:
+- Good conduct evidence may always be introduced by the defendant;
+- Bad conduct or prior criminal acts generally may not be introduced by the prosecution to prove guilt in the current case, with limited exceptions where past conduct is directly in issue or where the defendant has introduced good conduct evidence that the prosecution is rebutting.
+- Prior offense evidence to prove guilt in the current case is barred; prior offense evidence for enhancing punishment (recidivism) is not barred.
+
+Examples of Supreme Court Judgments:
+- Using the history of a defendant previously involved in narcotics to prove guilt in the current methamphetamine possession case is barred under Section 226/2. (Supreme Court Judgment No. 2069/2554)
+- The injured party's statements at trial and in the investigation that the defendant had previously stolen from them cannot be used to prove the defendant committed the current theft — barred under Section 226/2. (Supreme Court Judgment No. 417/2561)
+
+8. Hearsay Evidence
+
+Under CPC Section 226/3, a statement that is a hearsay report — whether testimony at trial or in a document or object adduced as evidence — if offered to prove the truth of the matter, the court may not admit it, unless:
+
+(1) From its nature, characteristics, source, and surrounding circumstances, it is likely to prove the truth; or
+(2) It is necessary because the person who directly witnessed, heard, or knew the fact cannot be brought to testify, and there are reasonable grounds for admitting the hearsay in the interest of justice.
+
+Notes on hearsay:
+- Hearsay may be any type of evidence — testimony, documentary, physical — classified not by type but by the manner in which facts are conveyed;
+- Hearsay means statements of an eyewitness relayed to another person or recorded in a document or other object (e.g., audio recording, computer);
+- Hearsay is generally admitted only if one of the two exceptions applies;
+- Hearsay may not be relied on alone to convict; it must be corroborated.
+
+Examples of Supreme Court Judgments:
+- Investigation statements may be used in weighing facts and circumstances; no law absolutely prohibits their use. (Supreme Court Judgments No. 3620/2524, 3825/2524)
+- Investigation statements, even as hearsay, are not absolutely barred; whether admissible depends on the circumstances — admissible as corroborating evidence. (Supreme Court Judgment No. 4979/2541)
+- Investigation statements of the defendant, if the investigating officer properly followed all procedures under Sections 134/1, 134/2, 134/3, and 134/4, should be admissible under Section 134/4, paragraph two.
+
+9. Weighing Evidence for Conviction in Criminal Cases
+
+9.1 Weighing Evidence under CPC Section 227
+
+Under CPC Section 227, the court shall use its discretion to weigh all evidence; it shall not convict unless certain that the offense actually occurred and the defendant committed it. When there is reasonable doubt about whether the defendant committed the offense, the benefit of the doubt goes to the defendant.
+
+The burden of proof in criminal cases rests with the prosecution to prove beyond reasonable doubt. The court weighs the prosecution's evidence to determine if it meets this standard; it need not weigh the defense's evidence unless the prosecution's evidence is first found sufficiently weighty.
+
+9.2 Weighing Hearsay, Corroboration Requirements under CPC Section 227/1
+
+The court must exercise great caution and should not rely solely on hearsay, co-defendant's testimony, evidence the defendant had no opportunity to cross-examine, or otherwise defective evidence to convict, unless there are strong reasons, special circumstances, or supporting corroborating evidence. "Corroborating evidence" means other admissible evidence from an independent source that has probative value supporting the principal evidence's credibility.
+
+- Investigation testimony not produced at trial cannot be used to convict because the defendant has no opportunity to cross-examine. (Supreme Court Judgment No. 688/2469)
+- A letter from the deceased describing the circumstances of their detention and ordeal is hearsay and may not be admitted as evidence. (Supreme Court Judgment No. 484/2473)
+
+10. Evidence That the Court Will Not Admit
+
+Under CPC Section 226, physical, documentary, or witness evidence arising from inducement, promise, threat, deception, or any improper means may not be admitted to convict the defendant. Examples of improperly arising evidence: compelling the suspect to confess; having the suspect sign a blank paper and filling in the statement afterward.
+
+Additionally, admissions of guilt during arrest or reception of an arrested person may not be admitted under CPC Section 84, final paragraph — even if rights were informed beforehand. This is an absolute bar applicable only to admissions of guilt, not to other statements such as denials, partial admissions of presence at the scene without commission of the offense, claims of lack of intent, or disclosures of where items were hidden after the offense.
+
+Other statements made without proper rights notification are barred only from proving the guilt of the person arrested, but not from proving the guilt of another (e.g., exculpatory statements implicating others). Weight still depends on Section 227/1.
+
+Supreme Court Judgment examples:
+- Entrapment of a person not previously intending to commit an offense — persuading an innocent person to commit an offense — produces unlawfully obtained evidence inadmissible under Section 226. (Supreme Court Judgment No. 430/2543)
+- Evidence obtained by deceiving the suspect that there is evidence against them, inducing a confession — the confession is inadmissible. (Supreme Court Judgments No. 598/2484, 542-543/2460)
+- Evidence obtained by threatening to dismiss a witness with pension and not prosecute them — inadmissible under Section 226. (Supreme Court Judgment No. 1758/2523)
+- Threatening to arrest the suspect's wife and household members to compel a confession — the confession is inadmissible. (Supreme Court Judgment No. 473/2539)
+- The investigating officer advising the defendant that confessing "will receive the court's leniency because there is evidence" — not a voluntary admission; inadmissible. (Supreme Court Judgment No. 218/2475)
+- Telling the defendant that admitting will result in being kept as a witness — constitutes a promise. (Supreme Court Judgment No. 1039/2482)
+- Where the suspect was interviewed as a witness before arrest and the record does not state that anything said might be used as evidence under Section 134 (now Section 134/4), the record is not the statement of a suspect. Absent direct or circumstantial evidence of the offense, the investigation statement alone — given as a witness, not as a suspect — is insufficient to convict. (Supreme Court Judgment No. 1581/2531)
+
+Exceptions — not barred:
+- Where undercover purchase is used to catch someone already intending to sell illegal items — not entrapment or improper inducement; the evidence is admissible. (Supreme Court Judgments No. 8187/2543, 59/2542, 4417/2548)
+- Where the investigating officer's misunderstanding is genuine — not deception or inducement — the resulting statement is not barred under Section 226. (Supreme Court Judgment No. 924/2544)
+- Where the suspect voluntarily signed a scene map after being told they could go home — not forced or deceived. (Supreme Court Judgment No. 1644/2531) But if the officer's demeanor suggests coercion — "sign and you can go home" in a context where the suspect protests the map's accuracy — this may constitute improper conduct and the evidence may be excluded.
+
+11. Conditionally Admitted Evidence
+
+Evidence that arose lawfully but was obtained unlawfully — e.g., seized in a private premises without a search warrant and without lawful basis for warrantless search, or content from unauthorized phone tapping, or blood forced without consent and without lawful authority. Such evidence has probative value but was improperly obtained. Generally courts will not admit such evidence unless exceptional conditions in law are met.
+
+Thai courts distinguish "arose" from "obtained" unlawfully: only evidence that arose unlawfully is absolutely barred; evidence that arose lawfully but was obtained unlawfully is subject to the court's discretion under Section 226/1. (Supreme Court Judgments No. 6391/2547, 6475/2547, 5144/2548)
+
+The investigating officer has authority to collect all types of evidence, access evidence, and seize items or exhibits. Even where evidence was obtained improperly, the court retains discretion to admit it under the conditions of law. This underscores the importance of the investigating officer conducting a lawful investigation and collecting evidence by lawful means — since improperly obtained evidence may be excluded and the case lost.
+
+12. Crime Scene Evidence Collection
+
+Entry into the crime scene to collect evidence requires the investigating officer or assisting officials to have proper collection tools and to follow procedures to prevent destruction or contamination of evidence. Some evidence degrades naturally — latent fingerprints or footprints may be destroyed by heat or rain — so prompt collection is essential.
+
+The first officer at the scene has the duty to secure the scene, preventing unauthorized persons from disturbing evidence before the investigating officer or forensic unit arrives.
+
+Twelve Basic Steps for Crime Scene Examination
+
+Step 1 — Preparation (Preparation)
+Assessment of evidence condition, location, and scene; planning entry and task assignment; safety considerations; support resources including protective equipment, communications, lighting, command posts, staging areas, food, first aid, and special equipment.
+
+Physical readiness includes: trained personnel prepared in body and mind; materials and tools maintained and ready for immediate deployment.
+
+Basic equipment includes:
+- Latent fingerprint kit (brushes, powder, tape, lifting cards);
+- Physical evidence collection containers (paper/plastic bags, ziploc bags, cotton swabs for gunshot residue);
+- Biological/chemical/DNA collection kit (bags, swabs for DNA, consent forms);
+- Photography kit (camera, storage media, various lenses, batteries, flash, numbered placards, markers, tape measure, scale ruler);
+- Other equipment: footprint/tire casting kit, evidence bags of various sizes, sealing tape, protective suits, flashlights with batteries, water container for submerged items.
+
+Step 2 — Approach to the Scene (Approach of Scene)
+Do not rush into the scene; plan the examination; note who arrived first (patrol officer, detective, citizen) and document their names — they may have important observations.
+
+Arriving at the scene, the investigating officer must plan and coordinate:
+1. Establish scene perimeter with POLICE LINE tape; assess and expand if needed to cover probable evidence areas and escape routes;
+2. Assess what occurred and the severity of the incident;
+3. Determine if additional expert assistance or medical help is needed;
+4. Identify any hazards in the scene (explosives, structural instability, environmental hazards, electrical hazards) and arrange for appropriate specialists;
+5. Determine if scene is indoors or outdoors; in a remote area;
+6. Determine who else needs to be notified (supervisors, related agencies);
+7. Determine if special equipment is needed;
+8. Assess weather conditions for evidence preservation;
+9. Assess the nature of the offense with the forensic team.
+
+Step 3 — Scene Protection (Secure the Scene)
+Assess information from prior entrants to understand the scene's condition; estimate the scene's boundaries. "Crime scene" means any location where the offense occurred and where evidence may be found, including entry/exit routes and escape routes.
+
+Methods:
+1. Use POLICE LINE tape or equivalent to set perimeter; strictly control access;
+2. Post officers to guard the perimeter and document all persons and vehicles entering/exiting with dates and times;
+3. Keep uninvolved persons and media out;
+4. Record all persons (supervisors, related parties) entering the scene; designate entry/exit paths and movement paths inside the perimeter;
+5. All persons entering must wear shoe covers and gloves; change these when re-entering;
+6. For weapons found at the scene: use a cord looped through the trigger guard to move a firearm — never insert a rod in the barrel; choose methods that do not disturb the evidence to be examined;
+7. Submerged weapons: store in water from the same source to preserve condition; promptly send to lab to prevent rusting;
+8. Outdoor evidence threatened by weather: prioritize photographing and collecting such evidence;
+9. Press briefings: designate a location away from the scene; establish who may provide information.
+
+Step 4 — Initial Survey (Initiate Preliminary Survey)
+Begin examining the scene; establish the examination method; record the general condition of the scene; focus first on perishable evidence:
+- Property cases: fingerprints, handprints, footprints around forced entry points and ransacked areas; notify forensic team;
+- Life, body, and sexual cases: blood, hair, clothing near the body; DNA and fingerprints; notify forensic team and forensic physician; if death resulted from official action or in official custody, strictly follow inquest provisions and notify the public prosecutor and administrative officer;
+- Fire cases: accelerants at points of origin; fingerprints; notify forensic team; if a tall building with severe fire, consult an engineer for structural safety before entering;
+- Explosive cases: explosive residue and components; fingerprints, DNA; notify forensic team; have EOD (Explosive Ordnance Disposal) unit clear the scene first.
+
+Notify the relevant specialists of findings and examination plans.
+
+Step 5 — Assessment of Physical Evidence (Evaluate Physical Evidence Possibility)
+Assess what types of physical evidence may be present:
+- Property cases: fingerprints, footprints, blood (for DNA), burglary tools;
+- Life, body, and sexual cases: fingerprints, hair, blood (for DNA), weapons;
+- Fire cases: accelerants, points of origin;
+- Explosive cases: explosive residue, component fragments.
+
+Ensure adequate collection containers are ready for all evidence.
+
+Step 6 — Scene Description (Prepare Narrative Description)
+Record the general condition before and after examination; perishable characteristics (lighting, odor, flame color); initial information from victims and witnesses; special features of the scene; evidence found; exhibits list to be handed to the investigating officer. Methods include audio recording, writing, or video.
+
+1. General description: from a reference point, describe the overall appearance of the scene — for a building: whether it is a shophouse, detached house, or factory; size, access points, lighting, street proximity, neighboring properties.
+
+2. Specific description: interior layout; furniture; finish materials.
+
+3. Record preliminary information from the victim and eyewitnesses.
+
+4. Record characteristics of each exhibit found.
+
+5. Compile an exhibit list for submission to the investigating officer.
+
+Step 7 — Photographic Documentation (Depict Scene Photographically)
+Photograph at three ranges — distant, mid-range, and close-up — to capture the scene's overall context, especially physical evidence, so that those who were not at the scene can understand it. Photograph in a manner appropriate to the type of case (property, fire, life, explosive). Photograph before moving or collecting any evidence.
+
+Step 8 — Diagram/Sketch of Scene (Prepare Diagram/Sketch of Scene)
+Prepare a rough sketch noting compass direction, scale, and distances; then compile a detailed, scaled diagram for use in the investigation report. The diagram may be used to reconstruct the scene and analyze the perpetrator's movements. Principles:
+1. Show the approximate layout of the scene;
+2. Accurately show the position of physical evidence;
+3. Show the number and labels of exhibits (consistent with photograph numbering);
+4. Show the extent and dimensions of the scene, and where evidence was found.
+
+Step 9 — Detailed Search (Conduct Detailed Search)
+Search for physical evidence using appropriate methods:
+
+Outdoor search methods:
+1. Strip method: officers walk in a line from one end of the area to the other in parallel strips;
+2. Grid method (applied strip): same as strip method but repeated in both horizontal and vertical directions — useful for dense vegetation;
+3. Wheel method: area divided into sectors from a central point; officers search outward simultaneously — disadvantage: may disturb central evidence;
+4. Spiral method: officers walk in an expanding circle from the center — suitable for small outdoor areas with few personnel;
+5. Zone method: area divided into sectors assigned to individual officers — suitable for large indoor areas.
+
+Indoor search: same methods adapted to the space.
+
+Vehicle search: three areas:
+1. The location where the vehicle was found (footprints, tire marks, discarded items showing entry/exit routes);
+2. The exterior of the vehicle (fingerprints, collision marks, glass breaks, DNA);
+3. The interior of the vehicle (zone method: front two zones, rear two zones — search from floor to ceiling).
+
+Step 10 — Record and Collect Physical Evidence (Record and Collect Physical Evidence)
+Proper evidence collection from scene to court is of paramount importance.
+
+Collection must be lawful:
+- Collectors must be authorized (investigating officer or forensic officer);
+- Use proper methods to avoid degrading the evidence;
+- Improper collection may give rise to challenges in court.
+
+Collection requirements:
+1. Clearly identify each item;
+2. Document the unbroken chain of custody;
+3. Establish material relevance;
+4. Follow all legal procedures.
+
+Handling:
+1. Touch at the smallest possible point that is unlikely to bear fingerprints (e.g., glass: rim or base; bottle: mouth; small items: use tweezers; paper: corner; gun: loop cord through trigger guard);
+2. Before collecting, photograph the item from all distances; document its position and condition;
+3. Mark the exhibit at a location that does not affect examination; if marking is impractical or would affect the examination, use a label or tag specifying:
+    (a) Collector's name;
+    (b) Time of collection;
+    (c) Type of case;
+    (d) Location and position where found;
+    (e) Case details;
+    (f) Date and time of incident;
+    (g) Location of incident.
+4. Collection:
+    - Last step of evidence collection;
+    - Failure may cause loss or alteration;
+    - Collect perishable items first; package in clean containers of appropriate size;
+    - Store multiple items separately;
+    - Handle through the fewest hands possible;
+    - Demonstrate chain of custody throughout;
+    - Collect as many samples as possible.
+
+Step 11 — Final Survey (Conduct Final Survey)
+Review the entire examination: ensure all evidence has been collected; the scene is properly processed before release.
+1. Inspect each part of the scene with all involved parties;
+2. Review the exhibit list with the forensic officer; check documents for errors;
+3. Photograph the scene in its final state;
+4. Remove all equipment brought to the scene;
+5. Record any hazardous objects or conditions;
+6. Ensure no hidden, concealed, or hard-to-access areas were overlooked;
+7. Return the scene to appropriate custody per the investigating officer's authority.
+
+Step 12 — Release of the Crime Scene (Release Crime Scene)
+1. Prepare a scene transfer record with: date and time of transfer, transferee, and transferor;
+2. Confirm all exhibits collected are labeled and certified;
+3. Expert analyses (blood pattern, medical tests) should be completed before the scene is released;
+4. After the scene is released, re-entry requires justification, and the re-entry should be noted on the transfer record;
+5. The scene should only be released once all parties are satisfied that evidence collection has been thorough and proper;
+6. The investigating officer has sole authority and duty to release the crime scene.
+
+13. Chain of Custody (Continuity of Possession of Physical Evidence)
+
+The chain of custody refers to the documented record of all persons who possessed the evidence — typically a series of signatures showing passage from one person to another.
+
+The chain of custody comprises:
+(1) Taking: the collector identifies the evidence with the date, month, year, and details;
+(2) Keeping: demonstrating that storage and custody were proper and scientifically sound;
+(3) Transporting: securely, with no risk of confusion with other evidence; registered if sent by post;
+(4) Delivering: proof that evidence was properly delivered to the recipient with date and signatory records.
+
+The chain of custody is critically important for linking evidence from discovery at the scene to presentation in court. Any break in the chain means the evidence cannot explain its journey from the scene to the courtroom; it may be returned and is of no value to the case. Each link in the chain — discovery, collection, storage, laboratory analysis, delivery — must be documented with dates, times, custody, storage conditions, and mode of transfer, with signatures of all custodians at each stage.
+
+In practice, the chain of custody is especially important for exchangeable items like narcotics, where defendants often deny ownership. Solid chain of custody documentation provides strong factual evidence that the defendant possessed the substance in question.
+
+Beyond the chain of custody, there must also be a coherent connection among all types of evidence — testimony, physical, and documentary — linking together unbroken. The investigating officer must investigate exhaustively; all evidence must be consistent and circumstantially reasonable. When this is achieved, the entire chain of evidence is complete and unbroken, enabling the court to weigh evidence beyond reasonable doubt.
+
+In some cases where witnesses are reluctant, the investigating officer may consider excluding a less important suspect to serve as a cooperative witness, to complete the chain of evidence.
+
+14. Excluding a Suspect to Serve as a Witness
+
+There is no statutory provision granting the investigating officer authority to exclude a suspect as a witness. The practice is governed only by guidelines in the Police Regulations on Cases, Chapter 7, and Police letters and circulars, together with the Office of the Attorney-General's Regulations on Criminal Proceedings, Part 10, Clause 81.
+
+Under CPC Section 232, the prosecution is prohibited from adducing the defendant as a witness. Excluding a suspect to serve as a witness is therefore available only where necessary for the public interest in prosecuting the principal offender.
+
+In criminal cases, the prosecution has the duty to introduce evidence to prove the defendant's guilt beyond reasonable doubt under CPC Sections 175, 176, and 227. The court weighs the prosecution's evidence; if insufficient, it acquits without regard to the defense evidence. If sufficient, it then considers whether the defense can rebut.
+
+CPC Section 232 protects the defendant from being compelled to testify — even voluntarily — as a prosecution witness; allowing this would expose the defendant to perjury charges and endless prosecution.
+
+1) Legal Criteria for Excluding a Suspect as a Witness
+
+(1) The prohibition applies only to the defendant in the same case. A person who was a co-defendant but whose case was separated may be adduced as a prosecution witness. (Supreme Court Judgment No. 1513/2527)
+
+(2) A defendant against whom prosecution has been withdrawn may be adduced as a witness. (Supreme Court Judgment No. 227/2513)
+
+(3) Using the suspect's investigation statement to aid in weighing other evidence is not the same as adducing the defendant as a witness under Section 232. (Supreme Court Judgment No. 35/2532)
+
+(4) The court may use the defense witness's testimony to aid in its overall assessment — this is not the prosecution adducing the defendant as a witness. (Supreme Court Judgment No. 2670/2535)
+
+(5) If the defendant's answer on cross-examination makes the prosecution's evidence complete where it was previously deficient, the cross-examination answer may not be used to supply the deficiency. (Supreme Court Judgments No. 853/2532, 858/2532)
+
+2) Cases in Which a Suspect May Be Excluded as a Witness
+
+The following case characteristics apply for exclusion:
+- Cases involving secret locations or serious offenses that cause widespread fear;
+- Cases where all investigative efforts have failed to yield evidence;
+- Where one suspect who is not a principal but who witnessed the offense could testify as a witness;
+- There must be other evidence or the testimony of this person may lead to other evidence.
+
+Authority to approve exclusion:
+- The head investigating officer of the territory or the responsible head investigating officer;
+- For serious or urgent-report cases: submit to the Commissioner for decision;
+- For national security offenses: currently, Police Order No. 558/63 designates the Bureau Commander as the appropriate authority.
+
+Exclusion procedure:
+- Take the suspect's statement in the capacity of suspect in the investigation file;
+- After approval, formulate a "no prosecution" opinion for that suspect;
+- Release the suspect from detention;
+- Send the investigation file to the public prosecutor;
+- The public prosecutor may still order prosecution of the excluded suspect; if so, the investigating officer must deliver the suspect to the public prosecutor;
+- If the public prosecutor issues a definitive no-prosecution order, the public prosecutor orders the investigating officer to take a further statement from the person as a witness;
+- Once the definitive no-prosecution order is received, the investigating officer retakes the statement from the person as a witness with an oath or affirmation.
+
+(4) Exclusion of police officials who jointly committed the offense: police officials who jointly committed the offense may not be excluded to serve as witnesses. (Police Miscellaneous Regulations, Chapter 14)
+
+15. Pre-Trial Witness Examination
+
+In some serious criminal cases or cases involving influential perpetrators, witnesses are afraid to testify, or the delay in testimony may create safety risks; or the witness has no fixed address or must travel abroad; or the case would be prejudiced if regular investigation procedures are followed and the witness cannot testify by trial time. The law therefore provides for pre-trial witness examination under CPC Section 237 bis, and in some special laws.
+
+1) Pre-Trial Witness Examination under Section 237 bis
+
+Before filing a case in court, the public prosecutor, either on their own initiative or upon request from the injured party or investigating officer, may file a petition specifying all acts alleged to have been committed by the suspect for the court to order immediate examination of a witness in any of the following circumstances:
+
+(1) The witness is about to leave the country;
+(2) The witness has no fixed address;
+(3) The witness resides far from the court;
+(4) There is reason to believe the witness will tamper with evidence, directly or indirectly;
+(5) There is other necessity making it difficult to produce the witness in future.
+
+Procedure: if the suspect is known and detained by the investigating officer or public prosecutor, the suspect is brought to court; if detained by court order, the court issues an order. The court must hear the witness immediately upon receiving the petition. The suspect may cross-examine or have counsel cross-examine. If the offense is one requiring appointed counsel under Section 173, the court asks whether the suspect has counsel; if not and counsel must be appointed, the court appoints counsel and proceeds; if counsel cannot be obtained in time, the court questions the witness in lieu of counsel.
+
+If the witness is under 18, Section 172 ter (child witness provisions) applies.
+
+Effect: if the suspect is later charged as a defendant in that offense, the pre-trial testimony may be admitted in the trial proceedings.
+
+A suspect may also petition the court for pre-trial examination of their own witnesses under the same five conditions.
+
+2) Pre-Trial Examination of Expert Witnesses and Scientific Evidence under Section 237 ter
+
+Section 237 ter: the provisions of Section 237 bis apply by analogy to the examination of expert witnesses and other evidence, and to cases already filed where there is a need to examine evidence before the scheduled evidentiary hearing under Section 173/2, paragraph two.
+
+Where scientific evidence can prove an important fact in the case, or where there is reason to believe that if not promptly examined the scientific evidence will be lost or become difficult to examine, the suspect or public prosecutor (acting on their own or upon request from the investigating officer or victim) may petition the court to order scientific examination under Section 244/1 before filing, applying Section 237 bis by analogy.
+
+3) Pre-Trial Witness Examination under Special Laws
+
+For example, under the Anti-Human Trafficking Act B.E. 2551: before filing a case, where necessary for the purposes of anti-trafficking enforcement, the public prosecutor (on their own initiative or upon request from the investigating officer) may bring the victim or witness to file a petition with the court, specifying all alleged acts and the necessity for immediate examination. If the victim or witness wishes to testify directly, they inform the public prosecutor who immediately files the petition. The court must hear the witness immediately upon receiving the petition. Any party with a stake in the case may petition the court to cross-examine or appoint counsel to cross-examine. If the suspect is later prosecuted for the trafficking offense, the pre-trial testimony may be admitted at trial.
+
+4) Procedures for Petitioning the Court for Pre-Trial Witness Examination
+
+(1) Suspect detained: the investigating officer sends the petition with preliminary evidence to the public prosecutor, together with the suspect, specifying the alleged acts, reasons, and necessity for pre-trial examination, for the public prosecutor to file with the court.
+
+(2) Suspect on provisional release: the investigating officer orders the surety to produce the suspect, then sends the petition and preliminary evidence to the public prosecutor.
+
+(3) Suspect under court remand: the investigating officer sends only the petition and preliminary evidence to the public prosecutor, without needing to produce the suspect.
+
+(4) Suspect requesting pre-trial examination of their own witnesses: if detained or on provisional release, may file through the investigating officer.
+
+(5) The petition (Form S 56-54) should specify all alleged acts and the necessity for pre-trial examination, and be included in the investigation file.
+
+Note: In complex cases with many issues and multiple witnesses requiring pre-trial examination, some witnesses may be examined before the file is sent to the public prosecutor, and the rest may be petitioned for after the file is submitted to the public prosecutor, even after prosecution has been filed, under Section 173/2, paragraph two.

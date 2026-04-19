@@ -315,116 +315,62 @@ def evaluate_question(question: str, context: str):
 
 
     prompt = f"""
-You are an EXPERT police interrogation analyst.
+You are an expert in criminal investigation. Evaluate the investigator's question according to international investigative principles.
+Investigator's Question: "{question}"
+Case Context: {CASE_CONTEXT}
 
-You are evaluating a detective’s QUESTION in a murder investigation.
-You fully understand professional police procedure, ethics, and investigative techniques.
+TASK 1: Scoring (0-3)
+    1. politeness (Politeness/Professional Standards): • 3: Professional, calm, respectful of ethics. • 0: Aggressive, threatening, or severely inappropriate.
+    2. investigation (Quality of Investigation): • 3: Evidence-based, effectively drives the case forward. • 0: Inefficient or obstructs the investigation.
+TASK 2: Labeling (Labels)
+    Assign true or false for every label:
+    [Question Format]
+    • open_ended: Asking for detailed accounts.
+    • closed_ended: Asking for Yes/No or short specific info.
+    • leading: Suggestive or imposing an answer.
+    [Strategy/Intent]
+    • info_gathering: Aiming for new information not yet in the file.
+    • evidence_based: Referring to evidence, timelines, or physical exhibits.
+    • rapport_building: Attempting to build trust/relationship.
+    • confrontational: Pressuring, pinpointing discrepancies, or challenging.
+    [Behavior/Tone]
+    • professional: Polite, steady, according to protocol.
+    • threatening: Intimidating, menacing, or abusing authority.
+    • emotional_appeal: Using sympathy, guilt, or shared emotions.
+    • promise_of_favor: Making promises, offering deals, or negotiating.
+    [Other]
+    • context_required: Sentence is too short to judge without prior context.
+TASK 3: Reasoning
+    Refer to investigative principles from the police manual (police_guidebook.txt) to explain the reasoning:
+    1. reason_politeness: Explain why this politeness score was given. • Refer to principles of respecting suspect rights and professional standards. • Explain how the tone and rhetoric align with or violate principles. • If threats are used, refer to the specific section/article violated.
+    2. reason_investigation: Explain why this investigation quality score was given. • Refer to principles of evidence collection and effective questioning. • Explain whether this question drives the case and why. • Refer to witness/suspect interview methods according to principles.
+    3. reason_labels: Explain why the question was classified with those labels. • For all true labels, explain the reasoning. • Refer to questioning formats, strategies, or behaviors per the manual. • Explain how each label reflects correct or incorrect investigative approaches.
 
-You ALSO know the FULL CASE CONTEXT provided below.
+Reference content from the police manual:
+{POLICE_GUIDEBOOK[:3000]}
 
-====================
-CASE CONTEXT
-====================
-{CASE_CONTEXT}
-====================
-
-Detective’s question:
-"{question}"
-
---------------------------------
-TASK 1: SCORING
---------------------------------
-
-Score the question on TWO dimensions.
-
-1) Politeness / Professional Conduct (0–3)
-- 3 = Fully professional, calm, ethical police conduct
-- 2 = Acceptable but imperfect tone or phrasing
-- 1 = Inappropriate, aggressive, or biased tone
-- 0 = Unprofessional, abusive, or coercive
-
-2) Investigation Quality (0–3)
-- 3 = Evidence-based, relevant, advances investigation
-- 2 = Relevant but weak, vague, or inefficient
-- 1 = Poor technique, leading, or risky
-- 0 = Irrelevant, harmful, or obstructive
-
---------------------------------
-TASK 2: MULTI-LABEL ANNOTATION
---------------------------------
-
-For EACH label below, assign true or false.
-More than one label can be true.
-
-Labels:
-
-- direct  
-  → Straightforward factual question
-
-- evidence_based  
-  → Refers to known evidence, timeline, or verified facts
-
-- leading  
-  → Suggests an answer or pressures the suspect toward a conclusion
-
-- threatening  
-  → Implies punishment, danger, or intimidation
-
-- emotional  
-  → Appeals to feelings, guilt, fear, sympathy, or anger
-
-- irrelevant  
-  → Not related to the case facts or investigation goals
-
-- off_topic  
-  → About the case but not useful at this moment
-
-- accusatory  
-  → Treats the person as guilty without proof
-
-- coercive  
-  → Attempts to force cooperation improperly
-
-- clarifying  
-  → Seeks clarification of previous statements
-
-- probing  
-  → Attempts to uncover hidden details or inconsistencies
-
-- ethical_violation  
-  → Violates professional or legal interrogation standards
-
---------------------------------
-OUTPUT RULES (VERY IMPORTANT)
---------------------------------
-- Output JSON ONLY
-- No explanation
-- No markdown
-- No extra text
-- All labels MUST be present
-- Use true / false (lowercase)
-
---------------------------------
-JSON FORMAT
---------------------------------
-
-{{
-  "politeness": 0-3,
-  "investigation": 0-3,
-
-  "direct": true,
-  "evidence_based": true,
-  "leading": false,
-  "threatening": false,
-  "emotional": false,
-  "irrelevant": false,
-  "off_topic": false,
-  "accusatory": false,
-  "coercive": false,
-  "clarifying": false,
-  "probing": false,
-  "ethical_violation": false
-}}
+OUTPUT RULES
+• Output JSON ONLY. No Markdown or other text.
+• Must include all of the following keys:
+    {{
+    "politeness": 0-3,
+    "investigation": 0-3,
+    "open_ended": false,
+    "closed_ended": false,
+    "leading": false,
+    "info_gathering": false,
+    "evidence_based": false,
+    "rapport_building": false,
+    "confrontational": false,
+    "professional": false,
+    "threatening": false,
+    "emotional_appeal": false,
+    "promise_of_favor": false,
+    "context_required": false,
+    "reason_politeness": "Explain politeness score reasoning with principle references",
+    "reason_investigation": "Explain investigation quality score reasoning with principle references",
+    "reason_labels": "Explain reasoning for all true labels with principle references"
+    }}
 """
 
     r = llm_client.chat.completions.create(
