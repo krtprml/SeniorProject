@@ -339,33 +339,39 @@ Case Context: {CASE_CONTEXT}
 
 TASK 1: Scoring (0-3)
     1) Politeness (Professionalism/Ethical Standards)
-        3: Professional, calm, and respectful of ethics
-        2: Acceptable but incomplete
-        1: Inappropriate, aggressive, or biased
-        0: Unprofessional, violent, or threatening
+        3: Greeting, polite introduction, or highly respectful. Examples: "Good morning," "How are you?", "Thank you for your time."
+        2: Neutral, professional question appropriate for investigation. Examples: "What happened?", "Where were you?", "Tell me about..."
+        1: Somewhat inappropriate, aggressive tone, or accusatory without evidence. Examples: "Did you kill him?", "Why are you lying?"
+        0: Unprofessional, violent, threatening, or abusive. Examples: "I'll hurt you," "You're going to regret this," racial slurs, personal insults.
     2) Investigation (Quality of Inquiry)
-        3: Uses evidence, relevant, and drives the investigation forward
-        2: Relevant but weak, ambiguous, or ineffective
-        1: Poor technique, leading questions, or risky
-        0: Irrelevant, dangerous, or obstructive
+        3: Uses evidence, relevant, and drives the investigation forward effectively.
+        2: Relevant question that could yield useful information, but weak or ambiguous.
+        1: Poor technique, leading question, or unlikely to get useful information.
+        0: Irrelevant, dangerous, or obstructive to the investigation.
 TASK 2: Labeling (Labels)
-    Assign true or false for every label:
-    [Question Format]
-    • open_ended: Asking for detailed accounts.
-    • closed_ended: Asking for Yes/No or short specific info.
-    • leading: Suggestive or imposing an answer.
-    [Strategy/Intent]
-    • info_gathering: Aiming for new information not yet in the file.
-    • evidence_based: Referring to evidence, timelines, or physical exhibits.
-    • rapport_building: Attempting to build trust/relationship.
-    • confrontational: Pressuring, pinpointing discrepancies, or challenging.
-    [Behavior/Tone]
-    • professional: Polite, steady, according to protocol.
-    • threatening: Intimidating, menacing, or abusing authority.
-    • emotional_appeal: Using sympathy, guilt, or shared emotions.
-    • promise_of_favor: Making promises, offering deals, or negotiating.
-    [Other]
-    • context_required: Sentence is too short to judge without prior context.
+Assign true or false for every label:
+[Question Format]
+• open_ended: Asking for detailed accounts, explanations, or narratives. Examples: "What happened?", "Tell me about...", "Describe..."
+• closed_ended: Asking for Yes/No or short specific info (name, time, number). Examples: "Did you see him?", "What time was it?", "Were you there?"
+• leading: Contains the answer within the question or pressures toward a specific response. Examples: "You saw Edward take the glass, didn't you?", "You were angry at Victor, right?", "Isn't it true that you needed money?"
+  NOTE: "What happened?" and "Who's suspicious?" are NOT leading - they allow open responses.
+
+[Strategy/Intent]
+• info_gathering: Aiming for new information not yet in the file.
+• evidence_based: Referring to evidence, timelines, or physical exhibits.
+• rapport_building: Attempting to build trust/relationship. Examples: Greetings, empathetic statements.
+• confrontational: Pressuring, pinpointing discrepancies, or challenging. Examples: "You're lying," "That doesn't match what we know."
+
+[Behavior/Tone]
+• professional: Polite, steady, according to protocol.
+• threatening: Intimidating, menacing, or abusing authority. Examples: "I'll hurt you," "You'll regret this," "I can make your life difficult."
+  NOTE: Asking about emotions or being confrontational is NOT the same as threatening.
+• emotional_appeal: Using sympathy, guilt, or shared emotions.
+• promise_of_favor: Making promises, offering deals, or negotiating. Examples: "If you help me, I'll talk to the prosecutor."
+
+[Other]
+• context_required: Sentence is too short to judge without prior context. Examples: "Really?", "And then?", "Why?"
+
 TASK 3: Reasoning
     Refer to investigative principles from the police manual (police_guidebook.txt) to explain the reasoning:
     1. reason_politeness: Explain why this politeness score was given. • Refer to principles of respecting suspect rights and professional standards. • Explain how the tone and rhetoric align with or violate principles. • If threats are used, refer to the specific section/article violated.
@@ -451,6 +457,15 @@ OUTPUT RULES
 def update_summary_scores(state):
     questions = state["question_evaluations"]
     if not questions:
+        # Initialize empty summary to prevent KeyError
+        state["summary"] = {
+            "politeness_avg": 0,
+            "investigation_avg": 0,
+            "politeness_score": 100,  # Default to perfect score
+            "investigation_score": 100,
+            "auto_fail": False,
+            "fail_reason": ""
+        }
         return
 
     # ---------- Averages ----------
@@ -488,13 +503,12 @@ def update_summary_scores(state):
     auto_fail = False
     fail_reason = ""
 
-    if sum(q.get("threatening", 0) for q in questions) >= 2:
-        auto_fail = True
-        fail_reason = "Repeated threatening behavior"
+    # Count threatening questions (True = 1, False = 0)
+    threatening_count = sum(1 for q in questions if q.get("threatening", False))
 
-    if any(q.get("politeness") == 0 and q.get("threatening") for q in questions):
+    if threatening_count >= 5:
         auto_fail = True
-        fail_reason = "Severe ethical violation (threatening and abusive)"
+        fail_reason = f"Repeated threatening behavior ({threatening_count} threatening questions)"
 
     # ---------- Save ----------
     state["summary"] = {
