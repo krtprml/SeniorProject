@@ -90,7 +90,7 @@ public class FirstPersonController : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // Keep grounded
+            velocity.y = -9.8f; // Keep grounded
         }
     }
 
