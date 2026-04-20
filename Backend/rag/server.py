@@ -338,8 +338,16 @@ Investigator's Question: "{question}"
 Case Context: {CASE_CONTEXT}
 
 TASK 1: Scoring (0-3)
-    1. politeness (Politeness/Professional Standards): • 3: Professional, calm, respectful of ethics. • 0: Aggressive, threatening, or severely inappropriate.
-    2. investigation (Quality of Investigation): • 3: Evidence-based, effectively drives the case forward. • 0: Inefficient or obstructs the investigation.
+    1) Politeness (Professionalism/Ethical Standards)
+        3: Professional, calm, and respectful of ethics
+        2: Acceptable but incomplete
+        1: Inappropriate, aggressive, or biased
+        0: Unprofessional, violent, or threatening
+    2) Investigation (Quality of Inquiry)
+        3: Uses evidence, relevant, and drives the investigation forward
+        2: Relevant but weak, ambiguous, or ineffective
+        1: Poor technique, leading questions, or risky
+        0: Irrelevant, dangerous, or obstructive
 TASK 2: Labeling (Labels)
     Assign true or false for every label:
     [Question Format]
