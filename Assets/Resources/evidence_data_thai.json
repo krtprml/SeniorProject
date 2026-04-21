@@ -1,102 +1,130 @@
-{
-  "items": [
-    {
-      "display_name": "บันทึกข้อความในโทรศัพท์",
-      "reveals": [
-        {
-          "npc": "THUNWA",
-          "conflict": "debt",
-          "auto_text": "ผมเห็นข้อความในมือถือว่าคุณมีเจ้าหนี้รุมขู่ร้องไห้เลย ทำไมไม่ยอมบอกพ่อ?"
-        },
-        {
-          "npc": "MAYSA",
-          "conflict": "will",
-          "auto_text": "มีข้อความคุยกับทนายเรื่องพินัยกรรมใช่ไหม? คุณรู้ว่าพินัยกรรมใหมคุณได้ 60%?"
-        }
-      ],
-      "single_use": false,
-      "ui_hint": "เอาบันทึกข้อความมาเคาะ",
-      "id": "Phone Chat"
-    },
-    {
-      "display_name": "สมุดบันทึกของวิชาญ",
-      "reveals": [
-        {
-          "npc": "MAYSA",
-          "conflict": "embezzlement",
-          "auto_text": "ในสมุดพ่อเขียนว่า 'ไม่ไว้ใจชัยวัฒน์' และ 'ตรวจสอบบัญชีใหม่' คุณรู้ว่าชัยวัฒน์ยักยอกเงินใช่ไหม?"
-        }
-      ],
-      "single_use": true,
-      "ui_hint": "เอาสมุดบันทึกมาเคาะ",
-      "id": "Notebook"
-    },
-    {
-      "display_name": "ปฏิทินบนโต๊ะทำงาน",
-      "reveals": [
-        {
-          "npc": "MAYSA",
-          "conflict": "will_change",
-          "auto_text": "ในปฏิทินวงกลมวันที่คุณแนะนำให้พ่อไปหาทนายเรื่องพินัยกรรมใช่ไหม?"
-        },
-        {
-          "npc": "CHAIWAT",
-          "conflict": "visited",
-          "auto_text": "ในปฏิทินบันทึกวันที่คุณเข้ามาพบพ่อ คุณมาเรื่องอะไร?"
-        }
-      ],
-      "single_use": true,
-      "ui_hint": "เอาปฏิทินมาเคาะ",
-      "id": "Calendar"
-    },
-    {
-      "display_name": "แก้วชาที่มีรอยยา",
-      "reveals": [
-        {
-          "npc": "CHAIWAT",
-          "conflict": "poison",
-          "auto_text": "ผลตรวจแก้วชาพบยานอนหลับ ใครเป็นคนวางยา? ใครเห็นคุณอยู่ใกล้แก้วชาตอนนั้น?"
-        },
-        {
-          "npc": "SOMYING",
-          "conflict": "witness",
-          "auto_text": "คุณเห็นชัยวัฒน์หยิบแก้วชาในครัวใช่ไหม? ทำไมไม่บอก?"
-        }
-      ],
-      "single_use": true,
-      "ui_hint": "เอาแก้วชามาเคาะ",
-      "id": "Tea Glass"
-    },
-    {
-      "display_name": "เส้นเอ็นตกปลาใต้ประตู",
-      "reveals": [
-        {
-          "npc": "CHAIWAT",
-          "conflict": "murder_weapon",
-          "auto_text": "เจอเส้นเอ็นตกปลาใต้ประตูห้องทำงาน ใช้ทำห้องปิดตายใช่ไหม? คุณฆ่าพ่อแล้วแก้ตัว!"
-        }
-      ],
-      "single_use": true,
-      "ui_hint": "เอาเส้นเอ็นมาเคาะ",
-      "id": "Fishing Line"
-    },
-    {
-      "display_name": "เอกสารบัญชีบริษัท",
-      "reveals": [
-        {
-          "npc": "CHAIWAT",
-          "conflict": "embezzlement",
-          "auto_text": "เอกสารบัญชีบริษัทพบว่าเงินหายไปมหาศาล คุณยักยอกเงินบริษัทใช่ไหม? พ่อจับได้ใช่ไหม?"
-        },
-        {
-          "npc": "MAYSA",
-          "conflict": "knows_embezzlement",
-          "auto_text": "คุณรู้เรื่องเอกสารบัญชีที่ชัยวัฒน์ยักยอกเงินใช่ไหม? ทำไมไม่บอก?"
-        }
-      ],
-      "single_use": true,
-      "ui_hint": "เอาเอกสารบัญชีมาเคาะ",
-      "id": "Company Documents"
-    }
-  ]
-}
+[
+  {
+    "id": "Calendar",
+    "display_name": "Calendar",
+    "reveals": [
+      {
+        "npc": "ชัยวัฒน์",
+        "conflict": "fraud",
+        "auto_text": "ผมเห็นในปฏิทินว่าวิชาญมีนัดทนายเรื่องพินัยกรรมและเรียกคุณเข้าพบ คุณโกหกทำไม?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Confront with Calendar"
+  },
+  {
+    "id": "Mobile Phone",
+    "display_name": "Mobile Phone",
+    "reveals": [
+      {
+        "npc": "ธันวา",
+        "conflict": "debt",
+        "auto_text": "ผมเห็นแชทในมือถือเรื่องเจ้าหนี้ของคุณ คุณกำลังมีปัญหาเงินหนัก คุณโกหกทำไม?"
+      },
+      {
+        "npc": "เมษา",
+        "conflict": "inheritance",
+        "auto_text": "ผมเห็นแชทกับทนาย คุณรู้เรื่องพินัยกรรมก่อนคนอื่นใช่ไหม?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Confront with Phone Chat"
+  },
+  {
+    "id": "Notebook",
+    "display_name": "Notebook",
+    "reveals": [
+      {
+        "npc": "ชัยวัฒน์",
+        "conflict": "fraud",
+        "auto_text": "ผมเห็นในสมุดของวิชาญว่าเขาไม่ไว้ใจคุณเรื่องเงินบริษัท คุณจะอธิบายยังไง?"
+      },
+      {
+        "npc": "เมษา",
+        "conflict": "inheritance",
+        "auto_text": "ในสมุดมีบันทึกเรื่องเปลี่ยนพินัยกรรม คุณรู้เรื่องนี้มาก่อนใช่ไหม?"
+      },
+      {
+        "npc": "ธันวา",
+        "conflict": "money",
+        "auto_text": "ในสมุดมีบันทึกว่าพ่อคุณไม่ยอมให้เงินคุณ คุณโกหกเรื่องนี้หรือเปล่า?"
+      },
+      {
+        "npc": "พรทิพย์",
+        "conflict": "money",
+        "auto_text": "ในสมุดมีบันทึกเรื่องเงินที่หายไปจากบริษัท คุณเกี่ยวข้องหรือเปล่า?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Confront with Notebook"
+  },
+  {
+    "id": "Tea Glass",
+    "display_name": "Tea Glass",
+    "reveals": [
+      {
+        "npc": "สมหญิง",
+        "conflict": "",
+        "auto_text": "คุณเป็นคนเตรียมชา ใครเป็นคนแตะถาดชาก่อนเอาไป?"
+      },
+      {
+        "npc": "ชัยวัฒน์",
+        "conflict": "",
+        "auto_text": "คุณอยู่ใกล้ถาดชา คุณได้แตะหรือหยิบแก้วชาไหม?"
+      },
+      {
+        "npc": "พรทิพย์",
+        "conflict": "",
+        "auto_text": "คุณเห็นใครอยู่ใกล้ถาดชาก่อนจะยกไปไหม?"
+      },
+      {
+        "npc": "ธันวา",
+        "conflict": "",
+        "auto_text": "คุณเห็นใครถือหรือยุ่งกับแก้วชาของพ่อคุณไหม?"
+      },
+      {
+        "npc": "เมษา",
+        "conflict": "",
+        "auto_text": "คุณเห็นใครอยู่กับชาในช่วงก่อนเกิดเหตุไหม?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Ask about Tea Glass"
+  },
+  {
+    "id": "Fishing Line",
+    "display_name": "Fishing Line",
+    "reveals": [
+      {
+        "npc": "สมหญิง",
+        "conflict": "",
+        "auto_text": "คุณเคยเห็นเส้นเอ็นแบบนี้ในบ้านไหม?"
+      },
+      {
+        "npc": "ธันวา",
+        "conflict": "",
+        "auto_text": "คุณรู้ไหมว่าเส้นเอ็นแบบนี้ใช้ทำอะไรได้?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Ask about Fishing Line"
+  },
+  {
+    "id": "Accounting Documents",
+    "display_name": "Accounting Documents",
+    "reveals": [
+      {
+        "npc": "ชัยวัฒน์",
+        "conflict": "fraud",
+        "auto_text": "ผมตรวจเอกสารบัญชีแล้ว เงินบริษัทหายไป คุณจะอธิบายยังไง?"
+      },
+      {
+        "npc": "เมษา",
+        "conflict": "",
+        "auto_text": "คุณเคยเห็นเอกสารบัญชีของบริษัทมาก่อนมั้ย?"
+      }
+    ],
+    "single_use": true,
+    "ui_hint": "Confront with Accounting Documents"
+  }
+]
