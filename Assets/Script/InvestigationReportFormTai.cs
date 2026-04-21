@@ -77,11 +77,11 @@ public class InvestigationReportFormTai : MonoBehaviour
         suspectDropdown.ClearOptions();
         suspectDropdown.AddOptions(new List<TMP_Dropdown.OptionData> {
             new TMP_Dropdown.OptionData("-- Select Suspect --"),
-            new TMP_Dropdown.OptionData("Edward (Business Partner)"),
-            new TMP_Dropdown.OptionData("Anna (Victor's Wife)"),
-            new TMP_Dropdown.OptionData("Brian (Family Friend)"),
-            new TMP_Dropdown.OptionData("Charles (Former Partner)"),
-            new TMP_Dropdown.OptionData("Dana (Employee)")
+            new TMP_Dropdown.OptionData("ธันวา (ลูกชาย)"),
+            new TMP_Dropdown.OptionData("เมษา (ลูกสาว)"),
+            new TMP_Dropdown.OptionData("ชัยวัฒน์ (ผู้จัดการบริษัท)"),
+            new TMP_Dropdown.OptionData("สมหญิง (แม่บ้าน)"),
+            new TMP_Dropdown.OptionData("พรทิพย์ (ภรรยา)")
         });
         suspectDropdown.value = 0;
     }
@@ -140,7 +140,7 @@ public class InvestigationReportFormTai : MonoBehaviour
     {
         if (evidenceRowPrefab == null || evidenceContainer == null) return;
 
-        string[] evidenceItems = { "Phone Chat", "Notebook", "Calendar", "Tea Glass", "Fishing Line", "Company Documents" };
+        string[] evidenceItems = { "Mobile Phone", "Notebook", "Calendar", "Tea Glass", "Fishing Line", "Accounting Documents" };
 
         foreach (string evId in evidenceItems)
         {
@@ -162,8 +162,8 @@ public class InvestigationReportFormTai : MonoBehaviour
     {
         if (witnessRowPrefab == null || witnessContainer == null) return;
 
-        string[] witnesses = { "THUNWA", "MAYSA", "CHAIWAT", "SOMYING" };
-        string[] witnessNames = { "ธันวา", "ใจมาส", "ชัยวัฒน์", "สมหญิง" };
+        string[] witnesses = { "THUNWA", "MAYSA", "CHAIWAT", "SOMYING", "PORNTHIP" };
+        string[] witnessNames = { "ธันวา", "เมษา", "ชัยวัฒน์", "สมหญิง", "พรทิพย์" };
 
         for (int i = 0; i < witnesses.Length; i++)
         {
