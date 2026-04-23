@@ -162,8 +162,8 @@ public class InvestigationReportForm : MonoBehaviour
     {
         if (witnessRowPrefab == null || witnessContainer == null) return;
 
-        string[] witnesses = { "ANNA", "BRIAN", "CHARLES", "DANA" };
-        string[] witnessNames = { "Anna", "Brian", "Charles", "Dana" };
+        string[] witnesses = { "ANNA", "BRIAN", "CHARLES", "DANA", "EDWARD" };
+        string[] witnessNames = { "Anna", "Brian", "Charles", "Dana", "Edward" };
 
         for (int i = 0; i < witnesses.Length; i++)
         {
