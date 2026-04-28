@@ -45,41 +45,40 @@ Case Context:
 Questions to evaluate:
 {questions_formatted}
 
---------------------------------
-TASK 1: SCORING (0-3)
---------------------------------
-1) politeness (professional conduct):
-   - 3: Professional, calm, ethical police conduct
-   - 0: Aggressive, threatening, or highly inappropriate
-
-2) investigation (investigative quality):
-   - 3: Evidence-based, relevant, advances investigation
-   - 0: Ineffective, or obstructs investigation
-
---------------------------------
-TASK 2: MULTI-LABEL ANNOTATION
---------------------------------
-Assign true/false for EACH label:
-
+TASK 1: Scoring (0-3)
+    1) Politeness (Professionalism/Ethical Standards)
+        3: Greeting, polite introduction, or highly respectful. Examples: "Good morning," "How are you?", "Thank you for your time."
+        2: Neutral, professional question appropriate for investigation. Examples: "What happened?", "Where were you?", "Tell me about..."
+        1: Somewhat inappropriate, aggressive tone, or accusatory without evidence. Examples: "Did you kill him?", "Why are you lying?"
+        0: Unprofessional, violent, threatening, or abusive. Examples: "I'll hurt you," "You're going to regret this," racial slurs, personal insults.
+    2) Investigation (Quality of Inquiry)
+        3: Uses evidence, relevant, and drives the investigation forward effectively.
+        2: Relevant question that could yield useful information, but weak or ambiguous.
+        1: Poor technique, leading question, or unlikely to get useful information.
+        0: Irrelevant, dangerous, or obstructive to the investigation.
+TASK 2: Labeling (Labels)
+Assign true or false for every label:
 [Question Format]
-- open_ended: Asks for detailed explanation
-- closed_ended: Yes/no or short answer
-- leading: Suggests answer or pressures toward conclusion
+• open_ended: Asking for detailed accounts, explanations, or narratives. Examples: "What happened?", "Tell me about...", "Describe..."
+• closed_ended: Asking for Yes/No or short specific info (name, time, number). Examples: "Did you see him?", "What time was it?", "Were you there?"
+• leading: Contains the answer within the question or pressures toward a specific response. Examples: "You saw Edward take the glass, didn't you?", "You were angry at Victor, right?", "Isn't it true that you needed money?"
+  NOTE: "What happened?" and "Who's suspicious?" are NOT leading - they allow open responses.
 
 [Strategy/Intent]
-- info_gathering: Seeks new information not in testimony
-- evidence_based: References evidence, timeline, or verified facts
-- rapport_building: Attempts to build trust/relationship
-- confrontational: Pressures or confronts to catch inconsistencies
+• info_gathering: Aiming for new information not yet in the file.
+• evidence_based: Referring to evidence, timelines, or physical exhibits.
+• rapport_building: Attempting to build trust/relationship. Examples: Greetings, empathetic statements.
+• confrontational: Pressuring, pinpointing discrepancies, or challenging. Examples: "You're lying," "That doesn't match what we know."
 
 [Behavior/Tone]
-- professional: Polite, steady, by-the-book
-- threatening: Threatens, intimidates, or shows power improperly
-- emotional_appeal: Uses pity, guilt, or emotional manipulation
-- promise_of_favor: Makes promises or offers deals
+• professional: Polite, steady, according to protocol.
+• threatening: Intimidating, menacing, or abusing authority. Examples: "I'll hurt you," "You'll regret this," "I can make your life difficult."
+  NOTE: Asking about emotions or being confrontational is NOT the same as threatening.
+• emotional_appeal: Using sympathy, guilt, or shared emotions.
+• promise_of_favor: Making promises, offering deals, or negotiating. Examples: "If you help me, I'll talk to the prosecutor."
 
 [Other]
-- context_required: Too brief to judge without prior context
+• context_required: Sentence is too short to judge without prior context. Examples: "Really?", "And then?", "Why?"
 
 --------------------------------
 CRITICAL OUTPUT RULES

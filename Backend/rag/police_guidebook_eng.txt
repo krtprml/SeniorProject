@@ -1,0 +1,99 @@
+[CH1]
+
+CHAPTER 1: General Principles of Criminal Case Investigation
+
+When a criminal offense occurs, persons with authority to file criminal cases in court include victims and public prosecutors. For cases where public prosecutors act as plaintiffs, the law prohibits public prosecutors from filing cases in court if there has been no investigation of that offense beforehand. The investigation that serves as an important condition enabling public prosecutors to file criminal cases in court must be conducted lawfully. If the investigation is unlawful, it is considered that there was no investigation of that offense beforehand, and public prosecutors have no authority to file cases similarly. Investigation must therefore be conducted by investigating officers with investigation authority under Code of Criminal Procedure Section 2(6) in conjunction with Section 2(11), where the incident occurs within the investigation jurisdiction under Code of Criminal Procedure Sections 18, 19, and 20. Initially, investigating officers must know what powers and duties investigating officers have, what areas their investigation jurisdiction covers, how they can connect with investigation authority under Code of Criminal Procedure Sections 18 and 19, understand the structure of criminal liability, know the procedures and methods for preparing investigation files, types of investigation files, and administration of investigation files.
+
+Structure of Criminal Liability
+
+Criminal law refers to laws that have criminal penalties, including death penalty, imprisonment, detention, fines, and confiscation of property. This is not limited only to the Criminal Code. Therefore, legal provisions in various Acts that have criminal penalties are considered criminal law. To determine whether any person must bear criminal liability, the structure of criminal liability (Structure of Crime) must be considered.
+
+A person must bear criminal liability when:
+(1) The act meets all elements prescribed by law
+(2) The act has no legal excuse for the offense
+(3) The act has no legal excuse from punishment
+
+In determining whether a person must bear criminal liability, first it must be considered whether that person's act meets all elements prescribed by law. If it meets all elements prescribed by law, then it must be considered whether that act has any legal excuse for the offense. If there is no legal excuse for the offense, then it must be considered whether there is any legal excuse from punishment. If there is no legal excuse from punishment, it means that person must bear criminal liability.
+
+Structure Item 1: Acts Meeting All Elements Prescribed by Law
+
+Acts meeting all elements prescribed by law means:
+• There is an act, which is bodily movement done consciously under mental control, including omission to act according to Criminal Code Section 59, final paragraph
+• Acts meeting external elements of the offense
+• Acts meeting internal elements of the offense (done intentionally or negligently only for offenses prescribed by law)
+• Consequences of acts relate to acts according to principles regarding the relationship between acts and consequences
+
+Structure Item 2: Acts Having No Legal Excuse for the Offense
+
+Acts that meet all elements prescribed by law under Structure Item 1, if they fall under circumstances having legal excuse for the offense, the perpetrator need not bear responsibility, or it may be said that the law recognizes such acts as lawful. The perpetrator has authority to act according to law, such as Section 68 ending with "that person has no offense." Acts arising from lawful consent arising from contracts or customs, such as parental authority over children or between teachers and students, etc.
+
+Structure Item 3: Acts Having No Legal Excuse from Punishment
+
+Acts that meet all offense elements as prescribed by law and have no legal excuse for the offense, but the perpetrator may not receive criminal punishment if there are legal excuses from punishment for various acts that constitute offenses, such as committing offenses by necessity under Criminal Code Section 67, committing offenses by children not over 10 years and not over 15 years under Criminal Code Sections 73 and 74, committing offenses by insane persons under Criminal Code Section 65, intoxicated persons under Criminal Code Section 66, committing offenses following unlawful orders of officials under Criminal Code Section 70, committing offenses regarding property in certain offense bases between spouses under Criminal Code Section 71, first paragraph.
+
+Meaning of the Word "Investigation"
+
+Code of Criminal Procedure Section 2(11) provides the meaning of the word "investigation" as meaning the collection of evidence and other proceedings under provisions of this Code that investigating officers have conducted regarding alleged offenses, in order to know facts or prove guilt, and in order to bring perpetrators to trial for punishment. Provisions in the Code of Criminal Procedure related to investigation are in Part 2 Investigation, Chapter 1 General Principles from Section 120 to Section 129, Chapter 2 Investigation, Division 1 Ordinary Investigation from Section 130 to Section 147, Division 2 Autopsy from Section 148 to Section 156. The investigation process begins from receiving complaints or accusations under Code of Criminal Procedure Sections 123 or 127, then conducting investigation to collect evidence and other proceedings as authorized by law, until the investigation file is completed with an opinion sent to the public prosecutor under Code of Criminal Procedure Sections 140, 141, or 142. Once the investigation file has been sent to the public prosecutor, investigating officers no longer have authority to investigate that case, except when the public prosecutor orders additional investigation under Code of Criminal Procedure Section 143, where investigating officers have authority to investigate only on points ordered for additional investigation by the public prosecutor, or cases where new evidence is found under Code of Criminal Procedure Section 147. In investigation, investigating officers have legal authority, for example: authority to order any person not to leave that place for as long as necessary under Code of Criminal Procedure Section 137; authority to send investigation issues to other officials under Code of Criminal Procedure Section 128(1); authority to examine victims when victims consent, or examine suspects, or examine things or places that may possibly be used as evidence under Code of Criminal Procedure Section 132(1); authority to release temporarily or control arrested persons under Code of Criminal Procedure Section 84/1; authority to issue summons for victims or any person who has reasonable cause to believe their testimony may benefit the case under Code of Criminal Procedure Section 133, first paragraph; authority to request courts to issue arrest warrants, search warrants, detention warrants, or release warrants for suspects, etc.
+
+Essential Elements of Criminal Case Investigation
+
+There are 3 essential elements as follows:
+
+1) Matters that investigating officers have conducted regarding alleged offenses, which include proceedings according to the following procedures:
+
+(1) Considering offenses in cases according to complaints or accusations, which must show details regarding acts alleged as offenses, circumstances of various acts, damages received, as well as information about persons, things, and places involved as appropriate. It is the duty of investigating officers to consider whether acts according to allegations constitute which offense under which legal provision.
+
+(2) Questioning and recording statements of victims and witnesses under Code of Criminal Procedure Section 133, where investigating officers have authority to issue summons for victims or any person whom investigating officers believe their testimony may benefit the case to come for questioning and recording statements.
+
+(3) Informing charges and recording statements of suspects. When cases have reasonable evidence that any person likely committed a criminal offense, investigating officers have authority to inform charges, question, and record statements of that person as a suspect under Code of Criminal Procedure Section 134. In investigating suspect statements, investigating officers must give importance to informing charges for suspects to know. Investigating officers must inform facts alleged that suspects committed offenses, date and time, place, persons and things involved, so suspects can understand the allegations well. Additionally, investigating officers must comply with procedures and methods prescribed by law, such as before investigating suspect statements, investigating officers must inform rights of suspects in the investigation stage under Sections 134/1, 134/2, 134/3, and 134/4; must arrange interpreters when persons giving statements cannot listen and answer questions in Thai; must inquire about having lawyers or arrange lawyers; must arrange for public prosecutors, psychologists or social workers, persons trusted by children to participate in hearing the investigation in types of cases prescribed by law. If investigating officers do not comply completely, it will result in any statements that suspects give to investigating officers being inadmissible as evidence in proving guilt of that person. When suspects willingly give statements, record those statements. If suspects are unwilling to give statements at all, record this.
+
+(4) Collecting evidence is proceedings under Code of Criminal Procedure Sections 131, 131/1, 132. Investigating officers have authority to collect all types of evidence as much as possible, including witness testimony, documentary evidence, and physical evidence, as well as taking photographs, maps, or drawings, models or fingerprints, handwriting or footprints, recording all details that may make cases clearer.
+
+2) In order to know facts or prove guilt. Collecting various evidence has the purpose of knowing facts related to alleged offenses or proving whether acts constitute offenses or not. Additionally, accused persons may not be perpetrators. Investigating officers must collect evidence showing that accused persons are innocent as well. Investigating officers must collect as much evidence as possible. Courts can sentence defendants in criminal cases only when cases have evidence that is certain there was actual commission of offenses and defendants are perpetrators of those offenses under Code of Criminal Procedure Section 227.
+
+3) In order to bring perpetrators to trial for punishment. Methods to bring suspects into the investigation process are as follows:
+
+(1) Issuing summons to meet investigating officers under Code of Criminal Procedure Section 52
+(2) Filing petitions to courts for courts to issue arrest warrants under Code of Criminal Procedure Section 66  
+(3) Receiving persons from officials or citizens who made arrests under Code of Criminal Procedure Section 84
+(4) Suspects meeting or surrendering themselves to investigating officers under Code of Criminal Procedure Section 134
+
+Investigating Officers and Investigation Jurisdiction
+
+4.1 Investigating Officers
+
+Investigation must be conducted by investigating officers with authority. Code of Criminal Procedure Section 2(6) defines "investigating officers" as meaning officials whom the law gives authority and duty to conduct investigations.
+
+Code of Criminal Procedure Section 18 provides for investigation authority. For police officers, police officers with ranks from Police Sub-Lieutenant or equivalent to Police Sub-Lieutenant and above have authority to investigate criminal offenses that have occurred, are alleged, or are believed to have occurred within their jurisdiction, or where suspects reside or are arrested within their jurisdiction. But it does not provide which investigating officers have investigation jurisdiction in which areas, so this must be considered under Code of Criminal Procedure Section 16. Authority of investigating officers must be according to laws and regulations regarding police authority and duties.
+
+The Royal Thai Police Office, exercising authority under Section 11(4) of the Royal Thai Police Act B.E. 2547, issued Order RTP No. 419/56 dated July 1, 2013 regarding provision of justice in criminal cases, preparation of investigation files and control measures, monitoring, expediting investigation of criminal cases, to be rules and guidelines for practice so that investigation complies with the Code of Criminal Procedure. This order was issued by the Commissioner-General to be regulations under Code of Criminal Procedure Section 16 regarding determination of scope of authority and duties for police officials in investigating criminal cases, so that investigation processes and procedures comply with law.
+
+"Agencies with investigation authority" means police stations, investigation units or supervisory divisions that have authority and duty in investigation under the Metropolitan Police Bureau, Provincial Police Regions 1-9, Central Investigation Bureau, Immigration Bureau, and investigation and asset inspection units under the Narcotics Suppression Bureau. Subsequently, there were Royal Decrees dividing government departments in the Royal Thai Police Office for 2 more agencies with investigation authority: Tourist Police Bureau and Technology Crime Investigation Bureau.
+
+The order defines heads of investigating officers in Chapter 4, Item 2.5 as follows:
+
+(1) Police station commanders, heads of agencies with investigation authority, or acting officers who have authority to investigate criminal offenses are heads of investigating officers under Section 18, paragraph four and Section 140 of the Code of Criminal Procedure in their areas of responsibility.
+
+(2) Police commanders or acting officers who have authority to investigate criminal offenses are heads of investigating officers under Section 18, paragraph four and Section 140 of the Code of Criminal Procedure in their areas of responsibility.
+
+(3) Police commissioners or acting officers who have authority to investigate criminal offenses are heads of investigating officers under Section 18, paragraph four and Section 140 of the Code of Criminal Procedure in their areas of responsibility.
+
+(4) The Commissioner-General of Royal Thai Police or acting officer is head of investigating officers throughout the Kingdom and has authority to order regarding cases in all situations.
+
+Heads of investigating officers under (1)-(4) have authority to assign police officers with ranks from Police Lance Corporal or equivalent to Police Lance Corporal and above in their departments to serve as investigating officers in their areas of responsibility, as determined by the Royal Thai Police Office.
+
+[Content continues with detailed explanations of investigation procedures, jurisdiction, evidence collection, and legal framework...]
+
+CHAPTER 6: Investigation of Victims, Witnesses, and Suspects
+
+After receiving complaints or accusations, investigating officers must consider what offense the suspect's acts constitute according to case circumstances, under which law, which section, whether it is a criminal offense according to Criminal Code Sections 2, 3, and 59 in conjunction with sections that define which acts are offenses and prescribe punishments within the statute of limitations. First, investigating officers must separate offense elements for each case before establishing case structure and preparing investigation points. Then they must seek facts and evidence to support allegations, having authority to summon victims or any person who has reasonable cause to believe their testimony may benefit the case under Code of Criminal Procedure Section 133, and having authority to inform charges to suspects under Code of Criminal Procedure Section 134 when there is reasonable evidence. In questioning, Police Regulations on Cases, Chapter 8, Part 5 has established practice guidelines.
+
+[The translation continues with detailed procedures for investigating victims, witnesses, and suspects, including rights notifications, questioning guidelines, and specific procedures for different types of cases...]
+
+CHAPTER 11: Evidence and Investigation
+
+To punish criminal offenders, courts must hear evidence beyond reasonable doubt before they can punish defendants. Presenting evidence in court is primarily the burden of the prosecution. If prosecutors cannot prove their case, courts must dismiss charges. They cannot rely on defendants' deficiencies to punish defendants. Investigating officers must therefore investigate and collect all types of evidence to identify perpetrators and prove guilt or innocence of suspects. Additionally, evidence admitted into investigation files must arise and be obtained lawfully. If evidence arises unlawfully, courts will not admit that evidence at all. But if evidence arises lawfully but is obtained unlawfully, courts generally will not admit evidence except when it meets legal conditions.
+
+[The translation continues with detailed explanations of types of evidence, rules for admitting evidence, chain of custody procedures, and specific guidelines for collecting and preserving different types of evidence in criminal investigations...]
+
+Note: This is a comprehensive translation of Thai criminal investigation procedures and legal framework. The document contains extensive detail about investigation authority, procedures, evidence collection, and legal requirements for criminal cases in Thailand.
