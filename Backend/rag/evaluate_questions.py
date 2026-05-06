@@ -37,74 +37,73 @@ with open("case_truth.txt", "r", encoding="utf-8") as f:
 # PROMPT TEMPLATE
 # ======================
 def build_prompt(questions_formatted):
-    return f"""You are an expert police interrogation analyst evaluating detective's questions.
+    return f"""คุณคือระบบ AI ตรวจสอบมาตรฐานการสอบสวน ให้ประเมินคำถามของผู้สืบคดีต่อไปนี้
 
-Case Context:
-{CASE_CONTEXT}
-
-Questions to evaluate:
+รายการคำถาม ({len(batch)} ข้อ):
 {questions_formatted}
 
-TASK 1: Scoring (0-3)
-    1) Politeness (Professionalism/Ethical Standards)
-        3: Greeting, polite introduction, or highly respectful. Examples: "Good morning," "How are you?", "Thank you for your time."
-        2: Neutral, professional question appropriate for investigation. Examples: "What happened?", "Where were you?", "Tell me about..."
-        1: Somewhat inappropriate, aggressive tone, or accusatory without evidence. Examples: "Did you kill him?", "Why are you lying?"
-        0: Unprofessional, violent, threatening, or abusive. Examples: "I'll hurt you," "You're going to regret this," racial slurs, personal insults.
-    2) Investigation (Quality of Inquiry)
-        3: Uses evidence, relevant, and drives the investigation forward effectively.
-        2: Relevant question that could yield useful information, but weak or ambiguous.
-        1: Poor technique, leading question, or unlikely to get useful information.
-        0: Irrelevant, dangerous, or obstructive to the investigation.
-TASK 2: Labeling (Labels)
-Assign true or false for every label:
-[Question Format]
-• open_ended: Asking for detailed accounts, explanations, or narratives. Examples: "What happened?", "Tell me about...", "Describe..."
-• closed_ended: Asking for Yes/No or short specific info (name, time, number). Examples: "Did you see him?", "What time was it?", "Were you there?"
-• leading: Contains the answer within the question or pressures toward a specific response. Examples: "You saw Edward take the glass, didn't you?", "You were angry at Victor, right?", "Isn't it true that you needed money?"
-  NOTE: "What happened?" and "Who's suspicious?" are NOT leading - they allow open responses.
-
-[Strategy/Intent]
-• info_gathering: Aiming for new information not yet in the file.
-• evidence_based: Referring to evidence, timelines, or physical exhibits.
-• rapport_building: Attempting to build trust/relationship. Examples: Greetings, empathetic statements.
-• confrontational: Pressuring, pinpointing discrepancies, or challenging. Examples: "You're lying," "That doesn't match what we know."
-
-[Behavior/Tone]
-• professional: Polite, steady, according to protocol.
-• threatening: Intimidating, menacing, or abusing authority. Examples: "I'll hurt you," "You'll regret this," "I can make your life difficult."
-  NOTE: Asking about emotions or being confrontational is NOT the same as threatening.
-• emotional_appeal: Using sympathy, guilt, or shared emotions.
-• promise_of_favor: Making promises, offering deals, or negotiating. Examples: "If you help me, I'll talk to the prosecutor."
-
-[Other]
-• context_required: Sentence is too short to judge without prior context. Examples: "Really?", "And then?", "Why?"
+บริบทของคดี: {CASE_CONTEXT}
 
 --------------------------------
-CRITICAL OUTPUT RULES
+TASK 1: การให้คะแนน (0-3)
 --------------------------------
-- MUST return a JSON array with one object PER question
-- NO additional text, explanations, or markdown
-- NO explanation after the JSON
-- Example: [{{"politeness": 2, ...}}, {{"politeness": 3, ...}}]
+1) politeness (ความสุภาพ/มาตรฐานวิชาชีพ):
+   - 3: มืออาชีพ สงบ เคารพจริยธรรม
+   - 0: ก้าวร้าว ข่มขู่ หรือไม่เหมาะสมอย่างรุนแรง
+2) investigation (คุณภาพการสืบสวน):
+   - 3: ใช้หลักฐาน ขับเคลื่อนคดีได้จริง
+   - 0: ไร้ประสิทธิภาพ หรือขัดขวางการสืบสวน
 
-Each JSON object must have:
-{{
-  "politeness": 0-3,
-  "investigation": 0-3,
-  "open_ended": false,
-  "closed_ended": false,
-  "leading": false,
-  "info_gathering": false,
-  "evidence_based": false,
-  "rapport_building": false,
-  "confrontational": false,
-  "professional": false,
-  "threatening": false,
-  "emotional_appeal": false,
-  "promise_of_favor": false,
-  "context_required": false
-}}
+--------------------------------
+TASK 2: การระบุลักษณะคำถาม (Labels)
+--------------------------------
+กำหนดให้เป็น true หรือ false สำหรับทุกลูกศร (Label):
+
+[รูปแบบคำถาม]
+- open_ended: ถามเพื่อให้เล่ารายละเอียด
+- closed_ended: ถามเพื่อให้ตอบ ใช่/ไม่ใช่ หรือข้อมูลสั้นๆ
+- leading: ถามแบบชี้นำหรือยัดเยียดคำตอบ
+
+[กลยุทธ์/เจตนา]
+- info_gathering: มุ่งหาข้อมูลใหม่ที่ยังไม่มีในสำนวน
+- evidence_based: อ้างอิงจากหลักฐาน ไทม์ไลน์ หรือวัตถุพยาน
+- rapport_building: พยายามสร้างความไว้ใจ/ความสัมพันธ์
+- confrontational: กดดัน จี้จุด หรือเผชิญหน้าเพื่อจับผิด
+
+[พฤติกรรม/โทน]
+- professional: สุภาพ มั่นคง ตามระเบียบ
+- threatening: ข่มขู่ คุกคาม หรือแสดงอำนาจในทางที่ผิด
+- emotional_appeal: ใช้ความสงสาร ความผิดปกติ หรืออารมณ์ร่วม
+- promise_of_favor: ให้สัญญา ยื่นข้อเสนอ หรือต่อรอง
+
+[อื่นๆ]
+- context_required: ประโยคสั้นเกินไปจนตัดสินไม่ได้หากไม่มีบริบทก่อนหน้า
+
+--------------------------------
+OUTPUT RULES
+--------------------------------
+- ต้องตอบเป็น JSON ARRAY ที่มี {len(batch)} วัตถุ (หนึ่งวัตถุต่อหนึ่งคำถาม)
+- Output เฉพาะ JSON เท่านั้น ห้ามมี Markdown หรือ Text อื่น
+- แต่ละวัตถุต้องมีครบทุก Key ต่อไปนี้
+
+[
+  {{
+    "politeness": 0-3,
+    "investigation": 0-3,
+    "open_ended": false,
+    "closed_ended": false,
+    "leading": false,
+    "info_gathering": false,
+    "evidence_based": false,
+    "rapport_building": false,
+    "confrontational": false,
+    "professional": false,
+    "threatening": false,
+    "emotional_appeal": false,
+    "promise_of_favor": false,
+    "context_required": false
+  }}
+]
 """
 
 # ======================
@@ -225,7 +224,7 @@ for model_name, model_config in MODELS.items():
     results[model_name] = dataset
 
     # Save individual model results
-    output_file = f"ground_truth_{model_name}.json"
+    output_file = f"ground_truth_{model_name}_th.json"
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(dataset, f, indent=2, ensure_ascii=False)
 
