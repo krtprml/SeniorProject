@@ -23,8 +23,8 @@ matplotlib.rcParams['font.family'] = 'Arial Unicode MS'  # For Thai text support
 GROUNDBUTH_FILE = "groundtruth_police.json"
 LLM_FILES = {
     "gemini_3.1_flash preview": "ground_truth_gemini.json",
-    "groq_llama-3.1-8b-instant": "ground_truth_groq_llama3_8b.json",
-    "nvidia_llama-3.1-8b-instruct": "ground_truth_nvidia_llama3_8b.json",
+    "groq_llama-3.1-8b-instant": "ground_truth_groq_llama3_8b_th.json",
+    "nvidia_llama-3.1-8b-instruct": "ground_truth_nvidia_llama3_8b_th.json",
     "typhoon_v2.5_30b_a3b_instruct": "ground_truth_typhoon.json"
 }
 
