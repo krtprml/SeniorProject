@@ -26,7 +26,7 @@ MODEL_NAME = "gemini-3.1-flash-lite-preview"  # Gemini 2.5 Flash-Lite model
 
 MAX_MEMORY_TURNS = 4
 
-with open("case_truth_thai.txt", "r", encoding="utf-8") as f:
+with open("case2_data_Thai.txt", "r", encoding="utf-8") as f:
     CASE_CONTEXT = f.read().strip()
 
 # Global rules from [ALL] section - should be in system prompt, not RAG

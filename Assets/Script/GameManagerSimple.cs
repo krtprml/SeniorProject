@@ -85,7 +85,13 @@ public class GameManagerSimple : MonoBehaviour
             if (req.result != UnityEngine.Networking.UnityWebRequest.Result.Success)
                 Debug.LogError("StartGame failed: " + req.error);
             else
+            {
                 Debug.Log("Game started on server");
+
+                // Reset DontDestroyOnLoad singleton states
+                DialogueManager.I?.ResetState();
+                UIStateManager.I?.ResetState();
+            }
         }
     }
 

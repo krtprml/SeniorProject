@@ -38,4 +38,16 @@ public class DialogueManager : MonoBehaviour
     {
         return Time.unscaledTime < blockPauseUntil;
     }
+
+    // ========================= RESET STATE =========================
+    /// <summary>
+    /// Reset dialogue state when restarting the game.
+    /// Call this from GameManagerSimple when starting a new game.
+    /// </summary>
+    public void ResetState()
+    {
+        openDialogues = 0;
+        blockPauseUntil = 0f;
+        Debug.Log("🔄 DialogueManager state reset");
+    }
 }

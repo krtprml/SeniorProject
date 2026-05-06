@@ -22,4 +22,20 @@ public class UIStateManager : MonoBehaviour
     {
         return isNotebookOpen || isDialogueOpen || isEvidenceViewerOpen || isPauseMenuOpen || isIntroOpen || isEndGameActive;
     }
+
+    // ========================= RESET STATE =========================
+    /// <summary>
+    /// Reset UI state when restarting the game.
+    /// Call this from GameManagerSimple when starting a new game.
+    /// </summary>
+    public void ResetState()
+    {
+        isNotebookOpen = false;
+        isDialogueOpen = false;
+        isEvidenceViewerOpen = false;
+        isPauseMenuOpen = false;
+        isIntroOpen = false;
+        isEndGameActive = false;
+        Debug.Log("🔄 UIStateManager state reset");
+    }
 }
