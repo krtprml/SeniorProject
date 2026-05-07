@@ -76,7 +76,7 @@ public class StandardNPCTai : MonoBehaviour
 
             foreach (var r in item.reveals)
             {
-                if (r.npc == npcName.ToUpper())
+                if (r.npc == npcName)
                 {
                     var btn = Instantiate(evidenceButtonPrefab, evidenceButtonContainer);
 
