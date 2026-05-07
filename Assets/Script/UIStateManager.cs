@@ -13,8 +13,9 @@ public class UIStateManager : MonoBehaviour
 
     void Awake()
     {
-        if (I == null) I = this;
-        else Destroy(gameObject);
+        if (I != null) { Destroy(gameObject); return; }
+        I = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     // The Master Check: Is ANY menu currently taking up the screen?

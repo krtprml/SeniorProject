@@ -13,7 +13,7 @@
     "ui_hint": "Confront with Calendar"
   },
   {
-    "id": "Phone Chat",
+    "id": "Mobile Phone",
     "display_name": "Mobile Phone",
     "reveals": [
       {
@@ -110,7 +110,7 @@
     "ui_hint": "Ask about Fishing Line"
   },
   {
-    "id": "Company Documents",
+    "id": "Accounting Documents",
     "display_name": "Accounting Documents",
     "reveals": [
       {

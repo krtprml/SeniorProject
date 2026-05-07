@@ -187,6 +187,11 @@ public class GameEndManager : MonoBehaviour
         yield return StartCoroutine(CallStartGame());
 
         HideGameEndPanels();
+
+        // 🔥 Reset DontDestroyOnLoad singleton states BEFORE scene reload
+        DialogueManager.I?.ResetState();
+        UIStateManager.I?.ResetState();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -204,6 +209,10 @@ public class GameEndManager : MonoBehaviour
         HideGameEndPanels();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        // 🔥 Reset DontDestroyOnLoad singleton states BEFORE loading main menu
+        DialogueManager.I?.ResetState();
+        UIStateManager.I?.ResetState();
 
         SceneManager.LoadScene(0);
     }

@@ -123,6 +123,11 @@ public class PauseManager : MonoBehaviour
         yield return StartCoroutine(CallEndGame());
         if (pauseMenuPanel) pauseMenuPanel.SetActive(false);
         SetCursorState(true);
+
+        // 🔥 Reset DontDestroyOnLoad singleton states BEFORE loading main menu
+        DialogueManager.I?.ResetState();
+        UIStateManager.I?.ResetState();
+
         try { SceneManager.LoadScene(mainMenuSceneIndex); }
         catch { SceneManager.LoadScene(mainMenuSceneName); }
     }

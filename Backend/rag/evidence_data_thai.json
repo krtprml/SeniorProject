@@ -1,5 +1,5 @@
 {
-  "Phone Chat": {
+  "Mobile Phone": {
     "display_name": "บันทึกข้อความในโทรศัพท์",
     "reveals": [
       {
@@ -89,7 +89,7 @@
     "single_use": true,
     "ui_hint": "เอาเส้นเอ็นมาเคาะ"
   },
-  "Company Documents": {
+  "Accounting Documents": {
     "display_name": "เอกสารบัญชีบริษัท",
     "reveals": [
       {

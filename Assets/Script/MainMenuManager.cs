@@ -174,6 +174,10 @@ public class MainMenuManager : MonoBehaviour
             }
         }
 
+        // 🔥 Reset DontDestroyOnLoad singleton states BEFORE loading scene
+        DialogueManager.I?.ResetState();
+        UIStateManager.I?.ResetState();
+
         // Now load the scene
         Debug.Log("✓ Loading scene: " + sceneName);
         SceneManager.LoadScene(sceneName);
@@ -287,6 +291,10 @@ public IEnumerator StartGameRoutine(string serverUrl, string sceneName)
 
     // Load the scene regardless of server call result (for now, to help debugging)
     Debug.Log("🎮 Loading scene: " + sceneName);
+
+    // 🔥 Reset DontDestroyOnLoad singleton states BEFORE loading scene
+    DialogueManager.I?.ResetState();
+    UIStateManager.I?.ResetState();
 
     try
     {
