@@ -309,7 +309,7 @@ public class InvestigationReportFormTai : MonoBehaviour
 
     string GetSuspectId(int index)
     {
-        return new[] { "", "CHAIWAT", "MAYSA", "THUNWA", "SOMYING" }[index];
+        return new[] { "", "THUNWA", "MAYSA", "CHAIWAT", "SOMYING", "PORNTHIP" }[index];
     }
 
     string GetMotiveType(int index)

@@ -43,6 +43,9 @@ public class NotebookReportSubmitterTai : MonoBehaviour
         // Initialize post-submission buttons as inactive
         SetPostSubmissionButtonsActive(false);
 
+        // Wire up button click handlers
+        SetupButtonHandlers();
+
         if (reportForm != null)
         {
             reportForm.Show(OnReportSubmitted, OnCancelClicked);
@@ -52,6 +55,16 @@ public class NotebookReportSubmitterTai : MonoBehaviour
         {
             Debug.LogError("❌ NotebookReportSubmitterTai: reportForm is NULL! Check Inspector assignment.");
         }
+    }
+
+    void SetupButtonHandlers()
+    {
+        if (restartButton != null)
+            restartButton.onClick.AddListener(() => GameEndManager.instance?.RestartGame());
+        if (mainMenuButton != null)
+            mainMenuButton.onClick.AddListener(() => GameEndManager.instance?.GoToMainMenu());
+        if (exitButton != null)
+            exitButton.onClick.AddListener(() => GameEndManager.instance?.QuitGame());
     }
 
     void OnCancelClicked()
