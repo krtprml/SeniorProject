@@ -11,6 +11,27 @@ Case Summary
 - The Motive: Victor was going to force Edward out of their company.
 - The Method: During the party's confusion, Edward discreetly poisoned Victor's specific wine glass. He then manipulated the glasses, ensuring Victor drank from the poisoned one.
 
+Evidence:
+1. Opened wine bottle  
+   - Type: Object  
+   - Notes: Multiple fingerprints found (Anna, Brian, Edward). Cannot determine who actually handled it at the critical time.
+2. Victor's wine glass
+   - Type: Object  
+   - Notes: Contains higher concentration of poison residue compared to other glasses. Confirms the poison was in Victor's glass, but does not prove who added it.
+3. Victor's notebook 
+   - Type: Text  
+   - Notes: Contains personal complaints about Edward (business partner) and Brian (debts). Suggests multiple possible enemies.
+4. Phone messages 
+   - Type: Text  
+   - Notes: Shows Victor argued with Anna about money, and threatened Brian regarding unpaid debts.
+5. Wall calendar  
+   - Type: Object  
+   - Notes: Shows a scheduled major business meeting with Edward the following day. Indicates high-stakes financial conflict.
+6. Household medicine cabinet 
+   - Type: Object  
+   - Notes: Bottle of rat poison partially missing. Accessible to everyone in the house, cannot prove who took it.
+
+
 Key Evidence & Suspect Analysis
 - Key Evidence Against Edward:
     1.  Witness Testimony: Both Brian and Charles saw Edward manipulating or swapping glasses.

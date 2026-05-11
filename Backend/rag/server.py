@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import chromadb
 from groq import Groq
-from police_guidebook_search import PoliceGuidebookSearch
+# from police_guidebook_search import PoliceGuidebookSearch  # DISABLED - Using pure LLM
 
 # ==============================
 # CONFIG
@@ -27,6 +27,29 @@ MAX_MEMORY_TURNS = 4
 
 with open("case_truth.txt", "r", encoding="utf-8") as f:
     CASE_CONTEXT = f.read().strip()
+
+# Load global context from [ALL] section
+GLOBAL_CONTEXT = """
+World & mechanics:
+- The player is investigating Victor's murder at his house the day after a small wine party (7:00 PM - 10:00 PM).
+- Victor was found dead around 10:05 PM–10:15 PM from poison.
+- There were 6 people: Victor, Anna (Wife), Brian (Friend), Charles (Childhood Friend), Dana (Colleague), Edward (Business Partner).
+- Victor drank his last glass of wine between 9:45 PM and 10:00 PM.
+- Physical evidence remains (spray marks, objects), but the body is gone.
+- You are a generic witness/suspect. Only mention things you perceived with your own senses.
+- DO NOT mention CCTV, DNA, digital data, or game mechanics.
+
+Global Behavior Rules:
+1. Speak naturally based on your persona. If you are anxious, stutter slightly. If arrogant, be short.
+2. NEVER admit you are an AI.
+3. If asked about something you didn't see, say "I don't know" or "I wasn't looking."
+4. DO NOT mention that Edward is the killer (unless you are Edward confessing).
+
+Evidence knowledge (Everyone knows this if asked specifically):
+- Wine Bottle: Everyone drank from it.
+- Victor's Notebook: Rumors say Victor wrote about debts and business fights.
+- Medicine Cabinet: Rat poison is missing, anyone could have taken it during a bathroom break.
+""".strip()
 
 with open("evidence_data.json", "r", encoding="utf-8") as f:
     EVIDENCE_DATA = json.load(f)
@@ -69,11 +92,8 @@ except Exception:
 # ==============================
 # LOAD POLICE GUIDEBOOK DB
 # ==============================
-try:
-    police_guidebook_search = PoliceGuidebookSearch(db_path="./police_guidebook_db", language="english")
-except Exception as e:
-    police_guidebook_search = None
-    print(f"⚠️  Police guidebook search not available: {e}")
+# DISABLED - Using pure LLM responses instead of RAG
+# police_guidebook_search = None
 
 # ==============================
 # GAME STATE
@@ -296,6 +316,11 @@ You may still withhold information unrelated to this conflict.
 {npc_prompt}
 
 ====================
+GLOBAL CONTEXT (Applies to everyone)
+====================
+{GLOBAL_CONTEXT}
+
+====================
 RELEVANT TIMELINE & KNOWLEDGE
 ====================
 {context}
@@ -322,15 +347,7 @@ Answer naturally as {npc}.
 # QUESTION EVALUATOR (GROUND TRUTH)
 # ==============================
 def evaluate_question(question: str, context: str):
-
-    # Load police guidebook for authoritative references
-    police_guidebook_path = "police_guidebook_english.txt"
-    try:
-        with open(police_guidebook_path, "r", encoding="utf-8") as f:
-            POLICE_GUIDEBOOK = f.read()
-    except FileNotFoundError:
-        POLICE_GUIDEBOOK = ""
-
+    # Police guidebook removed - using pure LLM evaluation
 
     prompt = f"""
 You are an expert in criminal investigation. Evaluate the investigator's question according to international investigative principles.
@@ -373,13 +390,10 @@ Assign true or false for every label:
 • context_required: Sentence is too short to judge without prior context. Examples: "Really?", "And then?", "Why?"
 
 TASK 3: Reasoning
-    Refer to investigative principles from the police manual (police_guidebook.txt) to explain the reasoning:
-    1. reason_politeness: Explain why this politeness score was given. • Refer to principles of respecting suspect rights and professional standards. • Explain how the tone and rhetoric align with or violate principles. • If threats are used, refer to the specific section/article violated.
-    2. reason_investigation: Explain why this investigation quality score was given. • Refer to principles of evidence collection and effective questioning. • Explain whether this question drives the case and why. • Refer to witness/suspect interview methods according to principles.
-    3. reason_labels: Explain why the question was classified with those labels. • For all true labels, explain the reasoning. • Refer to questioning formats, strategies, or behaviors per the manual. • Explain how each label reflects correct or incorrect investigative approaches.
-
-Reference content from the police manual:
-{POLICE_GUIDEBOOK[:3000]}
+    Explain the reasoning for your evaluation:
+    1. reason_politeness: Explain why this politeness score was given based on professional standards and respect for suspect rights.
+    2. reason_investigation: Explain why this investigation quality score was given based on evidence collection and effective questioning principles.
+    3. reason_labels: Explain why the question was classified with those labels. For all true labels, explain the reasoning.
 
 OUTPUT RULES
 • Output JSON ONLY. No Markdown or other text.
@@ -416,37 +430,9 @@ OUTPUT RULES
     try:
         evaluation = json.loads(raw)
 
-        # NEW: Search police guidebook for enhanced reasoning
-        if police_guidebook_search:
-            try:
-                # Extract boolean labels
-                labels = {k: v for k, v in evaluation.items() if isinstance(v, bool)}
-
-                # Extract scores
-                scores = {
-                    "politeness": evaluation.get("politeness", 0),
-                    "investigation": evaluation.get("investigation", 0)
-                }
-
-                # Get explanation from guidebook
-                explanation = police_guidebook_search.get_explanation_for_evaluation(
-                    question=question,
-                    labels=labels,
-                    scores=scores
-                )
-
-                # Add enhanced guidebook explanation to evaluation
-                evaluation["guidebook_explanation"] = explanation
-                evaluation["guidebook_reference"] = "Police Interrogation Guidebook"
-
-                print(f"📖 Guidebook explanation added for question")
-            except Exception as e:
-                print(f"⚠️  Guidebook search error: {e}")
-                evaluation["guidebook_explanation"] = None
-                evaluation["guidebook_reference"] = None
-        else:
-            evaluation["guidebook_explanation"] = None
-            evaluation["guidebook_reference"] = None
+        # Police guidebook search removed - using pure LLM responses
+        evaluation["guidebook_explanation"] = None
+        evaluation["guidebook_reference"] = None
 
         return evaluation
     except json.JSONDecodeError:
