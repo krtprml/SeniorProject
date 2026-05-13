@@ -6,7 +6,7 @@ public class GameManagerSimple : MonoBehaviour
     public static GameManagerSimple I { get; private set; }
 
     [Header("Python Middleware Settings")]
-    [SerializeField] string baseUrl = "http://127.0.0.1:8000";
+    [SerializeField] string baseUrl = "https://underwear-headed-existing.ngrok-free.dev";
 
     public LLMClientSimple Client { get; private set; }
 

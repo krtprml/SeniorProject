@@ -25,7 +25,7 @@ public class GameEndManager : MonoBehaviour
     public ObjectHighlighter playerController;
 
     [Header("Server")]
-    [SerializeField] string serverBaseUrl = "http://127.0.0.1:8000";
+    [SerializeField] string serverBaseUrl = "https://underwear-headed-existing.ngrok-free.dev";
 
     [Header("Auto Fail Screen")]
     [SerializeField] AutoFailScreen autoFailScreen;

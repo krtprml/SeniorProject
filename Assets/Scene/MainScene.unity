@@ -152,8 +152,8 @@ MonoBehaviour:
   case2SceneName: CrimeSceneLevel2
   mainMenuPanel: {fileID: 459291242}
   caseSelectionPanel: {fileID: 1626923189}
-  englishServerUrl: http://127.0.0.1:8000
-  thaiServerUrl: http://127.0.0.1:8001
+  englishServerUrl: https://underwear-headed-existing.ngrok-free.dev
+  thaiServerUrl: https://underwear-headed-existing.ngrok-free.dev
 --- !u!4 &73789664
 Transform:
   m_ObjectHideFlags: 0

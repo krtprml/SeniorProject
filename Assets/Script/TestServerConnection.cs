@@ -8,7 +8,7 @@ using UnityEngine;
 public class TestServerConnection : MonoBehaviour
 {
     [Header("Server Configuration")]
-    public string serverUrl = "http://127.0.0.1:8000";
+    public string serverUrl = "https://underwear-headed-existing.ngrok-free.dev";
 
     [Header("Test Results")]
     [SerializeField] private bool lastTestSuccess = false;
@@ -26,7 +26,7 @@ public class TestServerConnection : MonoBehaviour
         // Press T to test Thai server (port 8001)
         if (Input.GetKeyDown(KeyCode.T))
         {
-            StartCoroutine(TestConnection("http://127.0.0.1:8001"));
+            StartCoroutine(TestConnection("https://underwear-headed-existing.ngrok-free.dev"));
         }
     }
 

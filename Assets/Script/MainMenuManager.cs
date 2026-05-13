@@ -28,10 +28,10 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Server URLs")]
     [Tooltip("URL for English server (Case 1)")]
-    public string englishServerUrl = "http://127.0.0.1:8000";
+    public string englishServerUrl = "https://underwear-headed-existing.ngrok-free.dev";
 
     [Tooltip("URL for Thai server (Case 2)")]
-    public string thaiServerUrl = "http://127.0.0.1:8001";
+    public string thaiServerUrl = "https://underwear-headed-existing.ngrok-free.dev";
 
     // Public getter for the stored URL
     public static string GetSelectedServerUrl()
@@ -327,7 +327,7 @@ public IEnumerator StartGameRoutine(string serverUrl, string sceneName)
 public IEnumerator ClearServerState()
 {
     // Use the current server URL from GameManagerSimple
-    string serverUrl = GameManagerSimple.I != null ? GameManagerSimple.I.GetBaseUrl() : "http://127.0.0.1:8000";
+    string serverUrl = GameManagerSimple.I != null ? GameManagerSimple.I.GetBaseUrl() : "https://underwear-headed-existing.ngrok-free.dev";
 
     using var req = new UnityEngine.Networking.UnityWebRequest(serverUrl + "/end-game", "POST");
     req.downloadHandler = new UnityEngine.Networking.DownloadHandlerBuffer();

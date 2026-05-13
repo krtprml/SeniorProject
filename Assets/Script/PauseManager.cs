@@ -23,7 +23,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] string mainMenuSceneName = "Scene/MainScene";
 
     [Header("Server")]
-    [SerializeField] string serverBaseUrl = "http://127.0.0.1:8000";
+    [SerializeField] string serverBaseUrl = "https://underwear-headed-existing.ngrok-free.dev";
 
     private bool isPaused = false;
     private bool wasTimeAlreadyPaused = false;
