@@ -11,6 +11,21 @@ Every line of NPC dialogue is generated live by an AI through a real API. Becaus
 
 ---
 
+## 📥 Download the Ready-Built Game (macOS)
+
+You don't need to build the Unity project yourself — the final game build is available on the [Releases page](https://github.com/krtprml/SeniorProject/releases):
+
+**[⬇️ Direct download — `ICT-SP2025-42-Aj.Suradej-Final-macOS.zip` (~1 GB)](https://github.com/krtprml/SeniorProject/releases/latest/download/ICT-SP2025-42-Aj.Suradej-Final-macOS.zip)**
+
+- This is the game file: `ICT SP2025-42-Aj.Suradej-Final.app` — a **Universal binary** (runs on Apple Silicon and Intel Macs)
+- Unzip and open the app to play
+
+> ⚠️ **The app is only the game client (Unity frontend).** NPC dialogue still comes from the Python backend with a real AI API — so you still need **Steps 1–5** (backend setup + your own API key + model) before the game can start a case.
+>
+> 💡 If macOS refuses to open the app ("unidentified developer"): right-click the app → **Open** → Open again, or run `xattr -cr "/path/to/ICT SP2025-42-Aj.Suradej-Final.app"`
+
+---
+
 ## ⚠️ Read This First — Why You Need Your Own API Key
 
 The AI models hardcoded in the repo **have expired / been moved to Enterprise-only tiers**:
