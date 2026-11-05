@@ -1,208 +1,236 @@
-# 🕵️ Murder Mystery AI Game - Senior Project
+# 🕵️ Murder Mystery AI Game — Senior Project
 
-> An immersive AI-powered detective game where NPCs don't just talk — they lie, remember, and break under evidence.
+> เกมสืบสวนฆาตกรรมที่ NPC "ไม่ได้แค่พูด" — แต่โกหก จำบทสนทนา และยอมรับความจริงเมื่อถูกเผชิญหน้าด้วยหลักฐาน
 
-## 📖 Overview
+เกมสืบสวนมุมมองบุคคลที่หนึ่ง พัฒนาด้วย **Unity + FastAPI + LLM (RAG)** โดยมี 2 คดีให้เลือกเล่น:
 
-**Murder Mystery AI Game** is an interactive detective experience built as a **Senior Project** at the **Faculty of Information and Communication Technology, Mahidol University**.
+- **Case 1 — คดีฆาตกรรม Victor** (English)
+- **Case 2 — คดี "พินัยกรรมในห้องปิดตาย"** (ภาษาไทย)
 
-Players take on the role of a detective investigating the murder of **Victor**. Unlike traditional dialogue-tree games, every NPC possesses:
-
-- 🎭 A unique personality
-- 🕶️ Hidden motives and agendas
-- 🧠 Dynamic memory systems
-- 🤥 The ability to lie
-
-The core gameplay revolves around **evidence-based interrogation**. NPCs will not reveal the truth simply because players ask clever questions. They will only confess when confronted with valid evidence that exposes their inconsistencies.
+ทุกคำพูดของ NPC ถูกสร้างสดโดย AI ผ่าน API จริง ดังนั้นก่อนเข้าเกม **ผู้เล่นต้องเตรียม API Key และเลือก Model เอง** (ขั้นตอนที่ 3–4)
 
 ---
 
-## 🎮 Gameplay Concept
+## ⚠️ อ่านก่อนเริ่ม — ทำไมต้องใส่ API Key เอง
 
-The player must:
+Model ที่ถูก set ค่าไว้ในโค้ดเดิม **หมดอายุ / ถูกย้ายไป Enterprise tier แล้ว**:
 
-1. Explore the environment
-2. Collect evidence
-3. Interrogate suspects
-4. Analyze contradictions
-5. Confront NPCs with supporting evidence
-6. Identify:
+| ไฟล์ | Model เดิมในโค้ด | สถานะปัจจุบัน |
+|------|------------------|----------------|
+| `server.py` | `llama-3.1-8b-instant` (Groq) | ย้ายไป Enterprise tier — key ฟรีเรียกไม่ได้ |
+| `server_thai.py` | `typhoon-v2.5-30b-a3b-instruct` | ยังใช้ได้ (ต้องมี Typhoon key) |
+| `server_thai_gemini.py` | `gemini-3.1-flash-lite-preview` | Preview model หมดอายุแล้ว |
 
-- 🔍 The murderer
-- 🎯 The motive
-- ⚔️ The murder method
-
-Every decision influences the final investigation score.
+ดังนั้น **ทุกคนต้องสมัคร API key ของตัวเอง และแก้ `MODEL_NAME` เป็น model ที่ยังให้บริการอยู่** ก่อนรันเกม — ทุกตัวที่แนะนำด้านล่างมี tier ฟรีให้ใช้
 
 ---
 
-## 🛠️ Tech Stack
+## 📋 สรุปการตั้งค่าทั้งหมด
 
-| Layer | Technology |
-|-------|------------|
-| 🎮 Game Engine | Unity 2022.3+ (URP, C#, TextMeshPro) |
-| ⚙️ Backend | FastAPI + Uvicorn (Python) |
-| 🤖 AI / LLM | Groq API (Llama 3.1 8B Instant) + Google Gemini |
-| 🗄️ Vector Database | ChromaDB |
-| 🧠 NPC Memory | Sliding Window Context Injection |
-| 🚀 Deployment | Tmux-based Concurrent FastAPI Server |
+| คดี | ภาษา | ไฟล์ Server | ผู้ให้บริการ AI | Environment Variable | Model ที่แนะนำ | Port |
+|-----|------|--------------|------------------|----------------------|-----------------|------|
+| Case 1 | 🇬🇧 EN | `server.py` | Groq | `GROQ_API_KEY` | `openai/gpt-oss-20b` | 8000 |
+| Case 2 | 🇹🇭 TH | `server_thai.py` | Typhoon (SCB 10X) | `TYPHOON_API_KEY` | `typhoon-v2.5-30b-a3b-instruct` | 8001 |
+| Case 2 (ทางเลือก) | 🇹🇭 TH | `server_thai_gemini.py` | Google Gemini | `GEMINI_API_KEY` | `gemini-2.5-flash-lite` | 8001 |
 
----
-
-## ✨ Key Features
-
-### 🧠 RAG-Powered NPC Dialogue
-
-NPCs do not rely on traditional dialogue trees.
-
-Instead, they retrieve information semantically from a **ChromaDB vector store** built from structured case data.
-
-Knowledge is chunked into:
-
-- 📅 Timeline
-- 📚 Knowledge Base
-- 👤 NPC Ownership
-
-Relevant context is dynamically injected into every response to create more believable and consistent conversations.
+> เลือกใช้ **อย่างใดอย่างหนึ่งต่อคดี** — เล่น Case 2 ได้ทั้ง Typhoon หรือ Gemini (รันแทนกันที่ port 8001)
 
 ---
 
-### 🔍 Evidence-Based Truth Confrontation
+## 🧰 สิ่งที่ต้องมี
 
-Every NPC initially starts in a **lying state**.
-
-When players present corroborating evidence (e.g. *Victor's Notebook*), the backend toggles a `has_truth` flag and switches the NPC into an **Admissions Mode**, forcing them to reveal hidden information and confess.
-
-This creates a realistic investigation experience where facts matter more than persuasion.
-
----
-
-### 🧠 Dynamic NPC Memory System
-
-NPCs maintain short-term conversational memory using a **sliding-window context mechanism**.
-
-This allows NPCs to:
-
-- Remember previous conversations
-- Maintain context continuity
-- Avoid repetitive responses
-- React differently based on prior interactions
+- **Unity 6000.1.13f1 (Unity 6)** — ติดตั้งผ่าน [Unity Hub](https://unity.com/download)
+- **Python 3.10+**
+- **บัญชีผู้ให้บริการ AI** (ตามคดีที่จะเล่น — ดูขั้นตอนที่ 3)
+- อินเทอร์เน็ต (การสร้าง Vector Database ครั้งแรกจะดาวน์โหลด embedding model อัตโนมัติ)
 
 ---
 
-### 📊 Investigation Evaluation System
+## ขั้นตอนที่ 1 — ติดตั้งโปรเจกต์
 
-Player performance is evaluated in real time across two dimensions:
+```bash
+git clone https://github.com/krtprml/SeniorProject.git
+cd SeniorProject/Backend/rag
 
-### 👨‍💼 Professionalism
+# สร้าง virtual environment (แนะนำ)
+python3 -m venv venv
+source venv/bin/activate        # macOS / Linux
+# venv\Scripts\activate         # Windows
 
-Measures:
+# ติดตั้ง dependencies
+pip install -r requirements.txt
 
-- Respectfulness
-- Ethical behavior
-- Interrogation etiquette
+# เพิ่มเติมสำหรับ server ภาษาไทย (ยังไม่ได้อยู่ใน requirements.txt)
+pip install openai google-genai
+```
 
-### 🕵️ Investigation Quality
-
-Measures:
-
-- Question relevance
-- Logical reasoning
-- Evidence utilization
-
-Aggressive or threatening behavior immediately triggers an **Auto Fail State** via `GameEndManager`.
+> `openai` ใช้กับ `server_thai.py` (Typhoon) และ `google-genai` ใช้กับ `server_thai_gemini.py` — ถ้าเล่นแค่ Case 1 ไม่ต้องติดตั้งก็ได้ แต่ติดตั้งไว้เลยสะดวกกว่า
 
 ---
 
-### 📝 AI-Based Final Case Evaluation
+## ขั้นตอนที่ 2 — สร้าง Vector Database (จำเป็นก่อนรันครั้งแรก)
 
-At the end of the game, players submit a final report containing:
+โฟลเดอร์ `game_db/` และ `game_db_thai/` **ไม่ได้ถูกเก็บใน git** (ถูก ignore ไว้) ต้องสร้างเองก่อน ไม่งั้น NPC จะตอบไม่ได้:
 
-- 👤 Suspect
-- 🎯 Motive
-- ⚔️ Method
+```bash
+# อยู่ที่ Backend/rag/
+python create_knowledge_base.py        # สำหรับ Case 1 (EN) → สร้าง game_db/
+python create_knowledge_base_thai.py   # สำหรับ Case 2 (TH) → สร้าง game_db_thai/
+```
 
-An LLM compares the report against a hidden `CASE_CONTEXT` and returns:
-
-- ✅ Score (0–100)
-- 📝 Detailed feedback
-- 💡 Investigation suggestions
+รันแค่คดีที่จะเล่น หรือรันทั้งสองอันเลยก็ได้ (รันครั้งเดียวพอ ไม่ต้องรันซ้ำทุกครั้งที่เปิดเกม)
 
 ---
 
-## 🗂️ Project Structure
+## ขั้นตอนที่ 3 — สมัครขอ API Key
+
+| ผู้ให้บริการ | สมัครที่ | ใช้กับ |
+|--------------|----------|--------|
+| 🟣 **Groq** | https://console.groq.com/keys | Case 1 (EN) |
+| 🌊 **Typhoon (SCB 10X)** | https://opentyphoon.ai | Case 2 (TH — Typhoon) |
+| 🔵 **Google AI Studio** | https://aistudio.google.com/apikey | Case 2 (TH — Gemini) |
+
+สมัครฟรี สร้าง key แล้วคัดลอกเก็บไว้ (key จะแสดงครั้งเดียว)
+
+---
+
+## ขั้นตอนที่ 4 — ใส่ API Key + เลือก Model ⭐ (สำคัญที่สุด)
+
+### 4.1 ใส่ API Key
+
+**วิธีที่ 1: Environment Variable (แนะนำ)** — export ใน terminal **เดียวกับที่จะรัน server**:
+
+```bash
+# macOS / Linux — เลือกตาม server ที่จะใช้
+export GROQ_API_KEY="gsk_xxxxxxxx"       # Case 1 (EN)
+export TYPHOON_API_KEY="sk-xxxxxx"       # Case 2 (TH - Typhoon)
+export GEMINI_API_KEY="AIzaxxxxxx"       # Case 2 (TH - Gemini)
+
+# Windows PowerShell
+$env:GROQ_API_KEY="gsk_xxxxxxxx"
+```
+
+**วิธีที่ 2: แก้ในไฟล์โค้ด** — หาบรรทัด fallback แล้วใส่ key แทนคำว่า `PUT_YOUR_..._KEY_HERE`:
+
+| ไฟล์ | บรรทัดที่แก้ | แก้จาก → เป็น |
+|------|--------------|----------------|
+| `server.py` | บรรทัด 23 | `"PUT_YOUR_GROQ_KEY_HERE"` → `"gsk_xxxxxxxx"` |
+| `server_thai.py` | บรรทัด 23 | `"PUT_YOUR_TYPHOON_KEY_HERE"` → key ของคุณ |
+| `server_thai_gemini.py` | บรรทัด 24 | `"PUT_YOUR_GEMINI_KEY_HERE"` → key ของคุณ |
+
+> ⚠️ **ห้าม commit key ขึ้น git เด็ดขาด** — แนะนำวิธีที่ 1 (env var) เพื่อกัน key หลุดขึ้น repo
+>
+> ℹ️ การสร้างไฟล์ `.env` **ไม่ทำงาน** เพราะโค้ดไม่ได้ใช้ python-dotenv — ต้อง export ผ่าน terminal เท่านั้น
+
+### 4.2 เลือก Model
+
+แก้บรรทัด `MODEL_NAME = "..."` ในไฟล์ server ที่จะใช้:
+
+| ไฟล์ | บรรทัด | ค่าเดิม | แก้เป็น (แนะนำ) |
+|------|--------|---------|------------------|
+| `server.py` | 24 | `llama-3.1-8b-instant` ❌ | `openai/gpt-oss-20b` ✅ |
+| `server_thai.py` | 25 | `typhoon-v2.5-30b-a3b-instruct` ✅ | ใช้ค่าเดิมได้ (หรือ `typhoon-v2.1-12b-instruct` ตัวเล็กกว่า) |
+| `server_thai_gemini.py` | 25 | `gemini-3.1-flash-lite-preview` ❌ | `gemini-2.5-flash-lite` ✅ |
+
+ตัวอย่างการแก้ใน `server.py`:
+
+```python
+MODEL_NAME = "openai/gpt-oss-20b"
+```
+
+ดูรายการ model ที่ยังให้บริการอยู่ล่าสุดของแต่ละค่าย:
+
+- Groq: https://console.groq.com/docs/models
+- Typhoon: https://docs.opentyphoon.ai
+- Gemini: https://ai.google.dev/gemini-api/docs/models
+
+---
+
+## ขั้นตอนที่ 5 — รันเซิร์ฟเวอร์
+
+```bash
+# อยู่ที่ Backend/rag/ (จำว่าต้อง export key ใน terminal นี้แล้ว)
+
+# Case 1 (EN) — port 8000
+uvicorn server:app --host 127.0.0.1 --port 8000
+
+# Case 2 (TH - Typhoon) — port 8001  [เลือกอย่างใดอย่างหนึ่ง]
+uvicorn server_thai:app --host 127.0.0.1 --port 8001
+
+# Case 2 (TH - Gemini) — port 8001    [ทางเลือกแทน Typhoon]
+uvicorn server_thai_gemini:app --host 127.0.0.1 --port 8001
+```
+
+เช็คว่า server พร้อมแล้ว: เปิด http://127.0.0.1:8000/docs (หรือ 8001) ในเบราว์เซอร์ ถ้าเห็นหน้า FastAPI แปลว่าใช้ได้ ✅
+
+> จะรันทั้ง 2 คดีพร้อมกัน (2 terminal) หรือใช้สคริปต์ช่วย `./start_servers.sh` (ถาม key แล้วเปิด 2 หน้าต่างให้เลย) หรือ `./start_servers_tmux.sh` (สำหรับคนใช้ tmux) ก็ได้
+
+---
+
+## ขั้นตอนที่ 6 — เข้าเกม (Unity)
+
+1. เปิดโฟลเดอร์โปรเจกต์ด้วย **Unity Hub** → เลือก Unity เวอร์ชัน **6000.1.13f1**
+2. รอโปรเจกต์โหลดเสร็จ แล้วกด **▶ Play**
+3. ที่ **Main Menu** กด Start → เลือกคดี:
+   - **Case 1 (English)** → ต่อกับ server port **8000**
+   - **Case 2 (ไทย)** → ต่อกับ server port **8001**
+4. ถ้าต้องการเปลี่ยนที่อยู่ server (เช่น รัน server บนเครื่องอื่น) — แก้ที่ GameObject ที่มี `MainMenuManager` ใน Inspector ช่อง **English Server URL** / **Thai Server URL** (ค่าเริ่มต้น: `http://127.0.0.1:8000` และ `http://127.0.0.1:8001`)
+
+---
+
+## 🎮 วิธีเล่น (ย่อ)
+
+1. **สำรวจ** บ้านของผู้ตาย — เดินสำรวจและเก็บหลักฐานที่พบ
+2. **สอบปากคำ** พยานและผู้ต้องสงสัย — NPC ทุกตัวเริ่มจากการ **โกหก** มีความจำการสนทนา (จำสิ่งที่คุณถามไปแล้ว) และมีนิสัยตามตัวละคร
+3. **ใช้หลักฐานเผชิญหน้า** — ในหน้าต่างสนทนา กดเลือกหลักฐานที่ขัดแย้งกับคำให้การ NPC ที่ถูกไขจะเปลี่ยนไปเปิดเผยความจริง
+4. **อย่าใช้คำหยาบคาย ข่มขู่ หรือบังคับ** — จะถูกประเมินว่าไม่มีมืออาชีพและ **Auto Fail** ทันที
+5. **ส่งรายงานสรุปคดี (Investigation Report)** — ระบุ ฆาตกร / แรงจูงใจ / วิธีฆ่า พร้อมหลักฐานและพยานบัติสนับสนุน ระบบจะให้คะแนน 0–100 พร้อม feedback
+
+---
+
+## 🛠️ แก้ปัญหาที่พบบ่อย
+
+| อาการ | สาเหตุ / วิธีแก้ |
+|--------|------------------|
+| `404 model_not_found` / `model_decommissioned` | Model ที่ตั้งไว้หมดอายุแล้ว → เปลี่ยน `MODEL_NAME` เป็นตัวที่ยังให้บริการ (ขั้นตอน 4.2) |
+| `401 invalid_api_key` | Key ผิด หรือลืม `export` ใน terminal ที่รัน server (env var ไม่ทำงานข้าม terminal) |
+| เกมบอกว่าต่อ server ไม่ได้ | ลืมรัน server, port ไม่ตรงกับ URL ในเมนู, หรือกรอก key ไม่ครบ |
+| NPC ตอบแต่ error เกี่ยวกับ collection / ChromaDB | ลืมสร้าง Vector DB → รัน `create_knowledge_base.py` / `create_knowledge_base_thai.py` (ขั้นตอน 2) |
+| `Address already in use` | Port ชนกับ process เดิม → `lsof -ti:8000 \| xargs kill -9` (เปลี่ยนเลข port ตามจริง) |
+| ตอนสร้าง Vector DB ค้าง/ช้า | กำลังดาวน์โหลด embedding model ครั้งแรก — รอจนเสร็จ (ต้องต่ออินเทอร์เน็ต) |
+
+---
+
+## 🗂️ โครงสร้างโปรเจกต์ (ส่วนที่เกี่ยวกับการรัน)
 
 ```text
 SeniorProject/
-├── Assets/
-│   ├── Script/
-│   │   ├── StandardNPC.cs          # NPC interaction & RAG client
-│   │   ├── LLMClientSimple.cs      # REST API interface
-│   │   └── EvidenceDatabase.cs     # Client-side evidence registry
-│   └── Resources/                  # Game assets
-│
-├── Backend/
-│   └── rag/
-│       ├── server.py               # FastAPI core & Groq integration
-│       ├── game_db/                # ChromaDB vector store
-│       ├── prompts/                # NPC persona definitions
-│       └── create_knowledge_base.py
-│
-└── AGENTS.md
+├── Assets/                        # Unity 6 (URP, C#, TextMeshPro)
+│   ├── Scene/                     # CrimeSceneLevel (Case 1), CrimeSceneLevel2 (Case 2)
+│   └── Script/
+│       ├── MainMenuManager.cs     # เมนูเลือกคดี + URL ของ server
+│       └── LLMClientSimple.cs     # เชื่อมต่อ FastAPI backend
+├── Backend/rag/
+│   ├── server.py                  # 🇬🇧 Case 1 — Groq (port 8000)
+│   ├── server_thai.py             # 🇹🇭 Case 2 — Typhoon (port 8001)
+│   ├── server_thai_gemini.py      # 🇹🇭 Case 2 ทางเลือก — Gemini (port 8001)
+│   ├── create_knowledge_base.py       # สร้าง game_db/ (EN)
+│   ├── create_knowledge_base_thai.py  # สร้าง game_db_thai/ (TH)
+│   ├── requirements.txt
+│   └── start_servers.sh           # รัน server ทั้ง 2 คดีพร้อมกัน
+└── ProjectSettings/
 ```
 
 ---
 
-## 🧩 System Architecture
+## 🎥 วิดีโอนำเสนอโครงงาน
 
-```text
-Player
-  │
-  ▼
-Unity (Frontend)
-  │
-  ▼
-FastAPI Backend
-  │
-  ├── Groq API (Llama 3.1 8B)
-  ├── Google Gemini
-  └── ChromaDB
-         │
-         ▼
-RAG Retrieval Engine
-         │
-         ▼
-NPC Response Generation
-```
+📺 https://youtu.be/ox156zzYJ14?si=GkAbxzXBSykhsNfm
 
 ---
 
-## 🎥 Game Presentation Video
+## 🎓 ข้อมูลโครงงาน
 
-📺 Watch the project demo here:
+**Senior Project** — Faculty of Information and Communication Technology (ICT), Mahidol University
 
-https://youtu.be/ox156zzYJ14?si=GkAbxzXBSykhsNfm
-
----
-
-## 🎓 Academic Information
-
-**Senior Project**
-
-Faculty of Information and Communication Technology (ICT)
-
-Mahidol University
-
----
-
-## 👨‍💻 Authors
-
-Developed by ICT Mahidol University students as part of the Senior Project program.
-
----
-
-## 📄 License
-
-This project was developed for academic purposes.
-
-All rights reserved.
+โปรเจกต์นี้พัฒนาเพื่อการศึกษา (Senior Project) — All rights reserved.
