@@ -13,9 +13,10 @@ Every line of NPC dialogue is generated live by an AI through a real API. Becaus
 
 ## 📥 Download the Ready-Built Game (macOS)
 
-You don't need to build the Unity project yourself — the final game build is available on the [Releases page](https://github.com/krtprml/SeniorProject/releases):
+You don't need to build the Unity project yourself — the final game build is available in two places:
 
-**[⬇️ Direct download — `ICT-SP2025-42-Aj.Suradej-Final-macOS.zip` (~1 GB)](https://github.com/krtprml/SeniorProject/releases/latest/download/ICT-SP2025-42-Aj.Suradej-Final-macOS.zip)**
+- **[⬇️ GitHub Releases — `ICT-SP2025-42-Aj.Suradej-Final-macOS.zip` (~421 MB)](https://github.com/krtprml/SeniorProject/releases/latest/download/ICT-SP2025-42-Aj.Suradej-Final-macOS.zip)**
+- **[⬇️ Google Drive — game file](https://drive.google.com/open?id=1y6YXWSI0-ZbwH4L3531mXz9Nf_vIJXGK&usp=drive_fs)** (mirror link)
 
 - This is the game file: `ICT SP2025-42-Aj.Suradej-Final.app` — a **Universal binary** (runs on Apple Silicon and Intel Macs)
 - Unzip and open the app to play
